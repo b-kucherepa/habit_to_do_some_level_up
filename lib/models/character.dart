@@ -29,7 +29,17 @@ class Character {
   
   void addExperience(int exp) {
     experience += exp;
-    // Простая формула: каждые 100 опыта - новый уровень
+    _updateLevel();
+  }
+  
+  void removeExperience(int exp) {
+    experience -= exp;
+    if (experience < 0) experience = 0;
+    _updateLevel();
+  }
+  
+  void _updateLevel() {
     level = (experience / 100).floor() + 1;
+    if (level < 1) level = 1;
   }
 }

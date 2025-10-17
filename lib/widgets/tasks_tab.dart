@@ -6,12 +6,14 @@ class TasksTab extends StatelessWidget {
   final Box tasksBox;
   final Box charactersBox;
   final Function(Task, bool) onTaskToggle;
+  final Function(Task) onTaskDelete;
 
   const TasksTab({
     Key? key,
     required this.tasksBox,
     required this.charactersBox,
     required this.onTaskToggle,
+    required this.onTaskDelete,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class TasksTab extends StatelessWidget {
       stream: tasksBox.watch(),
       builder: (context, snapshot) {
         final tasks = _getTasksFromBox(tasksBox);
-        
+
         if (tasks.isEmpty) {
           return Center(
             child: Column(
@@ -30,15 +32,16 @@ class TasksTab extends StatelessWidget {
                 SizedBox(height: 16),
                 Text('No tasks yet!'),
                 SizedBox(height: 8),
-                Text('Tap the + button to add your first task', style: TextStyle(color: Colors.grey)),
+                Text('Tap the + button to add your first task',
+                    style: TextStyle(color: Colors.grey)),
               ],
             ),
           );
         }
-        
+
         final pendingTasks = tasks.where((task) => !task.completed).toList();
         final completedTasks = tasks.where((task) => task.completed).toList();
-        
+
         return Column(
           children: [
             Padding(
@@ -59,19 +62,27 @@ class TasksTab extends StatelessWidget {
                   if (pendingTasks.isNotEmpty) ...[
                     Text(
                       'Pending Tasks (${pendingTasks.length})',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
-                    ...pendingTasks.map((task) => _buildTaskItem(task)).toList(),
+                    ...pendingTasks
+                        .map((task) => _buildTaskItem(task, context))
+                        .toList(),
                     SizedBox(height: 16),
                   ],
                   if (completedTasks.isNotEmpty) ...[
                     Text(
                       'Completed Tasks (${completedTasks.length})',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
                     ),
                     SizedBox(height: 8),
-                    ...completedTasks.map((task) => _buildTaskItem(task)).toList(),
+                    ...completedTasks
+                        .map((task) => _buildTaskItem(task, context))
+                        .toList(),
                   ],
                 ],
               ),
@@ -82,28 +93,8 @@ class TasksTab extends StatelessWidget {
     );
   }
 
-  Widget _buildTaskStat(String label, int count, Color color) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            shape: BoxShape.circle,
-            border: Border.all(color: color.withOpacity(0.3)),
-          ),
-          child: Text(
-            count.toString(),
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color),
-          ),
-        ),
-        SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey)),
-      ],
-    );
-  }
-
-  Widget _buildTaskItem(Task task) {
+  Widget _buildTaskItem(Task task, BuildContext context) {
+    // Убираем Dismissible для десктопной версии, оставляем только IconButton
     return Card(
       margin: EdgeInsets.only(bottom: 8),
       color: task.completed ? Colors.green.shade50 : Colors.white,
@@ -117,7 +108,9 @@ class TasksTab extends StatelessWidget {
         title: Text(
           task.title,
           style: TextStyle(
-            decoration: task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+            decoration: task.completed
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
             fontWeight: task.completed ? FontWeight.normal : FontWeight.w500,
           ),
         ),
@@ -132,7 +125,8 @@ class TasksTab extends StatelessWidget {
                 SizedBox(width: 4),
                 Text('${task.experience} XP'),
                 SizedBox(width: 12),
-                Icon(Icons.calendar_today, size: 16, color: _getDueDateColor(task)),
+                Icon(Icons.calendar_today,
+                    size: 16, color: _getDueDateColor(task)),
                 SizedBox(width: 4),
                 Text(
                   _formatDueDate(task.dueDate),
@@ -144,24 +138,116 @@ class TasksTab extends StatelessWidget {
             ),
           ],
         ),
-        trailing: _buildCategoryChip(task.category),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildCategoryChip(task.category),
+            SizedBox(width: 8),
+            IconButton(
+              icon: Icon(Icons.delete_outline, color: Colors.grey),
+              onPressed: () =>
+                  _showDeleteConfirmation(task, task.completed, context),
+              tooltip: 'Delete task',
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Future<void> _showDeleteConfirmation(
+      Task task, bool isCompleted, BuildContext context) async {
+    final shouldDelete = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Delete Task'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Are you sure you want to delete "${task.title}"?'),
+              if (isCompleted)
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text(
+                    '⚠️ This will remove ${task.experience} XP from your character!',
+                    style: TextStyle(color: Colors.orange, fontSize: 12),
+                  ),
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text('Delete', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (shouldDelete == true) {
+      onTaskDelete(task);
+    }
+  }
+
+  Widget _buildTaskStat(String label, int count, Color color) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            shape: BoxShape.circle,
+            border: Border.all(color: color.withOpacity(0.3)),
+          ),
+          child: Text(
+            count.toString(),
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: color),
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey)),
+      ],
     );
   }
 
   Widget _buildPriorityBadge(int priority) {
     Color color;
     String text;
-    
+
     switch (priority) {
-      case 1: color = Colors.green; text = 'P1'; break;
-      case 2: color = Colors.blue; text = 'P2'; break;
-      case 3: color = Colors.orange; text = 'P3'; break;
-      case 4: color = Colors.red; text = 'P4'; break;
-      case 5: color = Colors.purple; text = 'P5'; break;
-      default: color = Colors.grey; text = 'P$priority';
+      case 1:
+        color = Colors.green;
+        text = 'P1';
+        break;
+      case 2:
+        color = Colors.blue;
+        text = 'P2';
+        break;
+      case 3:
+        color = Colors.orange;
+        text = 'P3';
+        break;
+      case 4:
+        color = Colors.red;
+        text = 'P4';
+        break;
+      case 5:
+        color = Colors.purple;
+        text = 'P5';
+        break;
+      default:
+        color = Colors.grey;
+        text = 'P$priority';
     }
-    
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
@@ -171,7 +257,8 @@ class TasksTab extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+        style:
+            TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -199,15 +286,15 @@ class TasksTab extends StatelessWidget {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final due = DateTime(dueDate.year, dueDate.month, dueDate.day);
-    
+
     final difference = due.difference(today).inDays;
-    
+
     if (difference == 0) return 'Today';
     if (difference == 1) return 'Tomorrow';
     if (difference == -1) return 'Yesterday';
     if (difference < 0) return '${difference.abs()} days ago';
     if (difference < 7) return 'In $difference days';
-    
+
     return '${dueDate.day}/${dueDate.month}/${dueDate.year}';
   }
 
