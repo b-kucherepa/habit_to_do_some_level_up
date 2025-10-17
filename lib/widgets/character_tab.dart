@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import '../models/character.dart';
-import '../models/habit.dart';
-import '../models/task.dart';
+import '../services/hive_service.dart';
 
 class CharacterTab extends StatelessWidget {
-  final Box charactersBox;
-  final Box habitsBox;
-  final Box tasksBox;
   final VoidCallback onCreateCharacter;
+  final HiveService _hiveService = HiveService();
 
-  const CharacterTab({
+  CharacterTab({
     Key? key,
-    required this.charactersBox,
-    required this.habitsBox,
-    required this.tasksBox,
     required this.onCreateCharacter,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: charactersBox.watch(),
+      stream: _hiveService.charactersBox.watch(),
       builder: (context, snapshot) {
-        final characters = _getCharactersFromBox(charactersBox);
-        
+        final characters = _hiveService.getCharacters();
+
         if (characters.isEmpty) {
           return Center(
             child: Column(
@@ -40,14 +33,12 @@ class CharacterTab extends StatelessWidget {
             ),
           );
         }
-        
+
         final character = characters.first;
         return Column(
           children: [
             _buildCharacterCard(character),
-            Expanded(
-              child: _buildTodaysOverview(),
-            ),
+            Expanded(child: _buildTodaysOverview()),
           ],
         );
       },
@@ -82,19 +73,23 @@ class CharacterTab extends StatelessWidget {
 
   Widget _buildTodaysOverview() {
     return StreamBuilder(
-      stream: habitsBox.watch(),
+      stream: _hiveService.habitsBox.watch(),
       builder: (context, snapshot) {
-        final habits = _getHabitsFromBox(habitsBox);
-        final todaysHabits = habits.where((habit) => habit.isDueToday()).toList();
-        final completedHabits = todaysHabits.where((habit) => habit.isCompletedToday()).length;
-        
+        final habits = _hiveService.getHabits();
+        final todaysHabits =
+            habits.where((habit) => habit.isDueToday()).toList();
+        final completedHabits =
+            todaysHabits.where((habit) => habit.isCompletedToday()).length;
+
         return StreamBuilder(
-          stream: tasksBox.watch(),
+          stream: _hiveService.tasksBox.watch(),
           builder: (context, snapshot) {
-            final tasks = _getTasksFromBox(tasksBox);
-            final todaysTasks = tasks.where((task) => task.isDueToday && !task.completed).length;
+            final tasks = _hiveService.getTasks();
+            final todaysTasks = tasks
+                .where((task) => task.isDueToday && !task.completed)
+                .length;
             final overdueTasks = tasks.where((task) => task.isOverdue).length;
-            
+
             return Padding(
               padding: EdgeInsets.all(16),
               child: Column(
@@ -107,11 +102,17 @@ class CharacterTab extends StatelessWidget {
                   SizedBox(height: 16),
                   Row(
                     children: [
-                      _buildOverviewCard('Habits', '$completedHabits/${todaysHabits.length}', Icons.auto_awesome, Colors.green),
+                      _buildOverviewCard(
+                          'Habits',
+                          '$completedHabits/${todaysHabits.length}',
+                          Icons.auto_awesome,
+                          Colors.green),
                       SizedBox(width: 12),
-                      _buildOverviewCard('Due Today', '$todaysTasks', Icons.task, Colors.orange),
+                      _buildOverviewCard('Due Today', '$todaysTasks',
+                          Icons.task, Colors.orange),
                       SizedBox(width: 12),
-                      _buildOverviewCard('Overdue', '$overdueTasks', Icons.warning, Colors.red),
+                      _buildOverviewCard('Overdue', '$overdueTasks',
+                          Icons.warning, Colors.red),
                     ],
                   ),
                 ],
@@ -123,7 +124,8 @@ class CharacterTab extends StatelessWidget {
     );
   }
 
-  Widget _buildOverviewCard(String title, String value, IconData icon, Color color) {
+  Widget _buildOverviewCard(
+      String title, String value, IconData icon, Color color) {
     return Expanded(
       child: Card(
         child: Padding(
@@ -132,24 +134,13 @@ class CharacterTab extends StatelessWidget {
             children: [
               Icon(icon, color: color),
               SizedBox(height: 8),
-              Text(value, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(value,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Text(title, style: TextStyle(fontSize: 12, color: Colors.grey)),
             ],
           ),
         ),
       ),
     );
-  }
-
-  List<Character> _getCharactersFromBox(Box box) {
-    return box.values.map((dynamic item) => item as Character).toList();
-  }
-
-  List<Habit> _getHabitsFromBox(Box box) {
-    return box.values.map((dynamic item) => item as Habit).toList();
-  }
-
-  List<Task> _getTasksFromBox(Box box) {
-    return box.values.map((dynamic item) => item as Task).toList();
   }
 }

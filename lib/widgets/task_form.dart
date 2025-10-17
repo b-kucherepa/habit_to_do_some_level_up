@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import '../services/hive_service.dart';
 import '../models/task.dart';
 
 class TaskForm extends StatefulWidget {
@@ -12,14 +12,22 @@ class _TaskFormState extends State<TaskForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _experienceController = TextEditingController(text: '25');
-  
+
   DateTime _dueDate = DateTime.now().add(Duration(days: 1));
   int _priority = 3;
   String _category = 'general';
-  
+
   final List<String> _categories = [
-    'general', 'work', 'personal', 'health', 'learning', 'home', 'social'
+    'general',
+    'work',
+    'personal',
+    'health',
+    'learning',
+    'home',
+    'social'
   ];
+
+  final HiveService _hiveService = HiveService();
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +138,7 @@ class _TaskFormState extends State<TaskForm> {
 
   Widget _buildCategorySelector() {
     return DropdownButtonFormField<String>(
-      value: _category,
+      initialValue: _category,
       items: _categories.map((String category) {
         return DropdownMenuItem(
           value: category,
@@ -196,8 +204,7 @@ class _TaskFormState extends State<TaskForm> {
   }
 
   void _saveToHive(Task task) {
-    final tasksBox = Hive.box('tasks');
-    tasksBox.add(task);
+    _hiveService.tasksBox.add(task);
   }
 
   String _capitalizeFirstLetter(String text) {

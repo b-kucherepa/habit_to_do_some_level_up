@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import '../services/hive_service.dart';
 import '../models/task.dart';
 
 class TasksTab extends StatelessWidget {
-  final Box tasksBox;
-  final Box charactersBox;
   final Function(Task, bool) onTaskToggle;
   final Function(Task) onTaskDelete;
+  final HiveService _hiveService = HiveService();
 
-  const TasksTab({
+  TasksTab({
     Key? key,
-    required this.tasksBox,
-    required this.charactersBox,
     required this.onTaskToggle,
     required this.onTaskDelete,
   }) : super(key: key);
@@ -19,9 +16,9 @@ class TasksTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: tasksBox.watch(),
+      stream: _hiveService.tasksBox.watch(),
       builder: (context, snapshot) {
-        final tasks = _getTasksFromBox(tasksBox);
+        final tasks = _hiveService.getTasks();
 
         if (tasks.isEmpty) {
           return Center(
@@ -67,8 +64,7 @@ class TasksTab extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     ...pendingTasks
-                        .map((task) => _buildTaskItem(task, context))
-                        .toList(),
+                        .map((task) => _buildTaskItem(task, context)),
                     SizedBox(height: 16),
                   ],
                   if (completedTasks.isNotEmpty) ...[
@@ -81,8 +77,7 @@ class TasksTab extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     ...completedTasks
-                        .map((task) => _buildTaskItem(task, context))
-                        .toList(),
+                        .map((task) => _buildTaskItem(task, context)),
                   ],
                 ],
               ),
@@ -94,7 +89,6 @@ class TasksTab extends StatelessWidget {
   }
 
   Widget _buildTaskItem(Task task, BuildContext context) {
-    // Убираем Dismissible для десктопной версии, оставляем только IconButton
     return Card(
       margin: EdgeInsets.only(bottom: 8),
       color: task.completed ? Colors.green.shade50 : Colors.white,
@@ -202,9 +196,9 @@ class TasksTab extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             shape: BoxShape.circle,
-            border: Border.all(color: color.withOpacity(0.3)),
+            border: Border.all(color: color.withValues(alpha: 0.3)),
           ),
           child: Text(
             count.toString(),
@@ -251,9 +245,9 @@ class TasksTab extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         text,
@@ -269,7 +263,7 @@ class TasksTab extends StatelessWidget {
         _capitalizeFirstLetter(category),
         style: TextStyle(fontSize: 10),
       ),
-      backgroundColor: Colors.grey.withOpacity(0.1),
+      backgroundColor: Colors.grey.withValues(alpha: 0.1),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
@@ -300,9 +294,5 @@ class TasksTab extends StatelessWidget {
 
   String _capitalizeFirstLetter(String text) {
     return text[0].toUpperCase() + text.substring(1);
-  }
-
-  List<Task> _getTasksFromBox(Box box) {
-    return box.values.map((dynamic item) => item as Task).toList();
   }
 }

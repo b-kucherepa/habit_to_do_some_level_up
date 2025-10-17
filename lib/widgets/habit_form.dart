@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import '../services/hive_service.dart';
 import '../models/habit.dart';
 import '../schedule_selector.dart';
 
@@ -13,11 +13,13 @@ class _HabitFormState extends State<HabitForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _experienceController = TextEditingController(text: '10');
-  
+
   String _selectedScheduleType = 'daily';
   List<int> _selectedDaysOfWeek = [];
   List<int> _selectedDaysOfMonth = [];
   int? _customInterval;
+
+  final HiveService _hiveService = HiveService();
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,12 @@ class _HabitFormState extends State<HabitForm> {
               selectedDaysOfWeek: _selectedDaysOfWeek,
               selectedDaysOfMonth: _selectedDaysOfMonth,
               customInterval: _customInterval,
-              onDaysOfWeekChanged: (days) => setState(() => _selectedDaysOfWeek = days),
-              onDaysOfMonthChanged: (days) => setState(() => _selectedDaysOfMonth = days),
-              onCustomIntervalChanged: (interval) => setState(() => _customInterval = interval),
+              onDaysOfWeekChanged: (days) =>
+                  setState(() => _selectedDaysOfWeek = days),
+              onDaysOfMonthChanged: (days) =>
+                  setState(() => _selectedDaysOfMonth = days),
+              onCustomIntervalChanged: (interval) =>
+                  setState(() => _customInterval = interval),
             ),
             SizedBox(height: 32),
             _buildSaveButton(),
@@ -86,8 +91,12 @@ class _HabitFormState extends State<HabitForm> {
           ),
           keyboardType: TextInputType.number,
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter experience';
-            if (int.tryParse(value) == null) return 'Please enter a valid number';
+            if (value == null || value.isEmpty) {
+              return 'Please enter experience';
+            }
+            if (int.tryParse(value) == null) {
+              return 'Please enter a valid number';
+            }
             return null;
           },
         ),
@@ -122,7 +131,8 @@ class _HabitFormState extends State<HabitForm> {
       experience: int.parse(_experienceController.text),
       scheduleType: _selectedScheduleType,
       daysOfWeek: _selectedDaysOfWeek.isNotEmpty ? _selectedDaysOfWeek : null,
-      daysOfMonth: _selectedDaysOfMonth.isNotEmpty ? _selectedDaysOfMonth : null,
+      daysOfMonth:
+          _selectedDaysOfMonth.isNotEmpty ? _selectedDaysOfMonth : null,
       intervalDays: _customInterval,
       createdDate: DateTime.now(),
     );
@@ -136,27 +146,27 @@ class _HabitFormState extends State<HabitForm> {
       _showError('Please select at least one day for weekly schedule');
       return false;
     }
-    
+
     if (_selectedScheduleType == 'monthly' && _selectedDaysOfMonth.isEmpty) {
       _showError('Please select at least one day for monthly schedule');
       return false;
     }
-    
+
     if (_selectedScheduleType == 'custom' && _customInterval == null) {
       _showError('Please select interval for custom schedule');
       return false;
     }
-    
+
     return true;
   }
 
   void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _saveToHive(Habit habit) {
-    final habitsBox = Hive.box('habits');
-    habitsBox.add(habit);
+    _hiveService.habitsBox.add(habit);
   }
 
   @override

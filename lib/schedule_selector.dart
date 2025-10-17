@@ -27,7 +27,8 @@ class ScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Schedule Type', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text('Schedule Type',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         _buildScheduleTypeDropdown(),
         SizedBox(height: 16),
         _buildScheduleOptions(),
@@ -37,7 +38,7 @@ class ScheduleSelector extends StatelessWidget {
 
   Widget _buildScheduleTypeDropdown() {
     return DropdownButtonFormField<String>(
-      value: scheduleType,
+      initialValue: scheduleType,
       items: [
         DropdownMenuItem(value: 'daily', child: Text('Daily')),
         DropdownMenuItem(value: 'weekly', child: Text('Weekly')),
@@ -90,7 +91,8 @@ class _WeeklyScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select days:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text('Select days:',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -131,7 +133,8 @@ class _MonthlyScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select days of month:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text('Select days of month:',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -173,10 +176,11 @@ class _CustomIntervalSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Repeat every X days:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text('Repeat every X days:',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         DropdownButtonFormField<int>(
-          value: interval,
+          initialValue: interval,
           items: [1, 2, 3, 4, 5, 6, 7].map((days) {
             return DropdownMenuItem(
               value: days,

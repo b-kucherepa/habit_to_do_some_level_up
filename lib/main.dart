@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'models/character.dart';
-import 'models/task.dart';
 import 'models/habit.dart';
+import 'models/task.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Инициализируем Hive с путем на вашем диске
-  await Hive.initFlutter('/mnt/L/flutter_data/todo_rpg');
-  
-  // Регистрируем адаптеры
+
+  // Инициализация Hive
+  final appDocumentDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+
+  // Регистрация адаптеров
   Hive.registerAdapter(CharacterAdapter());
-  Hive.registerAdapter(TaskAdapter()); // Добавляем адаптер для Task
   Hive.registerAdapter(HabitAdapter());
-  
-  // Открываем боксы
-  await Hive.openBox('characters');
-  await Hive.openBox('tasks'); // Добавляем открытие бокса задач
-  await Hive.openBox('habits');
-  await Hive.openBox('app_settings');
-  
+  Hive.registerAdapter(TaskAdapter());
+
+  // Открытие боксов
+  await Hive.openBox<Character>('characters');
+  await Hive.openBox<Habit>('habits');
+  await Hive.openBox<Task>('tasks');
+
   runApp(MyApp());
 }
 
@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
       title: 'RPG Todo & Habits',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        useMaterial3: true,
       ),
       home: HomeScreen(),
     );

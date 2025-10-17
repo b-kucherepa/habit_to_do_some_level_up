@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import '../services/hive_service.dart';
 import '../models/habit.dart';
 
 class HabitsTab extends StatelessWidget {
-  final Box habitsBox;
-  final Box charactersBox;
   final Function(Habit, bool) onHabitToggle;
   final Function(Habit) onHabitDelete;
+  final HiveService _hiveService = HiveService();
 
-  const HabitsTab({
+  HabitsTab({
     Key? key,
-    required this.habitsBox,
-    required this.charactersBox,
     required this.onHabitToggle,
     required this.onHabitDelete,
   }) : super(key: key);
@@ -19,9 +16,9 @@ class HabitsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: habitsBox.watch(),
+      stream: _hiveService.habitsBox.watch(),
       builder: (context, snapshot) {
-        final habits = _getHabitsFromBox(habitsBox);
+        final habits = _hiveService.getHabits();
 
         if (habits.isEmpty) {
           return Center(
@@ -55,7 +52,6 @@ class HabitsTab extends StatelessWidget {
     final isCompleted = habit.isCompletedToday();
     final isDueToday = habit.isDueToday();
 
-    // Убираем Dismissible для десктопной версии, оставляем только IconButton
     return Card(
       margin: EdgeInsets.only(bottom: 12),
       child: ListTile(
@@ -181,9 +177,9 @@ class HabitsTab extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         text,
@@ -191,9 +187,5 @@ class HabitsTab extends StatelessWidget {
             TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.bold),
       ),
     );
-  }
-
-  List<Habit> _getHabitsFromBox(Box box) {
-    return box.values.map((dynamic item) => item as Habit).toList();
   }
 }
