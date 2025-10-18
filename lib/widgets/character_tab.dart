@@ -78,8 +78,8 @@ class CharacterTab extends StatelessWidget {
         final habits = _hiveService.getHabits();
         final todaysHabits =
             habits.where((habit) => habit.isDueToday()).toList();
-        final completedHabits =
-            todaysHabits.where((habit) => habit.isCompletedToday()).length;
+        final completedHabits = todaysHabits.fold<int>(
+            0, (sum, habit) => sum + habit.getTodayCompletionCount());
 
         return StreamBuilder(
           stream: _hiveService.tasksBox.watch(),

@@ -26,7 +26,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       daysOfMonth: (fields[6] as List?)?.cast<int>(),
       intervalDays: fields[7] as int?,
       createdDate: fields[8] as DateTime,
-      completionHistory: (fields[9] as Map).cast<String, bool>(),
+      completionHistory: (fields[9] as Map?)?.cast<String, dynamic>(),
     );
   }
 

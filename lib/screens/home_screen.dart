@@ -10,8 +10,6 @@ import 'add_habit_screen.dart';
 import 'add_task_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -61,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       case 1:
         return HabitsTab(
-          onHabitToggle: _toggleHabitCompletion,
+          onHabitIncrement: _incrementHabitCompletion,
+          onHabitDecrement: _decrementHabitCompletion,
           onHabitDelete: _deleteHabit,
         );
       case 2:
@@ -116,9 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _toggleHabitCompletion(Habit habit, bool completed) {
+  void _incrementHabitCompletion(Habit habit) {
     setState(() {
-      _experienceService.toggleHabitCompletion(habit, completed);
+      _experienceService.incrementHabitCompletion(habit);
+    });
+  }
+
+  void _decrementHabitCompletion(Habit habit) {
+    setState(() {
+      _experienceService.decrementHabitCompletion(habit);
     });
   }
 

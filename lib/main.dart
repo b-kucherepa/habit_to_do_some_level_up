@@ -5,6 +5,7 @@ import 'models/character.dart';
 import 'models/habit.dart';
 import 'models/task.dart';
 import 'screens/home_screen.dart';
+import 'services/hive_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,10 @@ void main() async {
   await Hive.openBox<Character>('characters');
   await Hive.openBox<Habit>('habits');
   await Hive.openBox<Task>('tasks');
+
+  // Миграция данных привычек
+  final hiveService = HiveService();
+  hiveService.migrateAllHabits();
 
   runApp(MyApp());
 }

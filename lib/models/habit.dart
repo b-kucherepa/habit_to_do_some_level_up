@@ -6,34 +6,34 @@ part 'habit.g.dart';
 class Habit {
   @HiveField(0)
   final String id;
-  
+
   @HiveField(1)
   final String title;
-  
+
   @HiveField(2)
   final String description;
-  
+
   @HiveField(3)
   final int experience;
-  
+
   @HiveField(4)
-  final String scheduleType; // 'daily', 'weekly', 'monthly', 'custom'
-  
+  final String scheduleType;
+
   @HiveField(5)
   final List<int>? daysOfWeek;
-  
+
   @HiveField(6)
   final List<int>? daysOfMonth;
-  
+
   @HiveField(7)
   final int? intervalDays;
-  
+
   @HiveField(8)
   final DateTime createdDate;
-  
+
   @HiveField(9)
-  Map<String, bool> completionHistory; // ключ: "YYYY-MM-DD"
-  
+  Map<String, int> completionHistory;
+
   Habit({
     required this.id,
     required this.title,
@@ -44,28 +44,55 @@ class Habit {
     this.daysOfMonth,
     this.intervalDays,
     required this.createdDate,
-    this.completionHistory = const {},
-  });
-  
+    Map<String, dynamic>? completionHistory, // Принимаем dynamic для миграции
+  }) : completionHistory = _migrateCompletionHistory(completionHistory);
+
+  // Метод для миграции старых данных bool -> int
+  static Map<String, int> _migrateCompletionHistory(
+      Map<String, dynamic>? history) {
+    final migrated = <String, int>{};
+
+    if (history != null) {
+      history.forEach((key, value) {
+        if (value is bool) {
+          migrated[key] = value ? 1 : 0;
+        } else if (value is int) {
+          migrated[key] = value;
+        }
+      });
+    }
+
+    return migrated;
+  }
+
   bool isDueToday() {
     final today = DateTime.now();
     return _isDue(today);
   }
-  
-  bool isCompletedToday() {
+
+  int getTodayCompletionCount() {
     final todayKey = _dateToKey(DateTime.now());
-    return completionHistory[todayKey] == true;
+    return completionHistory[todayKey] ?? 0;
   }
-  
-  void markComplete(bool completed) {
+
+  void incrementCompletion() {
     final todayKey = _dateToKey(DateTime.now());
-    completionHistory = {...completionHistory, todayKey: completed};
+    final currentCount = completionHistory[todayKey] ?? 0;
+    completionHistory = {...completionHistory, todayKey: currentCount + 1};
   }
-  
+
+  void decrementCompletion() {
+    final todayKey = _dateToKey(DateTime.now());
+    final currentCount = completionHistory[todayKey] ?? 0;
+    if (currentCount > 0) {
+      completionHistory = {...completionHistory, todayKey: currentCount - 1};
+    }
+  }
+
   String _dateToKey(DateTime date) {
     return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
-  
+
   bool _isDue(DateTime date) {
     switch (scheduleType) {
       case 'daily':

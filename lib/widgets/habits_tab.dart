@@ -3,13 +3,15 @@ import '../services/hive_service.dart';
 import '../models/habit.dart';
 
 class HabitsTab extends StatelessWidget {
-  final Function(Habit, bool) onHabitToggle;
+  final Function(Habit) onHabitIncrement;
+  final Function(Habit) onHabitDecrement;
   final Function(Habit) onHabitDelete;
   final HiveService _hiveService = HiveService();
 
   HabitsTab({
     super.key,
-    required this.onHabitToggle,
+    required this.onHabitIncrement,
+    required this.onHabitDecrement,
     required this.onHabitDelete,
   });
 
@@ -49,25 +51,16 @@ class HabitsTab extends StatelessWidget {
   }
 
   Widget _buildHabitItem(Habit habit, BuildContext context) {
-    final isCompleted = habit.isCompletedToday();
+    final completionCount = habit.getTodayCompletionCount();
     final isDueToday = habit.isDueToday();
 
     return Card(
       margin: EdgeInsets.only(bottom: 12),
       child: ListTile(
-        leading: Checkbox(
-          value: isCompleted,
-          onChanged: isDueToday
-              ? (value) {
-                  onHabitToggle(habit, value ?? false);
-                }
-              : null,
-        ),
+        leading: _buildCounterControls(habit, completionCount, isDueToday),
         title: Text(
           habit.title,
           style: TextStyle(
-            decoration:
-                isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
             color: isDueToday ? Colors.black : Colors.grey,
           ),
         ),
@@ -83,6 +76,14 @@ class HabitsTab extends StatelessWidget {
                 Text('${habit.experience} XP'),
                 SizedBox(width: 16),
                 _buildScheduleBadge(habit),
+                if (completionCount > 0) ...[
+                  SizedBox(width: 16),
+                  Text(
+                    '$completionCount today',
+                    style: TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ],
             ),
           ],
@@ -98,7 +99,7 @@ class HabitsTab extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.delete_outline, color: Colors.grey),
               onPressed: () =>
-                  _showDeleteConfirmation(habit, isCompleted, context),
+                  _showDeleteConfirmation(habit, completionCount, context),
               tooltip: 'Delete habit',
             ),
           ],
@@ -107,8 +108,46 @@ class HabitsTab extends StatelessWidget {
     );
   }
 
+  Widget _buildCounterControls(
+      Habit habit, int completionCount, bool isDueToday) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          icon: Icon(Icons.remove, size: 20),
+          onPressed: isDueToday && completionCount > 0
+              ? () => onHabitDecrement(habit)
+              : null,
+          padding: EdgeInsets.zero,
+          constraints: BoxConstraints(minWidth: 36, minHeight: 36),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Text(
+            '$completionCount',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: isDueToday ? Colors.black : Colors.grey,
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.add, size: 20),
+          onPressed: isDueToday ? () => onHabitIncrement(habit) : null,
+          padding: EdgeInsets.zero,
+          constraints: BoxConstraints(minWidth: 36, minHeight: 36),
+        ),
+      ],
+    );
+  }
+
   Future<void> _showDeleteConfirmation(
-      Habit habit, bool isCompleted, BuildContext context) async {
+      Habit habit, int completionCount, BuildContext context) async {
     final shouldDelete = await showDialog<bool>(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -119,11 +158,11 @@ class HabitsTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Are you sure you want to delete "${habit.title}"?'),
-              if (isCompleted)
+              if (completionCount > 0)
                 Padding(
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
-                    '⚠️ This will remove ${habit.experience} XP from your character!',
+                    '⚠️ This will remove ${habit.experience * completionCount} XP from your character!',
                     style: TextStyle(color: Colors.orange, fontSize: 12),
                   ),
                 ),
