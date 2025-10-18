@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import '../models/character.dart';
 import '../services/hive_service.dart';
+import '../widgets/character_settings_dialog.dart';
 
-class CharacterTab extends StatelessWidget {
-  final VoidCallback onCreateCharacter;
+class CharacterTab extends StatefulWidget {
+  const CharacterTab({super.key});
+
+  @override
+  _CharacterTabState createState() => _CharacterTabState();
+}
+
+class _CharacterTabState extends State<CharacterTab> {
   final HiveService _hiveService = HiveService();
-
-  CharacterTab({
-    super.key,
-    required this.onCreateCharacter,
-  });
+  bool _showLevelUpAnimation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +26,13 @@ class CharacterTab extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('No characters yet'),
+                Icon(Icons.person, size: 64, color: Colors.grey),
+                SizedBox(height: 16),
+                Text('No character data'),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: onCreateCharacter,
-                  child: Text('Create First Character'),
+                  onPressed: _createDefaultCharacter,
+                  child: Text('Initialize Stats'),
                 ),
               ],
             ),
@@ -37,7 +42,8 @@ class CharacterTab extends StatelessWidget {
         final character = characters.first;
         return Column(
           children: [
-            _buildCharacterCard(character),
+            _buildStatsCard(character),
+            SizedBox(height: 16),
             Expanded(child: _buildTodaysOverview()),
           ],
         );
@@ -45,28 +51,145 @@ class CharacterTab extends StatelessWidget {
     );
   }
 
-  Widget _buildCharacterCard(Character character) {
+  Widget _buildStatsCard(Character character) {
     return Card(
       margin: EdgeInsets.all(16),
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              character.name,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    character.goal,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade800,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.settings, color: Colors.grey),
+                  onPressed: () => _showSettingsDialog(character),
+                  tooltip: 'Settings',
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                _buildStatItem('Level', '${character.level}', Icons.star),
+                SizedBox(width: 16),
+                _buildStatItem(
+                    'XP', '${character.experience}', Icons.auto_awesome),
+                SizedBox(width: 16),
+                _buildStatItem('To Next', '${character.experienceToNextLevel}',
+                    Icons.flag),
+              ],
+            ),
+            SizedBox(height: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Progress to Level ${character.level + 1}'),
+                    Text(
+                        '${(character.levelProgress * 100).toStringAsFixed(1)}%'),
+                  ],
+                ),
+                SizedBox(height: 8),
+                LinearProgressIndicator(
+                  value: character.levelProgress,
+                  backgroundColor: Colors.grey.shade300,
+                  color: Colors.blue,
+                  minHeight: 8,
+                ),
+              ],
             ),
             SizedBox(height: 8),
-            Text('Level: ${character.level}'),
-            Text('XP: ${character.experience}'),
-            SizedBox(height: 8),
-            LinearProgressIndicator(
-              value: (character.experience % 100) / 100,
-            ),
-            SizedBox(height: 8),
-            Text('Next level: ${100 - (character.experience % 100)} XP'),
+            _buildLevelSystemInfo(character),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String label, String value, IconData icon) {
+    return Expanded(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, size: 20, color: Colors.blue.shade700),
+          ),
+          SizedBox(height: 4),
+          Text(
+            value,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            label,
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLevelSystemInfo(Character character) {
+    String systemName;
+    Color color;
+
+    switch (character.levelSystem) {
+      case 'square':
+        systemName = 'Square System';
+        color = Colors.purple;
+        break;
+      case 'sqrt':
+        systemName = 'Square Root System';
+        color = Colors.green;
+        break;
+      case 'gauss':
+        systemName = 'Gauss System';
+        color = Colors.orange;
+        break;
+      case 'linear':
+      default:
+        systemName = 'Linear System';
+        color = Colors.blue;
+        break;
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.science, size: 16, color: color),
+          SizedBox(width: 6),
+          Text(
+            '$systemName (×${character.multiplier})',
+            style: TextStyle(
+                fontSize: 12, color: color, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }
@@ -78,7 +201,7 @@ class CharacterTab extends StatelessWidget {
         final habits = _hiveService.getHabits();
         final todaysHabits =
             habits.where((habit) => habit.isDueToday()).toList();
-        final completedHabits = todaysHabits.fold<int>(
+        final completedHabitsCount = todaysHabits.fold<int>(
             0, (sum, habit) => sum + habit.getTodayCompletionCount());
 
         return StreamBuilder(
@@ -89,6 +212,7 @@ class CharacterTab extends StatelessWidget {
                 .where((task) => task.isDueToday && !task.completed)
                 .length;
             final overdueTasks = tasks.where((task) => task.isOverdue).length;
+            final completedTasks = tasks.where((task) => task.completed).length;
 
             return Padding(
               padding: EdgeInsets.all(16),
@@ -96,23 +220,40 @@ class CharacterTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Today's Overview",
+                    "Today's Progress",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 16),
                   Row(
                     children: [
+                      _buildOverviewCard('Habits Done', '$completedHabitsCount',
+                          Icons.auto_awesome, Colors.green,
+                          subtitle: '/${todaysHabits.length} today'),
+                      SizedBox(width: 12),
                       _buildOverviewCard(
-                          'Habits',
-                          '$completedHabits/${todaysHabits.length}',
-                          Icons.auto_awesome,
-                          Colors.green),
+                        'Tasks Due',
+                        '$todaysTasks',
+                        Icons.task,
+                        Colors.orange,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      _buildOverviewCard(
+                        'Tasks Done',
+                        '$completedTasks',
+                        Icons.check_circle,
+                        Colors.green,
+                      ),
                       SizedBox(width: 12),
-                      _buildOverviewCard('Due Today', '$todaysTasks',
-                          Icons.task, Colors.orange),
-                      SizedBox(width: 12),
-                      _buildOverviewCard('Overdue', '$overdueTasks',
-                          Icons.warning, Colors.red),
+                      _buildOverviewCard(
+                        'Overdue',
+                        '$overdueTasks',
+                        Icons.warning,
+                        Colors.red,
+                      ),
                     ],
                   ),
                 ],
@@ -125,7 +266,8 @@ class CharacterTab extends StatelessWidget {
   }
 
   Widget _buildOverviewCard(
-      String title, String value, IconData icon, Color color) {
+      String title, String value, IconData icon, Color color,
+      {String? subtitle}) {
     return Expanded(
       child: Card(
         child: Padding(
@@ -134,12 +276,85 @@ class CharacterTab extends StatelessWidget {
             children: [
               Icon(icon, color: color),
               SizedBox(height: 8),
-              Text(value,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              Text(title, style: TextStyle(fontSize: 12, color: Colors.grey)),
+              Text(
+                value,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                title,
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+              if (subtitle != null)
+                Text(
+                  subtitle,
+                  style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _createDefaultCharacter() {
+    final character = Character(
+      id: 'default',
+      goal: 'Accumulate experience to create your RPG character!',
+      createdDate: DateTime.now(),
+    );
+    _hiveService.charactersBox.add(character);
+    setState(() {});
+  }
+
+  Future<void> _showSettingsDialog(Character character) async {
+    final result = await showDialog<Character>(
+      context: context,
+      builder: (context) => CharacterSettingsDialog(character: character),
+    );
+
+    if (result != null && mounted) {
+      _hiveService.updateCharacter(result);
+
+      // Проверяем, повысился ли уровень
+      final oldLevel = character.level;
+      if (result.level > oldLevel) {
+        _showLevelUpDialog(result.level, result.goal);
+      }
+    }
+  }
+
+  void _showLevelUpDialog(int newLevel, String goal) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(Icons.celebration, color: Colors.amber),
+            SizedBox(width: 8),
+            Text('Congratulations!'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Level $newLevel reached!',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Don\'t forget to use your achievements to $goal!',
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Continue'),
+          ),
+        ],
       ),
     );
   }

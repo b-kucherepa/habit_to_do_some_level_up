@@ -29,9 +29,11 @@ class HiveService {
 
   void createDefaultCharacter() {
     final character = Character(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      name: 'Adventurer',
+      id: 'default',
+      goal: 'Accumulate experience to create your RPG character!',
       createdDate: DateTime.now(),
+      levelSystem: 'linear',
+      multiplier: 1,
     );
     charactersBox.add(character);
   }

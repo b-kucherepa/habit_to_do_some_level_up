@@ -107,12 +107,16 @@ class ExperienceService {
   void _updateCharacterExperience(int experience) {
     final character = _hiveService.getFirstCharacter();
     if (character != null) {
+      final oldLevel = character.level;
+
       final updatedCharacter = Character(
         id: character.id,
-        name: character.name,
+        goal: character.goal,
         experience: character.experience,
         level: character.level,
         createdDate: character.createdDate,
+        levelSystem: character.levelSystem,
+        multiplier: character.multiplier,
       );
 
       if (experience > 0) {
@@ -122,6 +126,12 @@ class ExperienceService {
       }
 
       _hiveService.updateCharacter(updatedCharacter);
+
+      // Проверяем повышение уровня
+      if (updatedCharacter.level > oldLevel) {
+        // Можно добавить callback или использовать Provider для уведомления
+        print('LEVEL UP! ${oldLevel} -> ${updatedCharacter.level}');
+      }
     }
   }
 }

@@ -18,27 +18,33 @@ class CharacterAdapter extends TypeAdapter<Character> {
     };
     return Character(
       id: fields[0] as String,
-      name: fields[1] as String,
+      goal: fields[1] as String,
       experience: fields[2] as int,
       level: fields[3] as int,
       createdDate: fields[4] as DateTime,
+      levelSystem: fields[5] as String,
+      multiplier: fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Character obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.goal)
       ..writeByte(2)
       ..write(obj.experience)
       ..writeByte(3)
       ..write(obj.level)
       ..writeByte(4)
-      ..write(obj.createdDate);
+      ..write(obj.createdDate)
+      ..writeByte(5)
+      ..write(obj.levelSystem)
+      ..writeByte(6)
+      ..write(obj.multiplier);
   }
 
   @override

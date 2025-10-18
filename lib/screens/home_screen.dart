@@ -55,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (index) {
       case 0:
         return CharacterTab(
-          onCreateCharacter: _createDefaultCharacter,
-        );
+            //onCreateCharacter: _createDefaultCharacter,
+            );
       case 1:
         return HabitsTab(
           onHabitIncrement: _incrementHabitCompletion,
@@ -70,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       default:
         return CharacterTab(
-          onCreateCharacter: _createDefaultCharacter,
-        );
+            //onCreateCharacter: _createDefaultCharacter,
+            );
     }
   }
 

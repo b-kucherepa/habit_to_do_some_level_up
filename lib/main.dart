@@ -5,13 +5,14 @@ import 'models/character.dart';
 import 'models/habit.dart';
 import 'models/task.dart';
 import 'screens/home_screen.dart';
-import 'services/hive_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Инициализация Hive
+  // Получаем директорию приложения
   final appDocumentDir = await getApplicationDocumentsDirectory();
+
+  // Инициализация Hive с новой директорией
   Hive.init(appDocumentDir.path);
 
   // Регистрация адаптеров
@@ -23,10 +24,6 @@ void main() async {
   await Hive.openBox<Character>('characters');
   await Hive.openBox<Habit>('habits');
   await Hive.openBox<Task>('tasks');
-
-  // Миграция данных привычек
-  final hiveService = HiveService();
-  hiveService.migrateAllHabits();
 
   runApp(MyApp());
 }
