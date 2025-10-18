@@ -10,6 +10,8 @@ import 'add_habit_screen.dart';
 import 'add_task_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

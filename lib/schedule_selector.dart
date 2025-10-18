@@ -11,7 +11,7 @@ class ScheduleSelector extends StatelessWidget {
   final ValueChanged<int?> onCustomIntervalChanged;
 
   const ScheduleSelector({
-    Key? key,
+    super.key,
     required this.scheduleType,
     required this.onScheduleTypeChanged,
     required this.selectedDaysOfWeek,
@@ -20,7 +20,7 @@ class ScheduleSelector extends StatelessWidget {
     required this.onDaysOfWeekChanged,
     required this.onDaysOfMonthChanged,
     required this.onCustomIntervalChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +78,9 @@ class _WeeklyScheduleSelector extends StatelessWidget {
   final ValueChanged<List<int>> onSelectionChanged;
 
   const _WeeklyScheduleSelector({
-    Key? key,
     required this.selectedDays,
     required this.onSelectionChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -123,10 +122,9 @@ class _MonthlyScheduleSelector extends StatelessWidget {
   final ValueChanged<List<int>> onSelectionChanged;
 
   const _MonthlyScheduleSelector({
-    Key? key,
     required this.selectedDays,
     required this.onSelectionChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -166,10 +164,9 @@ class _CustomIntervalSelector extends StatelessWidget {
   final ValueChanged<int?> onIntervalChanged;
 
   const _CustomIntervalSelector({
-    Key? key,
     required this.interval,
     required this.onIntervalChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

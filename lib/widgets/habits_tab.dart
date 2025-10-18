@@ -8,10 +8,10 @@ class HabitsTab extends StatelessWidget {
   final HiveService _hiveService = HiveService();
 
   HabitsTab({
-    Key? key,
+    super.key,
     required this.onHabitToggle,
     required this.onHabitDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

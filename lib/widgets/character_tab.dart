@@ -7,9 +7,9 @@ class CharacterTab extends StatelessWidget {
   final HiveService _hiveService = HiveService();
 
   CharacterTab({
-    Key? key,
+    super.key,
     required this.onCreateCharacter,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

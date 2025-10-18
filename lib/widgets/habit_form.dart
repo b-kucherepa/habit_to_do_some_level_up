@@ -4,6 +4,8 @@ import '../models/habit.dart';
 import '../schedule_selector.dart';
 
 class HabitForm extends StatefulWidget {
+  const HabitForm({super.key});
+
   @override
   _HabitFormState createState() => _HabitFormState();
 }

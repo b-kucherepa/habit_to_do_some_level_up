@@ -8,10 +8,10 @@ class TasksTab extends StatelessWidget {
   final HiveService _hiveService = HiveService();
 
   TasksTab({
-    Key? key,
+    super.key,
     required this.onTaskToggle,
     required this.onTaskDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

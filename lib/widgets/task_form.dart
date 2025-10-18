@@ -3,6 +3,8 @@ import '../services/hive_service.dart';
 import '../models/task.dart';
 
 class TaskForm extends StatefulWidget {
+  const TaskForm({super.key});
+
   @override
   _TaskFormState createState() => _TaskFormState();
 }
