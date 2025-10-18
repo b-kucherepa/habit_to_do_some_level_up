@@ -58,7 +58,33 @@ class ExperienceService {
   }
 
   void toggleTaskCompletion(Task task, bool completed) {
-    // ... существующий код без изменений
+    final tasks = _hiveService.getTasks();
+    final taskIndex = tasks.indexWhere((t) => t.id == task.id);
+
+    if (taskIndex != -1) {
+      final wasCompleted = task.completed;
+      final updatedTask = Task(
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        experience: task.experience,
+        completed: completed,
+        completedDate: completed ? DateTime.now() : null,
+        createdDate: task.createdDate,
+        dueDate: task.dueDate,
+        priority: task.priority,
+        category: task.category,
+      );
+
+      _hiveService.updateTask(updatedTask);
+
+      // Update character experience
+      if (completed && !wasCompleted) {
+        _updateCharacterExperience(task.experience);
+      } else if (!completed && wasCompleted) {
+        _updateCharacterExperience(-task.experience);
+      }
+    }
   }
 
   void deleteHabit(Habit habit) {
@@ -71,7 +97,11 @@ class ExperienceService {
   }
 
   void deleteTask(Task task) {
-    // ... существующий код без изменений
+    // Remove experience if task was completed
+    if (task.completed) {
+      _updateCharacterExperience(-task.experience);
+    }
+    _hiveService.deleteTask(task);
   }
 
   void _updateCharacterExperience(int experience) {
