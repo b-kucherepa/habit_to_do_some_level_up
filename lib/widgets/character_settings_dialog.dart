@@ -258,7 +258,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       createdDate: widget.character.createdDate,
       curveExponent: _curveExponent,
       experienceMultiplier:
-          _experienceMultiplier * 100, // Convert to actual XP values
+          _experienceMultiplier, // Convert to actual XP values
     );
 
     // Пересчитываем уровень с новой системой
