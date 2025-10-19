@@ -21,10 +21,10 @@ class Character {
   DateTime createdDate;
 
   @HiveField(5)
-  String levelSystem;
+  double curveExponent; // m - изгиб кривой
 
   @HiveField(6)
-  int multiplier;
+  double experienceMultiplier; // k - множитель опыта
 
   Character({
     required this.id,
@@ -32,8 +32,8 @@ class Character {
     this.experience = 0,
     this.level = 1,
     required this.createdDate,
-    this.levelSystem = 'gauss',
-    this.multiplier = 1,
+    this.curveExponent = 1.5,
+    this.experienceMultiplier = 1.0, // по умолчанию 100 XP за уровень
   });
 
   void addExperience(int exp) {
@@ -50,29 +50,15 @@ class Character {
   void updateLevel() {
     final oldLevel = level;
 
-    switch (levelSystem) {
-      case 'square':
-        level = (sqrt(experience / (100 * multiplier))).floor() + 1;
-        break;
-      case 'sqrt':
-        level = (pow(experience / (100 * multiplier), 2)).floor() + 1;
-        break;
-      case 'gauss':
-        // Решаем квадратное уравнение: level*(level-1)/2 * 10 = (experience/multiplier - 100)
-        final baseExp = experience / multiplier - 100;
-        if (baseExp <= 0) {
-          level = 1;
-        } else {
-          level = ((1 + sqrt(1 + 8 * baseExp / 10)) / 2).floor() + 1;
-        }
-        break;
-      case 'linear':
-      default:
-        level = (experience / (100 * multiplier)).floor() + 1;
-        break;
+    // Решаем уравнение: experience = experienceMultiplier * pow(level - 1, curveExponent)
+    // Находим уровень: level = pow(experience / experienceMultiplier, 1 / curveExponent) + 1
+    if (experience <= 0 || curveExponent == 0) {
+      level = 1;
+    } else {
+      final levelValue =
+          pow(experience / experienceMultiplier, 1 / curveExponent) + 1;
+      level = levelValue.floor().clamp(1, double.infinity).toInt();
     }
-
-    if (level < 1) level = 1;
 
     // Проверяем повышение уровня
     if (level > oldLevel) {
@@ -82,40 +68,27 @@ class Character {
 
   // Опыт до следующего уровня
   int get experienceToNextLevel {
-    final nextLevelExp = getExperienceForLevel(level);
+    final nextLevelExp = getExperienceForLevel(level + 1);
     return (nextLevelExp - experience).ceil();
   }
 
   // Прогресс до следующего уровня (0.0 - 1.0)
   double get levelProgress {
-    final currentLevelExp = getExperienceForLevel(level - 1);
-    final nextLevelExp = getExperienceForLevel(level);
+    final currentLevelExp = getExperienceForLevel(level);
+    final nextLevelExp = getExperienceForLevel(level + 1);
     if (nextLevelExp <= currentLevelExp) return 1.0;
-    print('$currentLevelExp < $experience < $nextLevelExp');
     return (experience - currentLevelExp) / (nextLevelExp - currentLevelExp);
   }
 
   int getExperienceForLevel(int targetLevel) {
-    if (targetLevel < 1) return 0;
-
-    switch (levelSystem) {
-      case 'square':
-        return (pow(targetLevel, 2) * 100 * multiplier).round();
-      case 'sqrt':
-        return (sqrt(targetLevel) * 10).floor() * 10 * multiplier;
-      case 'gauss':
-        return (100 + ((targetLevel - 1) * targetLevel / 2) * 10 * multiplier)
-            .round();
-      case 'linear':
-      default:
-        return ((targetLevel) * 100 * multiplier).round();
-    }
+    if (targetLevel <= 1) return 0;
+    return (experienceMultiplier * pow(targetLevel - 1, curveExponent)).round();
   }
 
-  // Обновление системы уровней
-  void updateLevelSystem(String newSystem, int newMultiplier) {
-    levelSystem = newSystem;
-    multiplier = newMultiplier > 0 ? newMultiplier : 1;
+  // Обновление параметров кривой
+  void updateCurveParameters(double newExponent, double newMultiplier) {
+    curveExponent = newExponent;
+    experienceMultiplier = newMultiplier > 0 ? newMultiplier : 100.0;
     updateLevel();
   }
 }

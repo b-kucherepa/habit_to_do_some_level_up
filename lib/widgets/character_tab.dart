@@ -149,45 +149,22 @@ class _CharacterTabState extends State<CharacterTab> {
   }
 
   Widget _buildLevelSystemInfo(Character character) {
-    String systemName;
-    Color color;
-
-    switch (character.levelSystem) {
-      case 'square':
-        systemName = 'Square System';
-        color = Colors.purple;
-        break;
-      case 'sqrt':
-        systemName = 'Square Root System';
-        color = Colors.green;
-        break;
-      case 'gauss':
-        systemName = 'Gauss System';
-        color = Colors.orange;
-        break;
-      case 'linear':
-      default:
-        systemName = 'Linear System';
-        color = Colors.blue;
-        break;
-    }
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: Colors.blue.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: Colors.blue.withOpacity(0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.science, size: 16, color: color),
+          Icon(Icons.trending_up, size: 16, color: Colors.blue),
           SizedBox(width: 6),
           Text(
-            '$systemName (×${character.multiplier})',
+            'Curve: m=${character.curveExponent.toStringAsFixed(1)}, k=${character.experienceMultiplier.toInt()}',
             style: TextStyle(
-                fontSize: 12, color: color, fontWeight: FontWeight.bold),
+                fontSize: 12, color: Colors.blue, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -301,6 +278,8 @@ class _CharacterTabState extends State<CharacterTab> {
       id: 'default',
       goal: 'Accumulate experience to create your RPG character!',
       createdDate: DateTime.now(),
+      curveExponent: 1.5,
+      experienceMultiplier: 1.0,
     );
     _hiveService.charactersBox.add(character);
     setState(() {});

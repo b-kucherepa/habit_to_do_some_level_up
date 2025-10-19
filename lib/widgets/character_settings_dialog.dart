@@ -16,16 +16,15 @@ class CharacterSettingsDialog extends StatefulWidget {
 
 class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
   late TextEditingController _goalController;
-  late TextEditingController _multiplierController;
-  late String _selectedSystem;
+  late double _curveExponent;
+  late double _experienceMultiplier;
 
   @override
   void initState() {
     super.initState();
     _goalController = TextEditingController(text: widget.character.goal);
-    _multiplierController =
-        TextEditingController(text: widget.character.multiplier.toString());
-    _selectedSystem = widget.character.levelSystem;
+    _curveExponent = widget.character.curveExponent;
+    _experienceMultiplier = widget.character.experienceMultiplier;
   }
 
   @override
@@ -54,61 +53,74 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               maxLines: 2,
             ),
             SizedBox(height: 16),
-            Text('Level Calculation System'),
+            Text('Curve Exponent (m)'),
             SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              initialValue: _selectedSystem,
-              items: [
-                _buildSystemItem('linear', 'Linear', 'Level × 10 × Multiplier',
-                    Icons.trending_flat, Colors.blue),
-                _buildSystemItem(
-                    'square',
-                    'Square',
-                    '(Level-1)² × 10 × Multiplier',
-                    Icons.trending_up,
-                    Colors.purple),
-                _buildSystemItem(
-                    'sqrt',
-                    'Square Root',
-                    '√(Level-1) × 10 × Multiplier',
-                    Icons.trending_down,
-                    Colors.green),
-                _buildSystemItem(
-                    'gauss',
-                    'Gauss',
-                    '(10 + Triangular(Level)) × Multiplier',
-                    Icons.auto_graph,
-                    Colors.orange),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Slider(
+                  value: _curveExponent,
+                  min: 0.1,
+                  max: 3.0,
+                  divisions: 29, // (3.0 - 0.1) / 0.1 = 29 divisions
+                  label: _curveExponent.toStringAsFixed(1),
+                  onChanged: (value) {
+                    setState(() {
+                      _curveExponent = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('0.1',
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text('3.0',
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  ],
+                ),
               ],
-              onChanged: (value) {
-                setState(() {
-                  _selectedSystem = value!;
-                });
-              },
-              decoration: InputDecoration(border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 16),
-            Text('Level Multiplier'),
-            SizedBox(height: 8),
-            TextField(
-              controller: _multiplierController,
-              decoration: InputDecoration(
-                hintText: 'Multiplier for XP requirements',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(2),
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              onChanged: (value) {
-                setState(() {
-                  _selectedSystem = _selectedSystem;
-                });
-              },
             ),
             SizedBox(height: 8),
             Text(
+              'Curve exponent: ${_curveExponent.toStringAsFixed(1)}. '
+              'Values <1 make early levels easier, >1 make later levels easier',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            SizedBox(height: 16),
+            Text('Experience Multiplier (k)'),
+            SizedBox(height: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Slider(
+                  value: _experienceMultiplier,
+                  min: 0.1,
+                  max: 10.0,
+                  divisions: 99, // (10.0 - 0.1) / 0.1 = 99 divisions
+                  label: _experienceMultiplier.toStringAsFixed(1),
+                  onChanged: (value) {
+                    setState(() {
+                      _experienceMultiplier = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('0.1',
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text('10.0',
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Experience multiplier: ${_experienceMultiplier.toStringAsFixed(1)}. '
               'Higher values make leveling slower',
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
@@ -130,50 +142,21 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
     );
   }
 
-  DropdownMenuItem<String> _buildSystemItem(
-      String value, String name, String formula, IconData icon, Color color) {
-    return DropdownMenuItem(
-      value: value,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: color, size: 20),
-              SizedBox(width: 8),
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-          SizedBox(height: 4),
-          Text(
-            formula,
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSystemPreview() {
-    final multiplier =
-        int.tryParse(_multiplierController.text) ?? widget.character.multiplier;
     final previewCharacter = Character(
       id: 'preview',
       goal: 'Preview',
       experience: 0,
       level: 1,
       createdDate: DateTime.now(),
-      levelSystem: _selectedSystem,
-      multiplier: multiplier,
+      curveExponent: _curveExponent,
+      experienceMultiplier:
+          _experienceMultiplier * 100, // Convert to actual XP values
     );
 
-    final lineColor = switch (_selectedSystem) {
-      'linear' => Colors.blue,
-      'square' => Colors.purple,
-      'sqrt' => Colors.green,
-      'gauss' => Colors.orange,
-      _ => Colors.blue
-    };
+    // Динамический цвет в зависимости от параметров
+    final hue = (220 - (_curveExponent / 3.0) * 220).clamp(0.0, 220.0);
+    final lineColor = HSLColor.fromAHSL(1.0, hue, 0.7, 0.6).toColor();
 
     return Container(
       width: double.infinity,
@@ -192,7 +175,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
           SizedBox(height: 8),
           SizedBox(
             width: 500,
-            height: 200, // Фиксированная высота для графика
+            height: 200,
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(show: true),
@@ -253,15 +236,18 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               ),
             ),
           ),
+          SizedBox(height: 8),
+          Text(
+            'Formula: XP = ${_experienceMultiplier.toStringAsFixed(1)} × (Level-1)^${_curveExponent.toStringAsFixed(1)}',
+            style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
   }
 
   void _saveSettings() {
-    final multiplier =
-        int.tryParse(_multiplierController.text) ?? widget.character.multiplier;
-
     final updatedCharacter = Character(
       id: widget.character.id,
       goal: _goalController.text.isNotEmpty
@@ -270,8 +256,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       experience: widget.character.experience,
       level: widget.character.level,
       createdDate: widget.character.createdDate,
-      levelSystem: _selectedSystem,
-      multiplier: multiplier > 0 ? multiplier : 1,
+      curveExponent: _curveExponent,
+      experienceMultiplier:
+          _experienceMultiplier * 100, // Convert to actual XP values
     );
 
     // Пересчитываем уровень с новой системой
@@ -283,7 +270,6 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
   @override
   void dispose() {
     _goalController.dispose();
-    _multiplierController.dispose();
     super.dispose();
   }
 }

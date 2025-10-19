@@ -115,8 +115,8 @@ class ExperienceService {
         experience: character.experience,
         level: character.level,
         createdDate: character.createdDate,
-        levelSystem: character.levelSystem,
-        multiplier: character.multiplier,
+        curveExponent: character.curveExponent,
+        experienceMultiplier: character.experienceMultiplier,
       );
 
       if (experience > 0) {

@@ -22,8 +22,8 @@ class CharacterAdapter extends TypeAdapter<Character> {
       experience: fields[2] as int,
       level: fields[3] as int,
       createdDate: fields[4] as DateTime,
-      levelSystem: fields[5] as String,
-      multiplier: fields[6] as int,
+      curveExponent: fields[5] as double,
+      experienceMultiplier: fields[6] as double,
     );
   }
 
@@ -42,9 +42,9 @@ class CharacterAdapter extends TypeAdapter<Character> {
       ..writeByte(4)
       ..write(obj.createdDate)
       ..writeByte(5)
-      ..write(obj.levelSystem)
+      ..write(obj.curveExponent)
       ..writeByte(6)
-      ..write(obj.multiplier);
+      ..write(obj.experienceMultiplier);
   }
 
   @override

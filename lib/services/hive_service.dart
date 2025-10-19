@@ -32,8 +32,8 @@ class HiveService {
       id: 'default',
       goal: 'Accumulate experience to create your RPG character!',
       createdDate: DateTime.now(),
-      levelSystem: 'linear',
-      multiplier: 1,
+      curveExponent: 1.5,
+      experienceMultiplier: 1,
     );
     charactersBox.add(character);
   }
