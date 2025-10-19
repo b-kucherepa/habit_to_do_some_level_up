@@ -88,7 +88,7 @@ class Character {
   // Обновление параметров кривой
   void updateCurveParameters(double newExponent, double newMultiplier) {
     curveExponent = newExponent;
-    experienceMultiplier = newMultiplier > 0 ? newMultiplier : 100.0;
+    experienceMultiplier = newMultiplier > 0 ? newMultiplier : 1.0;
     updateLevel();
   }
 }

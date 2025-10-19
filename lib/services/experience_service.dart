@@ -130,7 +130,7 @@ class ExperienceService {
       // Проверяем повышение уровня
       if (updatedCharacter.level > oldLevel) {
         // Можно добавить callback или использовать Provider для уведомления
-        print('LEVEL UP! ${oldLevel} -> ${updatedCharacter.level}');
+        print('LEVEL UP! $oldLevel -> ${updatedCharacter.level}');
       }
     }
   }
