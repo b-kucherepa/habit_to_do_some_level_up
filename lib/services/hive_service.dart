@@ -8,15 +8,6 @@ class HiveService {
   Box<Habit> get habitsBox => Hive.box<Habit>('habits');
   Box<Task> get tasksBox => Hive.box<Task>('tasks');
 
-  // Метод для миграции всех привычек
-  void migrateAllHabits() {
-    final habits = getHabits();
-    for (final habit in habits) {
-      // Просто обновляем привычку, конструктор сам выполнит миграцию
-      updateHabit(habit);
-    }
-  }
-
   // Character methods
   List<Character> getCharacters() {
     return charactersBox.values.toList();

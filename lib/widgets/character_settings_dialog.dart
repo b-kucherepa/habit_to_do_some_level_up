@@ -51,16 +51,16 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               maxLines: 2,
             ),
             SizedBox(height: 16),
-            Text('Curve Exponent (m)'),
+            Text('Curve Exponent'),
             SizedBox(height: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Slider(
                   value: _curveExponent,
-                  min: 0.1,
-                  max: 3.0,
-                  divisions: 29, // (3.0 - 0.1) / 0.1 = 29 divisions
+                  min: Character.minCurveExponent,
+                  max: Character.maxCurveExponent,
+                  divisions: 12, // (1.0 - 1) / 0.1 = 12 divisions
                   label: _curveExponent.toStringAsFixed(1),
                   onChanged: (value) {
                     setState(() {
@@ -72,9 +72,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('0.1',
+                    Text('${Character.minCurveExponent}',
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    Text('3.0',
+                    Text('${Character.maxCurveExponent}',
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
@@ -87,17 +87,17 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
             SizedBox(height: 16),
-            Text('Experience Multiplier (k)'),
+            Text('Experience Multiplier'),
             SizedBox(height: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Slider(
                   value: _experienceMultiplier,
-                  min: 0.1,
-                  max: 10.0,
-                  divisions: 99, // (10.0 - 0.1) / 0.1 = 99 divisions
-                  label: _experienceMultiplier.toStringAsFixed(1),
+                  min: Character.minExperienceMultiplier,
+                  max: Character.maxExperienceMultiplier,
+                  divisions: 99, // (1000 - 10) / 10 = 99 divisions
+                  label: _experienceMultiplier.toStringAsFixed(0),
                   onChanged: (value) {
                     setState(() {
                       _experienceMultiplier = value;
@@ -108,9 +108,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('0.1',
+                    Text('${Character.minExperienceMultiplier}',
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    Text('10.0',
+                    Text('${Character.maxExperienceMultiplier}',
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
@@ -149,11 +149,11 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       createdDate: DateTime.now(),
       curveExponent: _curveExponent,
       experienceMultiplier:
-          _experienceMultiplier * 100, // Convert to actual XP values
+          _experienceMultiplier, // Convert to actual XP values
     );
 
     // Динамический цвет в зависимости от параметров
-    final hue = (220 - (_curveExponent / 3.0) * 220).clamp(0.0, 220.0);
+    final hue = (((2 - _curveExponent) / 1.2) * 210).clamp(0.0, 210.0);
     final lineColor = HSLColor.fromAHSL(1.0, hue, 0.7, 0.6).toColor();
 
     return Container(
@@ -185,7 +185,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                       reservedSize: 30,
                       interval: 1,
                       getTitlesWidget: (value, meta) {
-                        return Text('L${value.toInt()}');
+                        return Text('${value.toInt()}');
                       },
                     ),
                   ),
@@ -205,7 +205,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 ),
                 borderData: FlBorderData(show: true),
                 minX: 2,
-                maxX: 10,
+                maxX: 20,
                 minY: 0,
                 lineBarsData: [
                   LineChartBarData(
@@ -219,6 +219,16 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                       8,
                       9,
                       10,
+                      11,
+                      12,
+                      13,
+                      14,
+                      15,
+                      16,
+                      17,
+                      18,
+                      19,
+                      20
                     ].map((level) {
                       final expNeeded =
                           previewCharacter.getExperienceForLevel(level);

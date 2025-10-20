@@ -26,14 +26,16 @@ class HabitAdapter extends TypeAdapter<Habit> {
       daysOfMonth: (fields[6] as List?)?.cast<int>(),
       intervalDays: fields[7] as int?,
       createdDate: fields[8] as DateTime,
-      completionHistory: (fields[9] as Map?)?.cast<String, dynamic>(),
+      completionHistory: (fields[9] as Map?)?.cast<String, int>(),
+      minCompletionCount: fields[10] as int,
+      karmaLevel: fields[11] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Habit obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,7 +55,11 @@ class HabitAdapter extends TypeAdapter<Habit> {
       ..writeByte(8)
       ..write(obj.createdDate)
       ..writeByte(9)
-      ..write(obj.completionHistory);
+      ..write(obj.completionHistory)
+      ..writeByte(10)
+      ..write(obj.minCompletionCount)
+      ..writeByte(11)
+      ..write(obj.karmaLevel);
   }
 
   @override

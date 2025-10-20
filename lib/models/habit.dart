@@ -51,28 +51,10 @@ class Habit {
     this.daysOfMonth,
     this.intervalDays,
     required this.createdDate,
-    Map<String, dynamic>? completionHistory,
+    Map<String, int>? completionHistory,
     this.minCompletionCount = 1, // По умолчанию 1
     this.karmaLevel = 0, // Нейтральное состояние
-  }) : completionHistory = _migrateCompletionHistory(completionHistory);
-
-  // Метод для миграции старых данных bool -> int
-  static Map<String, int> _migrateCompletionHistory(
-      Map<String, dynamic>? history) {
-    final migrated = <String, int>{};
-
-    if (history != null) {
-      history.forEach((key, value) {
-        if (value is bool) {
-          migrated[key] = value ? 1 : 0;
-        } else if (value is int) {
-          migrated[key] = value;
-        }
-      });
-    }
-
-    return migrated;
-  }
+  }) : completionHistory = completionHistory ?? <String, int>{};
 
   bool isDueToday() {
     final today = DateTime.now();

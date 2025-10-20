@@ -5,6 +5,11 @@ part 'character.g.dart';
 
 @HiveType(typeId: 0)
 class Character {
+  static const double minCurveExponent = 0.8;
+  static const double maxCurveExponent = 2;
+  static const double minExperienceMultiplier = 10;
+  static const double maxExperienceMultiplier = 1000;
+
   @HiveField(0)
   final String id;
 
@@ -33,7 +38,7 @@ class Character {
     this.level = 1,
     required this.createdDate,
     this.curveExponent = 1.5,
-    this.experienceMultiplier = 1.0, // по умолчанию 100 XP за уровень
+    this.experienceMultiplier = 100.0, // по умолчанию 100 XP за уровень
   });
 
   void addExperience(int exp) {
@@ -87,8 +92,9 @@ class Character {
 
   // Обновление параметров кривой
   void updateCurveParameters(double newExponent, double newMultiplier) {
-    curveExponent = newExponent;
-    experienceMultiplier = newMultiplier > 0 ? newMultiplier : 0.1;
+    curveExponent = newExponent.clamp(minCurveExponent, maxCurveExponent);
+    experienceMultiplier =
+        newMultiplier.clamp(minExperienceMultiplier, maxExperienceMultiplier);
     updateLevel();
   }
 }

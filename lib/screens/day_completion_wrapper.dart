@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../services/day_completion_service.dart';
 import '../services/hive_service.dart';
-import 'home_screen.dart';
 import 'day_completion_screen.dart';
+import 'home_screen.dart';
 
 class DayCompletionWrapper extends StatefulWidget {
   const DayCompletionWrapper({super.key});
@@ -17,6 +18,7 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   bool _checkingDays = true;
   List<DateTime> _missedDays = [];
   int _currentDayIndex = 0;
+  Map<String, int>? _lastSessionData; // Данные последней сессии
 
   @override
   void initState() {
@@ -25,30 +27,41 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   }
 
   void _checkMissedDays() async {
+    final lastLogin = await _dayCompletionService.getLastLoginDate();
     final missedDays = await _dayCompletionService.getMissedDays();
+
+    // Получаем данные последней сессии только если есть пропущенные дни
+    if (missedDays.isNotEmpty) {
+      _lastSessionData = _getLastSessionData(lastLogin);
+    }
 
     if (mounted) {
       setState(() {
         _missedDays = missedDays;
         _checkingDays = false;
       });
-
-      // Обновляем дату последнего входа только если нет пропущенных дней
-      // Или после того как все дни будут обработаны
-      if (missedDays.isEmpty) {
-        _dayCompletionService.setLastLoginDate(DateTime.now());
-      }
     }
   }
 
-  void _onDayCompleted(bool shouldContinue) {
-    if (!shouldContinue) {
-      // Пользователь пропустил день - переходим к следующему или к главному экрану
-      _proceedToNextDay();
-    } else {
-      // День завершен - переходим к следующему
-      _proceedToNextDay();
+  // Получаем данные привычек на момент последнего входа
+  Map<String, int> _getLastSessionData(DateTime lastLoginDate) {
+    final habits = _hiveService.getHabits();
+    final lastSessionData = <String, int>{};
+
+    for (final habit in habits) {
+      final lastLoginKey = _dateToKey(lastLoginDate);
+      lastSessionData[habit.id] = habit.completionHistory[lastLoginKey] ?? 0;
     }
+
+    return lastSessionData;
+  }
+
+  String _dateToKey(DateTime date) {
+    return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+  }
+
+  void _onDayCompleted(bool shouldContinue) {
+    _proceedToNextDay();
   }
 
   void _proceedToNextDay() {
@@ -58,7 +71,7 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
         setState(() {
           _missedDays = [];
         });
-        // Обновляем дату последнего входа
+        // Обновляем дату последнего входа на сегодня
         _dayCompletionService.setLastLoginDate(DateTime.now());
       }
     } else {
@@ -79,21 +92,24 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
       );
     }
 
-    // Если есть пропущенные дни, показываем экран завершения дня
     if (_missedDays.isNotEmpty) {
       final targetDate = _missedDays[_currentDayIndex];
       final daysAgo = DateTime.now().difference(targetDate).inDays;
       final habits = _hiveService.getHabits();
 
+      // Только для ПЕРВОГО дня (дня последнего входа) используем данные последней сессии
+      // Для всех последующих дней используем нули
+      final initialData = _currentDayIndex == 0 ? _lastSessionData : null;
+
       return DayCompletionScreen(
         targetDate: targetDate,
         daysAgo: daysAgo,
         habits: habits,
+        initialCompletionData: initialData,
         onDayCompleted: _onDayCompleted,
       );
     }
 
-    // Если пропущенных дней нет, показываем главный экран
     return HomeScreen();
   }
 }

@@ -279,7 +279,7 @@ class _CharacterTabState extends State<CharacterTab> {
       goal: 'Accumulate experience to create your RPG character!',
       createdDate: DateTime.now(),
       curveExponent: 1.5,
-      experienceMultiplier: 1.0,
+      experienceMultiplier: 100.0,
     );
     _hiveService.charactersBox.add(character);
     setState(() {});

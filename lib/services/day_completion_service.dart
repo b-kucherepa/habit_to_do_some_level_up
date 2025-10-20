@@ -29,12 +29,16 @@ class DayCompletionService {
   Future<List<DateTime>> getMissedDays() async {
     final lastLogin = await getLastLoginDate();
     final today = DateTime.now();
+
+    // Если даты совпадают - нет пропущенных дней
+    if (_isSameDay(lastLogin, today)) {
+      return [];
+    }
+
     final missedDays = <DateTime>[];
 
-    // Пропускаем сегодняшний день и проверяем с завтрашнего дня после последнего входа
-    var currentDay = DateTime(lastLogin.year, lastLogin.month, lastLogin.day)
-        .add(Duration(days: 1));
-
+    // ВКЛЮЧАЕМ день последнего входа и все дни до сегодняшнего (не включая сегодня)
+    var currentDay = DateTime(lastLogin.year, lastLogin.month, lastLogin.day);
     final todayDate = DateTime(today.year, today.month, today.day);
 
     while (currentDay.isBefore(todayDate)) {
@@ -43,6 +47,12 @@ class DayCompletionService {
     }
 
     return missedDays;
+  }
+
+  bool _isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
   }
 
   bool shouldShowDayCompletion(List<DateTime> missedDays) {

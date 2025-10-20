@@ -8,6 +8,7 @@ class DayCompletionScreen extends StatefulWidget {
   final DateTime targetDate;
   final int daysAgo;
   final List<Habit> habits;
+  final Map<String, int>? initialCompletionData;
   final Function(bool) onDayCompleted;
 
   const DayCompletionScreen({
@@ -15,6 +16,7 @@ class DayCompletionScreen extends StatefulWidget {
     required this.targetDate,
     required this.daysAgo,
     required this.habits,
+    this.initialCompletionData,
     required this.onDayCompleted,
   });
 
@@ -23,16 +25,32 @@ class DayCompletionScreen extends StatefulWidget {
 }
 
 class _DayCompletionScreenState extends State<DayCompletionScreen> {
-  final Map<String, int> _completionCounts = {};
+  late Map<String, int> _completionCounts;
   final HiveService _hiveService = HiveService();
   final ExperienceService _experienceService = ExperienceService();
 
   @override
   void initState() {
     super.initState();
-    // Инициализируем счетчики выполненных привычек
+    _initializeCompletionCounts();
+  }
+
+  @override
+  void didUpdateWidget(DayCompletionScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Если целевая дата изменилась (переход к следующему дню), переинициализируем счетчики
+    if (oldWidget.targetDate != widget.targetDate) {
+      _initializeCompletionCounts();
+    }
+  }
+
+  void _initializeCompletionCounts() {
+    // Инициализируем счетчики: либо из initialCompletionData, либо нули
+    _completionCounts = {};
     for (final habit in widget.habits) {
-      _completionCounts[habit.id] = 0;
+      _completionCounts[habit.id] =
+          widget.initialCompletionData?[habit.id] ?? 0;
     }
   }
 
