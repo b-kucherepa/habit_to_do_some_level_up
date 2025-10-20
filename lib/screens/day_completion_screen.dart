@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../models/habit.dart';
 import '../services/hive_service.dart';
 import '../services/experience_service.dart';
@@ -61,7 +62,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Complete Missed Day'),
+            Text(context.l10n.completeDayHint),
             SizedBox(height: 4),
             Text(
               '${_formatDate(widget.targetDate)} (${widget.daysAgo} days ago)',
@@ -81,7 +82,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
         Padding(
           padding: EdgeInsets.all(16),
           child: Text(
-            'Mark completed habits for this day:',
+            context.l10n.markCompletedHabitsHint,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
@@ -131,7 +132,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           Expanded(
             child: OutlinedButton(
               onPressed: () => widget.onDayCompleted(false),
-              child: Text('Skip This Day'),
+              child: Text(context.l10n.skipDayButton),
             ),
           ),
           SizedBox(width: 16),
@@ -141,7 +142,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),
-              child: Text('Complete Day'),
+              child: Text(context.l10n.completeDayButton),
             ),
           ),
         ],

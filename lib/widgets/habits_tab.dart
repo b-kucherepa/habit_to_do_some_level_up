@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../screens/add_habit_screen.dart';
 import '../services/hive_service.dart';
 import '../models/habit.dart';
@@ -25,7 +26,7 @@ class HabitsTab extends StatelessWidget {
         final habits = _hiveService.getHabits();
 
         if (habits.isEmpty) {
-          return _buildEmptyState();
+          return _buildEmptyState(context);
         }
 
         return ListView.builder(
@@ -40,8 +41,7 @@ class HabitsTab extends StatelessWidget {
               onIncrement: () => onHabitIncrement(habit),
               onDecrement: () => onHabitDecrement(habit),
               onDelete: () => onHabitDelete(habit),
-              onEdit: () =>
-                  _editHabit(context, habit), // Добавили редактирование
+              onEdit: () => _editHabit(context, habit),
               showScheduleInfo: true,
               showKarmaIndicator: true,
             );
@@ -60,17 +60,19 @@ class HabitsTab extends StatelessWidget {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.auto_awesome, size: 64, color: Colors.grey),
           SizedBox(height: 16),
-          Text('No habits yet!'),
+          Text(context.l10n.habitsTabEmptyTitle),
           SizedBox(height: 8),
-          Text('Tap the + button to add your first habit',
-              style: TextStyle(color: Colors.grey)),
+          Text(
+            context.l10n.habitsTabEmptySubtitle,
+            style: TextStyle(color: Colors.grey),
+          ),
         ],
       ),
     );

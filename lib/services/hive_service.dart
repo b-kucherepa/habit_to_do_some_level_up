@@ -8,25 +8,67 @@ class HiveService {
   Box<Habit> get habitsBox => Hive.box<Habit>('habits');
   Box<Task> get tasksBox => Hive.box<Task>('tasks');
 
-  // Character methods
-  List<Character> getCharacters() {
-    return charactersBox.values.toList();
-  }
-
-  Character? getFirstCharacter() {
+  // Автоматически создаем персонажа при первом доступе
+  Character getFirstCharacter() {
     final characters = getCharacters();
-    return characters.isNotEmpty ? characters.first : null;
+    if (characters.isEmpty) {
+      createDefaultCharacter();
+      return getCharacters().first;
+    }
+    return characters.first;
   }
 
   void createDefaultCharacter() {
     final character = Character(
-      id: 'default',
+      id: 'default_character',
       goal: 'Accumulate experience to create your RPG character!',
       createdDate: DateTime.now(),
       curveExponent: 1.5,
-      experienceMultiplier: 1,
+      experienceMultiplier: 100.0,
     );
     charactersBox.add(character);
+  }
+
+  // Метод для сброса прогресса персонажа и привычек
+  void resetCharacterProgress() {
+    final character = getFirstCharacter();
+
+    // Сбрасываем персонажа
+    final resetCharacter = Character(
+      id: character.id,
+      goal: character.goal,
+      experience: 0,
+      level: 1,
+      createdDate: character.createdDate,
+      curveExponent: character.curveExponent,
+      experienceMultiplier: character.experienceMultiplier,
+    );
+    updateCharacter(resetCharacter);
+
+    // Сбрасываем все привычки
+    final habits = getHabits();
+    for (final habit in habits) {
+      final resetHabit = Habit(
+        id: habit.id,
+        title: habit.title,
+        description: habit.description,
+        experience: habit.experience,
+        scheduleType: habit.scheduleType,
+        daysOfWeek: habit.daysOfWeek,
+        daysOfMonth: habit.daysOfMonth,
+        intervalDays: habit.intervalDays,
+        createdDate: habit.createdDate,
+        completionHistory: {}, // Очищаем историю выполнений
+        minCompletionCount: habit.minCompletionCount,
+        karmaLevel: 0, // Сбрасываем карму
+      );
+      updateHabit(resetHabit);
+    }
+  }
+
+  // Остальные методы остаются без изменений
+  List<Character> getCharacters() {
+    return charactersBox.values.toList();
   }
 
   void updateCharacter(Character character) {
@@ -103,5 +145,9 @@ class HiveService {
       }
     }
     return null;
+  }
+
+  String getLocalization() {
+    return 'en';
   }
 }

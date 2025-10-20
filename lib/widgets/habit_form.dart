@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../services/hive_service.dart';
 import '../models/habit.dart';
 import '../schedule_selector.dart';
 
 class HabitForm extends StatefulWidget {
-  final Habit? habit; // Для редактирования передаем существующую привычку
+  final Habit? habit;
 
   const HabitForm({super.key, this.habit});
 
@@ -29,8 +30,6 @@ class _HabitFormState extends State<HabitForm> {
   @override
   void initState() {
     super.initState();
-
-    // Если передан habit, заполняем форму его данными
     if (widget.habit != null) {
       final habit = widget.habit!;
       _titleController.text = habit.title;
@@ -88,11 +87,12 @@ class _HabitFormState extends State<HabitForm> {
         TextFormField(
           controller: _titleController,
           decoration: InputDecoration(
-            labelText: 'Habit Title',
+            labelText: context.l10n.habitFormTitle,
             border: OutlineInputBorder(),
           ),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a title';
+            if (value == null || value.isEmpty)
+              return context.l10n.habitFormTitleError;
             return null;
           },
         ),
@@ -100,7 +100,7 @@ class _HabitFormState extends State<HabitForm> {
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
-            labelText: 'Description',
+            labelText: context.l10n.habitFormDescription,
             border: OutlineInputBorder(),
           ),
           maxLines: 3,
@@ -112,16 +112,16 @@ class _HabitFormState extends State<HabitForm> {
               child: TextFormField(
                 controller: _experienceController,
                 decoration: InputDecoration(
-                  labelText: 'Experience Points',
+                  labelText: context.l10n.habitFormExperience,
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter experience';
+                    return context.l10n.habitFormExperienceError;
                   }
                   if (int.tryParse(value) == null) {
-                    return 'Please enter a valid number';
+                    return context.l10n.habitFormNumberError;
                   }
                   return null;
                 },
@@ -132,16 +132,16 @@ class _HabitFormState extends State<HabitForm> {
               child: TextFormField(
                 controller: _minCompletionController,
                 decoration: InputDecoration(
-                  labelText: 'Min Completion',
+                  labelText: context.l10n.habitFormMinCompletion,
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter min count';
+                    return context.l10n.habitFormMinCompletionError;
                   }
                   if (int.tryParse(value) == null || int.parse(value) < 1) {
-                    return 'At least 1';
+                    return context.l10n.habitFormMinCountError;
                   }
                   return null;
                 },
@@ -161,7 +161,9 @@ class _HabitFormState extends State<HabitForm> {
         padding: EdgeInsets.symmetric(vertical: 16),
       ),
       child: Text(
-        widget.habit != null ? 'Update Habit' : 'Save Habit',
+        widget.habit != null
+            ? context.l10n.habitFormUpdate
+            : context.l10n.habitFormSave,
         style: TextStyle(fontSize: 18, color: Colors.white),
       ),
     );
@@ -195,17 +197,17 @@ class _HabitFormState extends State<HabitForm> {
 
   bool _validateSchedule() {
     if (_selectedScheduleType == 'weekly' && _selectedDaysOfWeek.isEmpty) {
-      _showError('Please select at least one day for weekly schedule');
+      _showError(context.l10n.habitFormWeeklyError);
       return false;
     }
 
     if (_selectedScheduleType == 'monthly' && _selectedDaysOfMonth.isEmpty) {
-      _showError('Please select at least one day for monthly schedule');
+      _showError(context.l10n.habitFormMonthlyError);
       return false;
     }
 
     if (_selectedScheduleType == 'custom' && _customInterval == null) {
-      _showError('Please select interval for custom schedule');
+      _showError(context.l10n.habitFormCustomError);
       return false;
     }
 

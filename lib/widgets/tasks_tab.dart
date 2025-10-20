@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../screens/add_task_screen.dart';
 import '../services/hive_service.dart';
 import '../models/task.dart';
@@ -28,10 +29,12 @@ class TasksTab extends StatelessWidget {
               children: [
                 Icon(Icons.task, size: 64, color: Colors.grey),
                 SizedBox(height: 16),
-                Text('No tasks yet!'),
+                Text(context.l10n.tasksTabEmptyTitle),
                 SizedBox(height: 8),
-                Text('Tap the + button to add your first task',
-                    style: TextStyle(color: Colors.grey)),
+                Text(
+                  context.l10n.tasksTabEmptySubtitle,
+                  style: TextStyle(color: Colors.grey),
+                ),
               ],
             ),
           );
@@ -47,9 +50,12 @@ class TasksTab extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildTaskStat('Total', tasks.length, Colors.blue),
-                  _buildTaskStat('Pending', pendingTasks.length, Colors.orange),
-                  _buildTaskStat('Done', completedTasks.length, Colors.green),
+                  _buildTaskStat(
+                      context.l10n.tasksTabTotal, tasks.length, Colors.blue),
+                  _buildTaskStat(context.l10n.tasksTabPending,
+                      pendingTasks.length, Colors.orange),
+                  _buildTaskStat(context.l10n.tasksTabDone,
+                      completedTasks.length, Colors.green),
                 ],
               ),
             ),
@@ -59,7 +65,7 @@ class TasksTab extends StatelessWidget {
                 children: [
                   if (pendingTasks.isNotEmpty) ...[
                     Text(
-                      'Pending Tasks (${pendingTasks.length})',
+                      context.l10n.tasksTabPendingHeader(pendingTasks.length),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -70,7 +76,8 @@ class TasksTab extends StatelessWidget {
                   ],
                   if (completedTasks.isNotEmpty) ...[
                     Text(
-                      'Completed Tasks (${completedTasks.length})',
+                      context.l10n
+                          .tasksTabCompletedHeader(completedTasks.length),
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -118,13 +125,13 @@ class TasksTab extends StatelessWidget {
               children: [
                 Icon(Icons.star, size: 16, color: Colors.amber),
                 SizedBox(width: 4),
-                Text('${task.experience} XP'),
+                Text(context.l10n.tasksTabExperience(task.experience)),
                 SizedBox(width: 12),
                 Icon(Icons.calendar_today,
                     size: 16, color: _getDueDateColor(task)),
                 SizedBox(width: 4),
                 Text(
-                  _formatDueDate(task.dueDate),
+                  _formatDueDate(context, task.dueDate),
                   style: TextStyle(color: _getDueDateColor(task)),
                 ),
                 SizedBox(width: 12),
@@ -136,18 +143,18 @@ class TasksTab extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildCategoryChip(task.category),
+            _buildCategoryChip(context, task.category),
             SizedBox(width: 8),
             IconButton(
               icon: Icon(Icons.edit_note_outlined, color: Colors.grey),
               onPressed: () => _editTask(context, task),
-              tooltip: 'Edit task',
+              tooltip: context.l10n.tasksTabEditTooltip,
             ),
             IconButton(
               icon: Icon(Icons.delete_outline, color: Colors.grey),
               onPressed: () =>
                   _showDeleteConfirmation(task, task.completed, context),
-              tooltip: 'Delete task',
+              tooltip: context.l10n.tasksTabDeleteTooltip,
             ),
           ],
         ),
@@ -170,17 +177,18 @@ class TasksTab extends StatelessWidget {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Delete Task'),
+          title: Text(context.l10n.tasksTabDeleteConfirmationTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Are you sure you want to delete "${task.title}"?'),
+              Text(context.l10n.tasksTabDeleteConfirmationMessage(task.title)),
               if (isCompleted)
                 Padding(
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
-                    '⚠️ This will remove ${task.experience} XP from your character!',
+                    context.l10n
+                        .tasksTabDeleteConfirmationWarning(task.experience),
                     style: TextStyle(color: Colors.orange, fontSize: 12),
                   ),
                 ),
@@ -189,11 +197,12 @@ class TasksTab extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: Text('Cancel'),
+              child: Text(context.l10n.tasksTabDeleteConfirmationCancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text('Delete', style: TextStyle(color: Colors.red)),
+              child: Text(context.l10n.tasksTabDeleteConfirmationDelete,
+                  style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -211,9 +220,9 @@ class TasksTab extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
+            color: color.withOpacity(0.1),
             shape: BoxShape.circle,
-            border: Border.all(color: color.withValues(alpha: 0.3)),
+            border: Border.all(color: color.withOpacity(0.3)),
           ),
           child: Text(
             count.toString(),
@@ -260,9 +269,9 @@ class TasksTab extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
+        border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Text(
         text,
@@ -272,13 +281,13 @@ class TasksTab extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryChip(String category) {
+  Widget _buildCategoryChip(BuildContext context, String category) {
     return Chip(
       label: Text(
-        _capitalizeFirstLetter(category),
+        _getLocalizedCategory(context, category),
         style: TextStyle(fontSize: 10),
       ),
-      backgroundColor: Colors.grey.withValues(alpha: 0.1),
+      backgroundColor: Colors.grey.withOpacity(0.1),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
@@ -291,20 +300,38 @@ class TasksTab extends StatelessWidget {
     return Colors.grey;
   }
 
-  String _formatDueDate(DateTime dueDate) {
+  String _formatDueDate(BuildContext context, DateTime dueDate) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final due = DateTime(dueDate.year, dueDate.month, dueDate.day);
 
     final difference = due.difference(today).inDays;
 
-    if (difference == 0) return 'Today';
-    if (difference == 1) return 'Tomorrow';
-    if (difference == -1) return 'Yesterday';
-    if (difference < 0) return '${difference.abs()} days ago';
-    if (difference < 7) return 'In $difference days';
+    if (difference == 0) return context.l10n.tasksTabDueToday;
+    if (difference == 1) return context.l10n.tasksTabDueTomorrow;
+    if (difference == -1) return context.l10n.tasksTabDueYesterday;
+    if (difference < 0)
+      return context.l10n.tasksTabDueDaysAgo(difference.abs());
+    if (difference < 7) return context.l10n.tasksTabDueInDays(difference);
 
     return '${dueDate.day}/${dueDate.month}/${dueDate.year}';
+  }
+
+  String _getLocalizedCategory(BuildContext context, String category) {
+    switch (category) {
+      case 'work':
+        return context.l10n.taskCategoryWork;
+      case 'personal':
+        return context.l10n.taskCategoryPersonal;
+      case 'health':
+        return context.l10n.taskCategoryHealth;
+      case 'learning':
+        return context.l10n.taskCategoryLearning;
+      case 'other':
+        return context.l10n.taskCategoryOther;
+      default:
+        return _capitalizeFirstLetter(category);
+    }
   }
 
   String _capitalizeFirstLetter(String text) {

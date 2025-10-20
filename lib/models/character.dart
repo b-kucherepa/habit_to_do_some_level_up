@@ -7,8 +7,14 @@ part 'character.g.dart';
 class Character {
   static const double minCurveExponent = 0.8;
   static const double maxCurveExponent = 2;
+  static const double defaultCurveExponent = 1.5;
+
   static const double minExperienceMultiplier = 10;
   static const double maxExperienceMultiplier = 1000;
+  static const double defaultExperienceMultiplier = 100;
+
+  static const int startingLevel = 1;
+  static const int startingExperience = 0;
 
   @HiveField(0)
   final String id;
@@ -34,11 +40,12 @@ class Character {
   Character({
     required this.id,
     required this.goal,
-    this.experience = 0,
-    this.level = 1,
+    this.experience = startingExperience,
+    this.level = startingLevel,
     required this.createdDate,
-    this.curveExponent = 1.5,
-    this.experienceMultiplier = 100.0, // по умолчанию 100 XP за уровень
+    this.curveExponent = defaultCurveExponent,
+    this.experienceMultiplier =
+        defaultExperienceMultiplier, // по умолчанию 100 XP за уровень
   });
 
   void addExperience(int exp) {
@@ -48,7 +55,7 @@ class Character {
 
   void removeExperience(int exp) {
     experience -= exp;
-    if (experience < 0) experience = 0;
+    if (experience < startingExperience) experience = startingExperience;
     updateLevel();
   }
 
@@ -57,12 +64,13 @@ class Character {
 
     // Решаем уравнение: experience = experienceMultiplier * pow(level - 1, curveExponent)
     // Находим уровень: level = pow(experience / experienceMultiplier, 1 / curveExponent) + 1
-    if (experience <= 0 || curveExponent == 0) {
-      level = 1;
+    if (startingExperience <= 0 || curveExponent == 0) {
+      level = startingLevel;
     } else {
       final levelValue =
-          pow(experience / experienceMultiplier, 1 / curveExponent) + 1;
-      level = levelValue.floor().clamp(1, double.infinity).toInt();
+          pow(experience / experienceMultiplier, 1 / curveExponent) +
+              startingLevel;
+      level = levelValue.floor().clamp(startingLevel, double.infinity).toInt();
     }
 
     // Проверяем повышение уровня
@@ -86,8 +94,10 @@ class Character {
   }
 
   int getExperienceForLevel(int targetLevel) {
-    if (targetLevel <= 1) return 0;
-    return (experienceMultiplier * pow(targetLevel - 1, curveExponent)).round();
+    if (targetLevel <= startingLevel) return startingExperience;
+    return (experienceMultiplier *
+            pow(targetLevel - startingLevel, curveExponent))
+        .round();
   }
 
   // Обновление параметров кривой

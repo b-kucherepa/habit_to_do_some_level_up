@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 
 class ScheduleSelector extends StatelessWidget {
   final String scheduleType;
@@ -27,30 +28,34 @@ class ScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Schedule Type',
+        Text(context.l10n.scheduleSelectorTitle,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        _buildScheduleTypeDropdown(),
+        _buildScheduleTypeDropdown(context),
         SizedBox(height: 16),
-        _buildScheduleOptions(),
+        _buildScheduleOptions(context),
       ],
     );
   }
 
-  Widget _buildScheduleTypeDropdown() {
+  Widget _buildScheduleTypeDropdown(BuildContext context) {
     return DropdownButtonFormField<String>(
       initialValue: scheduleType,
       items: [
-        DropdownMenuItem(value: 'daily', child: Text('Daily')),
-        DropdownMenuItem(value: 'weekly', child: Text('Weekly')),
-        DropdownMenuItem(value: 'monthly', child: Text('Monthly')),
-        DropdownMenuItem(value: 'custom', child: Text('Custom Interval')),
+        DropdownMenuItem(
+            value: 'daily', child: Text(context.l10n.scheduleTypeDaily)),
+        DropdownMenuItem(
+            value: 'weekly', child: Text(context.l10n.scheduleTypeWeekly)),
+        DropdownMenuItem(
+            value: 'monthly', child: Text(context.l10n.scheduleTypeMonthly)),
+        DropdownMenuItem(
+            value: 'custom', child: Text(context.l10n.scheduleTypeCustom)),
       ],
       onChanged: (value) => onScheduleTypeChanged(value!),
       decoration: InputDecoration(border: OutlineInputBorder()),
     );
   }
 
-  Widget _buildScheduleOptions() {
+  Widget _buildScheduleOptions(BuildContext context) {
     switch (scheduleType) {
       case 'weekly':
         return _WeeklyScheduleSelector(
@@ -84,13 +89,21 @@ class _WeeklyScheduleSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final weekDays = [
+      context.l10n.weekdayMonday,
+      context.l10n.weekdayTuesday,
+      context.l10n.weekdayWednesday,
+      context.l10n.weekdayThursday,
+      context.l10n.weekdayFriday,
+      context.l10n.weekdaySaturday,
+      context.l10n.weekdaySunday,
+    ];
     final weekDayNumbers = [1, 2, 3, 4, 5, 6, 7];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select days:',
+        Text(context.l10n.scheduleWeeklyTitle,
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         Wrap(
@@ -131,7 +144,7 @@ class _MonthlyScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select days of month:',
+        Text(context.l10n.scheduleMonthlyTitle,
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         Wrap(
@@ -173,7 +186,7 @@ class _CustomIntervalSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Repeat every X days:',
+        Text(context.l10n.scheduleCustomTitle,
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 8),
         DropdownButtonFormField<int>(
@@ -181,13 +194,13 @@ class _CustomIntervalSelector extends StatelessWidget {
           items: [1, 2, 3, 4, 5, 6, 7].map((days) {
             return DropdownMenuItem(
               value: days,
-              child: Text('$days day${days > 1 ? 's' : ''}'),
+              child: Text(context.l10n.scheduleCustomInterval(days)),
             );
           }).toList(),
           onChanged: onIntervalChanged,
           decoration: InputDecoration(border: OutlineInputBorder()),
           validator: (value) {
-            if (value == null) return 'Please select interval';
+            if (value == null) return context.l10n.scheduleCustomError;
             return null;
           },
         ),

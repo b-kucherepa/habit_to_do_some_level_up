@@ -1,5 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import '../language_manager.dart';
 import '../models/character.dart';
 
 class CharacterSettingsDialog extends StatefulWidget {
@@ -27,12 +30,14 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final languageManager = context.watch<LanguageManager>();
+
     return AlertDialog(
       title: Row(
         children: [
           Icon(Icons.settings, color: Colors.blue),
           SizedBox(width: 8),
-          Text('Progress Settings'),
+          Text(context.l10n.progressSettings),
         ],
       ),
       content: SingleChildScrollView(
@@ -40,18 +45,88 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Goal Motivation'),
+            Text(context.l10n.goalMotivation),
             SizedBox(height: 8),
             TextField(
               controller: _goalController,
               decoration: InputDecoration(
-                hintText: 'What are you accumulating experience for?',
+                hintText: context.l10n.goalMotivationHint,
                 border: OutlineInputBorder(),
               ),
               maxLines: 2,
             ),
             SizedBox(height: 16),
-            Text('Curve Exponent'),
+            Row(
+              children: [
+                Icon(Icons.language, size: 20, color: Colors.grey),
+                SizedBox(width: 8),
+                Text(context.l10n.language),
+                SizedBox(width: 16),
+                Expanded(
+                  child: DropdownButton<Locale>(
+                    value: languageManager.locale,
+                    isExpanded: true,
+                    items: [
+                      DropdownMenuItem(
+                        value: Locale('en'),
+                        child: Text(context.l10n.english),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('ru'),
+                        child: Text(context.l10n.russian),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('de'),
+                        child: Text(context.l10n.german),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('fr'),
+                        child: Text(context.l10n.french),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('es'),
+                        child: Text(context.l10n.spanish),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('pt'),
+                        child: Text(context.l10n.portuguese),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('zh'),
+                        child: Text(context.l10n.chinese),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('ja'),
+                        child: Text(context.l10n.japanese),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('ko'),
+                        child: Text(context.l10n.korean),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('hi'),
+                        child: Text(context.l10n.hindi),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('ar'),
+                        child: Text(context.l10n.arabic),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('he'),
+                        child: Text(context.l10n.hebrew),
+                      ),
+                    ],
+                    onChanged: (locale) {
+                      if (locale != null) {
+                        languageManager.setLocale(locale);
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Text(context.l10n.curveExponent),
             SizedBox(height: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +135,10 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                   value: _curveExponent,
                   min: Character.minCurveExponent,
                   max: Character.maxCurveExponent,
-                  divisions: 12, // (1.0 - 1) / 0.1 = 12 divisions
+                  divisions: ((Character.maxCurveExponent -
+                              Character.minCurveExponent) *
+                          10)
+                      .round(),
                   label: _curveExponent.toStringAsFixed(1),
                   onChanged: (value) {
                     setState(() {
@@ -72,9 +150,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${Character.minCurveExponent}',
+                    Text(Character.minCurveExponent.toStringAsFixed(1),
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    Text('${Character.maxCurveExponent}',
+                    Text(Character.maxCurveExponent.toStringAsFixed(1),
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
@@ -82,12 +160,12 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
             ),
             SizedBox(height: 8),
             Text(
-              'Curve exponent: ${_curveExponent.toStringAsFixed(1)}. '
-              'Values <1 make early levels easier, >1 make later levels easier',
+              context.l10n
+                  .curveExponentDescription(_curveExponent.toStringAsFixed(1)),
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
             SizedBox(height: 16),
-            Text('Experience Multiplier'),
+            Text(context.l10n.experienceMultiplier),
             SizedBox(height: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +174,10 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                   value: _experienceMultiplier,
                   min: Character.minExperienceMultiplier,
                   max: Character.maxExperienceMultiplier,
-                  divisions: 99, // (1000 - 10) / 10 = 99 divisions
+                  divisions: ((Character.maxExperienceMultiplier -
+                              Character.minExperienceMultiplier) /
+                          10)
+                      .round(),
                   label: _experienceMultiplier.toStringAsFixed(0),
                   onChanged: (value) {
                     setState(() {
@@ -108,9 +189,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${Character.minExperienceMultiplier}',
+                    Text(Character.minExperienceMultiplier.toStringAsFixed(0),
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    Text('${Character.maxExperienceMultiplier}',
+                    Text(Character.maxExperienceMultiplier.toStringAsFixed(0),
                         style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
@@ -118,8 +199,8 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
             ),
             SizedBox(height: 8),
             Text(
-              'Experience multiplier: ${_experienceMultiplier.toStringAsFixed(1)}. '
-              'Higher values make leveling slower',
+              context.l10n.experienceMultiplierDescription(
+                  _experienceMultiplier.toStringAsFixed(1)),
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
             SizedBox(height: 16),
@@ -130,11 +211,11 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('Cancel'),
+          child: Text(context.l10n.cancel),
         ),
         ElevatedButton(
           onPressed: _saveSettings,
-          child: Text('Save'),
+          child: Text(context.l10n.save),
         ),
       ],
     );
@@ -148,8 +229,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       level: 1,
       createdDate: DateTime.now(),
       curveExponent: _curveExponent,
-      experienceMultiplier:
-          _experienceMultiplier, // Convert to actual XP values
+      experienceMultiplier: _experienceMultiplier,
     );
 
     // Динамический цвет в зависимости от параметров
@@ -167,7 +247,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Level Progression Preview:',
+            context.l10n.levelProgressionPreview,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 8),
@@ -183,9 +263,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                     sideTitles: SideTitles(
                       showTitles: true,
                       reservedSize: 30,
-                      interval: 1,
+                      interval: 2,
                       getTitlesWidget: (value, meta) {
-                        return Text('${value.toInt()}');
+                        return Text('L${value.toInt()}');
                       },
                     ),
                   ),
@@ -209,31 +289,12 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 minY: 0,
                 lineBarsData: [
                   LineChartBarData(
-                    spots: [
-                      2,
-                      3,
-                      4,
-                      5,
-                      6,
-                      7,
-                      8,
-                      9,
-                      10,
-                      11,
-                      12,
-                      13,
-                      14,
-                      15,
-                      16,
-                      17,
-                      18,
-                      19,
-                      20
-                    ].map((level) {
+                    spots: List.generate(19, (index) {
+                      final level = index + 2;
                       final expNeeded =
                           previewCharacter.getExperienceForLevel(level);
                       return FlSpot(level.toDouble(), expNeeded.toDouble());
-                    }).toList(),
+                    }),
                     isCurved: true,
                     color: lineColor,
                     barWidth: 3,
@@ -246,7 +307,8 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
           ),
           SizedBox(height: 8),
           Text(
-            'Formula: XP = ${_experienceMultiplier.toStringAsFixed(1)} × (Level-1)^${_curveExponent.toStringAsFixed(1)}',
+            context.l10n.levelFormula(_experienceMultiplier.toStringAsFixed(1),
+                _curveExponent.toStringAsFixed(1)),
             style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
             textAlign: TextAlign.center,
           ),
@@ -260,13 +322,12 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       id: widget.character.id,
       goal: _goalController.text.isNotEmpty
           ? _goalController.text
-          : 'Accumulate experience for your RPG journey!',
+          : context.l10n.defaultGoal,
       experience: widget.character.experience,
       level: widget.character.level,
       createdDate: widget.character.createdDate,
       curveExponent: _curveExponent,
-      experienceMultiplier:
-          _experienceMultiplier, // Convert to actual XP values
+      experienceMultiplier: _experienceMultiplier,
     );
 
     // Пересчитываем уровень с новой системой

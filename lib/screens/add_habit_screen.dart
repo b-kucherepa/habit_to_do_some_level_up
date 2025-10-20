@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../widgets/habit_form.dart';
 import '../models/habit.dart';
 
@@ -11,8 +13,9 @@ class AddHabitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(habit != null ? 'Edit Habit' : 'Add New Habit'),
-        backgroundColor: Colors.green,
+        title: Text(
+            habit != null ? context.l10n.editHabit : context.l10n.addHabit),
+        backgroundColor: Styles.addHabitBackColor,
       ),
       body: HabitForm(habit: habit),
     );

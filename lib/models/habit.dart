@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../styles.dart';
+
 part 'habit.g.dart';
 
 @HiveType(typeId: 2)
@@ -110,33 +112,8 @@ class Habit {
 
   // Получить цвет кармы
   Color get karmaColor {
-    switch (karmaLevel) {
-      case -3:
-        return Colors.redAccent;
-      case -2:
-        return Colors.orangeAccent;
-      case -1:
-        return Colors.yellowAccent;
-      case 0:
-        return Colors.grey;
-      case 1:
-        return Colors.limeAccent;
-      case 2:
-        return Colors.lightGreenAccent;
-      case 3:
-        return Colors.greenAccent;
-      case 4:
-        return Colors.cyanAccent;
-      case 5:
-        return Colors.lightBlueAccent;
-      case 6:
-        return Colors.blueAccent;
-      default:
-        return karmaLevel > 6
-            ? Colors.deepPurpleAccent
-            : karmaLevel < -3
-                ? Colors.red
-                : Colors.grey;
-    }
+    final clampedKarmaLevel = karmaLevel.clamp(-4, 7);
+    final karmaColor = Styles.karmaLevelColor[clampedKarmaLevel];
+    return karmaColor ?? Styles.fallbackColor;
   }
 }

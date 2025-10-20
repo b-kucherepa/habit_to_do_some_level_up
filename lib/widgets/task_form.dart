@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../services/hive_service.dart';
 import '../models/task.dart';
 
 class TaskForm extends StatefulWidget {
-  final Task? task; // Для редактирования
+  final Task? task;
 
   const TaskForm({super.key, this.task});
 
@@ -18,18 +19,8 @@ class _TaskFormState extends State<TaskForm> {
   final _experienceController = TextEditingController(text: '25');
 
   DateTime _dueDate = DateTime.now().add(Duration(days: 1));
-  int _priority = 3;
-  String _category = 'general';
-
-  final List<String> _categories = [
-    'general',
-    'work',
-    'personal',
-    'health',
-    'learning',
-    'home',
-    'social'
-  ];
+  int _priority = Task.defaultPriority;
+  String _category = Task.defaultCategory;
 
   final HiveService _hiveService = HiveService();
 
@@ -37,7 +28,6 @@ class _TaskFormState extends State<TaskForm> {
   void initState() {
     super.initState();
 
-    // Если передан task, заполняем форму его данными
     if (widget.task != null) {
       final task = widget.task!;
       _titleController.text = task.title;
@@ -59,33 +49,33 @@ class _TaskFormState extends State<TaskForm> {
         key: _formKey,
         child: ListView(
           children: [
-            _buildBasicInfoFields(),
+            _buildBasicInfoFields(context),
             SizedBox(height: 16),
-            _buildDueDateSelector(),
+            _buildDueDateSelector(context),
             SizedBox(height: 16),
-            _buildPrioritySelector(),
+            _buildPrioritySelector(context),
             SizedBox(height: 16),
-            _buildCategorySelector(),
+            _buildCategorySelector(context),
             SizedBox(height: 32),
-            _buildSaveButton(),
+            _buildSaveButton(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBasicInfoFields() {
+  Widget _buildBasicInfoFields(BuildContext context) {
     return Column(
       children: [
         TextFormField(
           controller: _titleController,
           decoration: InputDecoration(
-            labelText: 'Task Title',
+            labelText: context.l10n.taskFormTitle,
             border: OutlineInputBorder(),
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter a title';
+              return context.l10n.taskFormTitleError;
             }
             return null;
           },
@@ -94,7 +84,7 @@ class _TaskFormState extends State<TaskForm> {
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
-            labelText: 'Description',
+            labelText: context.l10n.taskFormDescription,
             border: OutlineInputBorder(),
           ),
           maxLines: 3,
@@ -103,16 +93,16 @@ class _TaskFormState extends State<TaskForm> {
         TextFormField(
           controller: _experienceController,
           decoration: InputDecoration(
-            labelText: 'Experience Points',
+            labelText: context.l10n.taskFormExperience,
             border: OutlineInputBorder(),
           ),
           keyboardType: TextInputType.number,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter experience';
+              return context.l10n.taskFormExperienceError;
             }
             if (int.tryParse(value) == null) {
-              return 'Please enter a valid number';
+              return context.l10n.taskFormNumberError;
             }
             return null;
           },
@@ -121,28 +111,30 @@ class _TaskFormState extends State<TaskForm> {
     );
   }
 
-  Widget _buildDueDateSelector() {
+  Widget _buildDueDateSelector(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: Text(
-            'Due Date: ${_dueDate.toLocal().toString().split(' ')[0]}',
+            context.l10n.taskFormDueDateLabel(
+                _dueDate.toLocal().toString().split(' ')[0]),
             style: TextStyle(fontSize: 16),
           ),
         ),
         ElevatedButton(
           onPressed: () => _selectDueDate(context),
-          child: Text('Select Date'),
+          child: Text(context.l10n.taskFormSelectDate),
         ),
       ],
     );
   }
 
-  Widget _buildPrioritySelector() {
+  Widget _buildPrioritySelector(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Priority: $_priority', style: TextStyle(fontSize: 16)),
+        Text(context.l10n.taskFormPriorityLabel(_priority),
+            style: TextStyle(fontSize: 16)),
         Slider(
           value: _priority.toDouble(),
           min: 1,
@@ -158,13 +150,13 @@ class _TaskFormState extends State<TaskForm> {
     );
   }
 
-  Widget _buildCategorySelector() {
+  Widget _buildCategorySelector(BuildContext context) {
     return DropdownButtonFormField<String>(
-      value: _category,
-      items: _categories.map((String category) {
+      initialValue: _category,
+      items: Task.taskCategories.map((String category) {
         return DropdownMenuItem(
           value: category,
-          child: Text(_capitalizeFirstLetter(category)),
+          child: Text(_getLocalizedCategory(context, category)),
         );
       }).toList(),
       onChanged: (value) {
@@ -173,13 +165,13 @@ class _TaskFormState extends State<TaskForm> {
         });
       },
       decoration: InputDecoration(
-        labelText: 'Category',
+        labelText: context.l10n.taskFormCategory,
         border: OutlineInputBorder(),
       ),
     );
   }
 
-  Widget _buildSaveButton() {
+  Widget _buildSaveButton(BuildContext context) {
     return ElevatedButton(
       onPressed: _saveTask,
       style: ElevatedButton.styleFrom(
@@ -187,7 +179,9 @@ class _TaskFormState extends State<TaskForm> {
         padding: EdgeInsets.symmetric(vertical: 16),
       ),
       child: Text(
-        widget.task != null ? 'Update Task' : 'Save Task',
+        widget.task != null
+            ? context.l10n.taskFormUpdate
+            : context.l10n.taskFormSave,
         style: TextStyle(fontSize: 18, color: Colors.white),
       ),
     );
@@ -232,6 +226,23 @@ class _TaskFormState extends State<TaskForm> {
       _hiveService.updateTask(task);
     } else {
       _hiveService.tasksBox.add(task);
+    }
+  }
+
+  String _getLocalizedCategory(BuildContext context, String category) {
+    switch (category) {
+      case 'work':
+        return context.l10n.taskCategoryWork;
+      case 'personal':
+        return context.l10n.taskCategoryPersonal;
+      case 'health':
+        return context.l10n.taskCategoryHealth;
+      case 'learning':
+        return context.l10n.taskCategoryLearning;
+      case 'other':
+        return context.l10n.taskCategoryOther;
+      default:
+        return _capitalizeFirstLetter(category);
     }
   }
 

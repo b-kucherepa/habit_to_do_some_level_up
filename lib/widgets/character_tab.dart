@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../models/character.dart';
 import '../services/hive_service.dart';
 import '../widgets/character_settings_dialog.dart';
@@ -20,24 +21,6 @@ class _CharacterTabState extends State<CharacterTab> {
       stream: _hiveService.charactersBox.watch(),
       builder: (context, snapshot) {
         final characters = _hiveService.getCharacters();
-
-        if (characters.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.person, size: 64, color: Colors.grey),
-                SizedBox(height: 16),
-                Text('No character data'),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _createDefaultCharacter,
-                  child: Text('Initialize Stats'),
-                ),
-              ],
-            ),
-          );
-        }
 
         final character = characters.first;
         return Column(
@@ -77,20 +60,21 @@ class _CharacterTabState extends State<CharacterTab> {
                 IconButton(
                   icon: Icon(Icons.settings, color: Colors.grey),
                   onPressed: () => _showSettingsDialog(character),
-                  tooltip: 'Settings',
+                  tooltip: context.l10n.settings,
                 ),
               ],
             ),
             SizedBox(height: 16),
             Row(
               children: [
-                _buildStatItem('Level', '${character.level}', Icons.star),
-                SizedBox(width: 16),
                 _buildStatItem(
-                    'XP', '${character.experience}', Icons.auto_awesome),
+                    context.l10n.level, '${character.level}', Icons.star),
                 SizedBox(width: 16),
-                _buildStatItem('To Next', '${character.experienceToNextLevel}',
-                    Icons.flag),
+                _buildStatItem(context.l10n.experienceShort,
+                    '${character.experience}', Icons.auto_awesome),
+                SizedBox(width: 16),
+                _buildStatItem(context.l10n.toNext,
+                    '${character.experienceToNextLevel}', Icons.flag),
               ],
             ),
             SizedBox(height: 16),
@@ -100,7 +84,8 @@ class _CharacterTabState extends State<CharacterTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Progress to Level ${character.level + 1}'),
+                    Text(
+                        '${context.l10n.progressToLevel} ${character.level + 1}'),
                     Text(
                         '${(character.levelProgress * 100).toStringAsFixed(1)}%'),
                   ],
@@ -162,7 +147,9 @@ class _CharacterTabState extends State<CharacterTab> {
           Icon(Icons.trending_up, size: 16, color: Colors.blue),
           SizedBox(width: 6),
           Text(
-            'Curve: m=${character.curveExponent.toStringAsFixed(1)}, k=${character.experienceMultiplier.toInt()}',
+            context.l10n.expCurveLabel(
+                character.curveExponent.toStringAsFixed(1),
+                character.experienceMultiplier.toInt()),
             style: TextStyle(
                 fontSize: 12, color: Colors.blue, fontWeight: FontWeight.bold),
           ),
@@ -197,18 +184,22 @@ class _CharacterTabState extends State<CharacterTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Today's Progress",
+                    context.l10n.todaysProgress,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 16),
                   Row(
                     children: [
-                      _buildOverviewCard('Habits Done', '$completedHabitsCount',
-                          Icons.auto_awesome, Colors.green,
-                          subtitle: '/${todaysHabits.length} today'),
+                      _buildOverviewCard(
+                          context.l10n.habitsDone,
+                          '$completedHabitsCount',
+                          Icons.auto_awesome,
+                          Colors.green,
+                          subtitle: context.l10n
+                              .habitsNumberToday(todaysHabits.length)),
                       SizedBox(width: 12),
                       _buildOverviewCard(
-                        'Tasks Due',
+                        context.l10n.tasksDue,
                         '$todaysTasks',
                         Icons.task,
                         Colors.orange,
@@ -219,14 +210,14 @@ class _CharacterTabState extends State<CharacterTab> {
                   Row(
                     children: [
                       _buildOverviewCard(
-                        'Tasks Done',
+                        context.l10n.tasksDone,
                         '$completedTasks',
                         Icons.check_circle,
                         Colors.green,
                       ),
                       SizedBox(width: 12),
                       _buildOverviewCard(
-                        'Overdue',
+                        context.l10n.overdue,
                         '$overdueTasks',
                         Icons.warning,
                         Colors.red,
@@ -276,7 +267,7 @@ class _CharacterTabState extends State<CharacterTab> {
   void _createDefaultCharacter() {
     final character = Character(
       id: 'default',
-      goal: 'Accumulate experience to create your RPG character!',
+      goal: context.l10n.defaultGoal,
       createdDate: DateTime.now(),
       curveExponent: 1.5,
       experienceMultiplier: 100.0,
@@ -310,7 +301,7 @@ class _CharacterTabState extends State<CharacterTab> {
           children: [
             Icon(Icons.celebration, color: Colors.amber),
             SizedBox(width: 8),
-            Text('Congratulations!'),
+            Text(context.l10n.congratulations),
           ],
         ),
         content: Column(
@@ -318,12 +309,12 @@ class _CharacterTabState extends State<CharacterTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Level $newLevel reached!',
+              context.l10n.levelReached(newLevel),
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
             Text(
-              'Don\'t forget to use your achievements to $goal!',
+              context.l10n.dontForgetToUseAchievenents(goal),
               style: TextStyle(fontSize: 14),
             ),
           ],
@@ -331,7 +322,7 @@ class _CharacterTabState extends State<CharacterTab> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Continue'),
+            child: Text(context.l10n.continueButton),
           ),
         ],
       ),

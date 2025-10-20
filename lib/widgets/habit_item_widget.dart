@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../models/habit.dart';
 
 class HabitItemWidget extends StatelessWidget {
@@ -75,7 +76,7 @@ class HabitItemWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4),
-                _buildSubtitle(isDueToday),
+                _buildSubtitle(context, isDueToday),
               ],
             ),
           ),
@@ -122,7 +123,7 @@ class HabitItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildSubtitle(bool isDueToday) {
+  Widget _buildSubtitle(BuildContext context, bool isDueToday) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -136,20 +137,21 @@ class HabitItemWidget extends StatelessWidget {
           children: [
             Icon(Icons.star, size: 14, color: Colors.amber),
             SizedBox(width: 4),
-            Text('${habit.experience} XP', style: TextStyle(fontSize: 12)),
+            Text(context.l10n.habitItemExperience(habit.experience),
+                style: TextStyle(fontSize: 12)),
             SizedBox(width: 8),
             Icon(Icons.repeat, size: 14, color: Colors.blue),
             SizedBox(width: 2),
-            Text('min ${habit.minCompletionCount}',
+            Text(context.l10n.habitItemMinCompletion(habit.minCompletionCount),
                 style: TextStyle(fontSize: 12)),
             if (showScheduleInfo) ...[
               SizedBox(width: 8),
-              _buildScheduleBadge(),
+              _buildScheduleBadge(context),
             ],
             if (currentCount > 0 && isDueToday) ...[
               SizedBox(width: 16),
               Text(
-                '$currentCount today',
+                context.l10n.habitItemTodayCount(currentCount),
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -169,7 +171,7 @@ class HabitItemWidget extends StatelessWidget {
       children: [
         if (!isDueToday)
           Text(
-            'Not today',
+            context.l10n.habitItemNotToday,
             style: TextStyle(color: Colors.grey, fontSize: 12),
           ),
         if (onEdit != null) ...[
@@ -177,7 +179,7 @@ class HabitItemWidget extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.edit_note_outlined, color: Colors.grey, size: 20),
             onPressed: onEdit,
-            tooltip: 'Edit habit',
+            tooltip: context.l10n.habitItemEditTooltip,
           ),
         ],
         if (onDelete != null) ...[
@@ -185,33 +187,33 @@ class HabitItemWidget extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete_outline, color: Colors.grey, size: 20),
             onPressed: () => _showDeleteConfirmation(context),
-            tooltip: 'Delete habit',
+            tooltip: context.l10n.habitItemDeleteTooltip,
           ),
         ],
       ],
     );
   }
 
-  Widget _buildScheduleBadge() {
+  Widget _buildScheduleBadge(BuildContext context) {
     Color color;
     String text;
 
     switch (habit.scheduleType) {
       case 'daily':
         color = Colors.blue;
-        text = 'Daily';
+        text = context.l10n.habitItemScheduleDaily;
         break;
       case 'weekly':
         color = Colors.green;
-        text = 'Weekly';
+        text = context.l10n.habitItemScheduleWeekly;
         break;
       case 'monthly':
         color = Colors.orange;
-        text = 'Monthly';
+        text = context.l10n.habitItemScheduleMonthly;
         break;
       case 'custom':
         color = Colors.purple;
-        text = 'Custom';
+        text = context.l10n.habitItemScheduleCustom;
         break;
       default:
         color = Colors.grey;
@@ -249,21 +251,24 @@ class HabitItemWidget extends StatelessWidget {
 
   void _showDeleteConfirmation(BuildContext context) {
     if (onDelete != null) {
+      final xpAmount = habit.experience * currentCount;
+
       showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
           return AlertDialog(
-            title: Text('Delete Habit'),
+            title: Text(context.l10n.habitItemDeleteConfirmationTitle),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Are you sure you want to delete "${habit.title}"?'),
+                Text(context.l10n
+                    .habitItemDeleteConfirmationMessage(habit.title)),
                 if (currentCount > 0)
                   Padding(
                     padding: EdgeInsets.only(top: 8),
                     child: Text(
-                      '⚠️ This will remove ${habit.experience * currentCount} XP from your character!',
+                      context.l10n.habitItemDeleteConfirmationWarning(xpAmount),
                       style: TextStyle(color: Colors.orange, fontSize: 12),
                     ),
                   ),
@@ -272,14 +277,15 @@ class HabitItemWidget extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(dialogContext).pop(),
-                child: Text('Cancel'),
+                child: Text(context.l10n.habitItemDeleteConfirmationCancel),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(dialogContext).pop();
                   onDelete!();
                 },
-                child: Text('Delete', style: TextStyle(color: Colors.red)),
+                child: Text(context.l10n.habitItemDeleteConfirmationDelete,
+                    style: TextStyle(color: Colors.red)),
               ),
             ],
           );

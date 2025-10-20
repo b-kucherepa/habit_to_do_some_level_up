@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import '../models/habit.dart';
 import '../models/task.dart';
 import '../services/experience_service.dart';
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('RPG Todo & Habits'),
+        title: Text(context.l10n.appTitle),
         backgroundColor: _getAppBarColor(),
       ),
       body: _getBody(_selectedIndex),
@@ -103,15 +104,15 @@ class _HomeScreenState extends State<HomeScreen> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'Character',
+          label: context.l10n.character,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.auto_awesome),
-          label: 'Habits',
+          label: context.l10n.habits,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.task),
-          label: 'Tasks',
+          label: context.l10n.tasks,
         ),
       ],
     );
@@ -147,11 +148,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _createDefaultCharacter() {
+  /*void _createDefaultCharacter() {
     setState(() {
       _hiveService.createDefaultCharacter();
     });
-  }
+  }*/
 
   void _navigateToAddHabit(BuildContext context) {
     Navigator.push(

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import '../lib/widgets/character_settings_dialog.dart';
-import '../lib/models/character.dart';
+import 'package:todo_rpg_app/widgets/character_settings_dialog.dart';
+import 'package:todo_rpg_app/models/character.dart';
 
 void main() {
   group('CharacterSettingsDialog Tests', () {

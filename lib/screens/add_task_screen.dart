@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../widgets/task_form.dart';
 import '../models/task.dart';
 
@@ -11,8 +13,9 @@ class AddTaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(task != null ? 'Edit Task' : 'Add New Task'),
-        backgroundColor: Colors.orange,
+        title:
+            Text(task != null ? context.l10n.editTask : context.l10n.addTask),
+        backgroundColor: Styles.addTaskBackColor,
       ),
       body: TaskForm(task: task),
     );

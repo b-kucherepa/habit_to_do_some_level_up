@@ -4,6 +4,20 @@ part 'task.g.dart';
 
 @HiveType(typeId: 1)
 class Task {
+  static const defaultPriority = 3;
+  static const minPriority = 1;
+  static const maxPriority = 5;
+  static const defaultCategory = 'general';
+  static const List<String> taskCategories = [
+    'general',
+    'work',
+    'personal',
+    'health',
+    'learning',
+    'home',
+    'social'
+  ];
+
   @HiveField(0)
   final String id;
 
@@ -43,8 +57,8 @@ class Task {
     this.completedDate,
     required this.createdDate,
     required this.dueDate,
-    this.priority = 3,
-    this.category = 'general',
+    this.priority = defaultPriority,
+    this.category = defaultCategory,
   });
 
   bool get isOverdue => !completed && dueDate.isBefore(DateTime.now());
