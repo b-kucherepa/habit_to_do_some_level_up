@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/habit.dart';
 import '../services/hive_service.dart';
 import '../services/experience_service.dart';
+import '../widgets/habit_item_widget.dart';
 
 class DayCompletionScreen extends StatefulWidget {
   final DateTime targetDate;
@@ -82,102 +83,25 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
     final count = _completionCounts[habit.id] ?? 0;
     final isCompleted = count >= habit.minCompletionCount;
 
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 4),
-      color: isCompleted ? Colors.green.shade50 : Colors.white,
-      child: ListTile(
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildKarmaIndicator(habit.karmaLevel),
-            IconButton(
-              icon: Icon(Icons.remove),
-              onPressed: () {
-                setState(() {
-                  if (count > 0) {
-                    _completionCounts[habit.id] = count - 1;
-                  }
-                });
-              },
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                '$count',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                setState(() {
-                  _completionCounts[habit.id] = count + 1;
-                });
-              },
-            ),
-          ],
-        ),
-        title: Text(habit.title),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (habit.description.isNotEmpty)
-              Text(habit.description, style: TextStyle(fontSize: 12)),
-            SizedBox(height: 4),
-            Row(
-              children: [
-                Icon(Icons.star, size: 14, color: Colors.amber),
-                SizedBox(width: 2),
-                Text('${habit.experience} XP', style: TextStyle(fontSize: 12)),
-                SizedBox(width: 8),
-                Icon(Icons.repeat, size: 14, color: Colors.blue),
-                SizedBox(width: 2),
-                Text('min ${habit.minCompletionCount}',
-                    style: TextStyle(fontSize: 12)),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildKarmaIndicator(int karmaLevel) {
-    Color color;
-    switch (karmaLevel) {
-      case -3:
-        color = Colors.red;
-      case -2:
-        color = Colors.orange;
-      case -1:
-        color = Colors.yellow;
-      case 0:
-        color = Colors.grey;
-      case 1:
-        color = Colors.green;
-      case 2:
-        color = Colors.cyan;
-      case 3:
-        color = Colors.blue;
-      default:
-        color = karmaLevel > 3
-            ? Colors.blue
-            : karmaLevel < -3
-                ? Colors.red
-                : Colors.grey;
-    }
-
-    return Container(
-      width: 16,
-      //height: double.infinity,
-      decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.all(Radius.circular(6))),
+    return HabitItemWidget(
+      habit: habit,
+      currentCount: count,
+      isEditable: true,
+      onIncrement: () {
+        setState(() {
+          _completionCounts[habit.id] = count + 1;
+        });
+      },
+      onDecrement: () {
+        setState(() {
+          if (count > 0) {
+            _completionCounts[habit.id] = count - 1;
+          }
+        });
+      },
+      showScheduleInfo: false,
+      showKarmaIndicator: true,
+      backgroundColor: isCompleted ? Colors.green.shade50 : null,
     );
   }
 

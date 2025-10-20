@@ -130,28 +130,28 @@ class Habit {
   Color get karmaColor {
     switch (karmaLevel) {
       case -3:
-        return Colors.red;
+        return Colors.redAccent;
       case -2:
-        return Colors.orange;
+        return Colors.orangeAccent;
       case -1:
-        return Colors.yellow;
+        return Colors.yellowAccent;
       case 0:
         return Colors.grey;
       case 1:
-        return Colors.green;
+        return Colors.limeAccent;
       case 2:
-        return Colors.cyan;
+        return Colors.lightGreenAccent;
       case 3:
-        return Colors.blue;
+        return Colors.greenAccent;
       case 4:
-        return Colors.blueAccent;
+        return Colors.cyanAccent;
       case 5:
-        return Colors.lightBlue;
-      case 6:
         return Colors.lightBlueAccent;
+      case 6:
+        return Colors.blueAccent;
       default:
         return karmaLevel > 6
-            ? Colors.lightBlueAccent
+            ? Colors.deepPurpleAccent
             : karmaLevel < -3
                 ? Colors.red
                 : Colors.grey;
