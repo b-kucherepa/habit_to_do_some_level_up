@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'habit.g.dart';
@@ -34,6 +35,12 @@ class Habit {
   @HiveField(9)
   Map<String, int> completionHistory;
 
+  @HiveField(10)
+  int minCompletionCount; // Минимальное количество выполнений
+
+  @HiveField(11)
+  int karmaLevel; // Уровень кармы от -3 до 6
+
   Habit({
     required this.id,
     required this.title,
@@ -44,7 +51,9 @@ class Habit {
     this.daysOfMonth,
     this.intervalDays,
     required this.createdDate,
-    Map<String, dynamic>? completionHistory, // Принимаем dynamic для миграции
+    Map<String, dynamic>? completionHistory,
+    this.minCompletionCount = 1, // По умолчанию 1
+    this.karmaLevel = 0, // Нейтральное состояние
   }) : completionHistory = _migrateCompletionHistory(completionHistory);
 
   // Метод для миграции старых данных bool -> int
@@ -73,6 +82,10 @@ class Habit {
   int getTodayCompletionCount() {
     final todayKey = _dateToKey(DateTime.now());
     return completionHistory[todayKey] ?? 0;
+  }
+
+  bool get isCompletedToday {
+    return getTodayCompletionCount() >= minCompletionCount;
   }
 
   void incrementCompletion() {
@@ -110,6 +123,38 @@ class Habit {
         return daysSinceStart % intervalDays! == 0;
       default:
         return false;
+    }
+  }
+
+  // Получить цвет кармы
+  Color get karmaColor {
+    switch (karmaLevel) {
+      case -3:
+        return Colors.red;
+      case -2:
+        return Colors.orange;
+      case -1:
+        return Colors.yellow;
+      case 0:
+        return Colors.grey;
+      case 1:
+        return Colors.green;
+      case 2:
+        return Colors.cyan;
+      case 3:
+        return Colors.blue;
+      case 4:
+        return Colors.blueAccent;
+      case 5:
+        return Colors.lightBlue;
+      case 6:
+        return Colors.lightBlueAccent;
+      default:
+        return karmaLevel > 6
+            ? Colors.lightBlueAccent
+            : karmaLevel < -3
+                ? Colors.red
+                : Colors.grey;
     }
   }
 }

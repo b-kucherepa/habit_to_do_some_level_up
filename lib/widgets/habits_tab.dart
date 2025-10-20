@@ -53,6 +53,7 @@ class HabitsTab extends StatelessWidget {
   Widget _buildHabitItem(Habit habit, BuildContext context) {
     final completionCount = habit.getTodayCompletionCount();
     final isDueToday = habit.isDueToday();
+    final isCompleted = completionCount >= habit.minCompletionCount;
 
     return Card(
       margin: EdgeInsets.only(bottom: 12),
@@ -74,16 +75,11 @@ class HabitsTab extends StatelessWidget {
                 Icon(Icons.star, size: 16, color: Colors.amber),
                 SizedBox(width: 4),
                 Text('${habit.experience} XP'),
-                SizedBox(width: 16),
-                _buildScheduleBadge(habit),
-                if (completionCount > 0) ...[
-                  SizedBox(width: 16),
-                  Text(
-                    '$completionCount today',
-                    style: TextStyle(
-                        color: Colors.green, fontWeight: FontWeight.bold),
-                  ),
-                ],
+                SizedBox(width: 8),
+                Icon(Icons.repeat, size: 16, color: Colors.blue),
+                SizedBox(width: 2),
+                Text('min ${habit.minCompletionCount}'),
+                SizedBox(width: 8),
               ],
             ),
           ],
@@ -113,6 +109,7 @@ class HabitsTab extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        _buildKarmaIndicator(habit),
         IconButton(
           icon: Icon(Icons.remove, size: 20),
           onPressed: isDueToday && completionCount > 0
@@ -225,6 +222,17 @@ class HabitsTab extends StatelessWidget {
         style:
             TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.bold),
       ),
+    );
+  }
+
+  Widget _buildKarmaIndicator(Habit habit) {
+    return Container(
+      width: 16,
+      //height: double.infinity,
+      decoration: BoxDecoration(
+          color: habit.karmaColor,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.all(Radius.circular(6))),
     );
   }
 }

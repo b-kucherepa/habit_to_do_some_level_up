@@ -134,4 +134,30 @@ class ExperienceService {
       }
     }
   }
+
+  void addExperienceForDay(int experience) {
+    final character = _hiveService.getFirstCharacter();
+    if (character != null) {
+      final oldLevel = character.level;
+
+      final updatedCharacter = Character(
+        id: character.id,
+        goal: character.goal,
+        experience: character.experience + experience,
+        level: character.level,
+        createdDate: character.createdDate,
+        curveExponent: character.curveExponent,
+        experienceMultiplier: character.experienceMultiplier,
+      );
+
+      updatedCharacter.updateLevel();
+      _hiveService.updateCharacter(updatedCharacter);
+
+      // Проверяем повышение уровня
+      if (updatedCharacter.level > oldLevel) {
+        print('LEVEL UP! $oldLevel -> ${updatedCharacter.level}');
+        // Здесь можно добавить уведомление о повышении уровня
+      }
+    }
+  }
 }

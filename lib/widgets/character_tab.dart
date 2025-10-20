@@ -12,7 +12,7 @@ class CharacterTab extends StatefulWidget {
 
 class _CharacterTabState extends State<CharacterTab> {
   final HiveService _hiveService = HiveService();
-  bool _showLevelUpAnimation = false;
+  final bool _showLevelUpAnimation = false;
 
   @override
   Widget build(BuildContext context) {

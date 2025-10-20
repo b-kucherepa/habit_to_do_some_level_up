@@ -15,6 +15,7 @@ class _HabitFormState extends State<HabitForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _experienceController = TextEditingController(text: '10');
+  final _minCompletionController = TextEditingController(text: '1');
 
   String _selectedScheduleType = 'daily';
   List<int> _selectedDaysOfWeek = [];
@@ -85,22 +86,48 @@ class _HabitFormState extends State<HabitForm> {
           maxLines: 3,
         ),
         SizedBox(height: 16),
-        TextFormField(
-          controller: _experienceController,
-          decoration: InputDecoration(
-            labelText: 'Experience Points',
-            border: OutlineInputBorder(),
-          ),
-          keyboardType: TextInputType.number,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter experience';
-            }
-            if (int.tryParse(value) == null) {
-              return 'Please enter a valid number';
-            }
-            return null;
-          },
+        Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: _experienceController,
+                decoration: InputDecoration(
+                  labelText: 'Experience Points',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter experience';
+                  }
+                  if (int.tryParse(value) == null) {
+                    return 'Please enter a valid number';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: TextFormField(
+                controller: _minCompletionController,
+                decoration: InputDecoration(
+                  labelText: 'Min Completion',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter min count';
+                  }
+                  if (int.tryParse(value) == null || int.parse(value) < 1) {
+                    return 'At least 1';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -131,6 +158,7 @@ class _HabitFormState extends State<HabitForm> {
       title: _titleController.text,
       description: _descriptionController.text,
       experience: int.parse(_experienceController.text),
+      minCompletionCount: int.parse(_minCompletionController.text),
       scheduleType: _selectedScheduleType,
       daysOfWeek: _selectedDaysOfWeek.isNotEmpty ? _selectedDaysOfWeek : null,
       daysOfMonth:
