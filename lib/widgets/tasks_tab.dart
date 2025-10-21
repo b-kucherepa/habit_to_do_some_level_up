@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/services/experience_service.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../screens/add_task_screen.dart';
 import '../services/hive_service.dart';
 import '../models/task.dart';
@@ -8,11 +10,13 @@ class TasksTab extends StatelessWidget {
   final Function(Task, bool) onTaskToggle;
   final Function(Task) onTaskDelete;
   final HiveService _hiveService = HiveService();
+  final ExperienceService experienceService;
 
   TasksTab({
     super.key,
     required this.onTaskToggle,
     required this.onTaskDelete,
+    required this.experienceService,
   });
 
   @override
@@ -27,13 +31,13 @@ class TasksTab extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.task, size: 64, color: Colors.grey),
-                SizedBox(height: 16),
+                Styles.tasksTabLargeIcon,
+                SizedBox(height: Styles.largeGap),
                 Text(context.l10n.tasksTabEmptyTitle),
-                SizedBox(height: 8),
+                SizedBox(height: Styles.smallGap),
                 Text(
                   context.l10n.tasksTabEmptySubtitle,
-                  style: TextStyle(color: Colors.grey),
+                  style: Styles.habitsEmptyHint,
                 ),
               ],
             ),
@@ -46,7 +50,7 @@ class TasksTab extends StatelessWidget {
         return Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(Styles.largeGap),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -61,7 +65,7 @@ class TasksTab extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(Styles.largeGap),
                 children: [
                   if (pendingTasks.isNotEmpty) ...[
                     Text(
@@ -69,10 +73,10 @@ class TasksTab extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: Styles.smallGap),
                     ...pendingTasks
                         .map((task) => _buildTaskItem(task, context)),
-                    SizedBox(height: 16),
+                    SizedBox(height: Styles.largeGap),
                   ],
                   if (completedTasks.isNotEmpty) ...[
                     Text(
@@ -83,7 +87,7 @@ class TasksTab extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.green),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: Styles.smallGap),
                     ...completedTasks
                         .map((task) => _buildTaskItem(task, context)),
                   ],
@@ -98,7 +102,7 @@ class TasksTab extends StatelessWidget {
 
   Widget _buildTaskItem(Task task, BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(bottom: 8),
+      margin: EdgeInsets.only(bottom: Styles.smallGap),
       color: task.completed ? Colors.green.shade50 : Colors.white,
       child: ListTile(
         leading: Checkbox(
@@ -109,32 +113,28 @@ class TasksTab extends StatelessWidget {
         ),
         title: Text(
           task.title,
-          style: TextStyle(
-            decoration: task.completed
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
-            fontWeight: task.completed ? FontWeight.normal : FontWeight.w500,
-          ),
+          style: task.completed
+              ? Styles.entryCompletedFont
+              : Styles.entryUncompletedFont,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (task.description.isNotEmpty) Text(task.description),
-            SizedBox(height: 4),
+            SizedBox(height: Styles.tinyGap),
             Row(
               children: [
-                Icon(Icons.star, size: 16, color: Colors.amber),
-                SizedBox(width: 4),
+                Styles.entryExperienceIcon,
+                SizedBox(width: Styles.tinyGap),
                 Text(context.l10n.tasksTabExperience(task.experience)),
-                SizedBox(width: 12),
-                Icon(Icons.calendar_today,
-                    size: 16, color: _getDueDateColor(task)),
-                SizedBox(width: 4),
+                SizedBox(width: Styles.mediumGap),
+                _getDueDateIcon(task),
+                SizedBox(width: Styles.tinyGap),
                 Text(
                   _formatDueDate(context, task.dueDate),
-                  style: TextStyle(color: _getDueDateColor(task)),
+                  style: _getDueDateFont(task),
                 ),
-                SizedBox(width: 12),
+                SizedBox(width: Styles.mediumGap),
                 _buildPriorityBadge(task.priority),
               ],
             ),
@@ -144,14 +144,14 @@ class TasksTab extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildCategoryChip(context, task.category),
-            SizedBox(width: 8),
+            SizedBox(width: Styles.smallGap),
             IconButton(
-              icon: Icon(Icons.edit_note_outlined, color: Colors.grey),
+              icon: Styles.editEntryIcon,
               onPressed: () => _editTask(context, task),
               tooltip: context.l10n.tasksTabEditTooltip,
             ),
             IconButton(
-              icon: Icon(Icons.delete_outline, color: Colors.grey),
+              icon: Styles.deleteEntryIcon,
               onPressed: () =>
                   _showDeleteConfirmation(task, task.completed, context),
               tooltip: context.l10n.tasksTabDeleteTooltip,
@@ -185,11 +185,11 @@ class TasksTab extends StatelessWidget {
               Text(context.l10n.tasksTabDeleteConfirmationMessage(task.title)),
               if (isCompleted)
                 Padding(
-                  padding: EdgeInsets.only(top: 8),
+                  padding: EdgeInsets.only(top: Styles.smallGap),
                   child: Text(
                     context.l10n
                         .tasksTabDeleteConfirmationWarning(task.experience),
-                    style: TextStyle(color: Colors.orange, fontSize: 12),
+                    style: Styles.entryDeleteConfirmationMessageFont,
                   ),
                 ),
             ],
@@ -202,7 +202,7 @@ class TasksTab extends StatelessWidget {
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
               child: Text(context.l10n.tasksTabDeleteConfirmationDelete,
-                  style: TextStyle(color: Colors.red)),
+                  style: Styles.entryDeleteConfirmationButtonFont),
             ),
           ],
         );
@@ -218,11 +218,11 @@ class TasksTab extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(Styles.mediumGap),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             shape: BoxShape.circle,
-            border: Border.all(color: color.withOpacity(0.3)),
+            border: Border.all(color: color.withValues(alpha: 0.3)),
           ),
           child: Text(
             count.toString(),
@@ -230,48 +230,23 @@ class TasksTab extends StatelessWidget {
                 fontSize: 18, fontWeight: FontWeight.bold, color: color),
           ),
         ),
-        SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey)),
+        SizedBox(height: Styles.tinyGap),
+        Text(label, style: Styles.taskStatLabelDesctiptionFont),
       ],
     );
   }
 
   Widget _buildPriorityBadge(int priority) {
-    Color color;
-    String text;
-
-    switch (priority) {
-      case 1:
-        color = Colors.green;
-        text = 'P1';
-        break;
-      case 2:
-        color = Colors.blue;
-        text = 'P2';
-        break;
-      case 3:
-        color = Colors.orange;
-        text = 'P3';
-        break;
-      case 4:
-        color = Colors.red;
-        text = 'P4';
-        break;
-      case 5:
-        color = Colors.purple;
-        text = 'P5';
-        break;
-      default:
-        color = Colors.grey;
-        text = 'P$priority';
-    }
+    Color color = Styles.taskPriorityColor[priority] ?? Styles.fallbackColor;
+    String text = 'P$priority';
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      padding: EdgeInsets.symmetric(
+          horizontal: Styles.smallGap, vertical: Styles.tinyGap),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(Styles.smallRadius),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         text,
@@ -285,19 +260,27 @@ class TasksTab extends StatelessWidget {
     return Chip(
       label: Text(
         _getLocalizedCategory(context, category),
-        style: TextStyle(fontSize: 10),
+        style: Styles.taskCategory,
       ),
-      backgroundColor: Colors.grey.withOpacity(0.1),
+      backgroundColor: Colors.grey.withValues(alpha: 0.1),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
-  Color _getDueDateColor(Task task) {
-    if (task.completed) return Colors.green;
-    if (task.isOverdue) return Colors.red;
-    if (task.isDueToday) return Colors.orange;
-    if (task.isDueSoon) return Colors.blue;
-    return Colors.grey;
+  Icon _getDueDateIcon(Task task) {
+    if (task.completed) return Styles.taskDueCompletedIcon;
+    if (task.isOverdue) return Styles.taskDueOverdueIcon;
+    if (task.isDueToday) return Styles.taskDueTodayIcon;
+    if (task.isDueSoon) return Styles.taskDueSoonIcon;
+    return Styles.taskDueSoonIcon;
+  }
+
+  TextStyle _getDueDateFont(Task task) {
+    if (task.completed) return Styles.taskDueCompletedFont;
+    if (task.isOverdue) return Styles.taskDueOverdueFont;
+    if (task.isDueToday) return Styles.taskDueTodayFont;
+    if (task.isDueSoon) return Styles.taskDueSoonFont;
+    return Styles.taskDueSoonFont;
   }
 
   String _formatDueDate(BuildContext context, DateTime dueDate) {
@@ -310,29 +293,23 @@ class TasksTab extends StatelessWidget {
     if (difference == 0) return context.l10n.tasksTabDueToday;
     if (difference == 1) return context.l10n.tasksTabDueTomorrow;
     if (difference == -1) return context.l10n.tasksTabDueYesterday;
-    if (difference < 0)
+    if (difference < 0) {
       return context.l10n.tasksTabDueDaysAgo(difference.abs());
+    }
     if (difference < 7) return context.l10n.tasksTabDueInDays(difference);
 
     return '${dueDate.day}/${dueDate.month}/${dueDate.year}';
   }
 
-  String _getLocalizedCategory(BuildContext context, String category) {
-    switch (category) {
-      case 'work':
-        return context.l10n.taskCategoryWork;
-      case 'personal':
-        return context.l10n.taskCategoryPersonal;
-      case 'health':
-        return context.l10n.taskCategoryHealth;
-      case 'learning':
-        return context.l10n.taskCategoryLearning;
-      case 'other':
-        return context.l10n.taskCategoryOther;
-      default:
-        return _capitalizeFirstLetter(category);
-    }
-  }
+  String _getLocalizedCategory(BuildContext context, String category) =>
+      switch (category) {
+        'work' => context.l10n.taskCategoryWork,
+        'personal' => context.l10n.taskCategoryPersonal,
+        'health' => context.l10n.taskCategoryHealth,
+        'learning' => context.l10n.taskCategoryLearning,
+        'other' => context.l10n.taskCategoryOther,
+        _ => _capitalizeFirstLetter(category),
+      };
 
   String _capitalizeFirstLetter(String text) {
     return text[0].toUpperCase() + text.substring(1);

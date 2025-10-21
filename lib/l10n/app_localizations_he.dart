@@ -30,12 +30,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get editTask => 'ערוך משימה';
 
   @override
-  String get save => 'שמור';
-
-  @override
-  String get cancel => 'בטל';
-
-  @override
   String get delete => 'מחק';
 
   @override
@@ -303,6 +297,12 @@ class AppLocalizationsHe extends AppLocalizations {
   String levelFormula(Object multiplier, Object exponent) {
     return 'נוסחה: ניסיון = $multiplier × (דרגה-1)^$exponent';
   }
+
+  @override
+  String get cancel => 'בטל';
+
+  @override
+  String get save => 'שמור';
 
   @override
   String get habitFormTitle => 'כותרת הרגל';

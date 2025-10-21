@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../services/hive_service.dart';
 import '../models/habit.dart';
 import '../schedule_selector.dart';
@@ -46,13 +47,13 @@ class _HabitFormState extends State<HabitForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(Styles.largeGap),
       child: Form(
         key: _formKey,
         child: ListView(
           children: [
             _buildBasicInfoFields(),
-            SizedBox(height: 24),
+            SizedBox(height: Styles.giantGap),
             ScheduleSelector(
               scheduleType: _selectedScheduleType,
               onScheduleTypeChanged: (newType) {
@@ -73,7 +74,7 @@ class _HabitFormState extends State<HabitForm> {
               onCustomIntervalChanged: (interval) =>
                   setState(() => _customInterval = interval),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: Styles.titanicGap),
             _buildSaveButton(),
           ],
         ),
@@ -91,12 +92,13 @@ class _HabitFormState extends State<HabitForm> {
             border: OutlineInputBorder(),
           ),
           validator: (value) {
-            if (value == null || value.isEmpty)
+            if (value == null || value.isEmpty) {
               return context.l10n.habitFormTitleError;
+            }
             return null;
           },
         ),
-        SizedBox(height: 16),
+        SizedBox(height: Styles.largeGap),
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
@@ -105,7 +107,7 @@ class _HabitFormState extends State<HabitForm> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: 16),
+        SizedBox(height: Styles.largeGap),
         Row(
           children: [
             Expanded(
@@ -127,7 +129,7 @@ class _HabitFormState extends State<HabitForm> {
                 },
               ),
             ),
-            SizedBox(width: 16),
+            SizedBox(width: Styles.largeGap),
             Expanded(
               child: TextFormField(
                 controller: _minCompletionController,
@@ -157,14 +159,14 @@ class _HabitFormState extends State<HabitForm> {
     return ElevatedButton(
       onPressed: _saveHabit,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        backgroundColor: Styles.habitAccentColor,
+        padding: EdgeInsets.symmetric(vertical: Styles.largeGap),
       ),
       child: Text(
         widget.habit != null
             ? context.l10n.habitFormUpdate
             : context.l10n.habitFormSave,
-        style: TextStyle(fontSize: 18, color: Colors.white),
+        style: Styles.addFormButtonFont,
       ),
     );
   }

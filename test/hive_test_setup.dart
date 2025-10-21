@@ -1,11 +1,10 @@
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 // Импортируем модели и их адаптеры
-import '../lib/models/character.dart';
-import '../lib/models/habit.dart';
-import '../lib/models/task.dart';
+import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/habit.dart';
+import 'package:todo_rpg_app/models/task.dart';
 
 class HiveTestHelper {
   static bool _isInitialized = false;

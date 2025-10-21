@@ -1,8 +1,6 @@
 import 'package:hive/hive.dart';
-import '../services/hive_service.dart';
 
 class DayCompletionService {
-  final HiveService _hiveService = HiveService();
   static const String _lastLoginKey = 'last_login_date';
 
   Future<DateTime> getLastLoginDate() async {

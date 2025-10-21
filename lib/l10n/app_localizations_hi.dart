@@ -30,12 +30,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get editTask => 'कार्य संपादित करें';
 
   @override
-  String get save => 'सहेजें';
-
-  @override
-  String get cancel => 'रद्द करें';
-
-  @override
   String get delete => 'हटाएं';
 
   @override
@@ -303,6 +297,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String levelFormula(Object multiplier, Object exponent) {
     return 'सूत्र: EXP = $multiplier × (स्तर-1)^$exponent';
   }
+
+  @override
+  String get cancel => 'रद्द करें';
+
+  @override
+  String get save => 'सहेजें';
 
   @override
   String get habitFormTitle => 'आदत का शीर्षक';

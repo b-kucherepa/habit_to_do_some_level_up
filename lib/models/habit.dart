@@ -7,6 +7,10 @@ part 'habit.g.dart';
 
 @HiveType(typeId: 2)
 class Habit {
+  static const minKarma = -4;
+  static const maxKarma = 7;
+  static const defaultKarma = 0;
+
   @HiveField(0)
   final String id;
 
@@ -112,7 +116,7 @@ class Habit {
 
   // Получить цвет кармы
   Color get karmaColor {
-    final clampedKarmaLevel = karmaLevel.clamp(-4, 7);
+    final clampedKarmaLevel = karmaLevel.clamp(minKarma, maxKarma);
     final karmaColor = Styles.karmaLevelColor[clampedKarmaLevel];
     return karmaColor ?? Styles.fallbackColor;
   }

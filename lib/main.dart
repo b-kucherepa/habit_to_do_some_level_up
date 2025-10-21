@@ -9,7 +9,9 @@ import 'models/character.dart';
 import 'models/habit.dart';
 import 'models/task.dart';
 import 'screens/day_completion_wrapper.dart';
-import 'services/hive_service.dart'; // Изменён импорт
+import 'services/hive_service.dart';
+import 'services/level_up_service.dart';
+import 'services/experience_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,31 +30,48 @@ void main() async {
 
   final hiveService = HiveService();
   hiveService.getFirstCharacter(); // Это создаст персонажа если его нет
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LanguageManager()),
-        // Добавьте другие провайдеры здесь
+        Provider(create: (_) => HiveService()),
+        Provider(create: (_) => LevelUpService()),
+        ProxyProvider2<HiveService, LevelUpService, ExperienceService>(
+          update: (_, hiveService, levelUpService, __) =>
+              ExperienceService(hiveService, levelUpService),
+        ),
       ],
-      child: MyAppContent(),
+      child: MyAppContent(navigatorKey: navigatorKey),
     );
   }
 }
 
 class MyAppContent extends StatelessWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const MyAppContent({super.key, required this.navigatorKey});
+
   @override
   Widget build(BuildContext context) {
     final languageManager = context.watch<LanguageManager>();
+    final levelUpService = context.read<LevelUpService>();
+
+    // Передаем navigatorKey в LevelUpService
+    levelUpService.setNavigatorKey(navigatorKey);
 
     return MaterialApp(
       title: 'RPG Todo & Habits',
+      navigatorKey: navigatorKey, // Ключ для навигатора
       locale: languageManager.locale,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -77,6 +96,14 @@ class MyAppContent extends StatelessWidget {
         Locale('ar', ''),
         Locale('he', ''),
       ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
       home: DayCompletionWrapper(),
     );
   }

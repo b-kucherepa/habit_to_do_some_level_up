@@ -15,7 +15,7 @@ class AddTaskScreen extends StatelessWidget {
       appBar: AppBar(
         title:
             Text(task != null ? context.l10n.editTask : context.l10n.addTask),
-        backgroundColor: Styles.addTaskBackColor,
+        backgroundColor: Styles.taskAccentColor,
       ),
       body: TaskForm(task: task),
     );

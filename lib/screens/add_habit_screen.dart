@@ -15,7 +15,7 @@ class AddHabitScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
             habit != null ? context.l10n.editHabit : context.l10n.addHabit),
-        backgroundColor: Styles.addHabitBackColor,
+        backgroundColor: Styles.habitAccentColor,
       ),
       body: HabitForm(habit: habit),
     );

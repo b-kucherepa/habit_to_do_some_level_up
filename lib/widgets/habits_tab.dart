@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/services/experience_service.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../screens/add_habit_screen.dart';
 import '../services/hive_service.dart';
 import '../models/habit.dart';
@@ -10,12 +12,14 @@ class HabitsTab extends StatelessWidget {
   final Function(Habit) onHabitDecrement;
   final Function(Habit) onHabitDelete;
   final HiveService _hiveService = HiveService();
+  final ExperienceService experienceService;
 
   HabitsTab({
     super.key,
     required this.onHabitIncrement,
     required this.onHabitDecrement,
     required this.onHabitDelete,
+    required this.experienceService,
   });
 
   @override
@@ -30,7 +34,7 @@ class HabitsTab extends StatelessWidget {
         }
 
         return ListView.builder(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(Styles.largeGap),
           itemCount: habits.length,
           itemBuilder: (context, index) {
             final habit = habits[index];
@@ -65,13 +69,13 @@ class HabitsTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.auto_awesome, size: 64, color: Colors.grey),
-          SizedBox(height: 16),
+          Styles.habitsTabLargeIcon,
+          SizedBox(height: Styles.largeGap),
           Text(context.l10n.habitsTabEmptyTitle),
-          SizedBox(height: 8),
+          SizedBox(height: Styles.smallGap),
           Text(
             context.l10n.habitsTabEmptySubtitle,
-            style: TextStyle(color: Colors.grey),
+            style: Styles.habitsEmptyHint,
           ),
         ],
       ),

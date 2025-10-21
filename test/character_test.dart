@@ -90,7 +90,6 @@ void main() {
     });
 
     test('Level up detection', () {
-      var levelUps = 0;
       // We can't directly test print, but we can test the level change
       final oldLevel = character.level;
       character.addExperience(1000); // Enough to level up multiple times

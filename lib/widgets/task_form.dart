@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../services/hive_service.dart';
 import '../models/task.dart';
 
@@ -118,7 +119,7 @@ class _TaskFormState extends State<TaskForm> {
           child: Text(
             context.l10n.taskFormDueDateLabel(
                 _dueDate.toLocal().toString().split(' ')[0]),
-            style: TextStyle(fontSize: 16),
+            style: Styles.addFormFont,
           ),
         ),
         ElevatedButton(
@@ -134,7 +135,7 @@ class _TaskFormState extends State<TaskForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(context.l10n.taskFormPriorityLabel(_priority),
-            style: TextStyle(fontSize: 16)),
+            style: Styles.addFormFont),
         Slider(
           value: _priority.toDouble(),
           min: 1,
@@ -175,14 +176,14 @@ class _TaskFormState extends State<TaskForm> {
     return ElevatedButton(
       onPressed: _saveTask,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.orange,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        backgroundColor: Styles.taskAccentColor,
+        padding: EdgeInsets.symmetric(vertical: Styles.largeGap),
       ),
       child: Text(
         widget.task != null
             ? context.l10n.taskFormUpdate
             : context.l10n.taskFormSave,
-        style: TextStyle(fontSize: 18, color: Colors.white),
+        style: Styles.addFormButtonFont,
       ),
     );
   }

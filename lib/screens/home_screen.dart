@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/services/level_up_service.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../models/habit.dart';
 import '../models/task.dart';
 import '../services/experience_service.dart';
@@ -18,14 +21,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const _defaultSelectedIndex = 0;
   final HiveService _hiveService = HiveService();
-  final ExperienceService _experienceService = ExperienceService();
-  int _selectedIndex = 0;
+  late final ExperienceService _experienceService;
+  int _selectedIndex = _defaultSelectedIndex;
 
   @override
   void initState() {
     super.initState();
-    // Убираем initializeBoxes, так как боксы уже открыты в main.dart
+    // Получаем сервисы через Provider
+    _experienceService = ExperienceService(
+      _hiveService,
+      Provider.of<LevelUpService>(context, listen: false),
+    );
   }
 
   @override
@@ -42,16 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Color _getAppBarColor() {
-    switch (_selectedIndex) {
-      case 0:
-        return Colors.blue;
-      case 1:
-        return Colors.green;
-      case 2:
-        return Colors.orange;
-      default:
-        return Colors.blue;
-    }
+    final appBarColor = Styles.appBarColor[_selectedIndex];
+    return appBarColor ?? Styles.fallbackColor;
   }
 
   Widget _getBody(int index) {
@@ -65,11 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
           onHabitIncrement: _incrementHabitCompletion,
           onHabitDecrement: _decrementHabitCompletion,
           onHabitDelete: _deleteHabit,
+          experienceService: _experienceService,
         );
       case 2:
         return TasksTab(
           onTaskToggle: _toggleTaskCompletion,
           onTaskDelete: _deleteTask,
+          experienceService: _experienceService,
         );
       default:
         return CharacterTab(
@@ -83,14 +85,14 @@ class _HomeScreenState extends State<HomeScreen> {
       case 1:
         return FloatingActionButton(
           onPressed: () => _navigateToAddHabit(context),
-          backgroundColor: Colors.green,
-          child: Icon(Icons.add),
+          backgroundColor: Styles.habitAccentColor,
+          child: Styles.addButtonLargeIcon,
         );
       case 2:
         return FloatingActionButton(
           onPressed: () => _navigateToAddTask(context),
-          backgroundColor: Colors.orange,
-          child: Icon(Icons.add),
+          backgroundColor: Styles.taskAccentColor,
+          child: Styles.addButtonLargeIcon,
         );
       default:
         return null;
@@ -103,15 +105,15 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: _onItemTapped,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Styles.characterTabSmallIcon,
           label: context.l10n.character,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.auto_awesome),
+          icon: Styles.habitsTabSmallIcon,
           label: context.l10n.habits,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.task),
+          icon: Styles.tasksTabSmallIcon,
           label: context.l10n.tasks,
         ),
       ],
@@ -148,12 +150,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  /*void _createDefaultCharacter() {
-    setState(() {
-      _hiveService.createDefaultCharacter();
-    });
-  }*/
-
   void _navigateToAddHabit(BuildContext context) {
     Navigator.push(
       context,
@@ -162,13 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _navigateToAddTask(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddTaskScreen()),
-    ).then((_) => setState(() {}));
-  }
-
-  void _navigateToEditTask(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => AddTaskScreen()),

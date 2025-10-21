@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'dart:math';
 
@@ -15,6 +16,10 @@ class Character {
 
   static const int startingLevel = 1;
   static const int startingExperience = 0;
+
+  static const String defaultId = 'default_character';
+  static const String defaultGoal =
+      'Accumulate experience to create your RPG character!';
 
   @HiveField(0)
   final String id;
@@ -48,9 +53,15 @@ class Character {
         defaultExperienceMultiplier, // по умолчанию 100 XP за уровень
   });
 
-  void addExperience(int exp) {
+  void addExperience(int exp, {VoidCallback? onLevelUp}) {
+    final oldLevel = level;
     experience += exp;
     updateLevel();
+
+    // Уведомляем о повышении уровня
+    if (level > oldLevel && onLevelUp != null) {
+      onLevelUp();
+    }
   }
 
   void removeExperience(int exp) {
@@ -62,9 +73,7 @@ class Character {
   void updateLevel() {
     final oldLevel = level;
 
-    // Решаем уравнение: experience = experienceMultiplier * pow(level - 1, curveExponent)
-    // Находим уровень: level = pow(experience / experienceMultiplier, 1 / curveExponent) + 1
-    if (startingExperience <= 0 || curveExponent == 0) {
+    if (experience <= startingExperience || curveExponent == 0) {
       level = startingLevel;
     } else {
       final levelValue =
@@ -73,7 +82,6 @@ class Character {
       level = levelValue.floor().clamp(startingLevel, double.infinity).toInt();
     }
 
-    // Проверяем повышение уровня
     if (level > oldLevel) {
       print('LEVEL UP! $oldLevel -> $level');
     }

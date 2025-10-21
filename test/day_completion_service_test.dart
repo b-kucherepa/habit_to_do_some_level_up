@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/services/day_completion_service.dart';
+import 'package:todo_rpg_app/services/day_completion_service.dart';
 
 void main() {
   group('DayCompletionService Logic Tests', () {
@@ -18,8 +18,6 @@ void main() {
     }
 
     test('Date comparison works', () {
-      final service = DayCompletionService();
-
       final today = DateTime.now();
       final yesterday = today.subtract(Duration(days: 1));
 

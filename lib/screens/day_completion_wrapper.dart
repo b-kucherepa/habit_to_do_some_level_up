@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_rpg_app/services/character_service.dart';
 
 import '../services/day_completion_service.dart';
 import '../services/hive_service.dart';
@@ -15,14 +16,21 @@ class DayCompletionWrapper extends StatefulWidget {
 class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   final DayCompletionService _dayCompletionService = DayCompletionService();
   final HiveService _hiveService = HiveService();
+  final CharacterService _characterService = CharacterService(HiveService());
   bool _checkingDays = true;
   List<DateTime> _missedDays = [];
   int _currentDayIndex = 0;
-  Map<String, int>? _lastSessionData; // Данные последней сессии
+  Map<String, int>? _lastSessionData;
 
   @override
   void initState() {
     super.initState();
+    _initializeApp();
+  }
+
+  void _initializeApp() async {
+    // Инициализируем персонажа с правильной локализацией
+    await _characterService.ensureCharacterInitialized(context);
     _checkMissedDays();
   }
 

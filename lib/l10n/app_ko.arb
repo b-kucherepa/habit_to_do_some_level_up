@@ -6,8 +6,6 @@
     "addTask": "할일 추가",
     "editHabit": "습관 수정",
     "editTask": "할일 수정",
-    "save": "저장",
-    "cancel": "취소",
     "delete": "삭제",
     "edit": "수정",
     "toNext": "다음으로",

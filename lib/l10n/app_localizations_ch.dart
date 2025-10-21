@@ -30,12 +30,6 @@ class AppLocalizationsCh extends AppLocalizations {
   String get editTask => '编辑任务';
 
   @override
-  String get save => '保存';
-
-  @override
-  String get cancel => '取消';
-
-  @override
   String get delete => '删除';
 
   @override
@@ -303,6 +297,12 @@ class AppLocalizationsCh extends AppLocalizations {
   String levelFormula(Object multiplier, Object exponent) {
     return '公式：经验 = $multiplier × (等级-1)^$exponent';
   }
+
+  @override
+  String get cancel => '取消';
+
+  @override
+  String get save => '保存';
 
   @override
   String get habitFormTitle => '习惯标题';

@@ -157,18 +157,6 @@ abstract class AppLocalizations {
   /// **'Edit Task'**
   String get editTask;
 
-  /// No description provided for @save.
-  ///
-  /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
-
-  /// No description provided for @cancel.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:
@@ -678,6 +666,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Formula: EXP = {multiplier} × (Level-1)^{exponent}'**
   String levelFormula(Object multiplier, Object exponent);
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
 
   /// No description provided for @habitFormTitle.
   ///

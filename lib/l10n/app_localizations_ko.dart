@@ -30,12 +30,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get editTask => '할일 수정';
 
   @override
-  String get save => '저장';
-
-  @override
-  String get cancel => '취소';
-
-  @override
   String get delete => '삭제';
 
   @override
@@ -303,6 +297,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String levelFormula(Object multiplier, Object exponent) {
     return '공식: EXP = $multiplier × (레벨-1)^$exponent';
   }
+
+  @override
+  String get cancel => '취소';
+
+  @override
+  String get save => '저장';
 
   @override
   String get habitFormTitle => '습관 제목';

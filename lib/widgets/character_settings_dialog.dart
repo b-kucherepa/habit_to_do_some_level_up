@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../language_manager.dart';
 import '../models/character.dart';
 
@@ -35,8 +36,8 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
     return AlertDialog(
       title: Row(
         children: [
-          Icon(Icons.settings, color: Colors.blue),
-          SizedBox(width: 8),
+          Styles.settingsIcon,
+          SizedBox(width: Styles.smallGap),
           Text(context.l10n.progressSettings),
         ],
       ),
@@ -46,7 +47,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.goalMotivation),
-            SizedBox(height: 8),
+            SizedBox(height: Styles.smallGap),
             TextField(
               controller: _goalController,
               decoration: InputDecoration(
@@ -55,13 +56,13 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               ),
               maxLines: 2,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             Row(
               children: [
-                Icon(Icons.language, size: 20, color: Colors.grey),
-                SizedBox(width: 8),
+                Styles.languageOptionIcon,
+                SizedBox(width: Styles.smallGap),
                 Text(context.l10n.language),
-                SizedBox(width: 16),
+                SizedBox(width: Styles.largeGap),
                 Expanded(
                   child: DropdownButton<Locale>(
                     value: languageManager.locale,
@@ -125,9 +126,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             Text(context.l10n.curveExponent),
-            SizedBox(height: 8),
+            SizedBox(height: Styles.smallGap),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -146,27 +147,27 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                     });
                   },
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: Styles.tinyGap),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(Character.minCurveExponent.toStringAsFixed(1),
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: Styles.expPreviewSliderExtremities),
                     Text(Character.maxCurveExponent.toStringAsFixed(1),
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: Styles.expPreviewSliderExtremities),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: Styles.smallGap),
             Text(
               context.l10n
                   .curveExponentDescription(_curveExponent.toStringAsFixed(1)),
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             Text(context.l10n.experienceMultiplier),
-            SizedBox(height: 8),
+            SizedBox(height: Styles.mediumGap),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -185,25 +186,25 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                     });
                   },
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: Styles.tinyGap),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(Character.minExperienceMultiplier.toStringAsFixed(0),
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: Styles.expPreviewSliderExtremities),
                     Text(Character.maxExperienceMultiplier.toStringAsFixed(0),
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: Styles.expPreviewSliderExtremities),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: Styles.smallGap),
             Text(
               context.l10n.experienceMultiplierDescription(
-                  _experienceMultiplier.toStringAsFixed(1)),
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+                  _experienceMultiplier.toStringAsFixed(0)),
+              style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             _buildSystemPreview(),
           ],
         ),
@@ -225,35 +226,34 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
     final previewCharacter = Character(
       id: 'preview',
       goal: 'Preview',
-      experience: 0,
-      level: 1,
+      experience: Character.startingExperience,
+      level: Character.startingLevel,
       createdDate: DateTime.now(),
       curveExponent: _curveExponent,
       experienceMultiplier: _experienceMultiplier,
     );
 
     // Динамический цвет в зависимости от параметров
-    final hue = (((2 - _curveExponent) / 1.2) * 210).clamp(0.0, 210.0);
-    final lineColor = HSLColor.fromAHSL(1.0, hue, 0.7, 0.6).toColor();
+    Color lineColor = _getExpPreviewLineColor();
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(Styles.mediumGap),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(8),
+        color: Styles.expPreviewChartBackColor,
+        borderRadius: BorderRadius.circular(Styles.smallRadius),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             context.l10n.levelProgressionPreview,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.expPreviewTitle,
           ),
-          SizedBox(height: 8),
+          SizedBox(height: Styles.smallGap),
           SizedBox(
-            width: 500,
-            height: 200,
+            width: Styles.expPreviewWidth,
+            height: Styles.expPreviewHeight,
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(show: true),
@@ -262,8 +262,8 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
-                      reservedSize: 30,
-                      interval: 2,
+                      reservedSize: Styles.expPreviewXReservedSize,
+                      interval: Styles.expPreviewXInterval,
                       getTitlesWidget: (value, meta) {
                         return Text('L${value.toInt()}');
                       },
@@ -272,7 +272,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                   leftTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
-                      reservedSize: 60,
+                      reservedSize: Styles.expPreviewYReservedSize,
                       getTitlesWidget: (value, meta) {
                         return Text('${value.toInt()}');
                       },
@@ -284,20 +284,23 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                       AxisTitles(sideTitles: SideTitles(showTitles: false)),
                 ),
                 borderData: FlBorderData(show: true),
-                minX: 2,
-                maxX: 20,
-                minY: 0,
+                minX: Styles.expPreviewMinLevel.toDouble(),
+                maxX: Styles.expPreviewMaxLevel.toDouble(),
+                minY: Styles.expPreviewMinExp.toDouble(),
                 lineBarsData: [
                   LineChartBarData(
-                    spots: List.generate(19, (index) {
-                      final level = index + 2;
+                    spots: List.generate(
+                        Styles.expPreviewMaxLevel -
+                            Styles.expPreviewMinLevel +
+                            1, (index) {
+                      final level = index + Styles.expPreviewMinLevel;
                       final expNeeded =
                           previewCharacter.getExperienceForLevel(level);
                       return FlSpot(level.toDouble(), expNeeded.toDouble());
                     }),
                     isCurved: true,
                     color: lineColor,
-                    barWidth: 3,
+                    barWidth: Styles.expPreviewLineWidth,
                     dotData: FlDotData(show: true),
                     belowBarData: BarAreaData(show: false),
                   ),
@@ -305,16 +308,35 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               ),
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: Styles.smallGap),
           Text(
-            context.l10n.levelFormula(_experienceMultiplier.toStringAsFixed(1),
-                _curveExponent.toStringAsFixed(1)),
-            style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+            context.l10n.levelFormula(_experienceMultiplier.toStringAsFixed(0),
+                _curveExponent.toStringAsFixed(0)),
+            style: Styles.expPreviewFormula,
             textAlign: TextAlign.center,
           ),
         ],
       ),
     );
+  }
+
+  Color _getExpPreviewLineColor() {
+    final curveGap = Character.maxCurveExponent - _curveExponent;
+    final maxCurveGap = Character.maxCurveExponent - Character.minCurveExponent;
+    final hueGap = Styles.expPreviewMaxLineHue - Styles.expPreviewMinLineHue;
+    final hueModifier = ((curveGap) / maxCurveGap) * hueGap;
+    final rawHue = Styles.isExpPreviewLineHueInverted
+        ? Styles.expPreviewMinLineHue + hueModifier
+        : Styles.expPreviewMaxLineHue - hueModifier;
+
+    final clampedHue =
+        rawHue.clamp(Styles.expPreviewMinLineHue, Styles.expPreviewMaxLineHue);
+    final saturation = Styles.expPreviewLineSaturation;
+    final lightness = Styles.expPreviewLineLightness;
+
+    final lineColor =
+        HSLColor.fromAHSL(1.0, clampedHue, saturation, lightness).toColor();
+    return lineColor;
   }
 
   void _saveSettings() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../models/character.dart';
 import '../services/hive_service.dart';
 import '../widgets/character_settings_dialog.dart';
@@ -13,7 +14,6 @@ class CharacterTab extends StatefulWidget {
 
 class _CharacterTabState extends State<CharacterTab> {
   final HiveService _hiveService = HiveService();
-  final bool _showLevelUpAnimation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _CharacterTabState extends State<CharacterTab> {
         return Column(
           children: [
             _buildStatsCard(character),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             Expanded(child: _buildTodaysOverview()),
           ],
         );
@@ -36,9 +36,9 @@ class _CharacterTabState extends State<CharacterTab> {
 
   Widget _buildStatsCard(Character character) {
     return Card(
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.all(Styles.largeGap),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(Styles.largeGap),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,37 +47,39 @@ class _CharacterTabState extends State<CharacterTab> {
               children: [
                 Expanded(
                   child: Text(
-                    character.goal,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade800,
-                    ),
+                    character.goal == Character.defaultGoal
+                        ? context.l10n.defaultGoal
+                        : character.goal,
+                    style: Styles.characterGoal,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.settings, color: Colors.grey),
+                  icon: Styles.characterTabSettingsIcon,
                   onPressed: () => _showSettingsDialog(character),
                   tooltip: context.l10n.settings,
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             Row(
               children: [
+                _buildStatItem(context.l10n.level, '${character.level}',
+                    Styles.characterTabLevelIcon),
+                SizedBox(width: Styles.largeGap),
                 _buildStatItem(
-                    context.l10n.level, '${character.level}', Icons.star),
-                SizedBox(width: 16),
-                _buildStatItem(context.l10n.experienceShort,
-                    '${character.experience}', Icons.auto_awesome),
-                SizedBox(width: 16),
-                _buildStatItem(context.l10n.toNext,
-                    '${character.experienceToNextLevel}', Icons.flag),
+                    context.l10n.experienceShort,
+                    '${character.experience}',
+                    Styles.characterTabExperienceIcon),
+                SizedBox(width: Styles.largeGap),
+                _buildStatItem(
+                    context.l10n.toNext,
+                    '${character.experienceToNextLevel}',
+                    Styles.characterTabToNextLevelIcon),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,16 +92,16 @@ class _CharacterTabState extends State<CharacterTab> {
                         '${(character.levelProgress * 100).toStringAsFixed(1)}%'),
                   ],
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: Styles.smallGap),
                 LinearProgressIndicator(
                   value: character.levelProgress,
                   backgroundColor: Colors.grey.shade300,
                   color: Colors.blue,
-                  minHeight: 8,
+                  minHeight: Styles.smallGap,
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: Styles.smallGap),
             _buildLevelSystemInfo(character),
           ],
         ),
@@ -107,19 +109,19 @@ class _CharacterTabState extends State<CharacterTab> {
     );
   }
 
-  Widget _buildStatItem(String label, String value, IconData icon) {
+  Widget _buildStatItem(String label, String value, Icon icon) {
     return Expanded(
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(Styles.smallGap),
             decoration: BoxDecoration(
               color: Colors.blue.shade50,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, size: 20, color: Colors.blue.shade700),
+            child: icon,
           ),
-          SizedBox(height: 4),
+          SizedBox(height: Styles.tinyGap),
           Text(
             value,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -135,17 +137,18 @@ class _CharacterTabState extends State<CharacterTab> {
 
   Widget _buildLevelSystemInfo(Character character) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(
+          horizontal: Styles.mediumGap, vertical: Styles.smallGap),
       decoration: BoxDecoration(
         color: Colors.blue.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(Styles.smallRadius),
         border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.trending_up, size: 16, color: Colors.blue),
-          SizedBox(width: 6),
+          Styles.characterTabExpCurveLabelIcon,
+          SizedBox(width: Styles.smallGap),
           Text(
             context.l10n.expCurveLabel(
                 character.curveExponent.toStringAsFixed(1),
@@ -179,7 +182,7 @@ class _CharacterTabState extends State<CharacterTab> {
             final completedTasks = tasks.where((task) => task.completed).length;
 
             return Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(Styles.largeGap),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -187,40 +190,33 @@ class _CharacterTabState extends State<CharacterTab> {
                     context.l10n.todaysProgress,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: Styles.largeGap),
                   Row(
                     children: [
                       _buildOverviewCard(
                           context.l10n.habitsDone,
                           '$completedHabitsCount',
-                          Icons.auto_awesome,
-                          Colors.green,
+                          Styles.overviewHabitsCountIcon,
                           subtitle: context.l10n
                               .habitsNumberToday(todaysHabits.length)),
-                      SizedBox(width: 12),
-                      _buildOverviewCard(
-                        context.l10n.tasksDue,
-                        '$todaysTasks',
-                        Icons.task,
-                        Colors.orange,
-                      ),
+                      SizedBox(width: Styles.mediumGap),
+                      _buildOverviewCard(context.l10n.tasksDue, '$todaysTasks',
+                          Styles.overviewTasksDueIcon),
                     ],
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: Styles.mediumGap),
                   Row(
                     children: [
                       _buildOverviewCard(
                         context.l10n.tasksDone,
                         '$completedTasks',
-                        Icons.check_circle,
-                        Colors.green,
+                        Styles.overviewTasksDoneIcon,
                       ),
-                      SizedBox(width: 12),
+                      SizedBox(height: Styles.mediumGap),
                       _buildOverviewCard(
                         context.l10n.overdue,
                         '$overdueTasks',
-                        Icons.warning,
-                        Colors.red,
+                        Styles.overviewOverdueIcon,
                       ),
                     ],
                   ),
@@ -233,17 +229,16 @@ class _CharacterTabState extends State<CharacterTab> {
     );
   }
 
-  Widget _buildOverviewCard(
-      String title, String value, IconData icon, Color color,
+  Widget _buildOverviewCard(String title, String value, Icon icon,
       {String? subtitle}) {
     return Expanded(
       child: Card(
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(Styles.mediumGap),
           child: Column(
             children: [
-              Icon(icon, color: color),
-              SizedBox(height: 8),
+              icon,
+              SizedBox(height: Styles.smallGap),
               Text(
                 value,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -264,18 +259,6 @@ class _CharacterTabState extends State<CharacterTab> {
     );
   }
 
-  void _createDefaultCharacter() {
-    final character = Character(
-      id: 'default',
-      goal: context.l10n.defaultGoal,
-      createdDate: DateTime.now(),
-      curveExponent: 1.5,
-      experienceMultiplier: 100.0,
-    );
-    _hiveService.charactersBox.add(character);
-    setState(() {});
-  }
-
   Future<void> _showSettingsDialog(Character character) async {
     final result = await showDialog<Character>(
       context: context,
@@ -284,48 +267,6 @@ class _CharacterTabState extends State<CharacterTab> {
 
     if (result != null && mounted) {
       _hiveService.updateCharacter(result);
-
-      // Проверяем, повысился ли уровень
-      final oldLevel = character.level;
-      if (result.level > oldLevel) {
-        _showLevelUpDialog(result.level, result.goal);
-      }
     }
-  }
-
-  void _showLevelUpDialog(int newLevel, String goal) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(Icons.celebration, color: Colors.amber),
-            SizedBox(width: 8),
-            Text(context.l10n.congratulations),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.l10n.levelReached(newLevel),
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text(
-              context.l10n.dontForgetToUseAchievenents(goal),
-              style: TextStyle(fontSize: 14),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.l10n.continueButton),
-          ),
-        ],
-      ),
-    );
   }
 }

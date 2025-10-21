@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 import '../models/habit.dart';
 import '../services/hive_service.dart';
 import '../services/experience_service.dart';
@@ -28,12 +30,14 @@ class DayCompletionScreen extends StatefulWidget {
 class _DayCompletionScreenState extends State<DayCompletionScreen> {
   late Map<String, int> _completionCounts;
   final HiveService _hiveService = HiveService();
-  final ExperienceService _experienceService = ExperienceService();
+  late final ExperienceService experienceService;
 
   @override
   void initState() {
     super.initState();
     _initializeCompletionCounts();
+    // Получаем ExperienceService через Provider
+    experienceService = Provider.of<ExperienceService>(context, listen: false);
   }
 
   @override
@@ -63,11 +67,10 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.completeDayHint),
-            SizedBox(height: 4),
+            SizedBox(height: Styles.tinyGap),
             Text(
-              '${_formatDate(widget.targetDate)} (${widget.daysAgo} days ago)',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
+                '${_formatDate(widget.targetDate)} (${widget.daysAgo} days ago)',
+                style: Styles.completeDayHint),
           ],
         ),
         backgroundColor: Colors.blue,
@@ -80,15 +83,14 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.all(16),
-          child: Text(
-            context.l10n.markCompletedHabitsHint,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
+            padding: EdgeInsets.all(Styles.largeGap),
+            child: Text(
+              context.l10n.markCompletedHabitsHint,
+              style: Styles.markCompletedHeader,
+            )),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: Styles.largeGap),
             children:
                 widget.habits.map((habit) => _buildHabitItem(habit)).toList(),
           ),
@@ -120,13 +122,13 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
       },
       showScheduleInfo: false,
       showKarmaIndicator: true,
-      backgroundColor: isCompleted ? Colors.green.shade50 : null,
+      backgroundColor: isCompleted ? Styles.completedHabitColor : null,
     );
   }
 
   Widget _buildActionButtons() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(Styles.largeGap),
       child: Row(
         children: [
           Expanded(
@@ -135,12 +137,12 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
               child: Text(context.l10n.skipDayButton),
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: Styles.largeGap),
           Expanded(
             child: ElevatedButton(
               onPressed: _completeDay,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: Styles.completeDayButtonColor,
               ),
               child: Text(context.l10n.completeDayButton),
             ),
@@ -153,13 +155,12 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   void _completeDay() {
     int totalExperience = 0;
 
-    // Сохраняем выполнения для этого дня
+    // Сохраняем выполнения для этого дня и считаем опыт
     for (final habit in widget.habits) {
       final count = _completionCounts[habit.id] ?? 0;
       final dateKey = _dateToKey(widget.targetDate);
 
       if (count > 0) {
-        // Обновляем привычку с новыми выполнениями
         final updatedHabit = Habit(
           id: habit.id,
           title: habit.title,
@@ -180,9 +181,11 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
 
         // Обновляем карму
         if (count >= habit.minCompletionCount) {
-          updatedHabit.karmaLevel = (habit.karmaLevel + 1).clamp(-3, 6);
+          updatedHabit.karmaLevel =
+              (habit.karmaLevel + 1).clamp(Habit.minKarma, Habit.maxKarma);
         } else {
-          updatedHabit.karmaLevel = (habit.karmaLevel - 1).clamp(-3, 6);
+          updatedHabit.karmaLevel =
+              (habit.karmaLevel - 1).clamp(Habit.minKarma, Habit.maxKarma);
         }
 
         _hiveService.updateHabit(updatedHabit);
@@ -203,15 +206,16 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           createdDate: habit.createdDate,
           completionHistory: {...habit.completionHistory},
           minCompletionCount: habit.minCompletionCount,
-          karmaLevel: (habit.karmaLevel - 1).clamp(-3, 6),
+          karmaLevel:
+              (habit.karmaLevel - 1).clamp(Habit.minKarma, Habit.maxKarma),
         );
         _hiveService.updateHabit(updatedHabit);
       }
     }
 
-    // Начисляем общий опыт
+    // Начисляем общий опыт через ExperienceService (теперь без контекста)
     if (totalExperience > 0) {
-      _experienceService.addExperienceForDay(totalExperience);
+      experienceService.addExperienceForDay(totalExperience);
     }
 
     // Уведомляем об успешном завершении дня

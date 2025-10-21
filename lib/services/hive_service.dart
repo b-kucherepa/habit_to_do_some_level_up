@@ -20,11 +20,11 @@ class HiveService {
 
   void createDefaultCharacter() {
     final character = Character(
-      id: 'default_character',
-      goal: 'Accumulate experience to create your RPG character!',
+      id: Character.defaultId,
+      goal: Character.defaultGoal,
       createdDate: DateTime.now(),
-      curveExponent: 1.5,
-      experienceMultiplier: 100.0,
+      curveExponent: Character.defaultCurveExponent,
+      experienceMultiplier: Character.defaultExperienceMultiplier,
     );
     charactersBox.add(character);
   }
@@ -37,8 +37,8 @@ class HiveService {
     final resetCharacter = Character(
       id: character.id,
       goal: character.goal,
-      experience: 0,
-      level: 1,
+      experience: Character.startingExperience,
+      level: Character.startingLevel,
       createdDate: character.createdDate,
       curveExponent: character.curveExponent,
       experienceMultiplier: character.experienceMultiplier,
@@ -60,7 +60,7 @@ class HiveService {
         createdDate: habit.createdDate,
         completionHistory: {}, // Очищаем историю выполнений
         minCompletionCount: habit.minCompletionCount,
-        karmaLevel: 0, // Сбрасываем карму
+        karmaLevel: Habit.defaultKarma, // Сбрасываем карму
       );
       updateHabit(resetHabit);
     }
@@ -145,9 +145,5 @@ class HiveService {
       }
     }
     return null;
-  }
-
-  String getLocalization() {
-    return 'en';
   }
 }
