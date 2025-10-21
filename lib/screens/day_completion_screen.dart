@@ -73,7 +73,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
                 style: Styles.completeDayHint),
           ],
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Styles.completeDayBackColor,
       ),
       body: _buildContent(),
     );

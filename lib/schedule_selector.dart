@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
+import 'package:todo_rpg_app/styles.dart';
 
 class ScheduleSelector extends StatelessWidget {
   final String scheduleType;
@@ -29,9 +30,9 @@ class ScheduleSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(context.l10n.scheduleSelectorTitle,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            style: Styles.scheduleSelectorTitleFont),
         _buildScheduleTypeDropdown(context),
-        SizedBox(height: 16),
+        SizedBox(height: Styles.largeGap),
         _buildScheduleOptions(context),
       ],
     );
@@ -104,11 +105,11 @@ class _WeeklyScheduleSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(context.l10n.scheduleWeeklyTitle,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+            style: Styles.scheduleSelectorWeeklyTitleFont),
+        SizedBox(height: Styles.smallGap),
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: Styles.smallGap,
+          runSpacing: Styles.smallGap,
           children: List.generate(7, (index) {
             return FilterChip(
               label: Text(weekDays[index]),
@@ -145,11 +146,11 @@ class _MonthlyScheduleSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(context.l10n.scheduleMonthlyTitle,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+            style: Styles.scheduleSelectorMonthlyTitleFont),
+        SizedBox(height: Styles.smallGap),
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: Styles.smallGap,
+          runSpacing: Styles.smallGap,
           children: List.generate(31, (index) {
             final day = index + 1;
             return FilterChip(
@@ -187,8 +188,8 @@ class _CustomIntervalSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(context.l10n.scheduleCustomTitle,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+            style: Styles.scheduleSelectorCustomTitleFont),
+        SizedBox(height: Styles.smallGap),
         DropdownButtonFormField<int>(
           initialValue: interval,
           items: [1, 2, 3, 4, 5, 6, 7].map((days) {

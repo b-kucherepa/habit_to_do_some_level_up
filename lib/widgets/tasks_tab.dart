@@ -55,11 +55,20 @@ class TasksTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildTaskStat(
-                      context.l10n.tasksTabTotal, tasks.length, Colors.blue),
-                  _buildTaskStat(context.l10n.tasksTabPending,
-                      pendingTasks.length, Colors.orange),
-                  _buildTaskStat(context.l10n.tasksTabDone,
-                      completedTasks.length, Colors.green),
+                      context.l10n.tasksTabTotal,
+                      tasks.length,
+                      Styles.taskStatLabelTotalColor,
+                      Styles.taskStatLabelTotalFont),
+                  _buildTaskStat(
+                      context.l10n.tasksTabPending,
+                      pendingTasks.length,
+                      Styles.taskStatLabelPendingColor,
+                      Styles.taskStatLabelPendingFont),
+                  _buildTaskStat(
+                      context.l10n.tasksTabDone,
+                      completedTasks.length,
+                      Styles.taskStatLabelDoneColor,
+                      Styles.taskStatLabelDoneFont),
                 ],
               ),
             ),
@@ -70,8 +79,7 @@ class TasksTab extends StatelessWidget {
                   if (pendingTasks.isNotEmpty) ...[
                     Text(
                       context.l10n.tasksTabPendingHeader(pendingTasks.length),
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: Styles.tasksCompletedPendingFont,
                     ),
                     SizedBox(height: Styles.smallGap),
                     ...pendingTasks
@@ -80,13 +88,9 @@ class TasksTab extends StatelessWidget {
                   ],
                   if (completedTasks.isNotEmpty) ...[
                     Text(
-                      context.l10n
-                          .tasksTabCompletedHeader(completedTasks.length),
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green),
-                    ),
+                        context.l10n
+                            .tasksTabCompletedHeader(completedTasks.length),
+                        style: Styles.tasksCompletedHeaderFont),
                     SizedBox(height: Styles.smallGap),
                     ...completedTasks
                         .map((task) => _buildTaskItem(task, context)),
@@ -103,7 +107,9 @@ class TasksTab extends StatelessWidget {
   Widget _buildTaskItem(Task task, BuildContext context) {
     return Card(
       margin: EdgeInsets.only(bottom: Styles.smallGap),
-      color: task.completed ? Colors.green.shade50 : Colors.white,
+      color: task.completed
+          ? Styles.taskCompletedBackColor
+          : Styles.taskUncompletedBackColor,
       child: ListTile(
         leading: Checkbox(
           value: task.completed,
@@ -214,7 +220,8 @@ class TasksTab extends StatelessWidget {
     }
   }
 
-  Widget _buildTaskStat(String label, int count, Color color) {
+  Widget _buildTaskStat(
+      String label, int count, Color color, TextStyle textStyle) {
     return Column(
       children: [
         Container(
@@ -226,8 +233,7 @@ class TasksTab extends StatelessWidget {
           ),
           child: Text(
             count.toString(),
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: color),
+            style: textStyle,
           ),
         ),
         SizedBox(height: Styles.tinyGap),
@@ -250,8 +256,7 @@ class TasksTab extends StatelessWidget {
       ),
       child: Text(
         text,
-        style:
-            TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+        style: Styles.taskPriorityFont[priority],
       ),
     );
   }
@@ -262,7 +267,7 @@ class TasksTab extends StatelessWidget {
         _getLocalizedCategory(context, category),
         style: Styles.taskCategory,
       ),
-      backgroundColor: Colors.grey.withValues(alpha: 0.1),
+      backgroundColor: Styles.taskCategoryBackColor.withValues(alpha: 0.1),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }

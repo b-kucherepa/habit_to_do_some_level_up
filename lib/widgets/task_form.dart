@@ -45,19 +45,19 @@ class _TaskFormState extends State<TaskForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(Styles.largeGap),
       child: Form(
         key: _formKey,
         child: ListView(
           children: [
             _buildBasicInfoFields(context),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             _buildDueDateSelector(context),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             _buildPrioritySelector(context),
-            SizedBox(height: 16),
+            SizedBox(height: Styles.largeGap),
             _buildCategorySelector(context),
-            SizedBox(height: 32),
+            SizedBox(height: Styles.titanicGap),
             _buildSaveButton(context),
           ],
         ),
@@ -81,7 +81,7 @@ class _TaskFormState extends State<TaskForm> {
             return null;
           },
         ),
-        SizedBox(height: 16),
+        SizedBox(height: Styles.largeGap),
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
@@ -90,7 +90,7 @@ class _TaskFormState extends State<TaskForm> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: 16),
+        SizedBox(height: Styles.largeGap),
         TextFormField(
           controller: _experienceController,
           decoration: InputDecoration(

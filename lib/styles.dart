@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class Styles {
   static const Color fallbackColor = Colors.grey;
+  static const Color fallbackFontColor = Colors.black;
   static const Color badAccent = Colors.red;
   static const Color warningAccent = Colors.orange;
   static const Color goodAccent = Colors.green;
@@ -42,6 +43,83 @@ abstract class Styles {
     5: Colors.purple
   };
 
+  static final Map<int, TextStyle> taskPriorityFont = {
+    1: TextStyle(
+        fontSize: 10, color: taskPriorityColor[1], fontWeight: FontWeight.bold),
+    2: TextStyle(
+        fontSize: 10, color: taskPriorityColor[2], fontWeight: FontWeight.bold),
+    3: TextStyle(
+        fontSize: 10, color: taskPriorityColor[3], fontWeight: FontWeight.bold),
+    4: TextStyle(
+        fontSize: 10, color: taskPriorityColor[4], fontWeight: FontWeight.bold),
+    5: TextStyle(
+        fontSize: 10, color: taskPriorityColor[5], fontWeight: FontWeight.bold)
+  };
+
+  static const Color taskStatLabelTotalColor = Colors.blue;
+  static const Color taskStatLabelPendingColor = Colors.orange;
+  static const Color taskStatLabelDoneColor = Colors.green;
+
+  static const TextStyle taskStatLabelTotalFont = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: taskStatLabelTotalColor);
+  static const TextStyle taskStatLabelPendingFont = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: taskStatLabelPendingColor);
+  static const TextStyle taskStatLabelDoneFont = TextStyle(
+      fontSize: 18, fontWeight: FontWeight.bold, color: taskStatLabelDoneColor);
+
+  static const tasksCompletedHeaderFont =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green);
+  static const tasksCompletedPendingFont =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+
+  static const Color taskScheduleDailyColor = Colors.blue;
+  static const Color taskScheduleWeeklyColor = Colors.green;
+  static const Color taskScheduleMonthlyColor = Colors.orange;
+  static const Color taskScheduleCustomColor = Colors.purple;
+
+  static const TextStyle taskScheduleFont = TextStyle(
+      fontSize: 10, color: taskScheduleDailyColor, fontWeight: FontWeight.bold);
+  static const TextStyle taskScheduleWeeklyFont = TextStyle(
+      fontSize: 10,
+      color: taskScheduleWeeklyColor,
+      fontWeight: FontWeight.bold);
+  static const TextStyle taskScheduleMonthlyFont = TextStyle(
+      fontSize: 10,
+      color: taskScheduleMonthlyColor,
+      fontWeight: FontWeight.bold);
+  static const TextStyle taskScheduleCustomFont = TextStyle(
+      fontSize: 10,
+      color: taskScheduleCustomColor,
+      fontWeight: FontWeight.bold);
+
+  static const TextStyle scheduleSelectorTitleFont =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+  static const TextStyle scheduleSelectorWeeklyTitleFont =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  static const TextStyle scheduleSelectorMonthlyTitleFont =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  static const TextStyle scheduleSelectorCustomTitleFont =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+
+  static const TextStyle characterStatItemCountFont =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+  static const TextStyle characterStatItemLabelFont =
+      TextStyle(fontSize: 12, color: Colors.grey);
+  static const Color characterStatItemBackColor =
+      Color.fromARGB(255, 192, 192, 192);
+
+  static const Color taskCompletedBackColor =
+      Color.fromARGB(255, 173, 255, 179);
+  static const Color taskUncompletedBackColor = Colors.white;
+  static const Color taskCategoryBackColor = Colors.grey;
+
+  static const Color habitCounterBackColor = Color.fromARGB(255, 195, 195, 195);
+
+  static const Color completeDayBackColor = Colors.blue;
   static const Color completeDayButtonColor = Colors.blue;
   static const Color completedHabitColor = Color.fromARGB(255, 188, 255, 191);
 
@@ -192,8 +270,9 @@ abstract class Styles {
   static const Icon characterTabToNextLevelIcon =
       Icon(Icons.flag, size: 20, color: Color.fromARGB(255, 25, 118, 210));
 
-  static const Icon overviewHabitsCountIcon =
+  static const Icon habitsDoneCountIcon =
       Icon(Icons.auto_awesome, color: goodAccent);
+
   static const Icon overviewTasksDueIcon =
       Icon(Icons.task, color: warningAccent);
   static const Icon overviewTasksDoneIcon =
@@ -204,12 +283,31 @@ abstract class Styles {
   static const Icon languageOptionIcon =
       Icon(Icons.language, size: 20, color: Colors.grey);
 
+  static const TextStyle characterOverviewCountFont =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  static const TextStyle characterOverviewLabelFont =
+      TextStyle(fontSize: 12, color: Colors.grey);
+  static const TextStyle characterStatItemDetailsFont =
+      TextStyle(fontSize: 10, color: Color.fromARGB(255, 199, 199, 199));
+
+  static const TextStyle characterTodayProgressFont =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+  static const Color characterTabExpCurveLabelColor = Colors.blue;
+  static const TextStyle characterTabExpCurveLabelFont = TextStyle(
+      fontSize: 12,
+      color: characterTabExpCurveLabelColor,
+      fontWeight: FontWeight.bold);
+
   static const Icon levelUpButtonIcon = Icon(Icons.celebration);
 
   static const Color taskDueCompletedColor = goodAccent;
   static const Color taskDueOverdueColor = badAccent;
   static const Color taskDueTodayColor = warningAccent;
   static const Color taskDueSoonColor = neutralAccent;
+
+  static const Color characterProgressIndicatorBackColor =
+      Color.fromARGB(255, 182, 182, 182);
+  static const Color characterProgressIndicatorFrontColor = Colors.blue;
 
   static const Icon taskDueCompletedIcon =
       Icon(Icons.calendar_today, size: 16, color: taskDueCompletedColor);

@@ -95,8 +95,8 @@ class _CharacterTabState extends State<CharacterTab> {
                 SizedBox(height: Styles.smallGap),
                 LinearProgressIndicator(
                   value: character.levelProgress,
-                  backgroundColor: Colors.grey.shade300,
-                  color: Colors.blue,
+                  backgroundColor: Styles.characterProgressIndicatorBackColor,
+                  color: Styles.characterProgressIndicatorFrontColor,
                   minHeight: Styles.smallGap,
                 ),
               ],
@@ -116,20 +116,14 @@ class _CharacterTabState extends State<CharacterTab> {
           Container(
             padding: EdgeInsets.all(Styles.smallGap),
             decoration: BoxDecoration(
-              color: Colors.blue.shade50,
+              color: Styles.characterStatItemBackColor,
               shape: BoxShape.circle,
             ),
             child: icon,
           ),
           SizedBox(height: Styles.tinyGap),
-          Text(
-            value,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            label,
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          ),
+          Text(value, style: Styles.characterStatItemCountFont),
+          Text(label, style: Styles.characterStatItemLabelFont),
         ],
       ),
     );
@@ -140,9 +134,11 @@ class _CharacterTabState extends State<CharacterTab> {
       padding: EdgeInsets.symmetric(
           horizontal: Styles.mediumGap, vertical: Styles.smallGap),
       decoration: BoxDecoration(
-        color: Colors.blue.withValues(alpha: 0.1),
+        color: Styles.characterTabExpCurveLabelColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(Styles.smallRadius),
-        border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
+        border: Border.all(
+            color:
+                Styles.characterTabExpCurveLabelColor.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -150,12 +146,10 @@ class _CharacterTabState extends State<CharacterTab> {
           Styles.characterTabExpCurveLabelIcon,
           SizedBox(width: Styles.smallGap),
           Text(
-            context.l10n.expCurveLabel(
-                character.curveExponent.toStringAsFixed(1),
-                character.experienceMultiplier.toInt()),
-            style: TextStyle(
-                fontSize: 12, color: Colors.blue, fontWeight: FontWeight.bold),
-          ),
+              context.l10n.expCurveLabel(
+                  character.curveExponent.toStringAsFixed(1),
+                  character.experienceMultiplier.toInt()),
+              style: Styles.characterTabExpCurveLabelFont),
         ],
       ),
     );
@@ -188,16 +182,14 @@ class _CharacterTabState extends State<CharacterTab> {
                 children: [
                   Text(
                     context.l10n.todaysProgress,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: Styles.characterTodayProgressFont,
                   ),
                   SizedBox(height: Styles.largeGap),
                   Row(
                     children: [
-                      _buildOverviewCard(
-                          context.l10n.habitsDone,
-                          '$completedHabitsCount',
-                          Styles.overviewHabitsCountIcon,
-                          subtitle: context.l10n
+                      _buildOverviewCard(context.l10n.habitsDone,
+                          '$completedHabitsCount', Styles.habitsDoneCountIcon,
+                          details: context.l10n
                               .habitsNumberToday(todaysHabits.length)),
                       SizedBox(width: Styles.mediumGap),
                       _buildOverviewCard(context.l10n.tasksDue, '$todaysTasks',
@@ -230,7 +222,7 @@ class _CharacterTabState extends State<CharacterTab> {
   }
 
   Widget _buildOverviewCard(String title, String value, Icon icon,
-      {String? subtitle}) {
+      {String? details}) {
     return Expanded(
       child: Card(
         child: Padding(
@@ -241,16 +233,16 @@ class _CharacterTabState extends State<CharacterTab> {
               SizedBox(height: Styles.smallGap),
               Text(
                 value,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: Styles.characterOverviewCountFont,
               ),
               Text(
                 title,
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                style: Styles.characterOverviewLabelFont,
               ),
-              if (subtitle != null)
+              if (details != null)
                 Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                  details,
+                  style: Styles.characterStatItemDetailsFont,
                 ),
             ],
           ),

@@ -38,7 +38,9 @@ class HabitItemWidget extends StatelessWidget {
       shadowColor: habit.karmaColor,
       margin: EdgeInsets.symmetric(vertical: 4),
       color: backgroundColor ??
-          (isCompleted ? Colors.green.shade50 : Colors.white),
+          (isCompleted
+              ? Styles.taskCompletedBackColor
+              : Styles.taskUncompletedBackColor),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,7 +109,7 @@ class HabitItemWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: Styles.largeGap, vertical: Styles.tinyGap),
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
+            color: Styles.habitCounterBackColor,
             borderRadius: BorderRadius.circular(Styles.largeRadius),
           ),
           child: Text(
@@ -195,27 +197,32 @@ class HabitItemWidget extends StatelessWidget {
 
   Widget _buildScheduleBadge(BuildContext context) {
     Color color;
+    TextStyle? textStyle;
     String text;
 
     switch (habit.scheduleType) {
       case 'daily':
-        color = Colors.blue;
+        color = Styles.taskScheduleDailyColor;
         text = context.l10n.habitItemScheduleDaily;
+        textStyle = Styles.taskScheduleFont;
         break;
       case 'weekly':
-        color = Colors.green;
+        color = Styles.taskScheduleWeeklyColor;
         text = context.l10n.habitItemScheduleWeekly;
+        textStyle = Styles.taskScheduleWeeklyFont;
         break;
       case 'monthly':
-        color = Colors.orange;
+        color = Styles.taskScheduleMonthlyColor;
         text = context.l10n.habitItemScheduleMonthly;
+        textStyle = Styles.taskScheduleMonthlyFont;
         break;
       case 'custom':
-        color = Colors.purple;
+        color = Styles.taskScheduleCustomColor;
         text = context.l10n.habitItemScheduleCustom;
+        textStyle = Styles.taskScheduleCustomFont;
         break;
       default:
-        color = Colors.grey;
+        color = Styles.fallbackColor;
         text = habit.scheduleType;
     }
 
@@ -232,8 +239,7 @@ class HabitItemWidget extends StatelessWidget {
           SizedBox(width: Styles.smallGap),
           Text(
             text,
-            style: TextStyle(
-                fontSize: 10, color: color, fontWeight: FontWeight.bold),
+            style: textStyle,
           ),
         ]));
   }
