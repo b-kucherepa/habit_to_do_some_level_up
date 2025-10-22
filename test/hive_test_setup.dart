@@ -2,9 +2,9 @@ import 'package:hive/hive.dart';
 import 'dart:io';
 
 // Импортируем модели и их адаптеры
-import 'package:todo_rpg_app/models/player.dart';
-import 'package:todo_rpg_app/models/habit.dart';
-import 'package:todo_rpg_app/models/task.dart';
+import 'package:habit_to_do_some_level_up/models/player.dart';
+import 'package:habit_to_do_some_level_up/models/habit.dart';
+import 'package:habit_to_do_some_level_up/models/task.dart';
 
 class HiveTestHelper {
   static bool _isInitialized = false;

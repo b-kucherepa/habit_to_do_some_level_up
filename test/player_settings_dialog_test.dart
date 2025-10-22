@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/widgets/player_settings_dialog.dart';
-import 'package:todo_rpg_app/models/player.dart';
+import 'package:habit_to_do_some_level_up/widgets/player_settings_dialog.dart';
+import 'package:habit_to_do_some_level_up/models/player.dart';
 
 void main() {
   group('PlayerSettingsDialog Tests', () {

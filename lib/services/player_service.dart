@@ -1,7 +1,7 @@
 // player_service.dart
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/extensions/localization_extension.dart';
-import 'package:todo_rpg_app/models/player.dart';
+import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
+import 'package:habit_to_do_some_level_up/models/player.dart';
 import 'hive_service.dart';
 
 class PlayerService {

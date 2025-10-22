@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_rpg_app/extensions/localization_extension.dart';
-import 'package:todo_rpg_app/styles.dart';
+import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
+import 'package:habit_to_do_some_level_up/styles.dart';
 import '../models/habit.dart';
 import '../services/hive_service.dart';
 import '../services/experience_service.dart';

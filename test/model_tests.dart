@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo_rpg_app/models/player.dart';
-import 'package:todo_rpg_app/models/habit.dart';
-import 'package:todo_rpg_app/models/task.dart';
+import 'package:habit_to_do_some_level_up/models/player.dart';
+import 'package:habit_to_do_some_level_up/models/habit.dart';
+import 'package:habit_to_do_some_level_up/models/task.dart';
 
 void main() {
   group('Player Model Tests', () {

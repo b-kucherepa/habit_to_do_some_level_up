@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_rpg_app/extensions/localization_extension.dart';
-import 'package:todo_rpg_app/services/level_up_service.dart';
-import 'package:todo_rpg_app/styles.dart';
+import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
+import 'package:habit_to_do_some_level_up/services/level_up_service.dart';
+import 'package:habit_to_do_some_level_up/styles.dart';
 import '../models/habit.dart';
 import '../models/task.dart';
 import '../services/experience_service.dart';
@@ -40,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.l10n.appTitle),
+        title: Text("Habit To Do Some Level Up!"),
+        titleTextStyle: Styles.titleFont,
         backgroundColor: Styles.getAppBarColor(_selectedIndex),
       ),
       backgroundColor: Styles.tabsBackColor,

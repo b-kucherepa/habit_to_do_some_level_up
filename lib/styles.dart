@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Styles {
 //Commons:
   //Main:
+
   static const Color badAccent = Color.fromARGB(255, 255, 72, 72);
   static const Color warningAccent = Color.fromARGB(255, 255, 145, 0);
   static const Color goodAccent = Color.fromARGB(255, 0, 232, 8);
@@ -14,6 +15,12 @@ class Styles {
   static const Color shadowColor = Colors.black;
 
   static const Color contrastHeaderFontColor = foregroundColor;
+
+  static final TextStyle titleFont = TextStyle(
+      fontSize: 24,
+      color: foregroundColor,
+      fontWeight: FontWeight.w200,
+      fontFamily: 'Noto Sans');
 
   //Fallbacks
   static const Color fallbackColor = Colors.grey;

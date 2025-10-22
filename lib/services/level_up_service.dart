@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/widgets/level_up_dialog.dart';
+import 'package:habit_to_do_some_level_up/widgets/level_up_dialog.dart';
 
 class LevelUpService {
   final ValueNotifier<int?> levelUpNotifier = ValueNotifier<int?>(null);

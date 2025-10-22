@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/services/player_service.dart';
+import 'package:habit_to_do_some_level_up/services/player_service.dart';
 
 import '../services/day_completion_service.dart';
 import '../services/hive_service.dart';

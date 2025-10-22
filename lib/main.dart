@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_rpg_app/language_manager.dart';
+import 'package:habit_to_do_some_level_up/language_manager.dart';
 import 'l10n/app_localizations.dart';
 import 'models/player.dart';
 import 'models/habit.dart';
@@ -70,7 +70,7 @@ class MyAppContent extends StatelessWidget {
     levelUpService.setNavigatorKey(navigatorKey);
 
     return MaterialApp(
-      title: 'RPG Todo & Habits',
+      title: 'Habit To Do Some Level Up',
       navigatorKey: navigatorKey, // Ключ для навигатора
       locale: languageManager.locale,
       theme: ThemeData(

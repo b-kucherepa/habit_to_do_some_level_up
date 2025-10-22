@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/widgets/habit_item_widget.dart';
-import 'package:todo_rpg_app/models/habit.dart';
+import 'package:habit_to_do_some_level_up/widgets/habit_item_widget.dart';
+import 'package:habit_to_do_some_level_up/models/habit.dart';
 
 void main() {
   group('HabitItemWidget Tests', () {

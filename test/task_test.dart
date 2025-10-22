@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo_rpg_app/models/task.dart';
+import 'package:habit_to_do_some_level_up/models/task.dart';
 
 void main() {
   late Task task;

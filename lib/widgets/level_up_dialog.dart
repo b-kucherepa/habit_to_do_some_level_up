@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/extensions/localization_extension.dart';
-import 'package:todo_rpg_app/services/hive_service.dart';
-import 'package:todo_rpg_app/styles.dart';
+import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
+import 'package:habit_to_do_some_level_up/services/hive_service.dart';
+import 'package:habit_to_do_some_level_up/styles.dart';
 
 class LevelUpDialog extends StatelessWidget {
   final HiveService _hiveService = HiveService();
