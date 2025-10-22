@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../models/character.dart';
 import '../models/habit.dart';
 import '../models/task.dart';
@@ -66,7 +65,6 @@ class ExperienceService {
       final currentCount = habit.getTodayCompletionCount();
       if (currentCount > 0) {
         final character = _hiveService.getFirstCharacter();
-        final oldLevel = character.level;
 
         final updatedHabit = Habit(
           id: habit.id,
@@ -99,18 +97,7 @@ class ExperienceService {
 
         updatedCharacter.updateLevel();
         _hiveService.updateCharacter(updatedCharacter);
-
-        // Проверяем понижение уровня (хотя это маловероятно, но на всякий случай)
-        printIfLevelDecreased(updatedCharacter.level, oldLevel);
       }
-    }
-  }
-
-//Нужен ли вообще? Вынести ли вызов внутрь updateCharacter?
-  void printIfLevelDecreased(newLevel, oldLevel) {
-    if (newLevel < oldLevel) {
-      // Можно добавить уведомление о понижении уровня, если нужно
-      print('Level decreased! $oldLevel -> $newLevel');
     }
   }
 
@@ -170,15 +157,12 @@ class ExperienceService {
 
         updatedCharacter.updateLevel();
         _hiveService.updateCharacter(updatedCharacter);
-
-        printIfLevelDecreased(updatedCharacter.level, oldLevel);
       }
     }
   }
 
   void deleteHabit(Habit habit) {
     final character = _hiveService.getFirstCharacter();
-    final oldLevel = character.level;
 
     // Remove experience for all completions today
     final todayCount = habit.getTodayCompletionCount();
@@ -195,8 +179,6 @@ class ExperienceService {
 
       updatedCharacter.updateLevel();
       _hiveService.updateCharacter(updatedCharacter);
-
-      printIfLevelDecreased(updatedCharacter.level, oldLevel);
     }
 
     _hiveService.deleteHabit(habit);
@@ -204,7 +186,6 @@ class ExperienceService {
 
   void deleteTask(Task task) {
     final character = _hiveService.getFirstCharacter();
-    final oldLevel = character.level;
 
     // Remove experience if task was completed
     if (task.completed) {
@@ -220,8 +201,6 @@ class ExperienceService {
 
       updatedCharacter.updateLevel();
       _hiveService.updateCharacter(updatedCharacter);
-
-      printIfLevelDecreased(updatedCharacter.level, oldLevel);
     }
 
     _hiveService.deleteTask(task);
@@ -229,7 +208,6 @@ class ExperienceService {
 
   void addExperienceForDay(int experience) {
     final character = _hiveService.getFirstCharacter();
-    final oldLevel = character.level;
 
     final updatedCharacter = Character(
       id: character.id,
@@ -243,14 +221,11 @@ class ExperienceService {
 
     updatedCharacter.updateLevel();
     _hiveService.updateCharacter(updatedCharacter);
-
-    printIfLevelDecreased(updatedCharacter.level, oldLevel);
   }
 
   // Новый метод для прямого добавления опыта (может пригодиться)
   void addExperienceDirectly(int experience) {
     final character = _hiveService.getFirstCharacter();
-    final oldLevel = character.level;
 
     final updatedCharacter = Character(
       id: character.id,
@@ -264,8 +239,6 @@ class ExperienceService {
 
     updatedCharacter.updateLevel();
     _hiveService.updateCharacter(updatedCharacter);
-
-    printIfLevelDecreased(updatedCharacter.level, oldLevel);
   }
 
   // Метод для сброса опыта (для тестирования)

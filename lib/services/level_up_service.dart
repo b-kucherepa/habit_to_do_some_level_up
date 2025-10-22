@@ -24,7 +24,7 @@ class LevelUpService {
         });
       });
     } else {
-      print('Navigator key not set or context is null');
+      throw ('Navigator key not set or context is null');
     }
   }
 

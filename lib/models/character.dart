@@ -71,8 +71,6 @@ class Character {
   }
 
   void updateLevel() {
-    final oldLevel = level;
-
     if (experience <= startingExperience || curveExponent == 0) {
       level = startingLevel;
     } else {
@@ -80,10 +78,6 @@ class Character {
           pow(experience / experienceMultiplier, 1 / curveExponent) +
               startingLevel;
       level = levelValue.floor().clamp(startingLevel, double.infinity).toInt();
-    }
-
-    if (level > oldLevel) {
-      print('LEVEL UP! $oldLevel -> $level');
     }
   }
 
