@@ -17,7 +17,7 @@ class LevelUpDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Styles.getGap('XL')),
       ),
-      backgroundColor: Styles.levelUpBorderColor,
+      backgroundColor: Styles.levelUpBackColor,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -35,7 +35,7 @@ class LevelUpDialog extends StatelessWidget {
               color: Styles.levelUpLabelBackColor,
               borderRadius: BorderRadius.circular(Styles.getRadius('L')),
               border: Border.all(
-                  color: Styles.levelUpBorderColor, width: Styles.getGap('XS')),
+                  color: Styles.levelUpBackColor, width: Styles.getGap('XS')),
             ),
             child: Text(
               context.l10n.levelReached(newLevel),
@@ -55,7 +55,7 @@ class LevelUpDialog extends StatelessWidget {
             icon: Styles.levelUpButtonIcon,
             label: Text(context.l10n.continueButton),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Styles.levelUpAccentColor,
+              backgroundColor: Styles.levelUpButtonBackColor,
               foregroundColor: Styles.levelUpButtonFontColor,
               padding: EdgeInsets.symmetric(
                   horizontal: Styles.getGap('XL'),

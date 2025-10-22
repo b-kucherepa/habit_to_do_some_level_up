@@ -35,8 +35,13 @@ class HabitItemWidget extends StatelessWidget {
     final isDueToday = habit.isDueToday();
 
     return Card(
+      borderOnForeground: true,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(Styles.entryCardRadius), // Радиус скругления
+      ),
       shadowColor: Styles.shadowColor.withValues(alpha: 0.5),
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: EdgeInsets.only(bottom: Styles.getGap('S')),
       color: backgroundColor ??
           (isCompleted
               ? Styles.entryCompletedBackColor
@@ -63,15 +68,15 @@ class HabitItemWidget extends StatelessWidget {
 
   Widget _buildLeftCounterColumn(bool isDueToday) {
     return Container(
-      width: 60,
+      width: Styles.entryCardSidesWidth,
       decoration: BoxDecoration(
         color: habit.karmaColor,
-        borderRadius: const BorderRadius.horizontal(
-          left: Radius.circular(4),
+        borderRadius: BorderRadius.horizontal(
+          left: Radius.circular(Styles.entryCardRadius),
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Верхняя кнопка: +
           IconButton(
@@ -87,7 +92,7 @@ class HabitItemWidget extends StatelessWidget {
                 horizontal: Styles.getGap('M'), vertical: Styles.getGap('M')),
             decoration: BoxDecoration(
               color: Styles.habitCounterBackColor,
-              borderRadius: BorderRadius.circular(Styles.getRadius('L')),
+              borderRadius: BorderRadius.circular(Styles.entryCardRadius),
             ),
             child: Text(
               '$currentCount',
@@ -119,7 +124,7 @@ class HabitItemWidget extends StatelessWidget {
       padding: EdgeInsets.all(Styles.getGap('M')),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Первый ряд: название привычки
           Text(
@@ -134,7 +139,7 @@ class HabitItemWidget extends StatelessWidget {
             SizedBox(height: Styles.getGap('S')),
             Text(
               habit.description,
-              style: Styles.habitDescriptionFont,
+              style: Styles.entryDescriptionFont,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -180,15 +185,15 @@ class HabitItemWidget extends StatelessWidget {
 
   Widget _buildRightActionsColumn(BuildContext context) {
     return Container(
-      width: 50,
+      width: Styles.entryCardSidesWidth,
       decoration: BoxDecoration(
         color: Styles.shadowColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(Styles.getRadius('M')),
+          right: Radius.circular(Styles.entryCardRadius),
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Верхняя кнопка: Edit
           if (onEdit != null) ...[
@@ -233,7 +238,7 @@ class HabitItemWidget extends StatelessWidget {
         vertical: Styles.getGap('XXS'),
       ),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(Styles.getRadius('M')),
         border: Border.all(color: color.withOpacity(0.3)),
       ),

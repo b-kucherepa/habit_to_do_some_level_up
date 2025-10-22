@@ -158,8 +158,12 @@ class _PlayerTabState extends State<PlayerTab> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${context.l10n.progressToLevel} ${player.level + 1}'),
-            Text('${(player.levelProgress * 100).toStringAsFixed(1)}%'),
+            Text(
+              '${context.l10n.progressToLevel} ${player.level + 1}',
+              style: Styles.playerProgressBarFont,
+            ),
+            Text('${(player.levelProgress * 100).toStringAsFixed(1)}%',
+                style: Styles.playerProgressBarFont),
           ],
         ),
         SizedBox(height: Styles.getGap('S')),

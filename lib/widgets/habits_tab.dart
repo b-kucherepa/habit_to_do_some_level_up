@@ -75,6 +75,7 @@ class HabitsTab extends StatelessWidget {
           SizedBox(height: Styles.getGap('S')),
           Text(
             context.l10n.habitsTabEmptySubtitle,
+            textAlign: TextAlign.center,
             style: Styles.habitsEmptyHint,
           ),
         ],

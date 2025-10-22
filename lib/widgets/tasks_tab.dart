@@ -39,6 +39,7 @@ class TasksTab extends StatelessWidget {
                 Text(
                   context.l10n.tasksTabEmptySubtitle,
                   style: Styles.habitsEmptyHint,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -129,7 +130,7 @@ class TasksTab extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(Styles.getGap('M')),
+          padding: EdgeInsets.all(Styles.getGap('L')),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
             shape: BoxShape.circle,
@@ -140,7 +141,6 @@ class TasksTab extends StatelessWidget {
             style: textStyle,
           ),
         ),
-        SizedBox(height: Styles.getGap('XS')),
         Text(label, style: Styles.taskStatLabelDescriptionFont),
       ],
     );

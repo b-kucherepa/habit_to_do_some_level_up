@@ -263,7 +263,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
                       reservedSize: Styles.expPreviewXReservedSize,
                       interval: Styles.expPreviewXInterval,
                       getTitlesWidget: (value, meta) {
-                        return Text('L${value.toInt()}');
+                        return Text('${value.toInt()}');
                       },
                     ),
                   ),

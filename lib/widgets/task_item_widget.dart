@@ -23,14 +23,51 @@ class TaskItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final priorityColor = Styles.getTaskPriorityColor(task.priority);
+
     return Card(
+      borderOnForeground: true,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(Styles.entryCardRadius), // Радиус скругления
+      ),
+      shadowColor: Styles.shadowColor.withValues(alpha: 0.5),
       margin: EdgeInsets.only(bottom: Styles.getGap('S')),
       color: backgroundColor ??
           (task.completed
               ? Styles.entryCompletedBackColor
               : Styles.entryUncompletedBackColor),
-      child: ListTile(
-        leading: Checkbox(
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Левая колонка: Checkbox на фоне цвета приоритета
+            _buildLeftCheckboxColumn(context, priorityColor),
+
+            // Средняя колонка: контент
+            Expanded(
+              child: _buildContentColumn(context),
+            ),
+
+            // Правая колонка: действия
+            _buildRightActionsColumn(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLeftCheckboxColumn(BuildContext context, Color priorityColor) {
+    return Container(
+      width: Styles.entryCardSidesWidth,
+      decoration: BoxDecoration(
+        color: priorityColor,
+        borderRadius: BorderRadius.horizontal(
+          left: Radius.circular(Styles.entryCardRadius),
+        ),
+      ),
+      child: Center(
+        child: Checkbox(
           value: task.completed,
           onChanged: isEditable
               ? (value) {
@@ -38,87 +75,146 @@ class TaskItemWidget extends StatelessWidget {
                 }
               : null,
         ),
-        title: Text(
-          task.title,
-          style: task.completed
-              ? Styles.entryCompletedFont
-              : Styles.entryUncompletedFont,
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (task.description.isNotEmpty) Text(task.description),
-            SizedBox(height: Styles.getGap('XS')),
-            Row(
-              children: [
-                Styles.entryExperienceIcon,
-                SizedBox(width: Styles.getGap('XS')),
-                Text(context.l10n.tasksTabExperience(task.experience)),
-                SizedBox(width: Styles.getGap('M')),
-                Styles.getTaskStateIcon(task.primaryState),
-                SizedBox(width: Styles.getGap('XS')),
-                Text(
-                  _formatDueDate(context, task.dueDate),
-                  style: Styles.getTaskStateFont(task.primaryState),
-                ),
-                SizedBox(width: Styles.getGap('M')),
-                _buildPriorityBadge(task.priority),
-              ],
+      ),
+    );
+  }
+
+  Widget _buildContentColumn(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(Styles.getGap('M')),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // Первый ряд: заголовок
+          Text(
+            task.title,
+            style: task.completed
+                ? Styles.entryCompletedFont
+                : Styles.entryUncompletedFont,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+          // Второй ряд: описание (если есть)
+          if (task.description.isNotEmpty) ...[
+            SizedBox(height: Styles.getGap('S')),
+            Text(
+              task.description,
+              style: Styles.entryDescriptionFont,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildCategoryChip(context, task.category),
-            SizedBox(width: Styles.getGap('S')),
-            if (onEdit != null) ...[
-              IconButton(
-                icon: Styles.editEntryIcon,
-                onPressed: onEdit,
-                tooltip: context.l10n.tasksTabEditTooltip,
-              ),
-            ],
-            if (onDelete != null) ...[
-              IconButton(
-                icon: Styles.deleteEntryIcon,
-                onPressed: () => _showDeleteConfirmation(context, task),
-                tooltip: context.l10n.tasksTabDeleteTooltip,
-              ),
-            ],
+
+          SizedBox(height: Styles.getGap('S')),
+
+          // Третий ряд: XP и Due
+          _buildThirdRow(context),
+
+          // Четвертый ряд: Category
+          if (task.category.isNotEmpty) ...[
+            SizedBox(height: Styles.getGap('XS')),
+            _buildCategoryRow(context),
           ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildThirdRow(BuildContext context) {
+    return Row(
+      children: [
+        // Experience
+        Styles.entryExperienceIcon,
+        SizedBox(width: Styles.getGap('XS')),
+        Text(
+          context.l10n.tasksTabExperience(task.experience),
+          style: Styles.entrySubtextFont,
+        ),
+
+        SizedBox(width: Styles.getGap('M')),
+
+        // Due date
+        Styles.getTaskStateIcon(task.primaryState),
+        SizedBox(width: Styles.getGap('XS')),
+        Text(
+          _formatDueDate(context, task.dueDate),
+          style: Styles.getTaskStateFont(task.primaryState),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategoryRow(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: Styles.getGap('S'),
+            vertical: Styles.getGap('XS'),
+          ),
+          decoration: BoxDecoration(
+            color: Styles.taskCategoryBackColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(Styles.getRadius('S')),
+            border: Border.all(
+                color: Styles.taskCategoryBackColor.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.label_outline,
+                size: 16,
+                color: Styles.taskCategoryBackColor,
+              ),
+              SizedBox(width: Styles.getGap('XS')),
+              Text(
+                _getLocalizedCategory(context, task.category),
+                style: Styles.taskCategory,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRightActionsColumn(BuildContext context) {
+    return Container(
+      width: Styles.entryCardSidesWidth,
+      decoration: BoxDecoration(
+        color: Styles.shadowColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.horizontal(
+          right: Radius.circular(Styles.entryCardRadius),
         ),
       ),
-    );
-  }
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          // Верхняя кнопка: Edit
+          if (onEdit != null) ...[
+            IconButton(
+              icon: Styles.editEntryIcon,
+              onPressed: onEdit,
+              tooltip: context.l10n.tasksTabEditTooltip,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+            ),
+          ],
 
-  Widget _buildPriorityBadge(int priority) {
-    Color color = Styles.getTaskPriorityColor(priority);
-    String text = 'P$priority';
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: Styles.getGap('S'), vertical: Styles.getGap('S')),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(Styles.getRadius('S')),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
+          // Нижняя кнопка: Delete
+          if (onDelete != null) ...[
+            IconButton(
+              icon: Styles.deleteEntryIcon,
+              onPressed: () => _showDeleteConfirmation(context, task),
+              tooltip: context.l10n.tasksTabDeleteTooltip,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+            ),
+          ],
+        ],
       ),
-      child: Text(
-        text,
-        style: Styles.getTaskPriorityFont(priority),
-      ),
-    );
-  }
-
-  Widget _buildCategoryChip(BuildContext context, String category) {
-    return Chip(
-      label: Text(
-        _getLocalizedCategory(context, category),
-        style: Styles.taskCategory,
-      ),
-      backgroundColor: Styles.taskCategoryBackColor.withValues(alpha: 0.1),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
@@ -183,8 +279,10 @@ class TaskItemWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text(context.l10n.tasksTabDeleteConfirmationDelete,
-                  style: Styles.entryDeleteConfirmationButtonFont),
+              child: Text(
+                context.l10n.tasksTabDeleteConfirmationDelete,
+                style: Styles.entryDeleteConfirmationButtonFont,
+              ),
             ),
           ],
         );

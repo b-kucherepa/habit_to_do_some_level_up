@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Styles {
-//Universal:
-//Main:
+//Commons:
+  //Main:
   static const Color badAccent = Color.fromARGB(255, 255, 72, 72);
   static const Color warningAccent = Color.fromARGB(255, 255, 145, 0);
   static const Color goodAccent = Color.fromARGB(255, 0, 232, 8);
@@ -35,7 +35,7 @@ class Styles {
       Icon(Icons.add, color: foregroundColor);
 
   static const TextStyle addFormButtonFont =
-      TextStyle(fontSize: 18, color: foregroundColor);
+      TextStyle(fontSize: 24, color: foregroundColor);
   static const TextStyle addFormFont = TextStyle(fontSize: 16);
 
   //Tabs:
@@ -44,7 +44,7 @@ class Styles {
   static const Color playerAccentColor = Color.fromARGB(255, 0, 140, 255);
   static const Color habitAccentColor = Color.fromARGB(255, 0, 199, 7);
   static const Color taskAccentColor = Color.fromARGB(255, 131, 0, 231);
-  static const Color levelUpAccentColor = Color.fromARGB(255, 255, 157, 0);
+  static const Color levelUpAccentColor = Color.fromARGB(255, 255, 179, 0);
 
   static Color getAppBarColor(int index) =>
       _appBarColor[index] ?? fallbackColor;
@@ -59,37 +59,51 @@ class Styles {
   static const Icon habitsTabIcon = Icon(Icons.auto_graph_outlined);
   static const Icon tasksTabIcon = Icon(Icons.assignment_turned_in_outlined);
 
-  //Entries:
+  //Common entries:
   static const Color entryUncompletedBackColor = foregroundColor;
   static const Color entryCompletedBackColor =
-      Color.fromARGB(255, 219, 255, 221);
+      Color.fromARGB(255, 236, 255, 237);
 
-  static const Icon editEntryIcon =
-      Icon(Icons.edit_note_outlined, color: Colors.grey, size: 20);
-  static const Icon deleteEntryIcon =
-      Icon(Icons.delete_outline, color: Colors.grey, size: 20);
-  static const Icon entryExperienceIcon =
-      Icon(Icons.star, size: 16, color: Colors.amber);
+  static final Icon editEntryIcon =
+      Icon(Icons.edit_note_outlined, color: Colors.grey, size: getGap('XL'));
+  static final Icon deleteEntryIcon =
+      Icon(Icons.delete_outline, color: Colors.grey, size: getGap('XL'));
 
-  static const TextStyle entrySubtextFont = TextStyle(fontSize: 12);
-  static const TextStyle entryDeleteConfirmationMessageFont = TextStyle(
+  static final Icon entryExperienceIcon =
+      Icon(Icons.star, size: 20, color: Colors.amber);
+
+  static const TextStyle entryCompletedFont = TextStyle(
+    fontSize: 18,
+    decoration: TextDecoration.lineThrough,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle entryUncompletedFont = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle entryInactiveFont = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+    color: Colors.grey,
+  );
+
+  static const TextStyle entryDescriptionFont = TextStyle(
     fontSize: 12,
+    color: Color.fromARGB(255, 100, 100, 100),
+  );
+
+  static const TextStyle entrySubtextFont = TextStyle(fontSize: 14);
+
+  static const TextStyle entryDeleteConfirmationMessageFont = TextStyle(
+    fontSize: 14,
     color: Colors.deepOrange,
   );
   static const TextStyle entryDeleteConfirmationButtonFont = TextStyle(
     color: Colors.red,
   );
-  static const TextStyle entryCompletedFont = TextStyle(
-    decoration: TextDecoration.lineThrough,
-    fontWeight: FontWeight.normal,
-  );
-  static const TextStyle entryUncompletedFont = TextStyle(
-    fontWeight: FontWeight.normal,
-  );
-  static const TextStyle entryInactiveFont = TextStyle(
-    fontWeight: FontWeight.normal,
-    color: Colors.grey,
-  );
+
+  static double entryCardSidesWidth = 48;
+  static double entryCardRadius = getRadius('M');
 
 //Settings:
   static const Icon settingsIcon = Icon(Icons.settings, color: Colors.blue);
@@ -130,7 +144,7 @@ class Styles {
   static const Color playerTitleCardBackColor = backgroundColor;
 
   static const TextStyle playerGoal = TextStyle(
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     color: Color.fromARGB(255, 20, 107, 179),
   );
@@ -145,7 +159,7 @@ class Styles {
       Icon(Icons.trending_up, size: 16, color: Colors.blue);
 
   static const TextStyle playerTabExpCurveLabelFont = TextStyle(
-      fontSize: 12,
+      fontSize: 16,
       color: playerTabExpCurveLabelColor,
       fontWeight: FontWeight.bold);
 
@@ -153,6 +167,7 @@ class Styles {
   static const Color playerProgressIndicatorBackColor =
       Color.fromARGB(255, 182, 182, 182);
   static const Color playerProgressIndicatorFrontColor = neutralAccent;
+  static const TextStyle playerProgressBarFont = TextStyle(fontSize: 16);
 
   //Stats:
   static const Color playerStatItemBackColor = foregroundColor;
@@ -169,7 +184,7 @@ class Styles {
   static const TextStyle playerStatItemCountFont =
       TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
   static const TextStyle playerStatItemLabelFont =
-      TextStyle(fontSize: 12, color: Colors.grey);
+      TextStyle(fontSize: 14, color: Colors.grey);
   static const TextStyle playerStatItemDetailsFont =
       TextStyle(fontSize: 14, color: Color.fromARGB(255, 199, 199, 199));
 
@@ -185,18 +200,13 @@ class Styles {
       Icon(Icons.warning, size: 24, color: badAccent);
 
   static const TextStyle playerOverviewCountFont =
-      TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   static const TextStyle playerOverviewLabelFont =
-      TextStyle(fontSize: 16, color: Colors.grey);
+      TextStyle(fontSize: 14, color: Colors.grey);
 
 //Habits:
   static const Icon habitsTabLargeIcon =
       Icon(Icons.auto_graph_outlined, size: 64, color: Colors.grey);
-
-  static const TextStyle habitDescriptionFont = TextStyle(
-    fontSize: 12,
-    color: Color.fromARGB(255, 100, 100, 100),
-  );
 
   static const TextStyle habitsEmptyHint = TextStyle(
     fontSize: 20,
@@ -206,10 +216,10 @@ class Styles {
 
   //Habit entry bar:
   static const Icon habitCompletionMinIcon =
-      Icon(Icons.check, size: 14, color: Colors.blue);
+      Icon(Icons.check, size: 20, color: Colors.blue);
 
   static const Icon habitRepetitionIcon =
-      Icon(Icons.repeat, size: 14, color: Colors.black);
+      Icon(Icons.repeat, size: 20, color: Colors.black);
 
   static const TextStyle habitNotTodayFont = TextStyle(
     fontSize: 12,
@@ -225,7 +235,7 @@ class Styles {
   static const TextStyle habitTodayCountFont = TextStyle(
     color: Colors.green,
     fontWeight: FontWeight.bold,
-    fontSize: 12,
+    fontSize: 16,
   );
 
   static const TextStyle counterActiveFont = TextStyle(
@@ -239,6 +249,49 @@ class Styles {
     fontWeight: FontWeight.bold,
     color: Colors.grey,
   );
+
+  //Habit schedule:
+  static Color getHabitScheduleColor(String index) =>
+      _habitScheduleColor[index] ?? fallbackColor;
+
+  static const Map<String, Color> _habitScheduleColor = {
+    'daily': Colors.blue,
+    'weekly': Colors.green,
+    'monthly': Colors.orange,
+    'custom': Colors.purple
+  };
+
+  static TextStyle getHabitScheduleFont(String index) =>
+      _habitScheduleFont[index] ?? fallbackFont;
+
+  static final Map<String, TextStyle> _habitScheduleFont = {
+    'daily': TextStyle(
+        fontSize: 14,
+        color: getHabitScheduleColor('daily'),
+        fontWeight: FontWeight.bold),
+    'weekly': TextStyle(
+        fontSize: 14,
+        color: getHabitScheduleColor('weekly'),
+        fontWeight: FontWeight.bold),
+    'monthly': TextStyle(
+        fontSize: 14,
+        color: getHabitScheduleColor('monthly'),
+        fontWeight: FontWeight.bold),
+    'custom': TextStyle(
+        fontSize: 14,
+        color: getHabitScheduleColor('custom'),
+        fontWeight: FontWeight.bold)
+  };
+
+  static TextStyle getHabitSelectorTitleFont(String index) =>
+      _habitSelectorTitleFont[index] ?? fallbackFont;
+
+  static final Map<String, TextStyle> _habitSelectorTitleFont = {
+    'daily': TextStyle(fontSize: 16),
+    'weekly': TextStyle(fontSize: 16),
+    'monthly': TextStyle(fontSize: 16),
+    'custom': TextStyle(fontSize: 16)
+  };
 
   //Karma:
   static Color getKarmaLevelColor(int index) =>
@@ -266,12 +319,14 @@ class Styles {
   //Tasks entry bar:
   static const Color taskCategoryBackColor = Colors.grey;
 
-  static const tasksCompletedHeaderFont =
-      TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green);
-  static const tasksCompletedPendingFont =
-      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  static const TextStyle taskCategory = TextStyle(fontSize: 14);
 
-//Tasks stats:
+  static const tasksCompletedHeaderFont =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green);
+  static const tasksCompletedPendingFont =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+  //Tasks stats:
   static const Color taskStatLabelTotalColor = Colors.blue;
   static const Color taskStatLabelPendingColor = Colors.orange;
   static const Color taskStatLabelDoneColor = Colors.green;
@@ -288,62 +343,18 @@ class Styles {
       fontSize: 18, fontWeight: FontWeight.bold, color: taskStatLabelDoneColor);
 
   static const TextStyle taskStatLabelDescriptionFont =
-      TextStyle(fontSize: 12, color: Colors.grey);
-  static const TextStyle taskCategory = TextStyle(fontSize: 10);
-
-  //Task schedule:
-  static Color getHabitScheduleColor(String index) =>
-      _habitScheduleColor[index] ?? fallbackColor;
-
-  static const Map<String, Color> _habitScheduleColor = {
-    'daily': Colors.blue,
-    'weekly': Colors.green,
-    'monthly': Colors.orange,
-    'custom': Colors.purple
-  };
-
-  static TextStyle getHabitScheduleFont(String index) =>
-      _habitScheduleFont[index] ?? fallbackFont;
-
-  static final Map<String, TextStyle> _habitScheduleFont = {
-    'daily': TextStyle(
-        fontSize: 10,
-        color: getHabitScheduleColor('daily'),
-        fontWeight: FontWeight.bold),
-    'weekly': TextStyle(
-        fontSize: 10,
-        color: getHabitScheduleColor('weekly'),
-        fontWeight: FontWeight.bold),
-    'monthly': TextStyle(
-        fontSize: 10,
-        color: getHabitScheduleColor('monthly'),
-        fontWeight: FontWeight.bold),
-    'custom': TextStyle(
-        fontSize: 10,
-        color: getHabitScheduleColor('custom'),
-        fontWeight: FontWeight.bold)
-  };
-
-  static TextStyle getHabitSelectorTitleFont(String index) =>
-      _habitSelectorTitleFont[index] ?? fallbackFont;
-
-  static final Map<String, TextStyle> _habitSelectorTitleFont = {
-    'daily': TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-    'weekly': TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-    'monthly': TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-    'custom': TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
-  };
+      TextStyle(fontSize: 16, color: Colors.grey);
 
   //Tasks priority:
   static Color getTaskPriorityColor(int index) =>
       _taskPriorityColor[index] ?? fallbackColor;
 
   static const Map<int, Color> _taskPriorityColor = {
-    1: Color.fromARGB(255, 0, 140, 255),
-    2: Color.fromARGB(255, 38, 222, 44),
-    3: Color.fromARGB(255, 255, 234, 0),
-    4: Color.fromARGB(255, 255, 142, 28),
-    5: Color.fromARGB(255, 231, 46, 46)
+    1: Color.fromARGB(255, 37, 121, 255),
+    2: Color.fromARGB(255, 25, 213, 255),
+    3: Color.fromARGB(255, 58, 252, 65),
+    4: Color.fromARGB(255, 255, 239, 20),
+    5: Color.fromARGB(255, 255, 47, 47)
   };
 
   static TextStyle getTaskPriorityFont(int index) =>
@@ -351,23 +362,23 @@ class Styles {
 
   static final Map<int, TextStyle> _taskPriorityFont = {
     1: TextStyle(
-        fontSize: 10,
+        fontSize: 16,
         color: getTaskPriorityColor(1),
         fontWeight: FontWeight.bold),
     2: TextStyle(
-        fontSize: 10,
+        fontSize: 16,
         color: getTaskPriorityColor(2),
         fontWeight: FontWeight.bold),
     3: TextStyle(
-        fontSize: 10,
+        fontSize: 16,
         color: getTaskPriorityColor(3),
         fontWeight: FontWeight.bold),
     4: TextStyle(
-        fontSize: 10,
+        fontSize: 16,
         color: getTaskPriorityColor(4),
         fontWeight: FontWeight.bold),
     5: TextStyle(
-        fontSize: 10,
+        fontSize: 16,
         color: getTaskPriorityColor(5),
         fontWeight: FontWeight.bold)
   };
@@ -388,13 +399,13 @@ class Styles {
 
   static final Map<String, Icon> _taskStateIcon = {
     'completed': Icon(Icons.calendar_today,
-        size: 16, color: getTaskStateColor('completed')),
+        size: 20, color: getTaskStateColor('completed')),
     'overdue': Icon(Icons.calendar_today,
-        size: 16, color: getTaskStateColor('overdue')),
+        size: 20, color: getTaskStateColor('overdue')),
     "today":
-        Icon(Icons.calendar_today, size: 16, color: getTaskStateColor('today')),
+        Icon(Icons.calendar_today, size: 20, color: getTaskStateColor('today')),
     'soon':
-        Icon(Icons.calendar_today, size: 16, color: getTaskStateColor('soon'))
+        Icon(Icons.calendar_today, size: 20, color: getTaskStateColor('soon'))
   };
 
   static TextStyle getTaskStateFont(String index) =>
@@ -408,13 +419,12 @@ class Styles {
   };
 
 //Level up:
-  static const Color levelUpLabelBackColor = Color.fromARGB(255, 255, 242, 223);
-  static const Color levelUpBorderColor = levelUpAccentColor;
+  static const Color levelUpBackColor = Color.fromARGB(255, 255, 249, 208);
 
   static const Icon levelUpLargeIcon = Icon(
     Icons.auto_awesome,
     size: 64,
-    color: Colors.amber,
+    color: levelUpAccentColor,
   );
 
   static const TextStyle levelUpCongratulations = TextStyle(
@@ -422,19 +432,24 @@ class Styles {
     fontWeight: FontWeight.bold,
     color: levelUpAccentColor,
   );
+  //Level label:
+  static const Color levelUpLabelBackColor = foregroundColor;
+
   static const TextStyle levelUpLabel = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: levelUpAccentColor,
   );
   static const TextStyle levelUpDetails = TextStyle(
-    fontSize: 14,
+    fontSize: 16,
     color: Color.fromARGB(255, 108, 108, 108),
     fontStyle: FontStyle.italic,
   );
 
   //Level up button:
-  static const Color levelUpButtonFontColor = levelUpAccentColor;
+  static const Color levelUpButtonFontColor = foregroundColor;
+  static const Color levelUpButtonBackColor = levelUpAccentColor;
+
   static const Icon levelUpButtonIcon = Icon(Icons.celebration);
 
 //Day completion:
@@ -479,4 +494,10 @@ class Styles {
     'L': 16,
     'XL': 20
   };
+
+  //20 - major title,
+  //18 - minor title,
+  //16 - important,
+  //14 - regular,
+  //12 - small
 }
