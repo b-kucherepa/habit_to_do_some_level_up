@@ -155,10 +155,10 @@ class TaskItemWidget extends StatelessWidget {
             vertical: Styles.getGap('XS'),
           ),
           decoration: BoxDecoration(
-            color: Styles.taskCategoryBackColor.withOpacity(0.1),
+            color: Styles.taskCategoryBackColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(Styles.getRadius('S')),
             border: Border.all(
-                color: Styles.taskCategoryBackColor.withOpacity(0.3)),
+                color: Styles.taskCategoryBackColor.withValues(alpha: 0.3)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
