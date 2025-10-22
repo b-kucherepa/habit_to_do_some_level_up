@@ -67,7 +67,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.completeDayHint),
-            SizedBox(height: Styles.gap['tiny']),
+            SizedBox(height: Styles.getGap('XS')),
             Text(
                 '${_formatDate(widget.targetDate)} (${widget.daysAgo} days ago)',
                 style: Styles.completeDayHint),
@@ -83,15 +83,14 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
     return Column(
       children: [
         Padding(
-            padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+            padding: EdgeInsets.all(Styles.getGap('L')),
             child: Text(
               context.l10n.markCompletedHabitsHint,
-              style: Styles.markCompletedHeader,
+              style: Styles.completeDayCompleteHeader,
             )),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.symmetric(
-                horizontal: Styles.gap['large'] ?? Styles.fallbackGap),
+            padding: EdgeInsets.symmetric(horizontal: Styles.getGap('L')),
             children:
                 widget.habits.map((habit) => _buildHabitItem(habit)).toList(),
           ),
@@ -123,13 +122,13 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
       },
       showScheduleInfo: false,
       showKarmaIndicator: true,
-      backgroundColor: isCompleted ? Styles.completedHabitColor : null,
+      backgroundColor: isCompleted ? Styles.entryCompletedBackColor : null,
     );
   }
 
   Widget _buildActionButtons() {
     return Container(
-      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+      padding: EdgeInsets.all(Styles.getGap('L')),
       child: Row(
         children: [
           Expanded(
@@ -138,7 +137,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
               child: Text(context.l10n.skipDayButton),
             ),
           ),
-          SizedBox(width: Styles.gap['large']),
+          SizedBox(width: Styles.getGap('L')),
           Expanded(
             child: ElevatedButton(
               onPressed: _completeDay,

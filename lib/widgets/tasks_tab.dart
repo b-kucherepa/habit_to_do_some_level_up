@@ -33,9 +33,9 @@ class TasksTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Styles.tasksTabLargeIcon,
-                SizedBox(height: Styles.gap['large']),
+                SizedBox(height: Styles.getGap('L')),
                 Text(context.l10n.tasksTabEmptyTitle),
-                SizedBox(height: Styles.gap['small']),
+                SizedBox(height: Styles.getGap('S')),
                 Text(
                   context.l10n.tasksTabEmptySubtitle,
                   style: Styles.habitsEmptyHint,
@@ -51,8 +51,7 @@ class TasksTab extends StatelessWidget {
         return Column(
           children: [
             Padding(
-              padding:
-                  EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+              padding: EdgeInsets.all(Styles.getGap('L')),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -76,25 +75,24 @@ class TasksTab extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                padding:
-                    EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+                padding: EdgeInsets.all(Styles.getGap('L')),
                 children: [
                   if (pendingTasks.isNotEmpty) ...[
                     Text(
                       context.l10n.tasksTabPendingHeader(pendingTasks.length),
                       style: Styles.tasksCompletedPendingFont,
                     ),
-                    SizedBox(height: Styles.gap['small']),
+                    SizedBox(height: Styles.getGap('S')),
                     ...pendingTasks
                         .map((task) => _buildTaskItem(task, context)),
-                    SizedBox(height: Styles.gap['large']),
+                    SizedBox(height: Styles.getGap('L')),
                   ],
                   if (completedTasks.isNotEmpty) ...[
                     Text(
                         context.l10n
                             .tasksTabCompletedHeader(completedTasks.length),
                         style: Styles.tasksCompletedHeaderFont),
-                    SizedBox(height: Styles.gap['small']),
+                    SizedBox(height: Styles.getGap('S')),
                     ...completedTasks
                         .map((task) => _buildTaskItem(task, context)),
                   ],
@@ -131,7 +129,7 @@ class TasksTab extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(Styles.gap['medium'] ?? Styles.fallbackGap),
+          padding: EdgeInsets.all(Styles.getGap('M')),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
             shape: BoxShape.circle,
@@ -142,8 +140,8 @@ class TasksTab extends StatelessWidget {
             style: textStyle,
           ),
         ),
-        SizedBox(height: Styles.gap['tiny']),
-        Text(label, style: Styles.taskStatLabelDesctiptionFont),
+        SizedBox(height: Styles.getGap('XS')),
+        Text(label, style: Styles.taskStatLabelDescriptionFont),
       ],
     );
   }

@@ -35,174 +35,191 @@ class HabitItemWidget extends StatelessWidget {
     final isDueToday = habit.isDueToday();
 
     return Card(
-      shadowColor: habit.karmaColor,
-      margin: EdgeInsets.symmetric(vertical: 4),
+      shadowColor: Styles.shadowColor.withValues(alpha: 0.5),
+      margin: const EdgeInsets.symmetric(vertical: 4),
       color: backgroundColor ??
           (isCompleted
-              ? Styles.taskCompletedBackColor
-              : Styles.taskUncompletedBackColor),
+              ? Styles.entryCompletedBackColor
+              : Styles.entryUncompletedBackColor),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (showKarmaIndicator) _buildKarmaIndicator(),
+            // Левая колонка: Counter на фоне karma цвета
+            _buildLeftCounterColumn(isDueToday),
+
+            // Средняя часть: контент
             Expanded(
-              child: _buildCardContent(context, isDueToday),
+              child: _buildContentColumn(context, isDueToday),
             ),
+
+            // Правая колонка: действия
+            _buildRightActionsColumn(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCardContent(BuildContext context, bool isDueToday) {
-    TextStyle titleFontStyle;
+  Widget _buildLeftCounterColumn(bool isDueToday) {
+    return Container(
+      width: 60,
+      decoration: BoxDecoration(
+        color: habit.karmaColor,
+        borderRadius: const BorderRadius.horizontal(
+          left: Radius.circular(4),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Верхняя кнопка: +
+          IconButton(
+            icon: Styles.habitCounterIncreaseIcon,
+            onPressed: isEditable && isDueToday ? onIncrement : null,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+          ),
 
-    if (habit.isCompletedToday) {
-      titleFontStyle = Styles.entryCompletedFont;
-    } else if (isDueToday) {
-      titleFontStyle = Styles.entryUncompletedFont;
-    } else {
-      titleFontStyle = Styles.entryInactiveFont;
-    }
+          // Счетчик
+          Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: Styles.getGap('M'), vertical: Styles.getGap('M')),
+            decoration: BoxDecoration(
+              color: Styles.habitCounterBackColor,
+              borderRadius: BorderRadius.circular(Styles.getRadius('L')),
+            ),
+            child: Text(
+              '$currentCount',
+              style: isDueToday
+                  ? Styles.counterActiveFont
+                  : Styles.counterInactiveFont,
+              textAlign: TextAlign.center,
+            ),
+          ),
+
+          // Нижняя кнопка: -
+          IconButton(
+            icon: Styles.habitCounterDecreaseIcon,
+            onPressed: isEditable && isDueToday && currentCount > 0
+                ? onDecrement
+                : null,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContentColumn(BuildContext context, bool isDueToday) {
+    final titleStyle = _getTitleStyle(isDueToday);
 
     return Padding(
-      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      padding: EdgeInsets.all(Styles.getGap('M')),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Counter controls
-          _buildCounterControls(isDueToday),
-          SizedBox(width: Styles.gap['large']),
-          // Title and subtitle
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(habit.title, style: titleFontStyle),
-                SizedBox(height: Styles.gap['tiny']),
-                _buildSubtitle(context, isDueToday),
-              ],
-            ),
+          // Первый ряд: название привычки
+          Text(
+            habit.title,
+            style: titleStyle,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
-          // Trailing actions
-          _buildTrailing(context, isDueToday),
+
+          // Второй ряд: описание (если есть)
+          if (habit.description.isNotEmpty) ...[
+            SizedBox(height: Styles.getGap('S')),
+            Text(
+              habit.description,
+              style: Styles.habitDescriptionFont,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+
+          SizedBox(height: Styles.getGap('S')),
+
+          // Третий ряд: exp, min и repeat
+          _buildMetaInfoRow(context),
         ],
       ),
     );
   }
 
-  Widget _buildCounterControls(bool isDueToday) {
+  Widget _buildMetaInfoRow(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
       children: [
-        IconButton(
-          icon: Styles.counterDecreaseIcon,
-          onPressed:
-              isEditable && isDueToday && currentCount > 0 ? onDecrement : null,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints(
-              minWidth: Styles.gap['titanict'] ?? Styles.fallbackGap,
-              minHeight: Styles.gap['titanict'] ?? Styles.fallbackGap),
+        // Experience
+        Styles.entryExperienceIcon,
+        SizedBox(width: Styles.getGap('XS')),
+        Text(
+          context.l10n.habitItemExperience(habit.experience),
+          style: Styles.entrySubtextFont,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: Styles.gap['large'] ?? Styles.fallbackGap,
-              vertical: Styles.gap['tiny'] ?? Styles.fallbackGap),
-          decoration: BoxDecoration(
-            color: Styles.habitCounterBackColor,
-            borderRadius: BorderRadius.circular(
-                Styles.radius['large'] ?? Styles.fallbackRadius),
-          ),
-          child: Text(
-            '$currentCount',
-            style:
-                isDueToday ? Styles.activeCountFont : Styles.inactiveCountFont,
-          ),
+
+        SizedBox(width: Styles.getGap('M')),
+
+        // Minimum completion
+        Styles.habitCompletionMinIcon,
+        SizedBox(width: Styles.getGap('XS')),
+        Text(
+          context.l10n.habitItemMinCompletion(habit.minCompletionCount),
+          style: Styles.entrySubtextFont,
         ),
-        IconButton(
-          icon: Styles.counterIncreaseIcon,
-          onPressed: isEditable && isDueToday ? onIncrement : null,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints(minWidth: 36, minHeight: 36),
-        ),
+
+        if (showScheduleInfo) ...[
+          SizedBox(width: Styles.getGap('M')),
+          _buildScheduleBadge(context),
+        ],
       ],
     );
   }
 
-  Widget _buildSubtitle(BuildContext context, bool isDueToday) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (habit.description.isNotEmpty)
-          Text(
-            habit.description,
-            style: Styles.habitDescriptionFont,
-          ),
-        if (habit.description.isNotEmpty) SizedBox(height: Styles.gap['tiny']),
-        Row(
-          children: [
-            Styles.entryExperienceIcon,
-            SizedBox(width: Styles.gap['tiny']),
-            Text(context.l10n.habitItemExperience(habit.experience),
-                style: Styles.entrySubtextFont),
-            SizedBox(width: Styles.gap['small']),
-            Styles.habitCompletionMinIcon,
-            SizedBox(width: Styles.gap['tiny']),
-            Text(context.l10n.habitItemMinCompletion(habit.minCompletionCount),
-                style: Styles.entrySubtextFont),
-            SizedBox(width: Styles.gap['small']),
-            if (showScheduleInfo) ...[
-              _buildScheduleBadge(context),
-            ],
-            if (currentCount > 0 && isDueToday) ...[
-              SizedBox(width: Styles.gap['large']),
-              Text(
-                context.l10n.habitItemTodayCount(currentCount),
-                style: Styles.habitTodayCountFont,
-              ),
-            ],
+  Widget _buildRightActionsColumn(BuildContext context) {
+    return Container(
+      width: 50,
+      decoration: BoxDecoration(
+        color: Styles.shadowColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.horizontal(
+          right: Radius.circular(Styles.getRadius('M')),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Верхняя кнопка: Edit
+          if (onEdit != null) ...[
+            IconButton(
+              icon: Styles.editEntryIcon,
+              onPressed: onEdit,
+              tooltip: context.l10n.habitItemEditTooltip,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+            ),
           ],
-        ),
-      ],
-    );
-  }
 
-  Widget _buildTrailing(BuildContext context, bool isDueToday) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (!isDueToday)
-          Text(
-            context.l10n.habitItemNotToday,
-            style: Styles.habitNotTodayFont,
-          ),
-        if (onEdit != null) ...[
-          SizedBox(height: Styles.gap['small']),
-          IconButton(
-            icon: Styles.editEntryIcon,
-            onPressed: onEdit,
-            tooltip: context.l10n.habitItemEditTooltip,
-          ),
+          // Нижняя кнопка: Delete
+          if (onDelete != null) ...[
+            IconButton(
+              icon: Styles.deleteEntryIcon,
+              onPressed: () => _showDeleteConfirmation(context),
+              tooltip: context.l10n.habitItemDeleteTooltip,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+            ),
+          ],
         ],
-        if (onDelete != null) ...[
-          SizedBox(height: Styles.gap['small']),
-          IconButton(
-            icon: Styles.deleteEntryIcon,
-            onPressed: () => _showDeleteConfirmation(context),
-            tooltip: context.l10n.habitItemDeleteTooltip,
-          ),
-        ],
-      ],
+      ),
     );
   }
 
   Widget _buildScheduleBadge(BuildContext context) {
-    Color color =
-        Styles.taskScheduleColor[habit.scheduleType] ?? Styles.fallbackColor;
-    TextStyle? textStyle = Styles.taskScheduleFont[habit.scheduleType];
-    String text = switch (habit.scheduleType) {
+    final color = Styles.getHabitScheduleColor(habit.scheduleType);
+    final textStyle = Styles.getHabitScheduleFont(habit.scheduleType);
+    final text = switch (habit.scheduleType) {
       'daily' => context.l10n.habitItemScheduleDaily,
       'weekly' => context.l10n.habitItemScheduleWeekly,
       'monthly' => context.l10n.habitItemScheduleMonthly,
@@ -211,37 +228,34 @@ class HabitItemWidget extends StatelessWidget {
     };
 
     return Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: Styles.gap['small'] ?? Styles.fallbackGap,
-            vertical: Styles.gap['minimum'] ?? Styles.fallbackGap),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius:
-              BorderRadius.circular(Styles.gap['medium'] ?? Styles.fallbackGap),
-          border: Border.all(color: color.withValues(alpha: 0.3)),
-        ),
-        child: Row(children: [
-          Styles.habitRepetitionIcon,
-          SizedBox(width: Styles.gap['small']),
-          Text(
-            text,
-            style: textStyle,
-          ),
-        ]));
-  }
-
-  Widget _buildKarmaIndicator() {
-    return Container(
-      width: Styles.gap['tiny'],
-      margin: EdgeInsets.only(right: Styles.gap['small'] ?? Styles.fallbackGap),
+      padding: EdgeInsets.symmetric(
+        horizontal: Styles.getGap('S'),
+        vertical: Styles.getGap('XXS'),
+      ),
       decoration: BoxDecoration(
-        color: habit.karmaColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(Styles.gap['tiny'] ?? Styles.fallbackGap),
-          bottomLeft: Radius.circular(Styles.gap['tiny'] ?? Styles.fallbackGap),
-        ),
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(Styles.getRadius('M')),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Styles.habitRepetitionIcon,
+          SizedBox(width: Styles.getGap('S')),
+          Text(text, style: textStyle),
+        ],
       ),
     );
+  }
+
+  TextStyle _getTitleStyle(bool isDueToday) {
+    if (habit.isCompletedToday) {
+      return Styles.entryCompletedFont;
+    } else if (isDueToday) {
+      return Styles.entryUncompletedFont;
+    } else {
+      return Styles.entryInactiveFont;
+    }
   }
 
   void _showDeleteConfirmation(BuildContext context) {
@@ -261,8 +275,7 @@ class HabitItemWidget extends StatelessWidget {
                     .habitItemDeleteConfirmationMessage(habit.title)),
                 if (currentCount > 0)
                   Padding(
-                    padding: EdgeInsets.only(
-                        top: Styles.gap['small'] ?? Styles.fallbackGap),
+                    padding: EdgeInsets.only(top: Styles.getGap('S')),
                     child: Text(
                       context.l10n.habitItemDeleteConfirmationWarning(xpAmount),
                       style: Styles.entryDeleteConfirmationMessageFont,
@@ -284,7 +297,7 @@ class HabitItemWidget extends StatelessWidget {
                   context.l10n.habitItemDeleteConfirmationDelete,
                   style: Styles.entryDeleteConfirmationButtonFont,
                 ),
-              )
+              ),
             ],
           );
         },

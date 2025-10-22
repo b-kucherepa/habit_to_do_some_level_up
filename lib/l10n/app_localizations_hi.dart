@@ -45,8 +45,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get completeDayHint => 'छूटा हुआ दिन पूरा करें';
 
   @override
-  String get markCompletedHabitsHint =>
-      'इस दिन के लिए पूरी की गई आदतों को चिह्नित करें:';
+  String get markCompletedHabitsHint => 'इस दिन के लिए पूरी की गई आदतों को चिह्नित करें:';
 
   @override
   String get skipDayButton => 'इस दिन को छोड़ें';
@@ -201,8 +200,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get resetProgressTitle => 'प्रगति रीसेट करें?';
 
   @override
-  String get resetProgressDescription =>
-      'यह कार्रवाई स्थायी रूप से रीसेट कर देगी:';
+  String get resetProgressDescription => 'यह कार्रवाई स्थायी रूप से रीसेट कर देगी:';
 
   @override
   String get resetWarningExperience => 'सभी कैरेक्टर अनुभव और स्तर';
@@ -340,12 +338,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitFormSave => 'आदत सहेजें';
 
   @override
-  String get habitFormWeeklyError =>
-      'कृपया साप्ताहिक अनुसूची के लिए कम से कम एक दिन चुनें';
+  String get habitFormWeeklyError => 'कृपया साप्ताहिक अनुसूची के लिए कम से कम एक दिन चुनें';
 
   @override
-  String get habitFormMonthlyError =>
-      'कृपया मासिक अनुसूची के लिए कम से कम एक दिन चुनें';
+  String get habitFormMonthlyError => 'कृपया मासिक अनुसूची के लिए कम से कम एक दिन चुनें';
 
   @override
   String get habitFormCustomError => 'कृपया कस्टम अनुसूची के लिए अंतराल चुनें';
@@ -409,8 +405,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitsTabEmptyTitle => 'अभी तक कोई आदत नहीं!';
 
   @override
-  String get habitsTabEmptySubtitle =>
-      'अपनी पहली आदत जोड़ने के लिए + बटन दबाएं';
+  String get habitsTabEmptySubtitle => 'अपनी पहली आदत जोड़ने के लिए + बटन दबाएं';
 
   @override
   String get taskFormTitle => 'कार्य का शीर्षक';
@@ -471,8 +466,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tasksTabEmptyTitle => 'अभी तक कोई कार्य नहीं!';
 
   @override
-  String get tasksTabEmptySubtitle =>
-      'अपना पहला कार्य जोड़ने के लिए + बटन दबाएं';
+  String get tasksTabEmptySubtitle => 'अपना पहला कार्य जोड़ने के लिए + बटन दबाएं';
 
   @override
   String get tasksTabTotal => 'कुल';

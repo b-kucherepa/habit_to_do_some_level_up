@@ -34,7 +34,7 @@ class HabitsTab extends StatelessWidget {
         }
 
         return ListView.builder(
-          padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+          padding: EdgeInsets.all(Styles.getGap('L')),
           itemCount: habits.length,
           itemBuilder: (context, index) {
             final habit = habits[index];
@@ -70,9 +70,9 @@ class HabitsTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Styles.habitsTabLargeIcon,
-          SizedBox(height: Styles.gap['large']),
+          SizedBox(height: Styles.getGap('L')),
           Text(context.l10n.habitsTabEmptyTitle),
-          SizedBox(height: Styles.gap['small']),
+          SizedBox(height: Styles.getGap('S')),
           Text(
             context.l10n.habitsTabEmptySubtitle,
             style: Styles.habitsEmptyHint,

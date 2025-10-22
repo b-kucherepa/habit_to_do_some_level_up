@@ -74,6 +74,7 @@ class MyAppContent extends StatelessWidget {
       navigatorKey: navigatorKey, // Ключ для навигатора
       locale: languageManager.locale,
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
       localizationsDelegates: [

@@ -24,12 +24,11 @@ class TaskItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin:
-          EdgeInsets.only(bottom: Styles.gap['small'] ?? Styles.fallbackGap),
+      margin: EdgeInsets.only(bottom: Styles.getGap('S')),
       color: backgroundColor ??
           (task.completed
-              ? Styles.taskCompletedBackColor
-              : Styles.taskUncompletedBackColor),
+              ? Styles.entryCompletedBackColor
+              : Styles.entryUncompletedBackColor),
       child: ListTile(
         leading: Checkbox(
           value: task.completed,
@@ -49,20 +48,20 @@ class TaskItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (task.description.isNotEmpty) Text(task.description),
-            SizedBox(height: Styles.gap['tiny']),
+            SizedBox(height: Styles.getGap('XS')),
             Row(
               children: [
                 Styles.entryExperienceIcon,
-                SizedBox(width: Styles.gap['tiny']),
+                SizedBox(width: Styles.getGap('XS')),
                 Text(context.l10n.tasksTabExperience(task.experience)),
-                SizedBox(width: Styles.gap['medium'] ?? Styles.fallbackGap),
-                Styles.taskStateIcon[task.primaryState] ?? Styles.fallbackIcon,
-                SizedBox(width: Styles.gap['tiny']),
+                SizedBox(width: Styles.getGap('M')),
+                Styles.getTaskStateIcon(task.primaryState),
+                SizedBox(width: Styles.getGap('XS')),
                 Text(
                   _formatDueDate(context, task.dueDate),
-                  style: Styles.taskStateFont[task.primaryState],
+                  style: Styles.getTaskStateFont(task.primaryState),
                 ),
-                SizedBox(width: Styles.gap['medium'] ?? Styles.fallbackGap),
+                SizedBox(width: Styles.getGap('M')),
                 _buildPriorityBadge(task.priority),
               ],
             ),
@@ -72,7 +71,7 @@ class TaskItemWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildCategoryChip(context, task.category),
-            SizedBox(width: Styles.gap['small']),
+            SizedBox(width: Styles.getGap('S')),
             if (onEdit != null) ...[
               IconButton(
                 icon: Styles.editEntryIcon,
@@ -94,22 +93,20 @@ class TaskItemWidget extends StatelessWidget {
   }
 
   Widget _buildPriorityBadge(int priority) {
-    Color color = Styles.taskPriorityColor[priority] ?? Styles.fallbackColor;
+    Color color = Styles.getTaskPriorityColor(priority);
     String text = 'P$priority';
 
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: Styles.gap['small'] ?? Styles.fallbackGap,
-          vertical: Styles.gap['tiny'] ?? Styles.fallbackGap),
+          horizontal: Styles.getGap('S'), vertical: Styles.getGap('S')),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(
-            Styles.radius['small'] ?? Styles.fallbackRadius),
+        borderRadius: BorderRadius.circular(Styles.getRadius('S')),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         text,
-        style: Styles.taskPriorityFont[priority],
+        style: Styles.getTaskPriorityFont(priority),
       ),
     );
   }
@@ -170,8 +167,7 @@ class TaskItemWidget extends StatelessWidget {
               Text(context.l10n.tasksTabDeleteConfirmationMessage(task.title)),
               if (task.completed)
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: Styles.gap['small'] ?? Styles.fallbackGap),
+                  padding: EdgeInsets.only(top: Styles.getGap('S')),
                   child: Text(
                     context.l10n
                         .tasksTabDeleteConfirmationWarning(task.experience),

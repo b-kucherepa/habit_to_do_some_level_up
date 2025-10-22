@@ -1,12 +1,12 @@
-name: todo_rpg_app
+name: "todo_rpg_app"
 description: "RPG-style Todo and Habits App"
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0'
+  sdk: ">=3.4.0"
 
 dependencies:
   flutter:

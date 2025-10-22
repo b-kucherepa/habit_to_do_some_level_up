@@ -45,19 +45,19 @@ class _TaskFormState extends State<TaskForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+      padding: EdgeInsets.all(Styles.getGap('L')),
       child: Form(
         key: _formKey,
         child: ListView(
           children: [
             _buildBasicInfoFields(context),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             _buildDueDateSelector(context),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             _buildPrioritySelector(context),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             _buildCategorySelector(context),
-            SizedBox(height: Styles.gap['titanict']),
+            SizedBox(height: Styles.getGap('XXL')),
             _buildSaveButton(context),
           ],
         ),
@@ -81,7 +81,7 @@ class _TaskFormState extends State<TaskForm> {
             return null;
           },
         ),
-        SizedBox(height: Styles.gap['large']),
+        SizedBox(height: Styles.getGap('L')),
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
@@ -90,7 +90,7 @@ class _TaskFormState extends State<TaskForm> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: Styles.gap['large']),
+        SizedBox(height: Styles.getGap('L')),
         TextFormField(
           controller: _experienceController,
           decoration: InputDecoration(
@@ -137,6 +137,8 @@ class _TaskFormState extends State<TaskForm> {
         Text(context.l10n.taskFormPriorityLabel(_priority),
             style: Styles.addFormFont),
         Slider(
+          thumbColor: Styles.taskAccentColor,
+          activeColor: Styles.getTaskPriorityColor(_priority),
           value: _priority.toDouble(),
           min: 1,
           max: 5,
@@ -177,8 +179,7 @@ class _TaskFormState extends State<TaskForm> {
       onPressed: _saveTask,
       style: ElevatedButton.styleFrom(
         backgroundColor: Styles.taskAccentColor,
-        padding: EdgeInsets.symmetric(
-            vertical: Styles.gap['large'] ?? Styles.fallbackGap),
+        padding: EdgeInsets.symmetric(vertical: Styles.getGap('L')),
       ),
       child: Text(
         widget.task != null

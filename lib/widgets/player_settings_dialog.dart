@@ -36,7 +36,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
       title: Row(
         children: [
           Styles.settingsIcon,
-          SizedBox(width: Styles.gap['small']),
+          SizedBox(width: Styles.getGap('S')),
           Text(context.l10n.progressSettings),
         ],
       ),
@@ -46,7 +46,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.goalMotivation),
-            SizedBox(height: Styles.gap['small']),
+            SizedBox(height: Styles.getGap('S')),
             TextField(
               controller: _goalController,
               decoration: InputDecoration(
@@ -55,13 +55,13 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
               ),
               maxLines: 2,
             ),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             Row(
               children: [
                 Styles.languageOptionIcon,
-                SizedBox(width: Styles.gap['small']),
+                SizedBox(width: Styles.getGap('S')),
                 Text(context.l10n.language),
-                SizedBox(width: Styles.gap['large']),
+                SizedBox(width: Styles.getGap('L')),
                 Expanded(
                   child: DropdownButton<Locale>(
                     value: languageManager.locale,
@@ -125,9 +125,9 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             Text(context.l10n.curveExponent),
-            SizedBox(height: Styles.gap['small']),
+            SizedBox(height: Styles.getGap('S')),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -145,7 +145,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
                     });
                   },
                 ),
-                SizedBox(height: Styles.gap['tiny']),
+                SizedBox(height: Styles.getGap('XS')),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,15 +157,15 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.gap['small']),
+            SizedBox(height: Styles.getGap('S')),
             Text(
               context.l10n
                   .curveExponentDescription(_curveExponent.toStringAsFixed(1)),
               style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             Text(context.l10n.experienceMultiplier),
-            SizedBox(height: Styles.gap['medium']),
+            SizedBox(height: Styles.getGap('M')),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -184,7 +184,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
                     });
                   },
                 ),
-                SizedBox(height: Styles.gap['tiny']),
+                SizedBox(height: Styles.getGap('XS')),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -196,13 +196,13 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.gap['small']),
+            SizedBox(height: Styles.getGap('S')),
             Text(
               context.l10n.experienceMultiplierDescription(
                   _experienceMultiplier.toStringAsFixed(0)),
               style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: Styles.gap['large']),
+            SizedBox(height: Styles.getGap('L')),
             _buildSystemPreview(),
           ],
         ),
@@ -236,11 +236,10 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(Styles.gap['medium'] ?? Styles.fallbackGap),
+      padding: EdgeInsets.all(Styles.getGap('M')),
       decoration: BoxDecoration(
         color: Styles.expPreviewChartBackColor,
-        borderRadius: BorderRadius.circular(
-            Styles.radius['small'] ?? Styles.fallbackRadius),
+        borderRadius: BorderRadius.circular(Styles.getRadius('S')),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -249,7 +248,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
             context.l10n.levelProgressionPreview,
             style: Styles.expPreviewTitle,
           ),
-          SizedBox(height: Styles.gap['small']),
+          SizedBox(height: Styles.getGap('S')),
           SizedBox(
             width: Styles.expPreviewWidth,
             height: Styles.expPreviewHeight,
@@ -307,7 +306,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
               ),
             ),
           ),
-          SizedBox(height: Styles.gap['small']),
+          SizedBox(height: Styles.getGap('S')),
           Text(
             context.l10n.levelFormula(_experienceMultiplier.toStringAsFixed(0),
                 _curveExponent.toStringAsFixed(0)),
@@ -324,7 +323,7 @@ class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
     final maxCurveGap = Player.maxCurveExponent - Player.minCurveExponent;
     final hueGap = Styles.expPreviewMaxLineHue - Styles.expPreviewMinLineHue;
     final hueModifier = ((curveGap) / maxCurveGap) * hueGap;
-    final rawHue = Styles.isExpPreviewLineHueInverted
+    final rawHue = Styles.expPreviewLineIsHueInverted
         ? Styles.expPreviewMinLineHue + hueModifier
         : Styles.expPreviewMaxLineHue - hueModifier;
 

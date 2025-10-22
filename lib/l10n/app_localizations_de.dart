@@ -45,8 +45,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get completeDayHint => 'Verpassten Tag abschließen';
 
   @override
-  String get markCompletedHabitsHint =>
-      'Erledigte Gewohnheiten für diesen Tag markieren:';
+  String get markCompletedHabitsHint => 'Erledigte Gewohnheiten für diesen Tag markieren:';
 
   @override
   String get skipDayButton => 'Diesen Tag überspringen';
@@ -192,8 +191,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get karmaLevel => 'Karma-Level';
 
   @override
-  String get karmaDescription =>
-      'Dein Karma-Level spiegelt deine Beständigkeit wider.';
+  String get karmaDescription => 'Dein Karma-Level spiegelt deine Beständigkeit wider.';
 
   @override
   String get resetProgress => 'Fortschritt zurücksetzen';
@@ -217,8 +215,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get resetTasksUnaffected => 'Aufgaben sind nicht betroffen.';
 
   @override
-  String get resetCannotUndone =>
-      'Diese Aktion kann nicht rückgängig gemacht werden!';
+  String get resetCannotUndone => 'Diese Aktion kann nicht rückgängig gemacht werden!';
 
   @override
   String get resetCancel => 'Abbrechen';
@@ -341,16 +338,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get habitFormSave => 'Gewohnheit speichern';
 
   @override
-  String get habitFormWeeklyError =>
-      'Bitte wähle mindestens einen Tag für wöchentlichen Zeitplan';
+  String get habitFormWeeklyError => 'Bitte wähle mindestens einen Tag für wöchentlichen Zeitplan';
 
   @override
-  String get habitFormMonthlyError =>
-      'Bitte wähle mindestens einen Tag für monatlichen Zeitplan';
+  String get habitFormMonthlyError => 'Bitte wähle mindestens einen Tag für monatlichen Zeitplan';
 
   @override
-  String get habitFormCustomError =>
-      'Bitte Intervall für benutzerdefinierten Zeitplan auswählen';
+  String get habitFormCustomError => 'Bitte Intervall für benutzerdefinierten Zeitplan auswählen';
 
   @override
   String habitItemExperience(Object experience) {
@@ -411,8 +405,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get habitsTabEmptyTitle => 'Noch keine Gewohnheiten!';
 
   @override
-  String get habitsTabEmptySubtitle =>
-      'Tippe auf den + Button, um deine erste Gewohnheit hinzuzufügen';
+  String get habitsTabEmptySubtitle => 'Tippe auf den + Button, um deine erste Gewohnheit hinzuzufügen';
 
   @override
   String get taskFormTitle => 'Aufgabentitel';
@@ -473,8 +466,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tasksTabEmptyTitle => 'Noch keine Aufgaben!';
 
   @override
-  String get tasksTabEmptySubtitle =>
-      'Tippe auf den + Button, um deine erste Aufgabe hinzuzufügen';
+  String get tasksTabEmptySubtitle => 'Tippe auf den + Button, um deine erste Aufgabe hinzuzufügen';
 
   @override
   String get tasksTabTotal => 'Gesamt';

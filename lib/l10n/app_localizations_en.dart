@@ -338,16 +338,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitFormSave => 'Save Habit';
 
   @override
-  String get habitFormWeeklyError =>
-      'Please select at least one day for weekly schedule';
+  String get habitFormWeeklyError => 'Please select at least one day for weekly schedule';
 
   @override
-  String get habitFormMonthlyError =>
-      'Please select at least one day for monthly schedule';
+  String get habitFormMonthlyError => 'Please select at least one day for monthly schedule';
 
   @override
-  String get habitFormCustomError =>
-      'Please select interval for custom schedule';
+  String get habitFormCustomError => 'Please select interval for custom schedule';
 
   @override
   String habitItemExperience(Object experience) {
@@ -408,8 +405,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitsTabEmptyTitle => 'No habits yet!';
 
   @override
-  String get habitsTabEmptySubtitle =>
-      'Tap the + button to add your first habit';
+  String get habitsTabEmptySubtitle => 'Tap the + button to add your first habit';
 
   @override
   String get taskFormTitle => 'Task Title';

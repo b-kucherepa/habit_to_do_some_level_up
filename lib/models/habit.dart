@@ -117,7 +117,6 @@ class Habit {
   // Получить цвет кармы
   Color get karmaColor {
     final clampedKarmaLevel = karmaLevel.clamp(minKarma, maxKarma);
-    final karmaColor = Styles.karmaLevelColor[clampedKarmaLevel];
-    return karmaColor ?? Styles.fallbackColor;
+    return Styles.getKarmaLevelColor(clampedKarmaLevel);
   }
 }

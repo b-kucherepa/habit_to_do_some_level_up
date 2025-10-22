@@ -41,17 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.appTitle),
-        backgroundColor: _getAppBarColor(),
+        backgroundColor: Styles.getAppBarColor(_selectedIndex),
       ),
+      backgroundColor: Styles.tabsBackColor,
       body: _getBody(_selectedIndex),
       floatingActionButton: _buildFloatingActionButton(),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
-  }
-
-  Color _getAppBarColor() {
-    final appBarColor = Styles.appBarColor[_selectedIndex];
-    return appBarColor ?? Styles.fallbackColor;
   }
 
   Widget _getBody(int index) {
@@ -103,17 +99,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return BottomNavigationBar(
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,
+      backgroundColor: Styles.navigatorBackColor,
       items: [
         BottomNavigationBarItem(
-          icon: Styles.playerTabSmallIcon,
+          icon: Styles.playerTabIcon,
           label: context.l10n.home,
         ),
         BottomNavigationBarItem(
-          icon: Styles.habitsTabSmallIcon,
+          icon: Styles.habitsTabIcon,
           label: context.l10n.habits,
         ),
         BottomNavigationBarItem(
-          icon: Styles.tasksTabSmallIcon,
+          icon: Styles.tasksTabIcon,
           label: context.l10n.tasks,
         ),
       ],

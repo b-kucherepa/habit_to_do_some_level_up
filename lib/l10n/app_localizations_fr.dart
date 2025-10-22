@@ -45,8 +45,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get completeDayHint => 'Terminer le jour manqué';
 
   @override
-  String get markCompletedHabitsHint =>
-      'Marquer les habitudes complétées pour ce jour :';
+  String get markCompletedHabitsHint => 'Marquer les habitudes complétées pour ce jour :';
 
   @override
   String get skipDayButton => 'Sauter ce jour';
@@ -162,8 +161,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get goal => 'Objectif';
 
   @override
-  String get defaultGoal =>
-      'Accumulez de l\'expérience pour votre aventure RPG !';
+  String get defaultGoal => 'Accumulez de l\'expérience pour votre aventure RPG !';
 
   @override
   String get progress => 'Progression';
@@ -193,8 +191,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get karmaLevel => 'Niveau de Karma';
 
   @override
-  String get karmaDescription =>
-      'Votre niveau de karma reflète votre régularité.';
+  String get karmaDescription => 'Votre niveau de karma reflète votre régularité.';
 
   @override
   String get resetProgress => 'Réinitialiser la progression';
@@ -203,20 +200,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resetProgressTitle => 'Réinitialiser la progression ?';
 
   @override
-  String get resetProgressDescription =>
-      'Cette action réinitialisera définitivement :';
+  String get resetProgressDescription => 'Cette action réinitialisera définitivement :';
 
   @override
-  String get resetWarningExperience =>
-      'Toute l\'expérience et le niveau du personnage';
+  String get resetWarningExperience => 'Toute l\'expérience et le niveau du personnage';
 
   @override
-  String get resetWarningHabits =>
-      'L\'historique de complétion de toutes les habitudes';
+  String get resetWarningHabits => 'L\'historique de complétion de toutes les habitudes';
 
   @override
-  String get resetWarningKarma =>
-      'Les niveaux de karma de toutes les habitudes';
+  String get resetWarningKarma => 'Les niveaux de karma de toutes les habitudes';
 
   @override
   String get resetTasksUnaffected => 'Les tâches ne seront pas affectées.';
@@ -240,8 +233,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get goalMotivation => 'Motivation de l\'objectif';
 
   @override
-  String get goalMotivationHint =>
-      'Pour quoi accumulez-vous de l\'expérience ?';
+  String get goalMotivationHint => 'Pour quoi accumulez-vous de l\'expérience ?';
 
   @override
   String get language => 'Langue';
@@ -346,16 +338,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get habitFormSave => 'Enregistrer l\'habitude';
 
   @override
-  String get habitFormWeeklyError =>
-      'Veuillez sélectionner au moins un jour pour la planification hebdomadaire';
+  String get habitFormWeeklyError => 'Veuillez sélectionner au moins un jour pour la planification hebdomadaire';
 
   @override
-  String get habitFormMonthlyError =>
-      'Veuillez sélectionner au moins un jour pour la planification mensuelle';
+  String get habitFormMonthlyError => 'Veuillez sélectionner au moins un jour pour la planification mensuelle';
 
   @override
-  String get habitFormCustomError =>
-      'Veuillez sélectionner un intervalle pour la planification personnalisée';
+  String get habitFormCustomError => 'Veuillez sélectionner un intervalle pour la planification personnalisée';
 
   @override
   String habitItemExperience(Object experience) {
@@ -416,8 +405,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get habitsTabEmptyTitle => 'Aucune habitude pour l\'instant !';
 
   @override
-  String get habitsTabEmptySubtitle =>
-      'Appuyez sur le bouton + pour ajouter votre première habitude';
+  String get habitsTabEmptySubtitle => 'Appuyez sur le bouton + pour ajouter votre première habitude';
 
   @override
   String get taskFormTitle => 'Titre de la tâche';
@@ -478,8 +466,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tasksTabEmptyTitle => 'Aucune tâche pour l\'instant !';
 
   @override
-  String get tasksTabEmptySubtitle =>
-      'Appuyez sur le bouton + pour ajouter votre première tâche';
+  String get tasksTabEmptySubtitle => 'Appuyez sur le bouton + pour ajouter votre première tâche';
 
   @override
   String get tasksTabTotal => 'Total';

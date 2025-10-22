@@ -45,8 +45,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get completeDayHint => 'Completar Dia Perdido';
 
   @override
-  String get markCompletedHabitsHint =>
-      'Marque os hábitos concluídos para este dia:';
+  String get markCompletedHabitsHint => 'Marque os hábitos concluídos para este dia:';
 
   @override
   String get skipDayButton => 'Pular Este Dia';
@@ -162,8 +161,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get goal => 'Objetivo';
 
   @override
-  String get defaultGoal =>
-      'Acumule experiência para criar seu personagem de RPG!';
+  String get defaultGoal => 'Acumule experiência para criar seu personagem de RPG!';
 
   @override
   String get progress => 'Progresso';
@@ -202,12 +200,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get resetProgressTitle => 'Redefinir Progresso?';
 
   @override
-  String get resetProgressDescription =>
-      'Esta ação redefinirá permanentemente:';
+  String get resetProgressDescription => 'Esta ação redefinirá permanentemente:';
 
   @override
-  String get resetWarningExperience =>
-      'Toda a experiência e nível do personagem';
+  String get resetWarningExperience => 'Toda a experiência e nível do personagem';
 
   @override
   String get resetWarningHabits => 'Histórico de conclusão de todos os hábitos';
@@ -330,8 +326,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get habitFormMinCompletion => 'Conclusão Mínima';
 
   @override
-  String get habitFormMinCompletionError =>
-      'Por favor, insira a contagem mínima';
+  String get habitFormMinCompletionError => 'Por favor, insira a contagem mínima';
 
   @override
   String get habitFormMinCountError => 'Pelo menos 1';
@@ -343,16 +338,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get habitFormSave => 'Salvar Hábito';
 
   @override
-  String get habitFormWeeklyError =>
-      'Por favor, selecione pelo menos um dia para agenda semanal';
+  String get habitFormWeeklyError => 'Por favor, selecione pelo menos um dia para agenda semanal';
 
   @override
-  String get habitFormMonthlyError =>
-      'Por favor, selecione pelo menos um dia para agenda mensal';
+  String get habitFormMonthlyError => 'Por favor, selecione pelo menos um dia para agenda mensal';
 
   @override
-  String get habitFormCustomError =>
-      'Por favor, selecione o intervalo para agenda personalizada';
+  String get habitFormCustomError => 'Por favor, selecione o intervalo para agenda personalizada';
 
   @override
   String habitItemExperience(Object experience) {
@@ -413,8 +405,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get habitsTabEmptyTitle => 'Nenhum hábito ainda!';
 
   @override
-  String get habitsTabEmptySubtitle =>
-      'Toque no botão + para adicionar seu primeiro hábito';
+  String get habitsTabEmptySubtitle => 'Toque no botão + para adicionar seu primeiro hábito';
 
   @override
   String get taskFormTitle => 'Título da Tarefa';
@@ -475,8 +466,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get tasksTabEmptyTitle => 'Nenhuma tarefa ainda!';
 
   @override
-  String get tasksTabEmptySubtitle =>
-      'Toque no botão + para adicionar sua primeira tarefa';
+  String get tasksTabEmptySubtitle => 'Toque no botão + para adicionar sua primeira tarefa';
 
   @override
   String get tasksTabTotal => 'Total';

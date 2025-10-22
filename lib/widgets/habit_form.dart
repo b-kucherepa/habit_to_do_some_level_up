@@ -47,13 +47,13 @@ class _HabitFormState extends State<HabitForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+      padding: EdgeInsets.all(Styles.getGap('L')),
       child: Form(
         key: _formKey,
         child: ListView(
           children: [
             _buildBasicInfoFields(),
-            SizedBox(height: Styles.gap['giant']),
+            SizedBox(height: Styles.getGap('XL')),
             ScheduleSelector(
               scheduleType: _selectedScheduleType,
               onScheduleTypeChanged: (newType) {
@@ -74,7 +74,7 @@ class _HabitFormState extends State<HabitForm> {
               onCustomIntervalChanged: (interval) =>
                   setState(() => _customInterval = interval),
             ),
-            SizedBox(height: Styles.gap['titanict']),
+            SizedBox(height: Styles.getGap('XXL')),
             _buildSaveButton(),
           ],
         ),
@@ -98,7 +98,7 @@ class _HabitFormState extends State<HabitForm> {
             return null;
           },
         ),
-        SizedBox(height: Styles.gap['large']),
+        SizedBox(height: Styles.getGap('L')),
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
@@ -107,7 +107,7 @@ class _HabitFormState extends State<HabitForm> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: Styles.gap['large']),
+        SizedBox(height: Styles.getGap('L')),
         Row(
           children: [
             Expanded(
@@ -129,7 +129,7 @@ class _HabitFormState extends State<HabitForm> {
                 },
               ),
             ),
-            SizedBox(width: Styles.gap['large']),
+            SizedBox(width: Styles.getGap('L')),
             Expanded(
               child: TextFormField(
                 controller: _minCompletionController,
@@ -160,8 +160,7 @@ class _HabitFormState extends State<HabitForm> {
       onPressed: _saveHabit,
       style: ElevatedButton.styleFrom(
         backgroundColor: Styles.habitAccentColor,
-        padding: EdgeInsets.symmetric(
-            vertical: Styles.gap['large'] ?? Styles.fallbackGap),
+        padding: EdgeInsets.symmetric(vertical: Styles.getGap('L')),
       ),
       child: Text(
         widget.habit != null

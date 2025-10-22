@@ -17,33 +17,55 @@ class _PlayerTabState extends State<PlayerTab> {
 
   @override
   Widget build(BuildContext context) {
+    final isWideScreen = MediaQuery.of(context).size.width > 800;
+
     return StreamBuilder(
       stream: _hiveService.playersBox.watch(),
       builder: (context, snapshot) {
         final players = _hiveService.getPlayers();
-
         final player = players.first;
-        return Column(
-          children: [
-            _buildStatsCard(player),
-            SizedBox(height: Styles.gap['large']),
-            Expanded(child: _buildTodaysOverview()),
-          ],
-        );
+
+        return isWideScreen
+            ? _buildDesktopLayout(player)
+            : _buildMobileLayout(player);
       },
+    );
+  }
+
+  Widget _buildMobileLayout(Player player) {
+    return Column(
+      children: [
+        _buildStatsCard(player),
+        SizedBox(height: Styles.getGap('L')),
+        Expanded(child: _buildTodaysOverview(false)),
+      ],
+    );
+  }
+
+  Widget _buildDesktopLayout(Player player) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Styles.getGap('L')),
+      child: Column(
+        children: [
+          _buildStatsCard(player),
+          SizedBox(height: Styles.getGap('L')),
+          Expanded(child: _buildTodaysOverview(true)),
+        ],
+      ),
     );
   }
 
   Widget _buildStatsCard(Player player) {
     return Card(
-      margin: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+      margin: EdgeInsets.all(Styles.getGap('L')),
+      color: Styles.playerTitleCardBackColor,
       child: Padding(
-        padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+        padding: EdgeInsets.all(Styles.getGap('L')),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Заголовок с настройками
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Text(
@@ -62,46 +84,48 @@ class _PlayerTabState extends State<PlayerTab> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.gap['large']),
-            Row(
-              children: [
-                _buildStatItem(context.l10n.level, '${player.level}',
-                    Styles.playerTabLevelIcon),
-                SizedBox(width: Styles.gap['large']),
-                _buildStatItem(context.l10n.experienceShort,
-                    '${player.experience}', Styles.playerTabExperienceIcon),
-                SizedBox(width: Styles.gap['large']),
-                _buildStatItem(
-                    context.l10n.toNext,
-                    '${player.experienceToNextLevel}',
-                    Styles.playerTabToNextLevelIcon),
-              ],
-            ),
-            SizedBox(height: Styles.gap['large']),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${context.l10n.progressToLevel} ${player.level + 1}'),
-                    Text('${(player.levelProgress * 100).toStringAsFixed(1)}%'),
-                  ],
-                ),
-                SizedBox(height: Styles.gap['small']),
-                LinearProgressIndicator(
-                  value: player.levelProgress,
-                  backgroundColor: Styles.playerProgressIndicatorBackColor,
-                  color: Styles.playerProgressIndicatorFrontColor,
-                  minHeight: Styles.gap['small'],
-                ),
-              ],
-            ),
-            SizedBox(height: Styles.gap['small']),
-            _buildLevelSystemInfo(player),
+
+            SizedBox(height: Styles.getGap('L')),
+
+            // Статистика в строку
+            _buildStatsRow(player, context),
+
+            SizedBox(height: Styles.getGap('L')),
+
+            // Прогресс уровня
+            _buildLevelProgress(player, context),
+
+            SizedBox(height: Styles.getGap('L')),
+
+            // Информация о системе уровней
+            _buildLevelSystemInfo(player, context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildStatsRow(Player player, BuildContext context) {
+    return Row(
+      children: [
+        _buildStatItem(
+          context.l10n.level,
+          '${player.level}',
+          Styles.playerTabLevelIcon,
+        ),
+        SizedBox(width: Styles.getGap('M')),
+        _buildStatItem(
+          context.l10n.experienceShort,
+          '${player.experience}',
+          Styles.playerTabExperienceIcon,
+        ),
+        SizedBox(width: Styles.getGap('M')),
+        _buildStatItem(
+          context.l10n.toNext,
+          '${player.experienceToNextLevel}',
+          Styles.playerTabToNextLevelIcon,
+        ),
+      ],
     );
   }
 
@@ -110,30 +134,54 @@ class _PlayerTabState extends State<PlayerTab> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(Styles.gap['small'] ?? Styles.fallbackGap),
+            padding: EdgeInsets.all(Styles.getGap('S')),
             decoration: BoxDecoration(
               color: Styles.playerStatItemBackColor,
               shape: BoxShape.circle,
             ),
             child: icon,
           ),
-          SizedBox(height: Styles.gap['tiny'] ?? Styles.fallbackGap),
+          SizedBox(height: Styles.getGap('XS')),
           Text(value, style: Styles.playerStatItemCountFont),
-          Text(label, style: Styles.playerStatItemLabelFont),
+          Text(label,
+              style: Styles.playerStatItemLabelFont,
+              textAlign: TextAlign.center),
         ],
       ),
     );
   }
 
-  Widget _buildLevelSystemInfo(Player player) {
+  Widget _buildLevelProgress(Player player, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('${context.l10n.progressToLevel} ${player.level + 1}'),
+            Text('${(player.levelProgress * 100).toStringAsFixed(1)}%'),
+          ],
+        ),
+        SizedBox(height: Styles.getGap('S')),
+        LinearProgressIndicator(
+          value: player.levelProgress,
+          backgroundColor: Styles.playerProgressIndicatorBackColor,
+          color: Styles.playerProgressIndicatorFrontColor,
+          minHeight: Styles.getGap('S'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLevelSystemInfo(Player player, BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: Styles.gap['medium'] ?? Styles.fallbackGap,
-          vertical: Styles.gap['small'] ?? Styles.fallbackGap),
+        horizontal: Styles.getGap('M'),
+        vertical: Styles.getGap('S'),
+      ),
       decoration: BoxDecoration(
         color: Styles.playerTabExpCurveLabelColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(
-            Styles.radius['small'] ?? Styles.fallbackRadius),
+        borderRadius: BorderRadius.circular(Styles.getRadius('S')),
         border: Border.all(
             color: Styles.playerTabExpCurveLabelColor.withValues(alpha: 0.3)),
       ),
@@ -141,24 +189,28 @@ class _PlayerTabState extends State<PlayerTab> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Styles.playerTabExpCurveLabelIcon,
-          SizedBox(width: Styles.gap['small']),
-          Text(
+          SizedBox(width: Styles.getGap('S')),
+          Expanded(
+            child: Text(
               context.l10n.expCurveLabel(
-                  player.curveExponent.toStringAsFixed(1),
-                  player.experienceMultiplier.toInt()),
-              style: Styles.playerTabExpCurveLabelFont),
+                player.curveExponent.toStringAsFixed(1),
+                player.experienceMultiplier.toInt(),
+              ),
+              style: Styles.playerTabExpCurveLabelFont,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildTodaysOverview() {
+  Widget _buildTodaysOverview(bool isHorizontal) {
     return StreamBuilder(
       stream: _hiveService.habitsBox.watch(),
       builder: (context, snapshot) {
         final habits = _hiveService.getHabits();
         final todaysHabits =
-            habits.where((habit) => habit.isDueToday()).toList();
+            habits.where((habit) => habit.isCompletedToday).toList();
         final completedHabitsCount = todaysHabits.fold<int>(
             0, (sum, habit) => sum + habit.getTodayCompletionCount());
 
@@ -173,44 +225,78 @@ class _PlayerTabState extends State<PlayerTab> {
             final completedTasks = tasks.where((task) => task.completed).length;
 
             return Padding(
-              padding:
-                  EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
+              padding: EdgeInsets.all(Styles.getGap('L')),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    context.l10n.todaysProgress,
-                    style: Styles.playerTodayProgressFont,
-                  ),
-                  SizedBox(height: Styles.gap['large'] ?? Styles.fallbackGap),
-                  Row(
-                    children: [
-                      _buildOverviewCard(context.l10n.habitsDone,
-                          '$completedHabitsCount', Styles.habitsDoneCountIcon,
-                          details: context.l10n
-                              .habitsNumberToday(todaysHabits.length)),
-                      SizedBox(
-                          width: Styles.gap['medium'] ?? Styles.fallbackGap),
-                      _buildOverviewCard(context.l10n.tasksDue, '$todaysTasks',
-                          Styles.overviewTasksDueIcon),
-                    ],
-                  ),
-                  SizedBox(height: Styles.gap['medium'] ?? Styles.fallbackGap),
-                  Row(
-                    children: [
-                      _buildOverviewCard(
-                        context.l10n.tasksDone,
-                        '$completedTasks',
-                        Styles.overviewTasksDoneIcon,
-                      ),
-                      SizedBox(
-                          height: Styles.gap['medium'] ?? Styles.fallbackGap),
-                      _buildOverviewCard(
-                        context.l10n.overdue,
-                        '$overdueTasks',
-                        Styles.overviewOverdueIcon,
-                      ),
-                    ],
+                  Text(context.l10n.todaysProgress,
+                      style: Styles.playerTodayProgressFont),
+                  SizedBox(height: Styles.getGap('L')),
+                  Expanded(
+                    child: isHorizontal
+                        ? Row(
+                            children: [
+                              Expanded(
+                                  child: _buildOverviewCard(
+                                context.l10n.habitsDone,
+                                '$completedHabitsCount',
+                                Styles.playerHabitsCountIcon,
+                                details: context.l10n
+                                    .habitsNumberToday(todaysHabits.length),
+                              )),
+                              SizedBox(width: Styles.getGap('M')),
+                              Expanded(
+                                  child: _buildOverviewCard(
+                                context.l10n.tasksDue,
+                                '$todaysTasks',
+                                Styles.playerTasksDueIcon,
+                              )),
+                              SizedBox(width: Styles.getGap('M')),
+                              Expanded(
+                                  child: _buildOverviewCard(
+                                context.l10n.tasksDone,
+                                '$completedTasks',
+                                Styles.playerTasksDoneIcon,
+                              )),
+                              SizedBox(width: Styles.getGap('M')),
+                              Expanded(
+                                  child: _buildOverviewCard(
+                                context.l10n.overdue,
+                                '$overdueTasks',
+                                Styles.playerOverdueIcon,
+                              )),
+                            ],
+                          )
+                        : GridView.count(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: Styles.getGap('M'),
+                            mainAxisSpacing: Styles.getGap('M'),
+                            childAspectRatio: 1.2,
+                            children: [
+                              _buildOverviewCard(
+                                context.l10n.habitsDone,
+                                '$completedHabitsCount',
+                                Styles.playerHabitsCountIcon,
+                                details: context.l10n
+                                    .habitsNumberToday(todaysHabits.length),
+                              ),
+                              _buildOverviewCard(
+                                context.l10n.tasksDue,
+                                '$todaysTasks',
+                                Styles.playerTasksDueIcon,
+                              ),
+                              _buildOverviewCard(
+                                context.l10n.tasksDone,
+                                '$completedTasks',
+                                Styles.playerTasksDoneIcon,
+                              ),
+                              _buildOverviewCard(
+                                context.l10n.overdue,
+                                '$overdueTasks',
+                                Styles.playerOverdueIcon,
+                              ),
+                            ],
+                          ),
                   ),
                 ],
               ),
@@ -223,29 +309,24 @@ class _PlayerTabState extends State<PlayerTab> {
 
   Widget _buildOverviewCard(String title, String value, Icon icon,
       {String? details}) {
-    return Expanded(
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(Styles.gap['medium'] ?? Styles.fallbackGap),
-          child: Column(
-            children: [
-              icon,
-              SizedBox(height: Styles.gap['small'] ?? Styles.fallbackGap),
-              Text(
-                value,
-                style: Styles.playerOverviewCountFont,
-              ),
-              Text(
-                title,
+    return Card(
+      color: Styles.playerOverviewBackColor,
+      child: Padding(
+        padding: EdgeInsets.all(Styles.getGap('M')),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon,
+            SizedBox(height: Styles.getGap('S')),
+            Text(value, style: Styles.playerOverviewCountFont),
+            Text(title,
                 style: Styles.playerOverviewLabelFont,
-              ),
-              if (details != null)
-                Text(
-                  details,
-                  style: Styles.playerStatItemDetailsFont,
-                ),
+                textAlign: TextAlign.center),
+            if (details != null) ...[
+              SizedBox(height: Styles.getGap('XS')),
+              Text(details, style: Styles.playerStatItemDetailsFont),
             ],
-          ),
+          ],
         ),
       ),
     );
