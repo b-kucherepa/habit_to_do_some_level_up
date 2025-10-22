@@ -67,13 +67,13 @@ class HabitItemWidget extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.all(Styles.largeGap),
+      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // Counter controls
           _buildCounterControls(isDueToday),
-          SizedBox(width: Styles.largeGap),
+          SizedBox(width: Styles.gap['large']),
           // Title and subtitle
           Expanded(
             child: Column(
@@ -81,7 +81,7 @@ class HabitItemWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(habit.title, style: titleFontStyle),
-                SizedBox(height: Styles.tinyGap),
+                SizedBox(height: Styles.gap['tiny']),
                 _buildSubtitle(context, isDueToday),
               ],
             ),
@@ -103,14 +103,17 @@ class HabitItemWidget extends StatelessWidget {
               isEditable && isDueToday && currentCount > 0 ? onDecrement : null,
           padding: EdgeInsets.zero,
           constraints: BoxConstraints(
-              minWidth: Styles.titanicGap, minHeight: Styles.titanicGap),
+              minWidth: Styles.gap['titanict'] ?? Styles.fallbackGap,
+              minHeight: Styles.gap['titanict'] ?? Styles.fallbackGap),
         ),
         Container(
           padding: EdgeInsets.symmetric(
-              horizontal: Styles.largeGap, vertical: Styles.tinyGap),
+              horizontal: Styles.gap['large'] ?? Styles.fallbackGap,
+              vertical: Styles.gap['tiny'] ?? Styles.fallbackGap),
           decoration: BoxDecoration(
             color: Styles.habitCounterBackColor,
-            borderRadius: BorderRadius.circular(Styles.largeRadius),
+            borderRadius: BorderRadius.circular(
+                Styles.radius['large'] ?? Styles.fallbackRadius),
           ),
           child: Text(
             '$currentCount',
@@ -137,24 +140,24 @@ class HabitItemWidget extends StatelessWidget {
             habit.description,
             style: Styles.habitDescriptionFont,
           ),
-        if (habit.description.isNotEmpty) SizedBox(height: Styles.tinyGap),
+        if (habit.description.isNotEmpty) SizedBox(height: Styles.gap['tiny']),
         Row(
           children: [
             Styles.entryExperienceIcon,
-            SizedBox(width: Styles.tinyGap),
+            SizedBox(width: Styles.gap['tiny']),
             Text(context.l10n.habitItemExperience(habit.experience),
                 style: Styles.entrySubtextFont),
-            SizedBox(width: Styles.smallGap),
+            SizedBox(width: Styles.gap['small']),
             Styles.habitCompletionMinIcon,
-            SizedBox(width: Styles.tinyGap),
+            SizedBox(width: Styles.gap['tiny']),
             Text(context.l10n.habitItemMinCompletion(habit.minCompletionCount),
                 style: Styles.entrySubtextFont),
-            SizedBox(width: Styles.smallGap),
+            SizedBox(width: Styles.gap['small']),
             if (showScheduleInfo) ...[
               _buildScheduleBadge(context),
             ],
             if (currentCount > 0 && isDueToday) ...[
-              SizedBox(width: Styles.largeGap),
+              SizedBox(width: Styles.gap['large']),
               Text(
                 context.l10n.habitItemTodayCount(currentCount),
                 style: Styles.habitTodayCountFont,
@@ -176,7 +179,7 @@ class HabitItemWidget extends StatelessWidget {
             style: Styles.habitNotTodayFont,
           ),
         if (onEdit != null) ...[
-          SizedBox(height: Styles.smallGap),
+          SizedBox(height: Styles.gap['small']),
           IconButton(
             icon: Styles.editEntryIcon,
             onPressed: onEdit,
@@ -184,7 +187,7 @@ class HabitItemWidget extends StatelessWidget {
           ),
         ],
         if (onDelete != null) ...[
-          SizedBox(height: Styles.smallGap),
+          SizedBox(height: Styles.gap['small']),
           IconButton(
             icon: Styles.deleteEntryIcon,
             onPressed: () => _showDeleteConfirmation(context),
@@ -196,47 +199,30 @@ class HabitItemWidget extends StatelessWidget {
   }
 
   Widget _buildScheduleBadge(BuildContext context) {
-    Color color;
-    TextStyle? textStyle;
-    String text;
-
-    switch (habit.scheduleType) {
-      case 'daily':
-        color = Styles.taskScheduleDailyColor;
-        text = context.l10n.habitItemScheduleDaily;
-        textStyle = Styles.taskScheduleFont;
-        break;
-      case 'weekly':
-        color = Styles.taskScheduleWeeklyColor;
-        text = context.l10n.habitItemScheduleWeekly;
-        textStyle = Styles.taskScheduleWeeklyFont;
-        break;
-      case 'monthly':
-        color = Styles.taskScheduleMonthlyColor;
-        text = context.l10n.habitItemScheduleMonthly;
-        textStyle = Styles.taskScheduleMonthlyFont;
-        break;
-      case 'custom':
-        color = Styles.taskScheduleCustomColor;
-        text = context.l10n.habitItemScheduleCustom;
-        textStyle = Styles.taskScheduleCustomFont;
-        break;
-      default:
-        color = Styles.fallbackColor;
-        text = habit.scheduleType;
-    }
+    Color color =
+        Styles.taskScheduleColor[habit.scheduleType] ?? Styles.fallbackColor;
+    TextStyle? textStyle = Styles.taskScheduleFont[habit.scheduleType];
+    String text = switch (habit.scheduleType) {
+      'daily' => context.l10n.habitItemScheduleDaily,
+      'weekly' => context.l10n.habitItemScheduleWeekly,
+      'monthly' => context.l10n.habitItemScheduleMonthly,
+      'custom' => context.l10n.habitItemScheduleCustom,
+      _ => habit.scheduleType,
+    };
 
     return Container(
         padding: EdgeInsets.symmetric(
-            horizontal: Styles.smallGap, vertical: Styles.minimumGap),
+            horizontal: Styles.gap['small'] ?? Styles.fallbackGap,
+            vertical: Styles.gap['minimum'] ?? Styles.fallbackGap),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(Styles.mediumRadius),
+          borderRadius:
+              BorderRadius.circular(Styles.gap['medium'] ?? Styles.fallbackGap),
           border: Border.all(color: color.withValues(alpha: 0.3)),
         ),
         child: Row(children: [
           Styles.habitRepetitionIcon,
-          SizedBox(width: Styles.smallGap),
+          SizedBox(width: Styles.gap['small']),
           Text(
             text,
             style: textStyle,
@@ -246,13 +232,13 @@ class HabitItemWidget extends StatelessWidget {
 
   Widget _buildKarmaIndicator() {
     return Container(
-      width: Styles.tinyGap,
-      margin: EdgeInsets.only(right: Styles.smallGap),
+      width: Styles.gap['tiny'],
+      margin: EdgeInsets.only(right: Styles.gap['small'] ?? Styles.fallbackGap),
       decoration: BoxDecoration(
         color: habit.karmaColor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(Styles.tinyRadius),
-          bottomLeft: Radius.circular(Styles.tinyRadius),
+          topLeft: Radius.circular(Styles.gap['tiny'] ?? Styles.fallbackGap),
+          bottomLeft: Radius.circular(Styles.gap['tiny'] ?? Styles.fallbackGap),
         ),
       ),
     );
@@ -275,7 +261,8 @@ class HabitItemWidget extends StatelessWidget {
                     .habitItemDeleteConfirmationMessage(habit.title)),
                 if (currentCount > 0)
                   Padding(
-                    padding: EdgeInsets.only(top: Styles.smallGap),
+                    padding: EdgeInsets.only(
+                        top: Styles.gap['small'] ?? Styles.fallbackGap),
                     child: Text(
                       context.l10n.habitItemDeleteConfirmationWarning(xpAmount),
                       style: Styles.entryDeleteConfirmationMessageFont,

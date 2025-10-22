@@ -110,7 +110,7 @@ class ExperienceService {
   void printIfLevelDecreased(newLevel, oldLevel) {
     if (newLevel < oldLevel) {
       // Можно добавить уведомление о понижении уровня, если нужно
-      print('Level decreased! $oldLevel -> ${newLevel}');
+      print('Level decreased! $oldLevel -> $newLevel');
     }
   }
 

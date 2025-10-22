@@ -26,7 +26,7 @@ class _CharacterTabState extends State<CharacterTab> {
         return Column(
           children: [
             _buildStatsCard(character),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             Expanded(child: _buildTodaysOverview()),
           ],
         );
@@ -36,9 +36,9 @@ class _CharacterTabState extends State<CharacterTab> {
 
   Widget _buildStatsCard(Character character) {
     return Card(
-      margin: EdgeInsets.all(Styles.largeGap),
+      margin: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
       child: Padding(
-        padding: EdgeInsets.all(Styles.largeGap),
+        padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,24 +62,24 @@ class _CharacterTabState extends State<CharacterTab> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             Row(
               children: [
                 _buildStatItem(context.l10n.level, '${character.level}',
                     Styles.characterTabLevelIcon),
-                SizedBox(width: Styles.largeGap),
+                SizedBox(width: Styles.gap['large']),
                 _buildStatItem(
                     context.l10n.experienceShort,
                     '${character.experience}',
                     Styles.characterTabExperienceIcon),
-                SizedBox(width: Styles.largeGap),
+                SizedBox(width: Styles.gap['large']),
                 _buildStatItem(
                     context.l10n.toNext,
                     '${character.experienceToNextLevel}',
                     Styles.characterTabToNextLevelIcon),
               ],
             ),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -92,16 +92,16 @@ class _CharacterTabState extends State<CharacterTab> {
                         '${(character.levelProgress * 100).toStringAsFixed(1)}%'),
                   ],
                 ),
-                SizedBox(height: Styles.smallGap),
+                SizedBox(height: Styles.gap['small']),
                 LinearProgressIndicator(
                   value: character.levelProgress,
                   backgroundColor: Styles.characterProgressIndicatorBackColor,
                   color: Styles.characterProgressIndicatorFrontColor,
-                  minHeight: Styles.smallGap,
+                  minHeight: Styles.gap['small'],
                 ),
               ],
             ),
-            SizedBox(height: Styles.smallGap),
+            SizedBox(height: Styles.gap['small']),
             _buildLevelSystemInfo(character),
           ],
         ),
@@ -114,14 +114,14 @@ class _CharacterTabState extends State<CharacterTab> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(Styles.smallGap),
+            padding: EdgeInsets.all(Styles.gap['small'] ?? Styles.fallbackGap),
             decoration: BoxDecoration(
               color: Styles.characterStatItemBackColor,
               shape: BoxShape.circle,
             ),
             child: icon,
           ),
-          SizedBox(height: Styles.tinyGap),
+          SizedBox(height: Styles.gap['tiny'] ?? Styles.fallbackGap),
           Text(value, style: Styles.characterStatItemCountFont),
           Text(label, style: Styles.characterStatItemLabelFont),
         ],
@@ -132,10 +132,12 @@ class _CharacterTabState extends State<CharacterTab> {
   Widget _buildLevelSystemInfo(Character character) {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: Styles.mediumGap, vertical: Styles.smallGap),
+          horizontal: Styles.gap['medium'] ?? Styles.fallbackGap,
+          vertical: Styles.gap['small'] ?? Styles.fallbackGap),
       decoration: BoxDecoration(
         color: Styles.characterTabExpCurveLabelColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(Styles.smallRadius),
+        borderRadius: BorderRadius.circular(
+            Styles.radius['small'] ?? Styles.fallbackRadius),
         border: Border.all(
             color:
                 Styles.characterTabExpCurveLabelColor.withValues(alpha: 0.3)),
@@ -144,7 +146,7 @@ class _CharacterTabState extends State<CharacterTab> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Styles.characterTabExpCurveLabelIcon,
-          SizedBox(width: Styles.smallGap),
+          SizedBox(width: Styles.gap['small']),
           Text(
               context.l10n.expCurveLabel(
                   character.curveExponent.toStringAsFixed(1),
@@ -176,7 +178,8 @@ class _CharacterTabState extends State<CharacterTab> {
             final completedTasks = tasks.where((task) => task.completed).length;
 
             return Padding(
-              padding: EdgeInsets.all(Styles.largeGap),
+              padding:
+                  EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -184,19 +187,20 @@ class _CharacterTabState extends State<CharacterTab> {
                     context.l10n.todaysProgress,
                     style: Styles.characterTodayProgressFont,
                   ),
-                  SizedBox(height: Styles.largeGap),
+                  SizedBox(height: Styles.gap['large'] ?? Styles.fallbackGap),
                   Row(
                     children: [
                       _buildOverviewCard(context.l10n.habitsDone,
                           '$completedHabitsCount', Styles.habitsDoneCountIcon,
                           details: context.l10n
                               .habitsNumberToday(todaysHabits.length)),
-                      SizedBox(width: Styles.mediumGap),
+                      SizedBox(
+                          width: Styles.gap['medium'] ?? Styles.fallbackGap),
                       _buildOverviewCard(context.l10n.tasksDue, '$todaysTasks',
                           Styles.overviewTasksDueIcon),
                     ],
                   ),
-                  SizedBox(height: Styles.mediumGap),
+                  SizedBox(height: Styles.gap['medium'] ?? Styles.fallbackGap),
                   Row(
                     children: [
                       _buildOverviewCard(
@@ -204,7 +208,8 @@ class _CharacterTabState extends State<CharacterTab> {
                         '$completedTasks',
                         Styles.overviewTasksDoneIcon,
                       ),
-                      SizedBox(height: Styles.mediumGap),
+                      SizedBox(
+                          height: Styles.gap['medium'] ?? Styles.fallbackGap),
                       _buildOverviewCard(
                         context.l10n.overdue,
                         '$overdueTasks',
@@ -226,11 +231,11 @@ class _CharacterTabState extends State<CharacterTab> {
     return Expanded(
       child: Card(
         child: Padding(
-          padding: EdgeInsets.all(Styles.mediumGap),
+          padding: EdgeInsets.all(Styles.gap['medium'] ?? Styles.fallbackGap),
           child: Column(
             children: [
               icon,
-              SizedBox(height: Styles.smallGap),
+              SizedBox(height: Styles.gap['small'] ?? Styles.fallbackGap),
               Text(
                 value,
                 style: Styles.characterOverviewCountFont,

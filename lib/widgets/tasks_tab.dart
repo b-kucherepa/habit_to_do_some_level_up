@@ -32,9 +32,9 @@ class TasksTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Styles.tasksTabLargeIcon,
-                SizedBox(height: Styles.largeGap),
+                SizedBox(height: Styles.gap['large']),
                 Text(context.l10n.tasksTabEmptyTitle),
-                SizedBox(height: Styles.smallGap),
+                SizedBox(height: Styles.gap['small']),
                 Text(
                   context.l10n.tasksTabEmptySubtitle,
                   style: Styles.habitsEmptyHint,
@@ -50,7 +50,8 @@ class TasksTab extends StatelessWidget {
         return Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(Styles.largeGap),
+              padding:
+                  EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -74,24 +75,25 @@ class TasksTab extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                padding: EdgeInsets.all(Styles.largeGap),
+                padding:
+                    EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
                 children: [
                   if (pendingTasks.isNotEmpty) ...[
                     Text(
                       context.l10n.tasksTabPendingHeader(pendingTasks.length),
                       style: Styles.tasksCompletedPendingFont,
                     ),
-                    SizedBox(height: Styles.smallGap),
+                    SizedBox(height: Styles.gap['small']),
                     ...pendingTasks
                         .map((task) => _buildTaskItem(task, context)),
-                    SizedBox(height: Styles.largeGap),
+                    SizedBox(height: Styles.gap['large']),
                   ],
                   if (completedTasks.isNotEmpty) ...[
                     Text(
                         context.l10n
                             .tasksTabCompletedHeader(completedTasks.length),
                         style: Styles.tasksCompletedHeaderFont),
-                    SizedBox(height: Styles.smallGap),
+                    SizedBox(height: Styles.gap['small']),
                     ...completedTasks
                         .map((task) => _buildTaskItem(task, context)),
                   ],
@@ -106,7 +108,8 @@ class TasksTab extends StatelessWidget {
 
   Widget _buildTaskItem(Task task, BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(bottom: Styles.smallGap),
+      margin:
+          EdgeInsets.only(bottom: Styles.gap['small'] ?? Styles.fallbackGap),
       color: task.completed
           ? Styles.taskCompletedBackColor
           : Styles.taskUncompletedBackColor,
@@ -127,20 +130,20 @@ class TasksTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (task.description.isNotEmpty) Text(task.description),
-            SizedBox(height: Styles.tinyGap),
+            SizedBox(height: Styles.gap['tiny']),
             Row(
               children: [
                 Styles.entryExperienceIcon,
-                SizedBox(width: Styles.tinyGap),
+                SizedBox(width: Styles.gap['tiny']),
                 Text(context.l10n.tasksTabExperience(task.experience)),
-                SizedBox(width: Styles.mediumGap),
-                _getDueDateIcon(task),
-                SizedBox(width: Styles.tinyGap),
+                SizedBox(width: Styles.gap['medium'] ?? Styles.fallbackGap),
+                Styles.taskStateIcon[task.primaryState] ?? Styles.fallbackIcon,
+                SizedBox(width: Styles.gap['tiny']),
                 Text(
                   _formatDueDate(context, task.dueDate),
-                  style: _getDueDateFont(task),
+                  style: Styles.taskStateFont[task.primaryState],
                 ),
-                SizedBox(width: Styles.mediumGap),
+                SizedBox(width: Styles.gap['medium'] ?? Styles.fallbackGap),
                 _buildPriorityBadge(task.priority),
               ],
             ),
@@ -150,7 +153,7 @@ class TasksTab extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildCategoryChip(context, task.category),
-            SizedBox(width: Styles.smallGap),
+            SizedBox(width: Styles.gap['small']),
             IconButton(
               icon: Styles.editEntryIcon,
               onPressed: () => _editTask(context, task),
@@ -191,7 +194,8 @@ class TasksTab extends StatelessWidget {
               Text(context.l10n.tasksTabDeleteConfirmationMessage(task.title)),
               if (isCompleted)
                 Padding(
-                  padding: EdgeInsets.only(top: Styles.smallGap),
+                  padding: EdgeInsets.only(
+                      top: Styles.gap['small'] ?? Styles.fallbackGap),
                   child: Text(
                     context.l10n
                         .tasksTabDeleteConfirmationWarning(task.experience),
@@ -225,7 +229,7 @@ class TasksTab extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(Styles.mediumGap),
+          padding: EdgeInsets.all(Styles.gap['medium'] ?? Styles.fallbackGap),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
             shape: BoxShape.circle,
@@ -236,7 +240,7 @@ class TasksTab extends StatelessWidget {
             style: textStyle,
           ),
         ),
-        SizedBox(height: Styles.tinyGap),
+        SizedBox(height: Styles.gap['tiny']),
         Text(label, style: Styles.taskStatLabelDesctiptionFont),
       ],
     );
@@ -248,10 +252,12 @@ class TasksTab extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: Styles.smallGap, vertical: Styles.tinyGap),
+          horizontal: Styles.gap['small'] ?? Styles.fallbackGap,
+          vertical: Styles.gap['tiny'] ?? Styles.fallbackGap),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(Styles.smallRadius),
+        borderRadius: BorderRadius.circular(
+            Styles.radius['small'] ?? Styles.fallbackRadius),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
@@ -270,22 +276,6 @@ class TasksTab extends StatelessWidget {
       backgroundColor: Styles.taskCategoryBackColor.withValues(alpha: 0.1),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
-  }
-
-  Icon _getDueDateIcon(Task task) {
-    if (task.completed) return Styles.taskDueCompletedIcon;
-    if (task.isOverdue) return Styles.taskDueOverdueIcon;
-    if (task.isDueToday) return Styles.taskDueTodayIcon;
-    if (task.isDueSoon) return Styles.taskDueSoonIcon;
-    return Styles.taskDueSoonIcon;
-  }
-
-  TextStyle _getDueDateFont(Task task) {
-    if (task.completed) return Styles.taskDueCompletedFont;
-    if (task.isOverdue) return Styles.taskDueOverdueFont;
-    if (task.isDueToday) return Styles.taskDueTodayFont;
-    if (task.isDueSoon) return Styles.taskDueSoonFont;
-    return Styles.taskDueSoonFont;
   }
 
   String _formatDueDate(BuildContext context, DateTime dueDate) {

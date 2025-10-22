@@ -72,4 +72,12 @@ class Task {
       dueDate.isBefore(DateTime.now().add(Duration(days: 3))) &&
       !isDueToday &&
       !isOverdue;
+
+  String get primaryState {
+    if (completed) return 'completed';
+    if (isOverdue) return 'overdue';
+    if (isDueToday) return 'today';
+    if (isDueSoon) return 'soon';
+    return 'soon';
+  }
 }

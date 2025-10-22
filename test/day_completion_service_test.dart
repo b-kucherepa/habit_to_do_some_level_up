@@ -11,7 +11,7 @@ void main() {
     });
 
     // Вспомогательная функция из DayCompletionService
-    bool _isSameDay(DateTime date1, DateTime date2) {
+    bool isSameDay(DateTime date1, DateTime date2) {
       return date1.year == date2.year &&
           date1.month == date2.month &&
           date1.day == date2.day;
@@ -22,8 +22,8 @@ void main() {
       final yesterday = today.subtract(Duration(days: 1));
 
       // Проверяем логику сравнения дат (без вызовов Hive)
-      expect(_isSameDay(today, today), true);
-      expect(_isSameDay(today, yesterday), false);
+      expect(isSameDay(today, today), true);
+      expect(isSameDay(today, yesterday), false);
     });
   });
 }

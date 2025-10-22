@@ -67,7 +67,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.completeDayHint),
-            SizedBox(height: Styles.tinyGap),
+            SizedBox(height: Styles.gap['tiny']),
             Text(
                 '${_formatDate(widget.targetDate)} (${widget.daysAgo} days ago)',
                 style: Styles.completeDayHint),
@@ -83,14 +83,15 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
     return Column(
       children: [
         Padding(
-            padding: EdgeInsets.all(Styles.largeGap),
+            padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
             child: Text(
               context.l10n.markCompletedHabitsHint,
               style: Styles.markCompletedHeader,
             )),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: Styles.largeGap),
+            padding: EdgeInsets.symmetric(
+                horizontal: Styles.gap['large'] ?? Styles.fallbackGap),
             children:
                 widget.habits.map((habit) => _buildHabitItem(habit)).toList(),
           ),
@@ -128,7 +129,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
 
   Widget _buildActionButtons() {
     return Container(
-      padding: EdgeInsets.all(Styles.largeGap),
+      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
       child: Row(
         children: [
           Expanded(
@@ -137,7 +138,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
               child: Text(context.l10n.skipDayButton),
             ),
           ),
-          SizedBox(width: Styles.largeGap),
+          SizedBox(width: Styles.gap['large']),
           Expanded(
             child: ElevatedButton(
               onPressed: _completeDay,

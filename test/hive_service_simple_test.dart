@@ -3,10 +3,10 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
-import '../lib/models/character.dart';
-import '../lib/models/habit.dart';
-import '../lib/models/task.dart';
-import '../lib/services/hive_service.dart';
+import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/habit.dart';
+import 'package:todo_rpg_app/models/task.dart';
+import 'package:todo_rpg_app/services/hive_service.dart';
 
 void main() {
   group('HiveService Simple Integration Tests', () {

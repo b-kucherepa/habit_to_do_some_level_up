@@ -37,7 +37,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
       title: Row(
         children: [
           Styles.settingsIcon,
-          SizedBox(width: Styles.smallGap),
+          SizedBox(width: Styles.gap['small']),
           Text(context.l10n.progressSettings),
         ],
       ),
@@ -47,7 +47,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.goalMotivation),
-            SizedBox(height: Styles.smallGap),
+            SizedBox(height: Styles.gap['small']),
             TextField(
               controller: _goalController,
               decoration: InputDecoration(
@@ -56,13 +56,13 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               ),
               maxLines: 2,
             ),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             Row(
               children: [
                 Styles.languageOptionIcon,
-                SizedBox(width: Styles.smallGap),
+                SizedBox(width: Styles.gap['small']),
                 Text(context.l10n.language),
-                SizedBox(width: Styles.largeGap),
+                SizedBox(width: Styles.gap['large']),
                 Expanded(
                   child: DropdownButton<Locale>(
                     value: languageManager.locale,
@@ -126,9 +126,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             Text(context.l10n.curveExponent),
-            SizedBox(height: Styles.smallGap),
+            SizedBox(height: Styles.gap['small']),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -147,7 +147,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                     });
                   },
                 ),
-                SizedBox(height: Styles.tinyGap),
+                SizedBox(height: Styles.gap['tiny']),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -159,15 +159,15 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.smallGap),
+            SizedBox(height: Styles.gap['small']),
             Text(
               context.l10n
                   .curveExponentDescription(_curveExponent.toStringAsFixed(1)),
               style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             Text(context.l10n.experienceMultiplier),
-            SizedBox(height: Styles.mediumGap),
+            SizedBox(height: Styles.gap['medium']),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -186,7 +186,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                     });
                   },
                 ),
-                SizedBox(height: Styles.tinyGap),
+                SizedBox(height: Styles.gap['tiny']),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -198,13 +198,13 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 ),
               ],
             ),
-            SizedBox(height: Styles.smallGap),
+            SizedBox(height: Styles.gap['small']),
             Text(
               context.l10n.experienceMultiplierDescription(
                   _experienceMultiplier.toStringAsFixed(0)),
               style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             _buildSystemPreview(),
           ],
         ),
@@ -238,10 +238,11 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(Styles.mediumGap),
+      padding: EdgeInsets.all(Styles.gap['medium'] ?? Styles.fallbackGap),
       decoration: BoxDecoration(
         color: Styles.expPreviewChartBackColor,
-        borderRadius: BorderRadius.circular(Styles.smallRadius),
+        borderRadius: BorderRadius.circular(
+            Styles.radius['small'] ?? Styles.fallbackRadius),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -250,7 +251,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
             context.l10n.levelProgressionPreview,
             style: Styles.expPreviewTitle,
           ),
-          SizedBox(height: Styles.smallGap),
+          SizedBox(height: Styles.gap['small']),
           SizedBox(
             width: Styles.expPreviewWidth,
             height: Styles.expPreviewHeight,
@@ -308,7 +309,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               ),
             ),
           ),
-          SizedBox(height: Styles.smallGap),
+          SizedBox(height: Styles.gap['small']),
           Text(
             context.l10n.levelFormula(_experienceMultiplier.toStringAsFixed(0),
                 _curveExponent.toStringAsFixed(0)),

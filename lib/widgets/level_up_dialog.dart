@@ -11,31 +11,34 @@ class LevelUpDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _goal = _hiveService.getFirstCharacter().goal;
+    final goal = _hiveService.getFirstCharacter().goal;
 
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Styles.giantRadius),
+        borderRadius:
+            BorderRadius.circular(Styles.gap['giant'] ?? Styles.fallbackGap),
       ),
       backgroundColor: Styles.levelUpBorderColor,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Styles.levelUpLargeIcon,
-          SizedBox(height: Styles.largeGap),
+          SizedBox(height: Styles.gap['large']),
           Text(
             context.l10n.congratulations,
             style: Styles.levelUpDetails,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: Styles.largeGap),
+          SizedBox(height: Styles.gap['large']),
           Container(
-            padding: EdgeInsets.all(Styles.largeGap),
+            padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
             decoration: BoxDecoration(
               color: Styles.levelUpLabelBackColor,
-              borderRadius: BorderRadius.circular(Styles.largeRadius),
+              borderRadius: BorderRadius.circular(
+                  Styles.gap['large'] ?? Styles.fallbackGap),
               border: Border.all(
-                  color: Styles.levelUpBorderColor, width: Styles.tinyBorder),
+                  color: Styles.levelUpBorderColor,
+                  width: Styles.border['tiny'] ?? Styles.fallbackGap),
             ),
             child: Text(
               context.l10n.levelReached(newLevel),
@@ -43,13 +46,13 @@ class LevelUpDialog extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(height: Styles.largeGap),
+          SizedBox(height: Styles.gap['large']),
           Text(
-            context.l10n.dontForgetToUseAchievenents(_goal),
+            context.l10n.dontForgetToUseAchievenents(goal),
             style: Styles.levelUpDetails,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: Styles.giantGap),
+          SizedBox(height: Styles.gap['giant']),
           ElevatedButton.icon(
             onPressed: () => Navigator.of(context).pop(),
             icon: Styles.levelUpButtonIcon,
@@ -58,7 +61,8 @@ class LevelUpDialog extends StatelessWidget {
               backgroundColor: Styles.levelUpAccentColor,
               foregroundColor: Styles.levelUpButtonFontColor,
               padding: EdgeInsets.symmetric(
-                  horizontal: Styles.giantGap, vertical: Styles.mediumGap),
+                  horizontal: Styles.gap['giant'] ?? Styles.fallbackGap,
+                  vertical: Styles.gap['medium'] ?? Styles.fallbackGap),
             ),
           ),
         ],

@@ -47,13 +47,13 @@ class _HabitFormState extends State<HabitForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(Styles.largeGap),
+      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
       child: Form(
         key: _formKey,
         child: ListView(
           children: [
             _buildBasicInfoFields(),
-            SizedBox(height: Styles.giantGap),
+            SizedBox(height: Styles.gap['giant']),
             ScheduleSelector(
               scheduleType: _selectedScheduleType,
               onScheduleTypeChanged: (newType) {
@@ -74,7 +74,7 @@ class _HabitFormState extends State<HabitForm> {
               onCustomIntervalChanged: (interval) =>
                   setState(() => _customInterval = interval),
             ),
-            SizedBox(height: Styles.titanicGap),
+            SizedBox(height: Styles.gap['titanict']),
             _buildSaveButton(),
           ],
         ),
@@ -98,7 +98,7 @@ class _HabitFormState extends State<HabitForm> {
             return null;
           },
         ),
-        SizedBox(height: Styles.largeGap),
+        SizedBox(height: Styles.gap['large']),
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
@@ -107,7 +107,7 @@ class _HabitFormState extends State<HabitForm> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: Styles.largeGap),
+        SizedBox(height: Styles.gap['large']),
         Row(
           children: [
             Expanded(
@@ -129,7 +129,7 @@ class _HabitFormState extends State<HabitForm> {
                 },
               ),
             ),
-            SizedBox(width: Styles.largeGap),
+            SizedBox(width: Styles.gap['large']),
             Expanded(
               child: TextFormField(
                 controller: _minCompletionController,
@@ -160,7 +160,8 @@ class _HabitFormState extends State<HabitForm> {
       onPressed: _saveHabit,
       style: ElevatedButton.styleFrom(
         backgroundColor: Styles.habitAccentColor,
-        padding: EdgeInsets.symmetric(vertical: Styles.largeGap),
+        padding: EdgeInsets.symmetric(
+            vertical: Styles.gap['large'] ?? Styles.fallbackGap),
       ),
       child: Text(
         widget.habit != null

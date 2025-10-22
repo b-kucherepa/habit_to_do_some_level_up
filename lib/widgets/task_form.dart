@@ -45,19 +45,19 @@ class _TaskFormState extends State<TaskForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(Styles.largeGap),
+      padding: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
       child: Form(
         key: _formKey,
         child: ListView(
           children: [
             _buildBasicInfoFields(context),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             _buildDueDateSelector(context),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             _buildPrioritySelector(context),
-            SizedBox(height: Styles.largeGap),
+            SizedBox(height: Styles.gap['large']),
             _buildCategorySelector(context),
-            SizedBox(height: Styles.titanicGap),
+            SizedBox(height: Styles.gap['titanict']),
             _buildSaveButton(context),
           ],
         ),
@@ -81,7 +81,7 @@ class _TaskFormState extends State<TaskForm> {
             return null;
           },
         ),
-        SizedBox(height: Styles.largeGap),
+        SizedBox(height: Styles.gap['large']),
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
@@ -90,7 +90,7 @@ class _TaskFormState extends State<TaskForm> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: Styles.largeGap),
+        SizedBox(height: Styles.gap['large']),
         TextFormField(
           controller: _experienceController,
           decoration: InputDecoration(
@@ -177,7 +177,8 @@ class _TaskFormState extends State<TaskForm> {
       onPressed: _saveTask,
       style: ElevatedButton.styleFrom(
         backgroundColor: Styles.taskAccentColor,
-        padding: EdgeInsets.symmetric(vertical: Styles.largeGap),
+        padding: EdgeInsets.symmetric(
+            vertical: Styles.gap['large'] ?? Styles.fallbackGap),
       ),
       child: Text(
         widget.task != null

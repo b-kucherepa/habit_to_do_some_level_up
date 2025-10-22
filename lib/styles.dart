@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 abstract class Styles {
   static const Color fallbackColor = Colors.grey;
   static const Color fallbackFontColor = Colors.black;
+  static final Icon fallbackIcon = Icon(
+    Icons.square_outlined,
+    color: Colors.grey,
+  );
   static const Color badAccent = Colors.red;
   static const Color warningAccent = Colors.orange;
   static const Color goodAccent = Colors.green;
   static const Color neutralAccent = Colors.blue;
   static const Color noAccent = Colors.blue;
+
+  //static Color getKarmaLevelColor(String index) =>
+  //    karmaLevelColor[index] ?? fallbackColor;
 
   static const Map<int, Color> karmaLevelColor = {
     -4: Colors.red,
@@ -76,34 +83,38 @@ abstract class Styles {
   static const tasksCompletedPendingFont =
       TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 
-  static const Color taskScheduleDailyColor = Colors.blue;
-  static const Color taskScheduleWeeklyColor = Colors.green;
-  static const Color taskScheduleMonthlyColor = Colors.orange;
-  static const Color taskScheduleCustomColor = Colors.purple;
+  static final Map<String, Color> taskScheduleColor = {
+    'daily': Colors.blue,
+    'weekly': Colors.green,
+    'monthly': Colors.orange,
+    'custom': Colors.purple
+  };
 
-  static const TextStyle taskScheduleFont = TextStyle(
-      fontSize: 10, color: taskScheduleDailyColor, fontWeight: FontWeight.bold);
-  static const TextStyle taskScheduleWeeklyFont = TextStyle(
-      fontSize: 10,
-      color: taskScheduleWeeklyColor,
-      fontWeight: FontWeight.bold);
-  static const TextStyle taskScheduleMonthlyFont = TextStyle(
-      fontSize: 10,
-      color: taskScheduleMonthlyColor,
-      fontWeight: FontWeight.bold);
-  static const TextStyle taskScheduleCustomFont = TextStyle(
-      fontSize: 10,
-      color: taskScheduleCustomColor,
-      fontWeight: FontWeight.bold);
+  static final Map<String, TextStyle> taskScheduleFont = {
+    'daily': TextStyle(
+        fontSize: 10,
+        color: taskScheduleColor['daily'],
+        fontWeight: FontWeight.bold),
+    'weekly': TextStyle(
+        fontSize: 10,
+        color: taskScheduleColor['weekly'],
+        fontWeight: FontWeight.bold),
+    'monthly': TextStyle(
+        fontSize: 10,
+        color: taskScheduleColor['monthly'],
+        fontWeight: FontWeight.bold),
+    'custom': TextStyle(
+        fontSize: 10,
+        color: taskScheduleColor['custom'],
+        fontWeight: FontWeight.bold)
+  };
 
-  static const TextStyle scheduleSelectorTitleFont =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
-  static const TextStyle scheduleSelectorWeeklyTitleFont =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
-  static const TextStyle scheduleSelectorMonthlyTitleFont =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
-  static const TextStyle scheduleSelectorCustomTitleFont =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  static final Map<String, TextStyle> scheduleSelectorTitleFont = {
+    'daily': TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    'weekly': TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    'monthly': TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    'custom': TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
+  };
 
   static const TextStyle characterStatItemCountFont =
       TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
@@ -300,30 +311,33 @@ abstract class Styles {
 
   static const Icon levelUpButtonIcon = Icon(Icons.celebration);
 
-  static const Color taskDueCompletedColor = goodAccent;
-  static const Color taskDueOverdueColor = badAccent;
-  static const Color taskDueTodayColor = warningAccent;
-  static const Color taskDueSoonColor = neutralAccent;
+  static final Map<String, Color> taskStateColor = {
+    'completed': goodAccent,
+    'overdue': badAccent,
+    "today": warningAccent,
+    'soon': neutralAccent
+  };
+
+  static final Map<String, Icon> taskStateIcon = {
+    'completed': Icon(Icons.calendar_today,
+        size: 16, color: taskStateColor['completed']),
+    'overdue':
+        Icon(Icons.calendar_today, size: 16, color: taskStateColor['overdue']),
+    "today":
+        Icon(Icons.calendar_today, size: 16, color: taskStateColor['today']),
+    'soon': Icon(Icons.calendar_today, size: 16, color: taskStateColor['soon'])
+  };
+
+  static final Map<String, TextStyle> taskStateFont = {
+    'completed': TextStyle(color: taskStateColor['completed']),
+    'overdue': TextStyle(color: taskStateColor['overdue']),
+    "today": TextStyle(color: taskStateColor['today']),
+    'soon': TextStyle(color: taskStateColor['soon'])
+  };
 
   static const Color characterProgressIndicatorBackColor =
       Color.fromARGB(255, 182, 182, 182);
   static const Color characterProgressIndicatorFrontColor = Colors.blue;
-
-  static const Icon taskDueCompletedIcon =
-      Icon(Icons.calendar_today, size: 16, color: taskDueCompletedColor);
-  static const Icon taskDueOverdueIcon =
-      Icon(Icons.calendar_today, size: 16, color: taskDueOverdueColor);
-  static const Icon taskDueTodayIcon =
-      Icon(Icons.calendar_today, size: 16, color: taskDueTodayColor);
-  static const Icon taskDueSoonIcon =
-      Icon(Icons.calendar_today, size: 16, color: taskDueSoonColor);
-
-  static const TextStyle taskDueCompletedFont =
-      TextStyle(color: taskDueCompletedColor);
-  static const TextStyle taskDueOverdueFont =
-      TextStyle(color: taskDueOverdueColor);
-  static const TextStyle taskDueTodayFont = TextStyle(color: taskDueTodayColor);
-  static const TextStyle taskDueSoonFont = TextStyle(color: taskDueSoonColor);
 
   static const bool isExpPreviewLineHueInverted = true;
 
@@ -344,21 +358,33 @@ abstract class Styles {
   static const double expPreviewLineLightness = 0.6;
   static const double expPreviewLineWidth = 3;
 
-  static const double tinyBorder = 2.0;
+  static const Map<String, double> border = {
+    'tiny': 2,
+    'small': 4,
+    'medium': 8,
+  };
 
-  static const double minimumGap = 2;
-  static const double tinyGap = 4;
-  static const double smallGap = 8;
-  static const double mediumGap = 12;
-  static const double largeGap = 16;
-  static const double giantGap = 24;
-  static const double titanicGap = 32;
+  static const double fallbackBorder = 4;
 
-  static const double tinyRadius = 4;
-  static const double smallRadius = 8;
-  static const double mediumRadius = 10;
-  static const double largeRadius = 16;
-  static const double giantRadius = 20;
+  static const Map<String, double> gap = {
+    'minimum': 2,
+    'tiny': 4,
+    'small': 8,
+    'medium': 12,
+    'large': 16,
+    'giant': 24,
+    'titanic': 32,
+  };
 
-  //static const
+  static const double fallbackGap = 4;
+
+  static const Map<String, double> radius = {
+    'tiny': 4,
+    'small': 8,
+    'medium': 10,
+    'large': 16,
+    'giant': 20
+  };
+
+  static const double fallbackRadius = 4;
 }
