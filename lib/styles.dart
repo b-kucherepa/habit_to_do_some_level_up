@@ -218,9 +218,6 @@ class Styles {
   static const Icon habitCompletionMinIcon =
       Icon(Icons.check, size: 20, color: Colors.blue);
 
-  static const Icon habitRepetitionIcon =
-      Icon(Icons.repeat, size: 20, color: Colors.black);
-
   static const TextStyle habitNotTodayFont = TextStyle(
     fontSize: 12,
     color: Colors.grey,
@@ -259,6 +256,20 @@ class Styles {
     'weekly': Colors.green,
     'monthly': Colors.orange,
     'custom': Colors.purple
+  };
+
+  static Icon getHabitScheduleIcon(String index) =>
+      _habitScheduleIcon[index] ?? fallbackIcon;
+
+  static final Map<String, Icon> _habitScheduleIcon = {
+    'daily':
+        Icon(Icons.repeat, size: 20, color: getHabitScheduleColor('daily')),
+    'weekly':
+        Icon(Icons.repeat, size: 20, color: getHabitScheduleColor('weekly')),
+    'monthly':
+        Icon(Icons.repeat, size: 20, color: getHabitScheduleColor('monthly')),
+    'custom':
+        Icon(Icons.repeat, size: 20, color: getHabitScheduleColor('custom'))
   };
 
   static TextStyle getHabitScheduleFont(String index) =>

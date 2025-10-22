@@ -145,10 +145,12 @@ class HabitItemWidget extends StatelessWidget {
             ),
           ],
 
+          // Третий ряд: exp, min
           SizedBox(height: Styles.getGap('S')),
-
-          // Третий ряд: exp, min и repeat
           _buildMetaInfoRow(context),
+
+          SizedBox(height: Styles.getGap('S')),
+          _buildRepeatRow(context),
         ],
       ),
     );
@@ -174,9 +176,14 @@ class HabitItemWidget extends StatelessWidget {
           context.l10n.habitItemMinCompletion(habit.minCompletionCount),
           style: Styles.entrySubtextFont,
         ),
+      ],
+    );
+  }
 
+  Widget _buildRepeatRow(BuildContext context) {
+    return Row(
+      children: [
         if (showScheduleInfo) ...[
-          SizedBox(width: Styles.getGap('M')),
           _buildScheduleBadge(context),
         ],
       ],
@@ -223,6 +230,7 @@ class HabitItemWidget extends StatelessWidget {
 
   Widget _buildScheduleBadge(BuildContext context) {
     final color = Styles.getHabitScheduleColor(habit.scheduleType);
+    final icon = Styles.getHabitScheduleIcon(habit.scheduleType);
     final textStyle = Styles.getHabitScheduleFont(habit.scheduleType);
     final text = switch (habit.scheduleType) {
       'daily' => context.l10n.habitItemScheduleDaily,
@@ -245,8 +253,8 @@ class HabitItemWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Styles.habitRepetitionIcon,
-          SizedBox(width: Styles.getGap('S')),
+          icon,
+          SizedBox(width: Styles.getGap('XS')),
           Text(text, style: textStyle),
         ],
       ),

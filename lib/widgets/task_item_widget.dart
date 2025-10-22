@@ -114,7 +114,7 @@ class TaskItemWidget extends StatelessWidget {
 
           // Четвертый ряд: Category
           if (task.category.isNotEmpty) ...[
-            SizedBox(height: Styles.getGap('XS')),
+            SizedBox(height: Styles.getGap('S')),
             _buildCategoryRow(context),
           ],
         ],
