@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'package:todo_rpg_app/models/habit.dart';
 import 'package:todo_rpg_app/models/task.dart';
 
 void main() {
   group('Service Logic Tests (Without Hive)', () {
-    test('Character level progression logic', () {
-      final character = Character(
+    test('Player level progression logic', () {
+      final player = Player(
         id: 'test',
         goal: 'Test',
         experience: 0,
@@ -17,20 +17,20 @@ void main() {
       );
 
       // Initial state
-      expect(character.level, 1);
-      expect(character.experience, 0);
-      expect(character.experienceToNextLevel, 100);
+      expect(player.level, 1);
+      expect(player.experience, 0);
+      expect(player.experienceToNextLevel, 100);
 
       // Add experience
-      character.addExperience(50);
-      expect(character.experience, 50);
-      expect(character.level, 1); // Still level 1
-      expect(character.experienceToNextLevel, 50);
+      player.addExperience(50);
+      expect(player.experience, 50);
+      expect(player.level, 1); // Still level 1
+      expect(player.experienceToNextLevel, 50);
 
       // Level up
-      character.addExperience(50);
-      expect(character.level, 2);
-      expect(character.experience, 100);
+      player.addExperience(50);
+      expect(player.level, 2);
+      expect(player.experience, 100);
     });
 
     test('Habit completion and karma logic', () {

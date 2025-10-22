@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'dart:math';
 
-part 'character.g.dart';
+part 'player.g.dart';
 
 @HiveType(typeId: 0)
-class Character {
+class Player {
   static const double minCurveExponent = 0.8;
   static const double maxCurveExponent = 2;
   static const double defaultCurveExponent = 1.5;
@@ -17,9 +17,9 @@ class Character {
   static const int startingLevel = 1;
   static const int startingExperience = 0;
 
-  static const String defaultId = 'default_character';
+  static const String defaultId = 'default_player';
   static const String defaultGoal =
-      'Accumulate experience to create your RPG character!';
+      'Accumulate experience to create your RPG player!';
 
   @HiveField(0)
   final String id;
@@ -42,7 +42,7 @@ class Character {
   @HiveField(6)
   double experienceMultiplier; // k - множитель опыта
 
-  Character({
+  Player({
     required this.id,
     required this.goal,
     this.experience = startingExperience,

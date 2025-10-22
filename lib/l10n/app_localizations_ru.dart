@@ -45,7 +45,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get completeDayHint => 'Завершить пропущенный день';
 
   @override
-  String get markCompletedHabitsHint => 'Отметьте выполненные привычки за этот день:';
+  String get markCompletedHabitsHint =>
+      'Отметьте выполненные привычки за этот день:';
 
   @override
   String get skipDayButton => 'Пропустить этот день';
@@ -102,7 +103,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get sunday => 'Воскресенье';
 
   @override
-  String get character => 'Персонаж';
+  String get player => 'Персонаж';
 
   @override
   String get habits => 'Привычки';
@@ -191,7 +192,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get karmaLevel => 'Уровень кармы';
 
   @override
-  String get karmaDescription => 'Ваш уровень кармы отражает вашу последовательность.';
+  String get karmaDescription =>
+      'Ваш уровень кармы отражает вашу последовательность.';
 
   @override
   String get resetProgress => 'Сбросить прогресс';
@@ -338,13 +340,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormSave => 'Сохранить привычку';
 
   @override
-  String get habitFormWeeklyError => 'Выберите хотя бы один день для недельного расписания';
+  String get habitFormWeeklyError =>
+      'Выберите хотя бы один день для недельного расписания';
 
   @override
-  String get habitFormMonthlyError => 'Выберите хотя бы один день для месячного расписания';
+  String get habitFormMonthlyError =>
+      'Выберите хотя бы один день для месячного расписания';
 
   @override
-  String get habitFormCustomError => 'Выберите интервал для пользовательского расписания';
+  String get habitFormCustomError =>
+      'Выберите интервал для пользовательского расписания';
 
   @override
   String habitItemExperience(Object experience) {
@@ -405,7 +410,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitsTabEmptyTitle => 'Пока нет привычек!';
 
   @override
-  String get habitsTabEmptySubtitle => 'Нажмите +, чтобы добавить первую привычку';
+  String get habitsTabEmptySubtitle =>
+      'Нажмите +, чтобы добавить первую привычку';
 
   @override
   String get taskFormTitle => 'Название задачи';

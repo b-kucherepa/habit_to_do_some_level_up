@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import 'package:todo_rpg_app/styles.dart';
-import '../models/character.dart';
+import '../models/player.dart';
 import '../services/hive_service.dart';
-import '../widgets/character_settings_dialog.dart';
+import 'player_settings_dialog.dart';
 
-class CharacterTab extends StatefulWidget {
-  const CharacterTab({super.key});
+class PlayerTab extends StatefulWidget {
+  const PlayerTab({super.key});
 
   @override
-  _CharacterTabState createState() => _CharacterTabState();
+  _PlayerTabState createState() => _PlayerTabState();
 }
 
-class _CharacterTabState extends State<CharacterTab> {
+class _PlayerTabState extends State<PlayerTab> {
   final HiveService _hiveService = HiveService();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: _hiveService.charactersBox.watch(),
+      stream: _hiveService.playersBox.watch(),
       builder: (context, snapshot) {
-        final characters = _hiveService.getCharacters();
+        final players = _hiveService.getPlayers();
 
-        final character = characters.first;
+        final player = players.first;
         return Column(
           children: [
-            _buildStatsCard(character),
+            _buildStatsCard(player),
             SizedBox(height: Styles.gap['large']),
             Expanded(child: _buildTodaysOverview()),
           ],
@@ -34,7 +34,7 @@ class _CharacterTabState extends State<CharacterTab> {
     );
   }
 
-  Widget _buildStatsCard(Character character) {
+  Widget _buildStatsCard(Player player) {
     return Card(
       margin: EdgeInsets.all(Styles.gap['large'] ?? Styles.fallbackGap),
       child: Padding(
@@ -47,17 +47,17 @@ class _CharacterTabState extends State<CharacterTab> {
               children: [
                 Expanded(
                   child: Text(
-                    character.goal == Character.defaultGoal
+                    player.goal == Player.defaultGoal
                         ? context.l10n.defaultGoal
-                        : character.goal,
-                    style: Styles.characterGoal,
+                        : player.goal,
+                    style: Styles.playerGoal,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 IconButton(
-                  icon: Styles.characterTabSettingsIcon,
-                  onPressed: () => _showSettingsDialog(character),
+                  icon: Styles.playerTabSettingsIcon,
+                  onPressed: () => _showSettingsDialog(player),
                   tooltip: context.l10n.settings,
                 ),
               ],
@@ -65,18 +65,16 @@ class _CharacterTabState extends State<CharacterTab> {
             SizedBox(height: Styles.gap['large']),
             Row(
               children: [
-                _buildStatItem(context.l10n.level, '${character.level}',
-                    Styles.characterTabLevelIcon),
+                _buildStatItem(context.l10n.level, '${player.level}',
+                    Styles.playerTabLevelIcon),
                 SizedBox(width: Styles.gap['large']),
-                _buildStatItem(
-                    context.l10n.experienceShort,
-                    '${character.experience}',
-                    Styles.characterTabExperienceIcon),
+                _buildStatItem(context.l10n.experienceShort,
+                    '${player.experience}', Styles.playerTabExperienceIcon),
                 SizedBox(width: Styles.gap['large']),
                 _buildStatItem(
                     context.l10n.toNext,
-                    '${character.experienceToNextLevel}',
-                    Styles.characterTabToNextLevelIcon),
+                    '${player.experienceToNextLevel}',
+                    Styles.playerTabToNextLevelIcon),
               ],
             ),
             SizedBox(height: Styles.gap['large']),
@@ -86,23 +84,21 @@ class _CharacterTabState extends State<CharacterTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                        '${context.l10n.progressToLevel} ${character.level + 1}'),
-                    Text(
-                        '${(character.levelProgress * 100).toStringAsFixed(1)}%'),
+                    Text('${context.l10n.progressToLevel} ${player.level + 1}'),
+                    Text('${(player.levelProgress * 100).toStringAsFixed(1)}%'),
                   ],
                 ),
                 SizedBox(height: Styles.gap['small']),
                 LinearProgressIndicator(
-                  value: character.levelProgress,
-                  backgroundColor: Styles.characterProgressIndicatorBackColor,
-                  color: Styles.characterProgressIndicatorFrontColor,
+                  value: player.levelProgress,
+                  backgroundColor: Styles.playerProgressIndicatorBackColor,
+                  color: Styles.playerProgressIndicatorFrontColor,
                   minHeight: Styles.gap['small'],
                 ),
               ],
             ),
             SizedBox(height: Styles.gap['small']),
-            _buildLevelSystemInfo(character),
+            _buildLevelSystemInfo(player),
           ],
         ),
       ),
@@ -116,42 +112,41 @@ class _CharacterTabState extends State<CharacterTab> {
           Container(
             padding: EdgeInsets.all(Styles.gap['small'] ?? Styles.fallbackGap),
             decoration: BoxDecoration(
-              color: Styles.characterStatItemBackColor,
+              color: Styles.playerStatItemBackColor,
               shape: BoxShape.circle,
             ),
             child: icon,
           ),
           SizedBox(height: Styles.gap['tiny'] ?? Styles.fallbackGap),
-          Text(value, style: Styles.characterStatItemCountFont),
-          Text(label, style: Styles.characterStatItemLabelFont),
+          Text(value, style: Styles.playerStatItemCountFont),
+          Text(label, style: Styles.playerStatItemLabelFont),
         ],
       ),
     );
   }
 
-  Widget _buildLevelSystemInfo(Character character) {
+  Widget _buildLevelSystemInfo(Player player) {
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: Styles.gap['medium'] ?? Styles.fallbackGap,
           vertical: Styles.gap['small'] ?? Styles.fallbackGap),
       decoration: BoxDecoration(
-        color: Styles.characterTabExpCurveLabelColor.withValues(alpha: 0.1),
+        color: Styles.playerTabExpCurveLabelColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(
             Styles.radius['small'] ?? Styles.fallbackRadius),
         border: Border.all(
-            color:
-                Styles.characterTabExpCurveLabelColor.withValues(alpha: 0.3)),
+            color: Styles.playerTabExpCurveLabelColor.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Styles.characterTabExpCurveLabelIcon,
+          Styles.playerTabExpCurveLabelIcon,
           SizedBox(width: Styles.gap['small']),
           Text(
               context.l10n.expCurveLabel(
-                  character.curveExponent.toStringAsFixed(1),
-                  character.experienceMultiplier.toInt()),
-              style: Styles.characterTabExpCurveLabelFont),
+                  player.curveExponent.toStringAsFixed(1),
+                  player.experienceMultiplier.toInt()),
+              style: Styles.playerTabExpCurveLabelFont),
         ],
       ),
     );
@@ -185,7 +180,7 @@ class _CharacterTabState extends State<CharacterTab> {
                 children: [
                   Text(
                     context.l10n.todaysProgress,
-                    style: Styles.characterTodayProgressFont,
+                    style: Styles.playerTodayProgressFont,
                   ),
                   SizedBox(height: Styles.gap['large'] ?? Styles.fallbackGap),
                   Row(
@@ -238,16 +233,16 @@ class _CharacterTabState extends State<CharacterTab> {
               SizedBox(height: Styles.gap['small'] ?? Styles.fallbackGap),
               Text(
                 value,
-                style: Styles.characterOverviewCountFont,
+                style: Styles.playerOverviewCountFont,
               ),
               Text(
                 title,
-                style: Styles.characterOverviewLabelFont,
+                style: Styles.playerOverviewLabelFont,
               ),
               if (details != null)
                 Text(
                   details,
-                  style: Styles.characterStatItemDetailsFont,
+                  style: Styles.playerStatItemDetailsFont,
                 ),
             ],
           ),
@@ -256,14 +251,14 @@ class _CharacterTabState extends State<CharacterTab> {
     );
   }
 
-  Future<void> _showSettingsDialog(Character character) async {
-    final result = await showDialog<Character>(
+  Future<void> _showSettingsDialog(Player player) async {
+    final result = await showDialog<Player>(
       context: context,
-      builder: (context) => CharacterSettingsDialog(character: character),
+      builder: (context) => PlayerSettingsDialog(player: player),
     );
 
     if (result != null && mounted) {
-      _hiveService.updateCharacter(result);
+      _hiveService.updatePlayer(result);
     }
   }
 }

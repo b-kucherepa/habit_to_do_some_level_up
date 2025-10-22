@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'dart:io';
 
 // Импортируем модели и их адаптеры
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'package:todo_rpg_app/models/habit.dart';
 import 'package:todo_rpg_app/models/task.dart';
 
@@ -17,7 +17,7 @@ class HiveTestHelper {
 
       // Регистрируем адаптеры только один раз
       if (!Hive.isAdapterRegistered(0)) {
-        Hive.registerAdapter(CharacterAdapter());
+        Hive.registerAdapter(PlayerAdapter());
       }
       if (!Hive.isAdapterRegistered(1)) {
         Hive.registerAdapter(TaskAdapter());
@@ -27,7 +27,7 @@ class HiveTestHelper {
       }
 
       // Явно открываем все необходимые боксы
-      await Hive.openBox<Character>('characters');
+      await Hive.openBox<Player>('players');
       await Hive.openBox<Habit>('habits');
       await Hive.openBox<Task>('tasks');
       await Hive.openBox('preferences');
@@ -50,7 +50,7 @@ class HiveTestHelper {
   }
 
   // Методы для получения открытых боксов
-  static Box<Character> get charactersBox => Hive.box<Character>('characters');
+  static Box<Player> get playersBox => Hive.box<Player>('players');
   static Box<Habit> get habitsBox => Hive.box<Habit>('habits');
   static Box<Task> get tasksBox => Hive.box<Task>('tasks');
   static Box get preferencesBox => Hive.box('preferences');

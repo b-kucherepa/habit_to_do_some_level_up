@@ -102,7 +102,7 @@ class AppLocalizationsCh extends AppLocalizations {
   String get sunday => '星期日';
 
   @override
-  String get character => '角色';
+  String get player => '角色';
 
   @override
   String get habits => '习惯';

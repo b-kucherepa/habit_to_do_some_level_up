@@ -102,7 +102,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get sunday => 'יום ראשון';
 
   @override
-  String get character => 'דמות';
+  String get player => 'דמות';
 
   @override
   String get habits => 'הרגלים';
@@ -405,7 +405,8 @@ class AppLocalizationsHe extends AppLocalizations {
   String get habitsTabEmptyTitle => 'אין עדיין הרגלים!';
 
   @override
-  String get habitsTabEmptySubtitle => 'הקש על כפתור + כדי להוסיף את ההרגל הראשון שלך';
+  String get habitsTabEmptySubtitle =>
+      'הקש על כפתור + כדי להוסיף את ההרגל הראשון שלך';
 
   @override
   String get taskFormTitle => 'כותרת משימה';
@@ -466,7 +467,8 @@ class AppLocalizationsHe extends AppLocalizations {
   String get tasksTabEmptyTitle => 'אין עדיין משימות!';
 
   @override
-  String get tasksTabEmptySubtitle => 'הקש על כפתור + כדי להוסיף את המשימה הראשונה שלך';
+  String get tasksTabEmptySubtitle =>
+      'הקש על כפתור + כדי להוסיף את המשימה הראשונה שלך';
 
   @override
   String get tasksTabTotal => 'סה\"כ';

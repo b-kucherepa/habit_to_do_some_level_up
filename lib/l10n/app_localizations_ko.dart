@@ -102,7 +102,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get sunday => '일요일';
 
   @override
-  String get character => '캐릭터';
+  String get player => '캐릭터';
 
   @override
   String get habits => '습관';

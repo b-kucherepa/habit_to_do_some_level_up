@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'dart:io';
 
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'package:todo_rpg_app/models/habit.dart';
 import 'package:todo_rpg_app/models/task.dart';
 
@@ -15,7 +15,7 @@ void main() {
       Hive.init(testDir.path);
 
       // Регистрируем адаптеры
-      Hive.registerAdapter(CharacterAdapter());
+      Hive.registerAdapter(PlayerAdapter());
       Hive.registerAdapter(TaskAdapter());
       Hive.registerAdapter(HabitAdapter());
     });
@@ -25,11 +25,11 @@ void main() {
       await testDir.delete(recursive: true);
     });
 
-    test('Can store and retrieve Character', () async {
-      final box = await Hive.openBox<Character>('test_characters');
+    test('Can store and retrieve Player', () async {
+      final box = await Hive.openBox<Player>('test_players');
       await box.clear();
 
-      final character = Character(
+      final player = Player(
         id: 'test-char',
         goal: 'Test Goal',
         experience: 100,
@@ -39,12 +39,12 @@ void main() {
         experienceMultiplier: 100.0,
       );
 
-      await box.add(character);
+      await box.add(player);
 
-      final characters = box.values.toList();
-      expect(characters, hasLength(1));
-      expect(characters.first.id, 'test-char');
-      expect(characters.first.goal, 'Test Goal');
+      final players = box.values.toList();
+      expect(players, hasLength(1));
+      expect(players.first.id, 'test-char');
+      expect(players.first.goal, 'Test Goal');
 
       await box.close();
     });

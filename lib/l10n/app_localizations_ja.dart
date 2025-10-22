@@ -102,7 +102,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get sunday => '日曜日';
 
   @override
-  String get character => 'キャラクター';
+  String get player => 'キャラクター';
 
   @override
   String get habits => '習慣';

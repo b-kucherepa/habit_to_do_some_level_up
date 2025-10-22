@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/widgets/character_settings_dialog.dart';
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/widgets/player_settings_dialog.dart';
+import 'package:todo_rpg_app/models/player.dart';
 
 void main() {
-  group('CharacterSettingsDialog Tests', () {
-    testWidgets('Renders with initial character values',
+  group('PlayerSettingsDialog Tests', () {
+    testWidgets('Renders with initial player values',
         (WidgetTester tester) async {
-      final character = Character(
+      final player = Player(
         id: 'test',
         goal: 'Initial Goal',
         experience: 100,
@@ -20,7 +20,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: CharacterSettingsDialog(character: character),
+          body: PlayerSettingsDialog(player: player),
         ),
       ));
 
@@ -33,7 +33,7 @@ void main() {
     });
 
     testWidgets('Updates goal text when edited', (WidgetTester tester) async {
-      final character = Character(
+      final player = Player(
         id: 'test',
         goal: 'Initial Goal',
         experience: 100,
@@ -45,7 +45,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: CharacterSettingsDialog(character: character),
+          body: PlayerSettingsDialog(player: player),
         ),
       ));
 
@@ -68,7 +68,7 @@ void main() {
     });
 
     testWidgets('Sliders update curve parameters', (WidgetTester tester) async {
-      final character = Character(
+      final player = Player(
         id: 'test',
         goal: 'Test Goal',
         experience: 100,
@@ -80,7 +80,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: CharacterSettingsDialog(character: character),
+          body: PlayerSettingsDialog(player: player),
         ),
       ));
 

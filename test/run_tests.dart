@@ -1,5 +1,5 @@
 // Импорты всех тестовых файлов
-import 'character_test.dart' as character_test;
+import 'player_test.dart' as player_test;
 import 'habit_test.dart' as habit_test;
 import 'task_test.dart' as task_test;
 import 'model_tests.dart' as model_tests;
@@ -9,7 +9,7 @@ import 'hive_service_simple_test.dart' as hive_service_test;
 import 'day_completion_service_test.dart' as day_completion_test;
 import 'integration_test.dart' as integration_test;
 import 'widget_test.dart' as widget_test;
-import 'character_settings_dialog_test.dart' as character_dialog_test;
+import 'player_settings_dialog_test.dart' as player_dialog_test;
 
 void main() {
   // Этот файл запускает ВСЕ рабочие тесты в правильном порядке
@@ -22,7 +22,7 @@ void main() {
 // Функции для запуска каждой группы тестов
 void _runBasicModelTests() {
   print('🧪 1. Running Basic Model Tests...');
-  character_test.main();
+  player_test.main();
   habit_test.main();
   task_test.main();
   print('✅ Basic Model Tests completed');
@@ -68,7 +68,7 @@ void _runIntegrationTests() {
 void _runWidgetTests() {
   print('🧪 7. Running Widget Tests...');
   widget_test.main();
-  character_dialog_test.main();
+  player_dialog_test.main();
   print('✅ Widget Tests completed');
   print('---');
 }

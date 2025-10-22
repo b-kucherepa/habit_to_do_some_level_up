@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'dart:io';
 
 import 'package:todo_rpg_app/models/habit.dart';
@@ -13,15 +13,15 @@ Future<void> initTestHive() async {
 }
 
 // Common test data generators
-Character createTestCharacter({
-  String id = 'test-character',
+Player createTestPlayer({
+  String id = 'test-player',
   String goal = 'Test Goal',
   int experience = 0,
   int level = 1,
   double curveExponent = 1.5,
   double experienceMultiplier = 100.0,
 }) {
-  return Character(
+  return Player(
     id: id,
     goal: goal,
     experience: experience,

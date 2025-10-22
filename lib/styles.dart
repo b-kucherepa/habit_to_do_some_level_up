@@ -31,13 +31,13 @@ abstract class Styles {
     7: Colors.deepPurpleAccent
   };
 
-  static const Color characterAccentColor = Colors.blue;
+  static const Color playerAccentColor = Colors.blue;
   static const Color habitAccentColor = Colors.green;
   static const Color taskAccentColor = Colors.orange;
   static const Color levelUpAccentColor = Color.fromARGB(255, 255, 102, 0);
 
   static const Map<int, Color> appBarColor = {
-    0: characterAccentColor,
+    0: playerAccentColor,
     1: habitAccentColor,
     2: taskAccentColor,
   };
@@ -116,11 +116,11 @@ abstract class Styles {
     'custom': TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
   };
 
-  static const TextStyle characterStatItemCountFont =
+  static const TextStyle playerStatItemCountFont =
       TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
-  static const TextStyle characterStatItemLabelFont =
+  static const TextStyle playerStatItemLabelFont =
       TextStyle(fontSize: 12, color: Colors.grey);
-  static const Color characterStatItemBackColor =
+  static const Color playerStatItemBackColor =
       Color.fromARGB(255, 192, 192, 192);
 
   static const Color taskCompletedBackColor =
@@ -142,7 +142,7 @@ abstract class Styles {
   static const Color contrastHeaderFontColor = Colors.grey;
   static const Color levelUpBorderColor = levelUpAccentColor;
 
-  static const TextStyle characterGoal = TextStyle(
+  static const TextStyle playerGoal = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
     color: Color.fromARGB(255, 20, 107, 179),
@@ -180,7 +180,7 @@ abstract class Styles {
     fontStyle: FontStyle.italic,
   );
 
-  static const Icon characterTabSmallIcon = Icon(Icons.person);
+  static const Icon playerTabSmallIcon = Icon(Icons.person);
   static const Icon habitsTabSmallIcon = Icon(Icons.auto_awesome);
   static const Icon tasksTabSmallIcon = Icon(Icons.task);
 
@@ -272,13 +272,13 @@ abstract class Styles {
 
   static const TextStyle taskCategory = TextStyle(fontSize: 10);
 
-  static const Icon characterTabSettingsIcon =
+  static const Icon playerTabSettingsIcon =
       Icon(Icons.settings, color: Colors.grey);
-  static const Icon characterTabLevelIcon =
+  static const Icon playerTabLevelIcon =
       Icon(Icons.star, size: 20, color: Color.fromARGB(255, 25, 118, 210));
-  static const Icon characterTabExperienceIcon = Icon(Icons.auto_awesome,
+  static const Icon playerTabExperienceIcon = Icon(Icons.auto_awesome,
       size: 20, color: Color.fromARGB(255, 25, 118, 210));
-  static const Icon characterTabToNextLevelIcon =
+  static const Icon playerTabToNextLevelIcon =
       Icon(Icons.flag, size: 20, color: Color.fromARGB(255, 25, 118, 210));
 
   static const Icon habitsDoneCountIcon =
@@ -289,24 +289,24 @@ abstract class Styles {
   static const Icon overviewTasksDoneIcon =
       Icon(Icons.check_circle, color: goodAccent);
   static const Icon overviewOverdueIcon = Icon(Icons.warning, color: badAccent);
-  static const Icon characterTabExpCurveLabelIcon =
+  static const Icon playerTabExpCurveLabelIcon =
       Icon(Icons.trending_up, size: 16, color: Colors.blue);
   static const Icon languageOptionIcon =
       Icon(Icons.language, size: 20, color: Colors.grey);
 
-  static const TextStyle characterOverviewCountFont =
+  static const TextStyle playerOverviewCountFont =
       TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
-  static const TextStyle characterOverviewLabelFont =
+  static const TextStyle playerOverviewLabelFont =
       TextStyle(fontSize: 12, color: Colors.grey);
-  static const TextStyle characterStatItemDetailsFont =
+  static const TextStyle playerStatItemDetailsFont =
       TextStyle(fontSize: 10, color: Color.fromARGB(255, 199, 199, 199));
 
-  static const TextStyle characterTodayProgressFont =
+  static const TextStyle playerTodayProgressFont =
       TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
-  static const Color characterTabExpCurveLabelColor = Colors.blue;
-  static const TextStyle characterTabExpCurveLabelFont = TextStyle(
+  static const Color playerTabExpCurveLabelColor = Colors.blue;
+  static const TextStyle playerTabExpCurveLabelFont = TextStyle(
       fontSize: 12,
-      color: characterTabExpCurveLabelColor,
+      color: playerTabExpCurveLabelColor,
       fontWeight: FontWeight.bold);
 
   static const Icon levelUpButtonIcon = Icon(Icons.celebration);
@@ -335,9 +335,9 @@ abstract class Styles {
     'soon': TextStyle(color: taskStateColor['soon'])
   };
 
-  static const Color characterProgressIndicatorBackColor =
+  static const Color playerProgressIndicatorBackColor =
       Color.fromARGB(255, 182, 182, 182);
-  static const Color characterProgressIndicatorFrontColor = Colors.blue;
+  static const Color playerProgressIndicatorFrontColor = Colors.blue;
 
   static const bool isExpPreviewLineHueInverted = true;
 

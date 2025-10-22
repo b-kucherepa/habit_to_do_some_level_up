@@ -7,7 +7,7 @@ import '../models/habit.dart';
 import '../models/task.dart';
 import '../services/experience_service.dart';
 import '../services/hive_service.dart';
-import '../widgets/character_tab.dart';
+import '../widgets/player_tab.dart';
 import '../widgets/habits_tab.dart';
 import '../widgets/tasks_tab.dart';
 import 'add_habit_screen.dart';
@@ -57,8 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _getBody(int index) {
     switch (index) {
       case 0:
-        return CharacterTab(
-            //onCreateCharacter: _createDefaultCharacter,
+        return PlayerTab(
+            //onCreatePlayer: _createDefaultPlayer,
             );
       case 1:
         return HabitsTab(
@@ -74,8 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
           experienceService: _experienceService,
         );
       default:
-        return CharacterTab(
-            //onCreateCharacter: _createDefaultCharacter,
+        return PlayerTab(
+            //onCreatePlayer: _createDefaultPlayer,
             );
     }
   }
@@ -105,8 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: _onItemTapped,
       items: [
         BottomNavigationBarItem(
-          icon: Styles.characterTabSmallIcon,
-          label: context.l10n.character,
+          icon: Styles.playerTabSmallIcon,
+          label: context.l10n.home,
         ),
         BottomNavigationBarItem(
           icon: Styles.habitsTabSmallIcon,

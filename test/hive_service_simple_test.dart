@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'dart:io';
 
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'package:todo_rpg_app/models/habit.dart';
 import 'package:todo_rpg_app/models/task.dart';
 import 'package:todo_rpg_app/services/hive_service.dart';
@@ -17,14 +17,14 @@ void main() {
       Hive.init(testDir.path);
 
       // Регистрируем адаптеры
-      Hive.registerAdapter(CharacterAdapter());
+      Hive.registerAdapter(PlayerAdapter());
       Hive.registerAdapter(TaskAdapter());
       Hive.registerAdapter(HabitAdapter());
     });
 
     setUp(() async {
       // Открываем боксы перед каждым тестом
-      await Hive.openBox<Character>('characters');
+      await Hive.openBox<Player>('players');
       await Hive.openBox<Habit>('habits');
       await Hive.openBox<Task>('tasks');
       await Hive.openBox('preferences');
@@ -34,13 +34,13 @@ void main() {
 
     tearDown(() async {
       // Очищаем боксы после каждого теста
-      await Hive.box<Character>('characters').clear();
+      await Hive.box<Player>('players').clear();
       await Hive.box<Habit>('habits').clear();
       await Hive.box<Task>('tasks').clear();
       await Hive.box('preferences').clear();
 
       // Закрываем боксы
-      await Hive.box<Character>('characters').close();
+      await Hive.box<Player>('players').close();
       await Hive.box<Habit>('habits').close();
       await Hive.box<Task>('tasks').close();
       await Hive.box('preferences').close();
@@ -53,17 +53,17 @@ void main() {
 
     test('Service can be instantiated after opening boxes', () {
       expect(hiveService, isNotNull);
-      expect(() => hiveService.charactersBox, returnsNormally);
+      expect(() => hiveService.playersBox, returnsNormally);
       expect(() => hiveService.habitsBox, returnsNormally);
       expect(() => hiveService.tasksBox, returnsNormally);
     });
 
-    test('Can create and retrieve default character', () {
-      hiveService.createDefaultCharacter();
+    test('Can create and retrieve default player', () {
+      hiveService.createDefaultPlayer();
 
-      final characters = hiveService.getCharacters();
-      expect(characters, isNotEmpty);
-      expect(characters.first.id, 'default');
+      final players = hiveService.getPlayers();
+      expect(players, isNotEmpty);
+      expect(players.first.id, 'default');
     });
 
     test('Can add and retrieve habit', () {

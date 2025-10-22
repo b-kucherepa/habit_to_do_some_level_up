@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'package:todo_rpg_app/models/habit.dart';
 import 'package:todo_rpg_app/models/task.dart';
 
 void main() {
-  group('Character Model Tests', () {
-    test('Character initializes with correct values', () {
-      final character = Character(
+  group('Player Model Tests', () {
+    test('Player initializes with correct values', () {
+      final player = Player(
         id: 'test',
         goal: 'Test Goal',
         experience: 0,
@@ -17,14 +17,14 @@ void main() {
         experienceMultiplier: 100.0,
       );
 
-      expect(character.id, 'test');
-      expect(character.goal, 'Test Goal');
-      expect(character.experience, 0);
-      expect(character.level, 1);
+      expect(player.id, 'test');
+      expect(player.goal, 'Test Goal');
+      expect(player.experience, 0);
+      expect(player.level, 1);
     });
 
-    test('Character level calculation', () {
-      final character = Character(
+    test('Player level calculation', () {
+      final player = Player(
         id: 'test',
         goal: 'Test',
         experience: 0,
@@ -34,13 +34,13 @@ void main() {
         experienceMultiplier: 100.0,
       );
 
-      character.addExperience(100);
-      expect(character.experience, 100);
-      expect(character.level, 2);
+      player.addExperience(100);
+      expect(player.experience, 100);
+      expect(player.level, 2);
     });
 
-    test('Character experience to next level', () {
-      final character = Character(
+    test('Player experience to next level', () {
+      final player = Player(
         id: 'test',
         goal: 'Test',
         experience: 0,
@@ -50,10 +50,10 @@ void main() {
         experienceMultiplier: 100.0,
       );
 
-      expect(character.experienceToNextLevel, 100);
+      expect(player.experienceToNextLevel, 100);
 
-      character.addExperience(50);
-      expect(character.experienceToNextLevel, 50);
+      player.addExperience(50);
+      expect(player.experienceToNextLevel, 50);
     });
   });
 

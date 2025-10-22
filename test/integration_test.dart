@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_rpg_app/models/character.dart';
+import 'package:todo_rpg_app/models/player.dart';
 import 'package:todo_rpg_app/models/habit.dart';
 import 'package:todo_rpg_app/models/task.dart';
 
@@ -56,8 +56,8 @@ void main() {
   });
 
   group('Model Logic Tests', () {
-    test('Character experience system', () {
-      final character = Character(
+    test('Player experience system', () {
+      final player = Player(
         id: 'test',
         goal: 'Test Goal',
         experience: 0,
@@ -68,10 +68,10 @@ void main() {
       );
 
       // Test level progression
-      expect(character.level, 1);
-      character.addExperience(100);
-      expect(character.level, 2);
-      expect(character.experience, 100);
+      expect(player.level, 1);
+      player.addExperience(100);
+      expect(player.level, 2);
+      expect(player.experience, 100);
     });
 
     test('Habit completion system', () {

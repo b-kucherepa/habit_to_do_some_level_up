@@ -1,49 +1,49 @@
 import 'package:hive/hive.dart';
-import '../models/character.dart';
+import '../models/player.dart';
 import '../models/habit.dart';
 import '../models/task.dart';
 
 class HiveService {
-  Box<Character> get charactersBox => Hive.box<Character>('characters');
+  Box<Player> get playersBox => Hive.box<Player>('players');
   Box<Habit> get habitsBox => Hive.box<Habit>('habits');
   Box<Task> get tasksBox => Hive.box<Task>('tasks');
 
   // Автоматически создаем персонажа при первом доступе
-  Character getFirstCharacter() {
-    final characters = getCharacters();
-    if (characters.isEmpty) {
-      createDefaultCharacter();
-      return getCharacters().first;
+  Player getFirstPlayer() {
+    final players = getPlayers();
+    if (players.isEmpty) {
+      createDefaultPlayer();
+      return getPlayers().first;
     }
-    return characters.first;
+    return players.first;
   }
 
-  void createDefaultCharacter() {
-    final character = Character(
-      id: Character.defaultId,
-      goal: Character.defaultGoal,
+  void createDefaultPlayer() {
+    final player = Player(
+      id: Player.defaultId,
+      goal: Player.defaultGoal,
       createdDate: DateTime.now(),
-      curveExponent: Character.defaultCurveExponent,
-      experienceMultiplier: Character.defaultExperienceMultiplier,
+      curveExponent: Player.defaultCurveExponent,
+      experienceMultiplier: Player.defaultExperienceMultiplier,
     );
-    charactersBox.add(character);
+    playersBox.add(player);
   }
 
   // Метод для сброса прогресса персонажа и привычек
-  void resetCharacterProgress() {
-    final character = getFirstCharacter();
+  void resetPlayerProgress() {
+    final player = getFirstPlayer();
 
     // Сбрасываем персонажа
-    final resetCharacter = Character(
-      id: character.id,
-      goal: character.goal,
-      experience: Character.startingExperience,
-      level: Character.startingLevel,
-      createdDate: character.createdDate,
-      curveExponent: character.curveExponent,
-      experienceMultiplier: character.experienceMultiplier,
+    final resetPlayer = Player(
+      id: player.id,
+      goal: player.goal,
+      experience: Player.startingExperience,
+      level: Player.startingLevel,
+      createdDate: player.createdDate,
+      curveExponent: player.curveExponent,
+      experienceMultiplier: player.experienceMultiplier,
     );
-    updateCharacter(resetCharacter);
+    updatePlayer(resetPlayer);
 
     // Сбрасываем все привычки
     final habits = getHabits();
@@ -67,14 +67,14 @@ class HiveService {
   }
 
   // Остальные методы остаются без изменений
-  List<Character> getCharacters() {
-    return charactersBox.values.toList();
+  List<Player> getPlayers() {
+    return playersBox.values.toList();
   }
 
-  void updateCharacter(Character character) {
-    final key = _getCharacterKeyById(character.id);
+  void updatePlayer(Player player) {
+    final key = _getPlayerKeyById(player.id);
     if (key != null) {
-      charactersBox.put(key, character);
+      playersBox.put(key, player);
     }
   }
 
@@ -117,9 +117,9 @@ class HiveService {
   }
 
   // Helper methods to find keys
-  int? _getCharacterKeyById(String id) {
-    final characters = charactersBox.toMap();
-    for (var entry in characters.entries) {
+  int? _getPlayerKeyById(String id) {
+    final players = playersBox.toMap();
+    for (var entry in players.entries) {
       if (entry.value.id == id) {
         return entry.key;
       }

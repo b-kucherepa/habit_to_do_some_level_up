@@ -45,7 +45,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get completeDayHint => 'Completar Día Omitido';
 
   @override
-  String get markCompletedHabitsHint => 'Marca los hábitos completados para este día:';
+  String get markCompletedHabitsHint =>
+      'Marca los hábitos completados para este día:';
 
   @override
   String get skipDayButton => 'Saltar Este Día';
@@ -102,7 +103,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get sunday => 'Domingo';
 
   @override
-  String get character => 'Personaje';
+  String get player => 'Personaje';
 
   @override
   String get habits => 'Hábitos';
@@ -200,13 +201,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resetProgressTitle => '¿Reiniciar Progreso?';
 
   @override
-  String get resetProgressDescription => 'Esta acción reiniciará permanentemente:';
+  String get resetProgressDescription =>
+      'Esta acción reiniciará permanentemente:';
 
   @override
-  String get resetWarningExperience => 'Toda la experiencia y nivel del personaje';
+  String get resetWarningExperience =>
+      'Toda la experiencia y nivel del personaje';
 
   @override
-  String get resetWarningHabits => 'El historial de completación de todos los hábitos';
+  String get resetWarningHabits =>
+      'El historial de completación de todos los hábitos';
 
   @override
   String get resetWarningKarma => 'Los niveles de karma de todos los hábitos';
@@ -326,7 +330,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get habitFormMinCompletion => 'Completación Mínima';
 
   @override
-  String get habitFormMinCompletionError => 'Por favor ingresa el conteo mínimo';
+  String get habitFormMinCompletionError =>
+      'Por favor ingresa el conteo mínimo';
 
   @override
   String get habitFormMinCountError => 'Al menos 1';
@@ -338,13 +343,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get habitFormSave => 'Guardar Hábito';
 
   @override
-  String get habitFormWeeklyError => 'Por favor selecciona al menos un día para el horario semanal';
+  String get habitFormWeeklyError =>
+      'Por favor selecciona al menos un día para el horario semanal';
 
   @override
-  String get habitFormMonthlyError => 'Por favor selecciona al menos un día para el horario mensual';
+  String get habitFormMonthlyError =>
+      'Por favor selecciona al menos un día para el horario mensual';
 
   @override
-  String get habitFormCustomError => 'Por favor selecciona el intervalo para el horario personalizado';
+  String get habitFormCustomError =>
+      'Por favor selecciona el intervalo para el horario personalizado';
 
   @override
   String habitItemExperience(Object experience) {
@@ -405,7 +413,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get habitsTabEmptyTitle => '¡Aún no hay hábitos!';
 
   @override
-  String get habitsTabEmptySubtitle => 'Toca el botón + para añadir tu primer hábito';
+  String get habitsTabEmptySubtitle =>
+      'Toca el botón + para añadir tu primer hábito';
 
   @override
   String get taskFormTitle => 'Título de la Tarea';
@@ -466,7 +475,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get tasksTabEmptyTitle => '¡Aún no hay tareas!';
 
   @override
-  String get tasksTabEmptySubtitle => 'Toca el botón + para añadir tu primera tarea';
+  String get tasksTabEmptySubtitle =>
+      'Toca el botón + para añadir tu primera tarea';
 
   @override
   String get tasksTabTotal => 'Total';

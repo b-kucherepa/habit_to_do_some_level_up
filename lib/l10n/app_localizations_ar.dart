@@ -102,7 +102,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sunday => 'الأحد';
 
   @override
-  String get character => 'الشخصية';
+  String get player => 'الشخصية';
 
   @override
   String get habits => 'العادات';
@@ -338,10 +338,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitFormSave => 'حفظ العادة';
 
   @override
-  String get habitFormWeeklyError => 'يرجى اختيار يوم واحد على الأقل للجدول الأسبوعي';
+  String get habitFormWeeklyError =>
+      'يرجى اختيار يوم واحد على الأقل للجدول الأسبوعي';
 
   @override
-  String get habitFormMonthlyError => 'يرجى اختيار يوم واحد على الأقل للجدول الشهري';
+  String get habitFormMonthlyError =>
+      'يرجى اختيار يوم واحد على الأقل للجدول الشهري';
 
   @override
   String get habitFormCustomError => 'يرجى اختيار المدة للجدول المخصص';

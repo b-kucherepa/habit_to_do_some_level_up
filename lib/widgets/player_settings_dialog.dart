@@ -4,19 +4,18 @@ import 'package:provider/provider.dart';
 import 'package:todo_rpg_app/extensions/localization_extension.dart';
 import 'package:todo_rpg_app/styles.dart';
 import '../language_manager.dart';
-import '../models/character.dart';
+import '../models/player.dart';
 
-class CharacterSettingsDialog extends StatefulWidget {
-  final Character character;
+class PlayerSettingsDialog extends StatefulWidget {
+  final Player player;
 
-  const CharacterSettingsDialog({super.key, required this.character});
+  const PlayerSettingsDialog({super.key, required this.player});
 
   @override
-  _CharacterSettingsDialogState createState() =>
-      _CharacterSettingsDialogState();
+  _PlayerSettingsDialogState createState() => _PlayerSettingsDialogState();
 }
 
-class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
+class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
   late TextEditingController _goalController;
   late double _curveExponent;
   late double _experienceMultiplier;
@@ -24,9 +23,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
   @override
   void initState() {
     super.initState();
-    _goalController = TextEditingController(text: widget.character.goal);
-    _curveExponent = widget.character.curveExponent;
-    _experienceMultiplier = widget.character.experienceMultiplier;
+    _goalController = TextEditingController(text: widget.player.goal);
+    _curveExponent = widget.player.curveExponent;
+    _experienceMultiplier = widget.player.experienceMultiplier;
   }
 
   @override
@@ -134,12 +133,11 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               children: [
                 Slider(
                   value: _curveExponent,
-                  min: Character.minCurveExponent,
-                  max: Character.maxCurveExponent,
-                  divisions: ((Character.maxCurveExponent -
-                              Character.minCurveExponent) *
-                          10)
-                      .round(),
+                  min: Player.minCurveExponent,
+                  max: Player.maxCurveExponent,
+                  divisions:
+                      ((Player.maxCurveExponent - Player.minCurveExponent) * 10)
+                          .round(),
                   label: _curveExponent.toStringAsFixed(1),
                   onChanged: (value) {
                     setState(() {
@@ -151,9 +149,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(Character.minCurveExponent.toStringAsFixed(1),
+                    Text(Player.minCurveExponent.toStringAsFixed(1),
                         style: Styles.expPreviewSliderExtremities),
-                    Text(Character.maxCurveExponent.toStringAsFixed(1),
+                    Text(Player.maxCurveExponent.toStringAsFixed(1),
                         style: Styles.expPreviewSliderExtremities),
                   ],
                 ),
@@ -173,10 +171,10 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
               children: [
                 Slider(
                   value: _experienceMultiplier,
-                  min: Character.minExperienceMultiplier,
-                  max: Character.maxExperienceMultiplier,
-                  divisions: ((Character.maxExperienceMultiplier -
-                              Character.minExperienceMultiplier) /
+                  min: Player.minExperienceMultiplier,
+                  max: Player.maxExperienceMultiplier,
+                  divisions: ((Player.maxExperienceMultiplier -
+                              Player.minExperienceMultiplier) /
                           10)
                       .round(),
                   label: _experienceMultiplier.toStringAsFixed(0),
@@ -190,9 +188,9 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(Character.minExperienceMultiplier.toStringAsFixed(0),
+                    Text(Player.minExperienceMultiplier.toStringAsFixed(0),
                         style: Styles.expPreviewSliderExtremities),
-                    Text(Character.maxExperienceMultiplier.toStringAsFixed(0),
+                    Text(Player.maxExperienceMultiplier.toStringAsFixed(0),
                         style: Styles.expPreviewSliderExtremities),
                   ],
                 ),
@@ -223,11 +221,11 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
   }
 
   Widget _buildSystemPreview() {
-    final previewCharacter = Character(
+    final previewPlayer = Player(
       id: 'preview',
       goal: 'Preview',
-      experience: Character.startingExperience,
-      level: Character.startingLevel,
+      experience: Player.startingExperience,
+      level: Player.startingLevel,
       createdDate: DateTime.now(),
       curveExponent: _curveExponent,
       experienceMultiplier: _experienceMultiplier,
@@ -296,7 +294,7 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
                             1, (index) {
                       final level = index + Styles.expPreviewMinLevel;
                       final expNeeded =
-                          previewCharacter.getExperienceForLevel(level);
+                          previewPlayer.getExperienceForLevel(level);
                       return FlSpot(level.toDouble(), expNeeded.toDouble());
                     }),
                     isCurved: true,
@@ -322,8 +320,8 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
   }
 
   Color _getExpPreviewLineColor() {
-    final curveGap = Character.maxCurveExponent - _curveExponent;
-    final maxCurveGap = Character.maxCurveExponent - Character.minCurveExponent;
+    final curveGap = Player.maxCurveExponent - _curveExponent;
+    final maxCurveGap = Player.maxCurveExponent - Player.minCurveExponent;
     final hueGap = Styles.expPreviewMaxLineHue - Styles.expPreviewMinLineHue;
     final hueModifier = ((curveGap) / maxCurveGap) * hueGap;
     final rawHue = Styles.isExpPreviewLineHueInverted
@@ -341,22 +339,22 @@ class _CharacterSettingsDialogState extends State<CharacterSettingsDialog> {
   }
 
   void _saveSettings() {
-    final updatedCharacter = Character(
-      id: widget.character.id,
+    final updatedPlayer = Player(
+      id: widget.player.id,
       goal: _goalController.text.isNotEmpty
           ? _goalController.text
           : context.l10n.defaultGoal,
-      experience: widget.character.experience,
-      level: widget.character.level,
-      createdDate: widget.character.createdDate,
+      experience: widget.player.experience,
+      level: widget.player.level,
+      createdDate: widget.player.createdDate,
       curveExponent: _curveExponent,
       experienceMultiplier: _experienceMultiplier,
     );
 
     // Пересчитываем уровень с новой системой
-    updatedCharacter.updateLevel();
+    updatedPlayer.updateLevel();
 
-    Navigator.of(context).pop(updatedCharacter);
+    Navigator.of(context).pop(updatedPlayer);
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_rpg_app/language_manager.dart';
 import 'l10n/app_localizations.dart';
-import 'models/character.dart';
+import 'models/player.dart';
 import 'models/habit.dart';
 import 'models/task.dart';
 import 'screens/day_completion_wrapper.dart';
@@ -19,17 +19,17 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  Hive.registerAdapter(CharacterAdapter());
+  Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(TaskAdapter());
 
-  await Hive.openBox<Character>('characters');
+  await Hive.openBox<Player>('players');
   await Hive.openBox<Habit>('habits');
   await Hive.openBox<Task>('tasks');
   await Hive.openBox('preferences');
 
   final hiveService = HiveService();
-  hiveService.getFirstCharacter(); // Это создаст персонажа если его нет
+  hiveService.getFirstPlayer(); // Это создаст персонажа если его нет
 
   runApp(MyApp());
 }

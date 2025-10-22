@@ -102,7 +102,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sunday => 'Sunday';
 
   @override
-  String get character => 'Character';
+  String get player => 'Player';
 
   @override
   String get habits => 'Habits';
@@ -203,7 +203,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetProgressDescription => 'This action will permanently reset:';
 
   @override
-  String get resetWarningExperience => 'All character experience and level';
+  String get resetWarningExperience => 'All player experience and level';
 
   @override
   String get resetWarningHabits => 'Completion history of all habits';
@@ -338,13 +338,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitFormSave => 'Save Habit';
 
   @override
-  String get habitFormWeeklyError => 'Please select at least one day for weekly schedule';
+  String get habitFormWeeklyError =>
+      'Please select at least one day for weekly schedule';
 
   @override
-  String get habitFormMonthlyError => 'Please select at least one day for monthly schedule';
+  String get habitFormMonthlyError =>
+      'Please select at least one day for monthly schedule';
 
   @override
-  String get habitFormCustomError => 'Please select interval for custom schedule';
+  String get habitFormCustomError =>
+      'Please select interval for custom schedule';
 
   @override
   String habitItemExperience(Object experience) {
@@ -392,7 +395,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ This will remove $xpAmount XP from your character!';
+    return '⚠️ This will remove $xpAmount XP from your player!';
   }
 
   @override
@@ -405,7 +408,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitsTabEmptyTitle => 'No habits yet!';
 
   @override
-  String get habitsTabEmptySubtitle => 'Tap the + button to add your first habit';
+  String get habitsTabEmptySubtitle =>
+      'Tap the + button to add your first habit';
 
   @override
   String get taskFormTitle => 'Task Title';
@@ -508,7 +512,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ This will remove $xpAmount XP from your character!';
+    return '⚠️ This will remove $xpAmount XP from your player!';
   }
 
   @override

@@ -1,4 +1,4 @@
-import '../models/character.dart';
+import '../models/player.dart';
 import '../models/habit.dart';
 import '../models/task.dart';
 import 'hive_service.dart';
@@ -15,8 +15,8 @@ class ExperienceService {
     final habitIndex = habits.indexWhere((h) => h.id == habit.id);
 
     if (habitIndex != -1) {
-      final character = _hiveService.getFirstCharacter();
-      final oldLevel = character.level;
+      final player = _hiveService.getFirstPlayer();
+      final oldLevel = player.level;
 
       final updatedHabit = Habit(
         id: habit.id,
@@ -37,22 +37,22 @@ class ExperienceService {
       _hiveService.updateHabit(updatedHabit);
 
       // Обновляем персонажа с новым опытом
-      final updatedCharacter = Character(
-        id: character.id,
-        goal: character.goal,
-        experience: character.experience + habit.experience,
-        level: character.level,
-        createdDate: character.createdDate,
-        curveExponent: character.curveExponent,
-        experienceMultiplier: character.experienceMultiplier,
+      final updatedPlayer = Player(
+        id: player.id,
+        goal: player.goal,
+        experience: player.experience + habit.experience,
+        level: player.level,
+        createdDate: player.createdDate,
+        curveExponent: player.curveExponent,
+        experienceMultiplier: player.experienceMultiplier,
       );
 
-      updatedCharacter.updateLevel();
-      _hiveService.updateCharacter(updatedCharacter);
+      updatedPlayer.updateLevel();
+      _hiveService.updatePlayer(updatedPlayer);
 
       // Проверяем повышение уровня и уведомляем
-      if (updatedCharacter.level > oldLevel) {
-        _levelUpService.notifyLevelUp(updatedCharacter.level);
+      if (updatedPlayer.level > oldLevel) {
+        _levelUpService.notifyLevelUp(updatedPlayer.level);
       }
     }
   }
@@ -64,7 +64,7 @@ class ExperienceService {
     if (habitIndex != -1) {
       final currentCount = habit.getTodayCompletionCount();
       if (currentCount > 0) {
-        final character = _hiveService.getFirstCharacter();
+        final player = _hiveService.getFirstPlayer();
 
         final updatedHabit = Habit(
           id: habit.id,
@@ -85,18 +85,18 @@ class ExperienceService {
         _hiveService.updateHabit(updatedHabit);
 
         // Обновляем персонажа (уменьшаем опыт)
-        final updatedCharacter = Character(
-          id: character.id,
-          goal: character.goal,
-          experience: character.experience - habit.experience,
-          level: character.level,
-          createdDate: character.createdDate,
-          curveExponent: character.curveExponent,
-          experienceMultiplier: character.experienceMultiplier,
+        final updatedPlayer = Player(
+          id: player.id,
+          goal: player.goal,
+          experience: player.experience - habit.experience,
+          level: player.level,
+          createdDate: player.createdDate,
+          curveExponent: player.curveExponent,
+          experienceMultiplier: player.experienceMultiplier,
         );
 
-        updatedCharacter.updateLevel();
-        _hiveService.updateCharacter(updatedCharacter);
+        updatedPlayer.updateLevel();
+        _hiveService.updatePlayer(updatedPlayer);
       }
     }
   }
@@ -107,8 +107,8 @@ class ExperienceService {
 
     if (taskIndex != -1) {
       final wasCompleted = task.completed;
-      final character = _hiveService.getFirstCharacter();
-      final oldLevel = character.level;
+      final player = _hiveService.getFirstPlayer();
+      final oldLevel = player.level;
 
       final updatedTask = Task(
         id: task.id,
@@ -125,136 +125,136 @@ class ExperienceService {
 
       _hiveService.updateTask(updatedTask);
 
-      // Update character experience
+      // Update player experience
       if (completed && !wasCompleted) {
-        final updatedCharacter = Character(
-          id: character.id,
-          goal: character.goal,
-          experience: character.experience + task.experience,
-          level: character.level,
-          createdDate: character.createdDate,
-          curveExponent: character.curveExponent,
-          experienceMultiplier: character.experienceMultiplier,
+        final updatedPlayer = Player(
+          id: player.id,
+          goal: player.goal,
+          experience: player.experience + task.experience,
+          level: player.level,
+          createdDate: player.createdDate,
+          curveExponent: player.curveExponent,
+          experienceMultiplier: player.experienceMultiplier,
         );
 
-        updatedCharacter.updateLevel();
-        _hiveService.updateCharacter(updatedCharacter);
+        updatedPlayer.updateLevel();
+        _hiveService.updatePlayer(updatedPlayer);
 
         // Проверяем повышение уровня и уведомляем
-        if (updatedCharacter.level > oldLevel) {
-          _levelUpService.notifyLevelUp(updatedCharacter.level);
+        if (updatedPlayer.level > oldLevel) {
+          _levelUpService.notifyLevelUp(updatedPlayer.level);
         }
       } else if (!completed && wasCompleted) {
-        final updatedCharacter = Character(
-          id: character.id,
-          goal: character.goal,
-          experience: character.experience - task.experience,
-          level: character.level,
-          createdDate: character.createdDate,
-          curveExponent: character.curveExponent,
-          experienceMultiplier: character.experienceMultiplier,
+        final updatedPlayer = Player(
+          id: player.id,
+          goal: player.goal,
+          experience: player.experience - task.experience,
+          level: player.level,
+          createdDate: player.createdDate,
+          curveExponent: player.curveExponent,
+          experienceMultiplier: player.experienceMultiplier,
         );
 
-        updatedCharacter.updateLevel();
-        _hiveService.updateCharacter(updatedCharacter);
+        updatedPlayer.updateLevel();
+        _hiveService.updatePlayer(updatedPlayer);
       }
     }
   }
 
   void deleteHabit(Habit habit) {
-    final character = _hiveService.getFirstCharacter();
+    final player = _hiveService.getFirstPlayer();
 
     // Remove experience for all completions today
     final todayCount = habit.getTodayCompletionCount();
     if (todayCount > 0) {
-      final updatedCharacter = Character(
-        id: character.id,
-        goal: character.goal,
-        experience: character.experience - (habit.experience * todayCount),
-        level: character.level,
-        createdDate: character.createdDate,
-        curveExponent: character.curveExponent,
-        experienceMultiplier: character.experienceMultiplier,
+      final updatedPlayer = Player(
+        id: player.id,
+        goal: player.goal,
+        experience: player.experience - (habit.experience * todayCount),
+        level: player.level,
+        createdDate: player.createdDate,
+        curveExponent: player.curveExponent,
+        experienceMultiplier: player.experienceMultiplier,
       );
 
-      updatedCharacter.updateLevel();
-      _hiveService.updateCharacter(updatedCharacter);
+      updatedPlayer.updateLevel();
+      _hiveService.updatePlayer(updatedPlayer);
     }
 
     _hiveService.deleteHabit(habit);
   }
 
   void deleteTask(Task task) {
-    final character = _hiveService.getFirstCharacter();
+    final player = _hiveService.getFirstPlayer();
 
     // Remove experience if task was completed
     if (task.completed) {
-      final updatedCharacter = Character(
-        id: character.id,
-        goal: character.goal,
-        experience: character.experience - task.experience,
-        level: character.level,
-        createdDate: character.createdDate,
-        curveExponent: character.curveExponent,
-        experienceMultiplier: character.experienceMultiplier,
+      final updatedPlayer = Player(
+        id: player.id,
+        goal: player.goal,
+        experience: player.experience - task.experience,
+        level: player.level,
+        createdDate: player.createdDate,
+        curveExponent: player.curveExponent,
+        experienceMultiplier: player.experienceMultiplier,
       );
 
-      updatedCharacter.updateLevel();
-      _hiveService.updateCharacter(updatedCharacter);
+      updatedPlayer.updateLevel();
+      _hiveService.updatePlayer(updatedPlayer);
     }
 
     _hiveService.deleteTask(task);
   }
 
   void addExperienceForDay(int experience) {
-    final character = _hiveService.getFirstCharacter();
+    final player = _hiveService.getFirstPlayer();
 
-    final updatedCharacter = Character(
-      id: character.id,
-      goal: character.goal,
-      experience: character.experience + experience,
-      level: character.level,
-      createdDate: character.createdDate,
-      curveExponent: character.curveExponent,
-      experienceMultiplier: character.experienceMultiplier,
+    final updatedPlayer = Player(
+      id: player.id,
+      goal: player.goal,
+      experience: player.experience + experience,
+      level: player.level,
+      createdDate: player.createdDate,
+      curveExponent: player.curveExponent,
+      experienceMultiplier: player.experienceMultiplier,
     );
 
-    updatedCharacter.updateLevel();
-    _hiveService.updateCharacter(updatedCharacter);
+    updatedPlayer.updateLevel();
+    _hiveService.updatePlayer(updatedPlayer);
   }
 
   // Новый метод для прямого добавления опыта (может пригодиться)
   void addExperienceDirectly(int experience) {
-    final character = _hiveService.getFirstCharacter();
+    final player = _hiveService.getFirstPlayer();
 
-    final updatedCharacter = Character(
-      id: character.id,
-      goal: character.goal,
-      experience: character.experience + experience,
-      level: character.level,
-      createdDate: character.createdDate,
-      curveExponent: character.curveExponent,
-      experienceMultiplier: character.experienceMultiplier,
+    final updatedPlayer = Player(
+      id: player.id,
+      goal: player.goal,
+      experience: player.experience + experience,
+      level: player.level,
+      createdDate: player.createdDate,
+      curveExponent: player.curveExponent,
+      experienceMultiplier: player.experienceMultiplier,
     );
 
-    updatedCharacter.updateLevel();
-    _hiveService.updateCharacter(updatedCharacter);
+    updatedPlayer.updateLevel();
+    _hiveService.updatePlayer(updatedPlayer);
   }
 
   // Метод для сброса опыта (для тестирования)
   void resetExperience() {
-    final character = _hiveService.getFirstCharacter();
+    final player = _hiveService.getFirstPlayer();
 
-    final updatedCharacter = Character(
-      id: character.id,
-      goal: character.goal,
-      experience: Character.startingExperience,
-      level: Character.startingLevel,
-      createdDate: character.createdDate,
-      curveExponent: character.curveExponent,
-      experienceMultiplier: character.experienceMultiplier,
+    final updatedPlayer = Player(
+      id: player.id,
+      goal: player.goal,
+      experience: Player.startingExperience,
+      level: Player.startingLevel,
+      createdDate: player.createdDate,
+      curveExponent: player.curveExponent,
+      experienceMultiplier: player.experienceMultiplier,
     );
 
-    _hiveService.updateCharacter(updatedCharacter);
+    _hiveService.updatePlayer(updatedPlayer);
   }
 }
