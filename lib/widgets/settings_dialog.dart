@@ -37,7 +37,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
         children: [
           Styles.settingsIcon,
           SizedBox(width: Styles.getGap('S')),
-          Text(context.l10n.progressSettings),
+          Text(context.l10n.settings),
         ],
       ),
       content: SingleChildScrollView(

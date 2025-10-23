@@ -9,7 +9,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'RPG: Задачи и Привычки';
+  String get appTitle => 'Привычки и Задачи: Повысь Уровень!';
 
   @override
   String get home => 'Главная';
@@ -30,16 +30,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get editTask => 'Редактировать задачу';
 
   @override
-  String get delete => 'Удалить';
-
-  @override
-  String get edit => 'Редактировать';
-
-  @override
-  String get toNext => 'К следующему';
-
-  @override
-  String get habitTitle => 'Название привычки';
+  String get toNext => 'До следующего';
 
   @override
   String get completeDayHint => 'Завершить пропущенный день';
@@ -54,61 +45,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get completeDayButton => 'Завершить день';
 
   @override
-  String get habitDescription => 'Описание';
-
-  @override
-  String get experiencePoints => 'Очки опыта';
-
-  @override
-  String get minCompletionCount => 'Мин. количество выполнений';
-
-  @override
   String get scheduleType => 'Тип расписания';
-
-  @override
-  String get daily => 'Ежедневно';
-
-  @override
-  String get weekly => 'Еженедельно';
-
-  @override
-  String get monthly => 'Ежемесячно';
-
-  @override
-  String get custom => 'Произвольный';
-
-  @override
-  String get selectDays => 'Выберите дни';
-
-  @override
-  String get monday => 'Понедельник';
-
-  @override
-  String get tuesday => 'Вторник';
-
-  @override
-  String get wednesday => 'Среда';
-
-  @override
-  String get thursday => 'Четверг';
-
-  @override
-  String get friday => 'Пятница';
-
-  @override
-  String get saturday => 'Суббота';
-
-  @override
-  String get sunday => 'Воскресенье';
-
-  @override
-  String get player => 'Персонаж';
 
   @override
   String get habits => 'Привычки';
 
   @override
-  String get habitsDone => 'Выполнено привычек';
+  String get habitsDone => 'Привычки выполнены';
+
+  @override
+  String habitsNumberToday(Object habitsNumber) {
+    return '$habitsNumber сегодня';
+  }
 
   @override
   String get tasks => 'Задачи';
@@ -117,21 +65,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tasksDue => 'Задачи к выполнению';
 
   @override
-  String get tasksDone => 'Выполнено задач';
+  String get tasksDone => 'Задачи выполнены';
 
   @override
   String get level => 'Уровень';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber на сегодня';
-  }
-
-  @override
   String get todaysProgress => 'Сегодняшний прогресс';
-
-  @override
-  String get experience => 'Опыт';
 
   @override
   String get experienceShort => 'ОП';
@@ -149,19 +89,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'Не забудьте использовать свои достижения, чтобы $goal!';
-  }
-
-  @override
-  String expCurveLabel(Object exponent, Object multiplier) {
-    return 'Экспонента кривой: $exponent, Множитель: $multiplier';
+    return 'Не забудьте использовать свои достижения, чтобы... $goal!';
   }
 
   @override
   String get goal => 'Цель';
 
   @override
-  String get defaultGoal => 'Накопите опыт для вашего RPG путешествия!';
+  String get defaultGoal => 'Повысь уровень своей жизни!';
 
   @override
   String get progress => 'Прогресс';
@@ -170,19 +105,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get progressToLevel => 'Прогресс до уровня';
 
   @override
-  String get completed => 'Завершено';
-
-  @override
-  String get pending => 'В ожидании';
+  String get completed => 'Выполнено';
 
   @override
   String get overdue => 'Просрочено';
-
-  @override
-  String get dueToday => 'На сегодня';
-
-  @override
-  String get dueSoon => 'Скоро истекает';
 
   @override
   String get karma => 'Карма';
@@ -191,7 +117,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get karmaLevel => 'Уровень кармы';
 
   @override
-  String get karmaDescription => 'Ваш уровень кармы отражает вашу последовательность.';
+  String get karmaDescription => 'Уровень кармы привычки отражает вашу последовательность.';
 
   @override
   String get resetProgress => 'Сбросить прогресс';
@@ -200,10 +126,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get resetProgressTitle => 'Сбросить прогресс?';
 
   @override
-  String get resetProgressDescription => 'Это действие сбросит:';
+  String get resetProgressDescription => 'Это действие навсегда сбросит:';
 
   @override
-  String get resetWarningExperience => 'Весь опыт и уровень персонажа';
+  String get resetWarningExperience => 'Весь опыт и уровень игрока';
 
   @override
   String get resetWarningHabits => 'Историю выполнения всех привычек';
@@ -227,10 +153,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get resetSuccess => 'Прогресс успешно сброшен!';
 
   @override
-  String get progressSettings => 'Настройки прогресса';
+  String get progressSettings => 'Настройки';
 
   @override
-  String get goalMotivation => 'Цель и мотивация';
+  String get goalMotivation => 'Мотивация цели';
 
   @override
   String get goalMotivationHint => 'Для чего вы накапливаете опыт?';
@@ -269,7 +195,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get hindi => 'Хинди';
 
   @override
-  String get arabic => 'Arabic';
+  String get arabic => 'Арабский';
 
   @override
   String get hebrew => 'Иврит';
@@ -279,7 +205,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String curveExponentDescription(Object exponent) {
-    return 'Экспонента кривой: $exponent. Значения <1 облегчают ранние уровни, >1 - поздние';
+    return 'Экспонента кривой: $exponent. Значения <1 облегчают начальные уровни, >1 облегчают последующие уровни';
   }
 
   @override
@@ -287,14 +213,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return 'Множитель опыта: $multiplier. Высокие значения замедляют повышение уровня';
+    return 'Множитель опыта: $multiplier. Более высокие значения замедляют повышение уровня';
   }
 
   @override
   String get levelProgressionPreview => 'Предпросмотр прогрессии уровней:';
 
   @override
-  String levelFormula(Object multiplier, Object exponent) {
+  String levelFormula(Object exponent, Object multiplier) {
     return 'Формула: ОП = $multiplier × (Уровень-1)^$exponent';
   }
 
@@ -308,7 +234,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormTitle => 'Название привычки';
 
   @override
-  String get habitFormTitleError => 'Введите название';
+  String get habitFormTitleError => 'Пожалуйста, введите название';
 
   @override
   String get habitFormDescription => 'Описание';
@@ -317,19 +243,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormExperience => 'Очки опыта';
 
   @override
-  String get habitFormExperienceError => 'Введите количество опыта';
+  String get habitFormExperienceError => 'Пожалуйста, введите значение опыта';
 
   @override
-  String get habitFormNumberError => 'Введите корректное число';
+  String get habitFormNumberError => 'Пожалуйста, введите допустимое число';
 
   @override
   String get habitFormMinCompletion => 'Мин. выполнений';
 
   @override
-  String get habitFormMinCompletionError => 'Введите минимальное количество';
+  String get habitFormMinCompletionError => 'Пожалуйста, введите минимальное количество';
 
   @override
-  String get habitFormMinCountError => 'Не менее 1';
+  String get habitFormMinCountError => 'Как минимум 1';
 
   @override
   String get habitFormUpdate => 'Обновить привычку';
@@ -338,13 +264,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormSave => 'Сохранить привычку';
 
   @override
-  String get habitFormWeeklyError => 'Выберите хотя бы один день для недельного расписания';
+  String get habitFormWeeklyError => 'Пожалуйста, выберите хотя бы один день для еженедельного расписания';
 
   @override
-  String get habitFormMonthlyError => 'Выберите хотя бы один день для месячного расписания';
+  String get habitFormMonthlyError => 'Пожалуйста, выберите хотя бы один день для ежемесячного расписания';
 
   @override
-  String get habitFormCustomError => 'Выберите интервал для пользовательского расписания';
+  String get habitFormCustomError => 'Пожалуйста, выберите интервал для пользовательского расписания';
 
   @override
   String habitItemExperience(Object experience) {
@@ -371,16 +297,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitItemDeleteTooltip => 'Удалить привычку';
 
   @override
-  String get habitItemScheduleDaily => 'Ежедневно';
+  String get habitItemScheduleDaily => 'ежедневно';
 
   @override
-  String get habitItemScheduleWeekly => 'Еженедельно';
+  String get habitItemScheduleWeekly => 'еженедельно';
 
   @override
-  String get habitItemScheduleMonthly => 'Ежемесячно';
+  String get habitItemScheduleMonthly => 'ежемесячно';
 
   @override
-  String get habitItemScheduleCustom => 'Особое';
+  String get habitItemScheduleCustom => 'произвольно';
 
   @override
   String get habitItemDeleteConfirmationTitle => 'Удалить привычку';
@@ -392,7 +318,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ Это уберет $xpAmount ОП у вашего персонажа!';
+    return '⚠️ Это удалит $xpAmount ОП у вашего персонажа!';
   }
 
   @override
@@ -402,16 +328,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitItemDeleteConfirmationDelete => 'Удалить';
 
   @override
-  String get habitsTabEmptyTitle => 'Пока нет привычек!';
+  String get habitsTabEmptyTitle => 'Привычек пока нет!';
 
   @override
-  String get habitsTabEmptySubtitle => 'Нажмите +, чтобы добавить первую привычку';
+  String get habitsTabEmptySubtitle => 'Нажмите кнопку +, чтобы добавить первую привычку';
 
   @override
   String get taskFormTitle => 'Название задачи';
 
   @override
-  String get taskFormTitleError => 'Введите название';
+  String get taskFormTitleError => 'Пожалуйста, введите название';
 
   @override
   String get taskFormDescription => 'Описание';
@@ -420,14 +346,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get taskFormExperience => 'Очки опыта';
 
   @override
-  String get taskFormExperienceError => 'Введите количество опыта';
+  String get taskFormExperienceError => 'Пожалуйста, введите значение опыта';
 
   @override
-  String get taskFormNumberError => 'Введите корректное число';
+  String get taskFormNumberError => 'Пожалуйста, введите допустимое число';
 
   @override
   String taskFormDueDateLabel(Object date) {
-    return 'Срок выполнения: $date';
+    return 'Срок: $date';
   }
 
   @override
@@ -460,13 +386,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get taskCategoryLearning => 'Обучение';
 
   @override
+  String get taskCategoryGeneral => 'Общее';
+
+  @override
+  String get taskCategoryHove => 'Дом';
+
+  @override
+  String get taskCategorySocial => 'Общение';
+
+  @override
   String get taskCategoryOther => 'Другое';
 
   @override
-  String get tasksTabEmptyTitle => 'Пока нет задач!';
+  String get tasksTabEmptyTitle => 'Задач пока нет!';
 
   @override
-  String get tasksTabEmptySubtitle => 'Нажмите +, чтобы добавить первую задачу';
+  String get tasksTabEmptySubtitle => 'Нажмите кнопку +, чтобы добавить первую задачу';
 
   @override
   String get tasksTabTotal => 'Всего';
@@ -479,7 +414,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String tasksTabPendingHeader(Object count) {
-    return 'Ожидающие задачи ($count)';
+    return 'Текущие задачи ($count)';
   }
 
   @override
@@ -508,7 +443,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ Это уберет $xpAmount ОП у вашего персонажа!';
+    return '⚠️ Это удалит $xpAmount ОП у вашего персонажа!';
   }
 
   @override
@@ -527,13 +462,29 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tasksTabDueYesterday => 'Вчера';
 
   @override
-  String tasksTabDueDaysAgo(Object days) {
-    return '$days дней назад';
+  String tasksTabDueDaysAgo(num days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '# дней назад',
+      many: '# дней назад',
+      few: '# дня назад',
+      one: '1 день назад',
+    );
+    return '$_temp0';
   }
 
   @override
-  String tasksTabDueInDays(Object days) {
-    return 'Через $days дней';
+  String tasksTabDueInDays(num days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '# дней',
+      many: '# дней',
+      few: '# дня',
+      one: '1 день',
+    );
+    return 'Через $_temp0';
   }
 
   @override
@@ -549,7 +500,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get scheduleTypeMonthly => 'Ежемесячно';
 
   @override
-  String get scheduleTypeCustom => 'Особый интервал';
+  String get scheduleTypeCustom => 'Произвольный интервал';
 
   @override
   String get scheduleWeeklyTitle => 'Выберите дни:';
@@ -565,16 +516,16 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       days,
       locale: localeName,
-      other: '$days дней',
-      many: '$days дней',
-      few: '$days дня',
+      other: '# дней',
+      many: '# дней',
+      few: '# дня',
       one: '1 день',
     );
     return '$_temp0';
   }
 
   @override
-  String get scheduleCustomError => 'Выберите интервал';
+  String get scheduleCustomError => 'Пожалуйста, выберите интервал';
 
   @override
   String get weekdayMonday => 'Пн';

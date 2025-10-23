@@ -9,7 +9,7 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get appTitle => 'RPG 할일 & 습관';
+  String get appTitle => '습관으로 레벨업!';
 
   @override
   String get home => '홈';
@@ -21,25 +21,16 @@ class AppLocalizationsKo extends AppLocalizations {
   String get addHabit => '습관 추가';
 
   @override
-  String get addTask => '할일 추가';
+  String get addTask => '작업 추가';
 
   @override
   String get editHabit => '습관 수정';
 
   @override
-  String get editTask => '할일 수정';
-
-  @override
-  String get delete => '삭제';
-
-  @override
-  String get edit => '수정';
+  String get editTask => '작업 수정';
 
   @override
   String get toNext => '다음으로';
-
-  @override
-  String get habitTitle => '습관 제목';
 
   @override
   String get completeDayHint => '놓친 날 완료하기';
@@ -54,55 +45,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get completeDayButton => '날짜 완료';
 
   @override
-  String get habitDescription => '설명';
-
-  @override
-  String get experiencePoints => '경험치';
-
-  @override
-  String get minCompletionCount => '최소 완료 횟수';
-
-  @override
   String get scheduleType => '일정 유형';
-
-  @override
-  String get daily => '매일';
-
-  @override
-  String get weekly => '매주';
-
-  @override
-  String get monthly => '매월';
-
-  @override
-  String get custom => '사용자 지정';
-
-  @override
-  String get selectDays => '요일 선택';
-
-  @override
-  String get monday => '월요일';
-
-  @override
-  String get tuesday => '화요일';
-
-  @override
-  String get wednesday => '수요일';
-
-  @override
-  String get thursday => '목요일';
-
-  @override
-  String get friday => '금요일';
-
-  @override
-  String get saturday => '토요일';
-
-  @override
-  String get sunday => '일요일';
-
-  @override
-  String get player => '캐릭터';
 
   @override
   String get habits => '습관';
@@ -111,30 +54,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get habitsDone => '완료한 습관';
 
   @override
-  String get tasks => '할일';
-
-  @override
-  String get tasksDue => '마감할일';
-
-  @override
-  String get tasksDone => '완료한 할일';
-
-  @override
-  String get level => '레벨';
-
-  @override
   String habitsNumberToday(Object habitsNumber) {
     return '오늘 $habitsNumber개';
   }
 
   @override
-  String get todaysProgress => '오늘의 진행상황';
+  String get tasks => '작업';
 
   @override
-  String get experience => '경험치';
+  String get tasksDue => '마감 작업';
 
   @override
-  String get experienceShort => 'EXP';
+  String get tasksDone => '완료한 작업';
+
+  @override
+  String get level => '레벨';
+
+  @override
+  String get todaysProgress => '오늘의 진행률';
+
+  @override
+  String get experienceShort => '경험치';
 
   @override
   String get congratulations => '축하합니다!';
@@ -149,40 +89,26 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return '달성한 내용을 $goal하는 데 사용하는 것을 잊지 마세요!';
-  }
-
-  @override
-  String expCurveLabel(Object exponent, Object multiplier) {
-    return '곡선 지수: $exponent, 배수: $multiplier';
+    return '업적을 사용하는 것을 잊지 마세요... $goal!';
   }
 
   @override
   String get goal => '목표';
 
   @override
-  String get defaultGoal => 'RPG 캐릭터를 만들기 위해 경험치를 축적하세요!';
+  String get defaultGoal => '인생을 레벨업하세요!';
 
   @override
   String get progress => '진행률';
 
   @override
-  String get progressToLevel => '레벨 달성 진행률';
+  String get progressToLevel => '레벨까지 진행률';
 
   @override
   String get completed => '완료됨';
 
   @override
-  String get pending => '대기중';
-
-  @override
   String get overdue => '기한 초과';
-
-  @override
-  String get dueToday => '오늘 마감';
-
-  @override
-  String get dueSoon => '곧 마감';
 
   @override
   String get karma => '카르마';
@@ -191,7 +117,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get karmaLevel => '카르마 레벨';
 
   @override
-  String get karmaDescription => '카르마 레벨은 꾸준함을 반영합니다.';
+  String get karmaDescription => '습관 카르마 레벨은 꾸준함을 반영합니다.';
 
   @override
   String get resetProgress => '진행률 초기화';
@@ -203,7 +129,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get resetProgressDescription => '이 작업은 다음을 영구적으로 초기화합니다:';
 
   @override
-  String get resetWarningExperience => '모든 캐릭터 경험치와 레벨';
+  String get resetWarningExperience => '모든 플레이어 경험치와 레벨';
 
   @override
   String get resetWarningHabits => '모든 습관의 완료 기록';
@@ -212,7 +138,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get resetWarningKarma => '모든 습관의 카르마 레벨';
 
   @override
-  String get resetTasksUnaffected => '할일은 영향을 받지 않습니다.';
+  String get resetTasksUnaffected => '작업은 영향을 받지 않습니다.';
 
   @override
   String get resetCannotUndone => '이 작업은 취소할 수 없습니다!';
@@ -227,13 +153,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get resetSuccess => '진행률이 성공적으로 초기화되었습니다!';
 
   @override
-  String get progressSettings => '진행 설정';
+  String get progressSettings => '설정';
 
   @override
   String get goalMotivation => '목표 동기부여';
 
   @override
-  String get goalMotivationHint => '무엇을 위해 경험치를 축적하나요?';
+  String get goalMotivationHint => '무엇을 위해 경험치를 쌓고 있나요?';
 
   @override
   String get language => '언어';
@@ -294,8 +220,8 @@ class AppLocalizationsKo extends AppLocalizations {
   String get levelProgressionPreview => '레벨 진행 미리보기:';
 
   @override
-  String levelFormula(Object multiplier, Object exponent) {
-    return '공식: EXP = $multiplier × (레벨-1)^$exponent';
+  String levelFormula(Object exponent, Object multiplier) {
+    return '공식: 경험치 = $multiplier × (레벨-1)^$exponent';
   }
 
   @override
@@ -314,7 +240,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get habitFormDescription => '설명';
 
   @override
-  String get habitFormExperience => '경험치';
+  String get habitFormExperience => '경험치 포인트';
 
   @override
   String get habitFormExperienceError => '경험치를 입력해주세요';
@@ -338,13 +264,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get habitFormSave => '습관 저장';
 
   @override
-  String get habitFormWeeklyError => '주간 일정에 대해 최소 한 개의 요일을 선택해주세요';
+  String get habitFormWeeklyError => '주간 일정에 최소 한 개의 요일을 선택해주세요';
 
   @override
-  String get habitFormMonthlyError => '월간 일정에 대해 최소 한 개의 날짜를 선택해주세요';
+  String get habitFormMonthlyError => '월간 일정에 최소 한 개의 날짜를 선택해주세요';
 
   @override
-  String get habitFormCustomError => '사용자 지정 일정에 대한 간격을 선택해주세요';
+  String get habitFormCustomError => '사용자 지정 일정에 간격을 선택해주세요';
 
   @override
   String habitItemExperience(Object experience) {
@@ -362,7 +288,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get habitItemNotToday => '오늘 해당 안됨';
+  String get habitItemNotToday => '오늘 해당 안 됨';
 
   @override
   String get habitItemEditTooltip => '습관 수정';
@@ -387,12 +313,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationMessage(Object habitTitle) {
-    return '\"$habitTitle\"을(를) 정말 삭제하시겠습니까?';
+    return '\"$habitTitle\"을(를) 삭제하시겠습니까?';
   }
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ 이 작업은 $xpAmount XP를 캐릭터에서 제거합니다!';
+    return '⚠️ 이 작업은 $xpAmount XP를 플레이어에서 제거합니다!';
   }
 
   @override
@@ -408,7 +334,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get habitsTabEmptySubtitle => '+ 버튼을 눌러 첫 번째 습관을 추가하세요';
 
   @override
-  String get taskFormTitle => '할일 제목';
+  String get taskFormTitle => '작업 제목';
 
   @override
   String get taskFormTitleError => '제목을 입력해주세요';
@@ -417,7 +343,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get taskFormDescription => '설명';
 
   @override
-  String get taskFormExperience => '경험치';
+  String get taskFormExperience => '경험치 포인트';
 
   @override
   String get taskFormExperienceError => '경험치를 입력해주세요';
@@ -439,13 +365,13 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get taskFormCategory => '분류';
+  String get taskFormCategory => '카테고리';
 
   @override
-  String get taskFormUpdate => '할일 업데이트';
+  String get taskFormUpdate => '작업 업데이트';
 
   @override
-  String get taskFormSave => '할일 저장';
+  String get taskFormSave => '작업 저장';
 
   @override
   String get taskCategoryWork => '업무';
@@ -460,31 +386,40 @@ class AppLocalizationsKo extends AppLocalizations {
   String get taskCategoryLearning => '학습';
 
   @override
+  String get taskCategoryGeneral => '일반';
+
+  @override
+  String get taskCategoryHove => '집';
+
+  @override
+  String get taskCategorySocial => '사회적';
+
+  @override
   String get taskCategoryOther => '기타';
 
   @override
-  String get tasksTabEmptyTitle => '아직 할일이 없습니다!';
+  String get tasksTabEmptyTitle => '아직 작업이 없습니다!';
 
   @override
-  String get tasksTabEmptySubtitle => '+ 버튼을 눌러 첫 번째 할일을 추가하세요';
+  String get tasksTabEmptySubtitle => '+ 버튼을 눌러 첫 번째 작업을 추가하세요';
 
   @override
   String get tasksTabTotal => '전체';
 
   @override
-  String get tasksTabPending => '대기중';
+  String get tasksTabPending => '대기 중';
 
   @override
   String get tasksTabDone => '완료됨';
 
   @override
   String tasksTabPendingHeader(Object count) {
-    return '대기중인 할일 ($count)';
+    return '대기 중인 작업 ($count)';
   }
 
   @override
   String tasksTabCompletedHeader(Object count) {
-    return '완료된 할일 ($count)';
+    return '완료된 작업 ($count)';
   }
 
   @override
@@ -493,22 +428,22 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get tasksTabEditTooltip => '할일 수정';
+  String get tasksTabEditTooltip => '작업 수정';
 
   @override
-  String get tasksTabDeleteTooltip => '할일 삭제';
+  String get tasksTabDeleteTooltip => '작업 삭제';
 
   @override
-  String get tasksTabDeleteConfirmationTitle => '할일 삭제';
+  String get tasksTabDeleteConfirmationTitle => '작업 삭제';
 
   @override
   String tasksTabDeleteConfirmationMessage(Object taskTitle) {
-    return '\"$taskTitle\"을(를) 정말 삭제하시겠습니까?';
+    return '\"$taskTitle\"을(를) 삭제하시겠습니까?';
   }
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ 이 작업은 $xpAmount XP를 캐릭터에서 제거합니다!';
+    return '⚠️ 이 작업은 $xpAmount XP를 플레이어에서 제거합니다!';
   }
 
   @override
@@ -527,12 +462,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tasksTabDueYesterday => '어제';
 
   @override
-  String tasksTabDueDaysAgo(Object days) {
+  String tasksTabDueDaysAgo(num days) {
     return '$days일 전';
   }
 
   @override
-  String tasksTabDueInDays(Object days) {
+  String tasksTabDueInDays(num days) {
     return '$days일 후';
   }
 
@@ -555,20 +490,14 @@ class AppLocalizationsKo extends AppLocalizations {
   String get scheduleWeeklyTitle => '요일 선택:';
 
   @override
-  String get scheduleMonthlyTitle => '월간 날짜 선택:';
+  String get scheduleMonthlyTitle => '월 중 날짜 선택:';
 
   @override
   String get scheduleCustomTitle => 'X일마다 반복:';
 
   @override
   String scheduleCustomInterval(num days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days일',
-      one: '1일',
-    );
-    return '$_temp0';
+    return '$days일마다';
   }
 
   @override

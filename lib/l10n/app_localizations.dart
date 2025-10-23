@@ -115,10 +115,10 @@ abstract class AppLocalizations {
     Locale('ru')
   ];
 
-  /// The title of the application
+  /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'RPG Todo & Habits'**
+  /// **'Habit To Do Some Level Up!'**
   String get appTitle;
 
   /// No description provided for @home.
@@ -157,29 +157,11 @@ abstract class AppLocalizations {
   /// **'Edit Task'**
   String get editTask;
 
-  /// No description provided for @delete.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete;
-
-  /// No description provided for @edit.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit'**
-  String get edit;
-
   /// No description provided for @toNext.
   ///
   /// In en, this message translates to:
   /// **'To Next'**
   String get toNext;
-
-  /// No description provided for @habitTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Habit Title'**
-  String get habitTitle;
 
   /// No description provided for @completeDayHint.
   ///
@@ -205,107 +187,11 @@ abstract class AppLocalizations {
   /// **'Complete Day'**
   String get completeDayButton;
 
-  /// No description provided for @habitDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Description'**
-  String get habitDescription;
-
-  /// No description provided for @experiencePoints.
-  ///
-  /// In en, this message translates to:
-  /// **'Experience Points'**
-  String get experiencePoints;
-
-  /// No description provided for @minCompletionCount.
-  ///
-  /// In en, this message translates to:
-  /// **'Min Completion Count'**
-  String get minCompletionCount;
-
   /// No description provided for @scheduleType.
   ///
   /// In en, this message translates to:
   /// **'Schedule Type'**
   String get scheduleType;
-
-  /// No description provided for @daily.
-  ///
-  /// In en, this message translates to:
-  /// **'Daily'**
-  String get daily;
-
-  /// No description provided for @weekly.
-  ///
-  /// In en, this message translates to:
-  /// **'Weekly'**
-  String get weekly;
-
-  /// No description provided for @monthly.
-  ///
-  /// In en, this message translates to:
-  /// **'Monthly'**
-  String get monthly;
-
-  /// No description provided for @custom.
-  ///
-  /// In en, this message translates to:
-  /// **'Custom'**
-  String get custom;
-
-  /// No description provided for @selectDays.
-  ///
-  /// In en, this message translates to:
-  /// **'Select days'**
-  String get selectDays;
-
-  /// No description provided for @monday.
-  ///
-  /// In en, this message translates to:
-  /// **'Monday'**
-  String get monday;
-
-  /// No description provided for @tuesday.
-  ///
-  /// In en, this message translates to:
-  /// **'Tuesday'**
-  String get tuesday;
-
-  /// No description provided for @wednesday.
-  ///
-  /// In en, this message translates to:
-  /// **'Wednesday'**
-  String get wednesday;
-
-  /// No description provided for @thursday.
-  ///
-  /// In en, this message translates to:
-  /// **'Thursday'**
-  String get thursday;
-
-  /// No description provided for @friday.
-  ///
-  /// In en, this message translates to:
-  /// **'Friday'**
-  String get friday;
-
-  /// No description provided for @saturday.
-  ///
-  /// In en, this message translates to:
-  /// **'Saturday'**
-  String get saturday;
-
-  /// No description provided for @sunday.
-  ///
-  /// In en, this message translates to:
-  /// **'Sunday'**
-  String get sunday;
-
-  /// No description provided for @player.
-  ///
-  /// In en, this message translates to:
-  /// **'Player'**
-  String get player;
 
   /// No description provided for @habits.
   ///
@@ -318,6 +204,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Habits Done'**
   String get habitsDone;
+
+  /// No description provided for @habitsNumberToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{habitsNumber} today'**
+  String habitsNumberToday(Object habitsNumber);
 
   /// No description provided for @tasks.
   ///
@@ -343,23 +235,11 @@ abstract class AppLocalizations {
   /// **'Level'**
   String get level;
 
-  /// No description provided for @habitsNumberToday.
-  ///
-  /// In en, this message translates to:
-  /// **'{habitsNumber} today'**
-  String habitsNumberToday(Object habitsNumber);
-
   /// No description provided for @todaysProgress.
   ///
   /// In en, this message translates to:
   /// **'Today\'s Progress'**
   String get todaysProgress;
-
-  /// No description provided for @experience.
-  ///
-  /// In en, this message translates to:
-  /// **'Experience'**
-  String get experience;
 
   /// No description provided for @experienceShort.
   ///
@@ -388,14 +268,8 @@ abstract class AppLocalizations {
   /// No description provided for @dontForgetToUseAchievenents.
   ///
   /// In en, this message translates to:
-  /// **'Don\'t forget to use your achievements to {goal}!'**
+  /// **'Don\'t forget to use your achievements to... {goal}!'**
   String dontForgetToUseAchievenents(Object goal);
-
-  /// No description provided for @expCurveLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Curve Exponent: {exponent}, Multiplier: {multiplier}'**
-  String expCurveLabel(Object exponent, Object multiplier);
 
   /// No description provided for @goal.
   ///
@@ -406,7 +280,7 @@ abstract class AppLocalizations {
   /// No description provided for @defaultGoal.
   ///
   /// In en, this message translates to:
-  /// **'Accumulate experience for your RPG journey!'**
+  /// **'Level up your life!'**
   String get defaultGoal;
 
   /// No description provided for @progress.
@@ -427,29 +301,11 @@ abstract class AppLocalizations {
   /// **'Completed'**
   String get completed;
 
-  /// No description provided for @pending.
-  ///
-  /// In en, this message translates to:
-  /// **'Pending'**
-  String get pending;
-
   /// No description provided for @overdue.
   ///
   /// In en, this message translates to:
   /// **'Overdue'**
   String get overdue;
-
-  /// No description provided for @dueToday.
-  ///
-  /// In en, this message translates to:
-  /// **'Due Today'**
-  String get dueToday;
-
-  /// No description provided for @dueSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Due Soon'**
-  String get dueSoon;
 
   /// No description provided for @karma.
   ///
@@ -466,10 +322,10 @@ abstract class AppLocalizations {
   /// No description provided for @karmaDescription.
   ///
   /// In en, this message translates to:
-  /// **'Your karma level reflects your consistency.'**
+  /// **'Habit karma level reflects your consistency.'**
   String get karmaDescription;
 
-  /// Button text for resetting progress
+  /// No description provided for @resetProgress.
   ///
   /// In en, this message translates to:
   /// **'Reset Progress'**
@@ -538,7 +394,7 @@ abstract class AppLocalizations {
   /// No description provided for @progressSettings.
   ///
   /// In en, this message translates to:
-  /// **'Progress Settings'**
+  /// **'Settings'**
   String get progressSettings;
 
   /// No description provided for @goalMotivation.
@@ -637,7 +493,7 @@ abstract class AppLocalizations {
   /// **'Curve Exponent'**
   String get curveExponent;
 
-  /// Description for curve exponent with parameter
+  /// No description provided for @curveExponentDescription.
   ///
   /// In en, this message translates to:
   /// **'Curve exponent: {exponent}. Values <1 make early levels easier, >1 make later levels easier'**
@@ -649,7 +505,7 @@ abstract class AppLocalizations {
   /// **'Experience Multiplier'**
   String get experienceMultiplier;
 
-  /// Description for experience multiplier with parameter
+  /// No description provided for @experienceMultiplierDescription.
   ///
   /// In en, this message translates to:
   /// **'Experience multiplier: {multiplier}. Higher values make leveling slower'**
@@ -661,11 +517,11 @@ abstract class AppLocalizations {
   /// **'Level Progression Preview:'**
   String get levelProgressionPreview;
 
-  /// Level progression formula with parameters
+  /// No description provided for @levelFormula.
   ///
   /// In en, this message translates to:
   /// **'Formula: EXP = {multiplier} × (Level-1)^{exponent}'**
-  String levelFormula(Object multiplier, Object exponent);
+  String levelFormula(Object exponent, Object multiplier);
 
   /// No description provided for @cancel.
   ///
@@ -802,25 +658,25 @@ abstract class AppLocalizations {
   /// No description provided for @habitItemScheduleDaily.
   ///
   /// In en, this message translates to:
-  /// **'Daily'**
+  /// **'daily'**
   String get habitItemScheduleDaily;
 
   /// No description provided for @habitItemScheduleWeekly.
   ///
   /// In en, this message translates to:
-  /// **'Weekly'**
+  /// **'weekly'**
   String get habitItemScheduleWeekly;
 
   /// No description provided for @habitItemScheduleMonthly.
   ///
   /// In en, this message translates to:
-  /// **'Monthly'**
+  /// **'monthly'**
   String get habitItemScheduleMonthly;
 
   /// No description provided for @habitItemScheduleCustom.
   ///
   /// In en, this message translates to:
-  /// **'Custom'**
+  /// **'custom'**
   String get habitItemScheduleCustom;
 
   /// No description provided for @habitItemDeleteConfirmationTitle.
@@ -961,6 +817,24 @@ abstract class AppLocalizations {
   /// **'Learning'**
   String get taskCategoryLearning;
 
+  /// No description provided for @taskCategoryGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get taskCategoryGeneral;
+
+  /// No description provided for @taskCategoryHove.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get taskCategoryHove;
+
+  /// No description provided for @taskCategorySocial.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get taskCategorySocial;
+
   /// No description provided for @taskCategoryOther.
   ///
   /// In en, this message translates to:
@@ -1079,13 +953,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{days} days ago'**
-  String tasksTabDueDaysAgo(Object days);
+  String tasksTabDueDaysAgo(num days);
 
   /// No description provided for @tasksTabDueInDays.
   ///
   /// In en, this message translates to:
   /// **'In {days} days'**
-  String tasksTabDueInDays(Object days);
+  String tasksTabDueInDays(num days);
 
   /// No description provided for @scheduleSelectorTitle.
   ///

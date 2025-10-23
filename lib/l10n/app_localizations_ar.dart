@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appTitle => 'RPG المهام والعادات';
+  String get appTitle => 'عادة للقيام ببعض التحسين!';
 
   @override
   String get home => 'الرئيسية';
@@ -30,22 +30,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editTask => 'تعديل المهمة';
 
   @override
-  String get delete => 'حذف';
-
-  @override
-  String get edit => 'تعديل';
-
-  @override
   String get toNext => 'إلى التالي';
-
-  @override
-  String get habitTitle => 'عنوان العادة';
 
   @override
   String get completeDayHint => 'إكمال اليوم الفائت';
 
   @override
-  String get markCompletedHabitsHint => 'حدد العادات المكتملة لهذا اليوم:';
+  String get markCompletedHabitsHint =>
+      'ضع علامة على العادات المكتملة لهذا اليوم:';
 
   @override
   String get skipDayButton => 'تخطي هذا اليوم';
@@ -54,55 +46,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get completeDayButton => 'إكمال اليوم';
 
   @override
-  String get habitDescription => 'الوصف';
-
-  @override
-  String get experiencePoints => 'نقاط الخبرة';
-
-  @override
-  String get minCompletionCount => 'الحد الأدنى للإنجاز';
-
-  @override
   String get scheduleType => 'نوع الجدول';
-
-  @override
-  String get daily => 'يومي';
-
-  @override
-  String get weekly => 'أسبوعي';
-
-  @override
-  String get monthly => 'شهري';
-
-  @override
-  String get custom => 'مخصص';
-
-  @override
-  String get selectDays => 'اختر الأيام';
-
-  @override
-  String get monday => 'الاثنين';
-
-  @override
-  String get tuesday => 'الثلاثاء';
-
-  @override
-  String get wednesday => 'الأربعاء';
-
-  @override
-  String get thursday => 'الخميس';
-
-  @override
-  String get friday => 'الجمعة';
-
-  @override
-  String get saturday => 'السبت';
-
-  @override
-  String get sunday => 'الأحد';
-
-  @override
-  String get player => 'الشخصية';
 
   @override
   String get habits => 'العادات';
@@ -111,27 +55,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitsDone => 'العادات المكتملة';
 
   @override
+  String habitsNumberToday(Object habitsNumber) {
+    return '$habitsNumber اليوم';
+  }
+
+  @override
   String get tasks => 'المهام';
 
   @override
   String get tasksDue => 'المهام المستحقة';
 
   @override
-  String get tasksDone => 'المهام المنتهية';
+  String get tasksDone => 'المهام المكتملة';
 
   @override
   String get level => 'المستوى';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber اليوم';
-  }
-
-  @override
   String get todaysProgress => 'تقدم اليوم';
-
-  @override
-  String get experience => 'الخبرة';
 
   @override
   String get experienceShort => 'خبرة';
@@ -149,19 +90,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'لا تنس استخدام إنجازاتك لـ $goal!';
-  }
-
-  @override
-  String expCurveLabel(Object exponent, Object multiplier) {
-    return 'أس المنحنى: $exponent, المضاعف: $multiplier';
+    return 'لا تنس استخدام إنجازاتك ل... $goal!';
   }
 
   @override
   String get goal => 'الهدف';
 
   @override
-  String get defaultGoal => 'اكتسب الخبرة لرحلتك في RPG!';
+  String get defaultGoal => 'طور حياتك!';
 
   @override
   String get progress => 'التقدم';
@@ -173,16 +109,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get completed => 'مكتمل';
 
   @override
-  String get pending => 'قيد الانتظار';
-
-  @override
   String get overdue => 'متأخر';
-
-  @override
-  String get dueToday => 'مستحق اليوم';
-
-  @override
-  String get dueSoon => 'قريب الاستحقاق';
 
   @override
   String get karma => 'الكارما';
@@ -191,10 +118,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get karmaLevel => 'مستوى الكارما';
 
   @override
-  String get karmaDescription => 'مستوى الكارما يعكس مدى انتظامك.';
+  String get karmaDescription => 'مستوى كارما العادات يعكس مدى انتظامك.';
 
   @override
-  String get resetProgress => 'إعادة التعيين';
+  String get resetProgress => 'إعادة تعيين التقدم';
 
   @override
   String get resetProgressTitle => 'إعادة تعيين التقدم؟';
@@ -203,13 +130,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resetProgressDescription => 'هذا الإجراء سيعيد تعيين:';
 
   @override
-  String get resetWarningExperience => 'كل خبرة ومستوى الشخصية';
+  String get resetWarningExperience => 'كل خبرة ومستوى اللاعب';
 
   @override
-  String get resetWarningHabits => 'سجل إكمال كل العادات';
+  String get resetWarningHabits => 'سجل إكمال جميع العادات';
 
   @override
-  String get resetWarningKarma => 'مستويات الكارما لكل العادات';
+  String get resetWarningKarma => 'مستويات الكارما لجميع العادات';
 
   @override
   String get resetTasksUnaffected => 'المهام لن تتأثر.';
@@ -227,13 +154,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resetSuccess => 'تم إعادة تعيين التقدم بنجاح!';
 
   @override
-  String get progressSettings => 'إعدادات التقدم';
+  String get progressSettings => 'الإعدادات';
 
   @override
-  String get goalMotivation => 'الدافع الهدف';
+  String get goalMotivation => 'تحفيز الهدف';
 
   @override
-  String get goalMotivationHint => 'لماذا تكتسب الخبرة؟';
+  String get goalMotivationHint => 'ما الذي تتراكم الخبرة من أجله؟';
 
   @override
   String get language => 'اللغة';
@@ -287,14 +214,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return 'مضاعف الخبرة: $multiplier. القيم الأعلى تجعل الصعود للمستويات أبطأ';
+    return 'مضاعف الخبرة: $multiplier. القيم الأعلى تجعل الصعود للمستوى أبطأ';
   }
 
   @override
   String get levelProgressionPreview => 'معاينة تقدم المستوى:';
 
   @override
-  String levelFormula(Object multiplier, Object exponent) {
+  String levelFormula(Object exponent, Object multiplier) {
     return 'الصيغة: خبرة = $multiplier × (المستوى-1)^$exponent';
   }
 
@@ -326,7 +253,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitFormMinCompletion => 'الحد الأدنى للإكمال';
 
   @override
-  String get habitFormMinCompletionError => 'يرجى إدخال الحد الأدنى';
+  String get habitFormMinCompletionError => 'يرجى إدخال الحد الأدنى للعدد';
 
   @override
   String get habitFormMinCountError => 'على الأقل 1';
@@ -338,13 +265,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitFormSave => 'حفظ العادة';
 
   @override
-  String get habitFormWeeklyError => 'يرجى اختيار يوم واحد على الأقل للجدول الأسبوعي';
+  String get habitFormWeeklyError =>
+      'يرجى اختيار يوم واحد على الأقل للجدول الأسبوعي';
 
   @override
-  String get habitFormMonthlyError => 'يرجى اختيار يوم واحد على الأقل للجدول الشهري';
+  String get habitFormMonthlyError =>
+      'يرجى اختيار يوم واحد على الأقل للجدول الشهري';
 
   @override
-  String get habitFormCustomError => 'يرجى اختيار المدة للجدول المخصص';
+  String get habitFormCustomError => 'يرجى اختيار الفترة للجدول المخصص';
 
   @override
   String habitItemExperience(Object experience) {
@@ -387,12 +316,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationMessage(Object habitTitle) {
-    return 'هل أنت متأكد من حذف \"$habitTitle\"؟';
+    return 'هل أنت متأكد من رغبتك في حذف \"$habitTitle\"؟';
   }
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ هذا سيزيل $xpAmount نقطة خبرة من شخصيتك!';
+    return '⚠️ هذا سيزيل $xpAmount نقطة خبرة من لاعبك!';
   }
 
   @override
@@ -405,7 +334,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitsTabEmptyTitle => 'لا توجد عادات بعد!';
 
   @override
-  String get habitsTabEmptySubtitle => 'انقر على + لإضافة أول عادة';
+  String get habitsTabEmptySubtitle => 'انقر على زر + لإضافة أول عادة لك';
 
   @override
   String get taskFormTitle => 'عنوان المهمة';
@@ -431,7 +360,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get taskFormSelectDate => 'اختر تاريخ';
+  String get taskFormSelectDate => 'اختر التاريخ';
 
   @override
   String taskFormPriorityLabel(Object priority) {
@@ -460,13 +389,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get taskCategoryLearning => 'تعلم';
 
   @override
+  String get taskCategoryGeneral => 'عام';
+
+  @override
+  String get taskCategoryHove => 'منزل';
+
+  @override
+  String get taskCategorySocial => 'اجتماعي';
+
+  @override
   String get taskCategoryOther => 'أخرى';
 
   @override
   String get tasksTabEmptyTitle => 'لا توجد مهام بعد!';
 
   @override
-  String get tasksTabEmptySubtitle => 'انقر على + لإضافة أول مهمة';
+  String get tasksTabEmptySubtitle => 'انقر على زر + لإضافة أول مهمة لك';
 
   @override
   String get tasksTabTotal => 'الإجمالي';
@@ -475,7 +413,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tasksTabPending => 'قيد الانتظار';
 
   @override
-  String get tasksTabDone => 'منتهي';
+  String get tasksTabDone => 'مكتمل';
 
   @override
   String tasksTabPendingHeader(Object count) {
@@ -503,12 +441,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationMessage(Object taskTitle) {
-    return 'هل أنت متأكد من حذف \"$taskTitle\"؟';
+    return 'هل أنت متأكد من رغبتك في حذف \"$taskTitle\"؟';
   }
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ هذا سيزيل $xpAmount نقطة خبرة من شخصيتك!';
+    return '⚠️ هذا سيزيل $xpAmount نقطة خبرة من لاعبك!';
   }
 
   @override
@@ -527,12 +465,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tasksTabDueYesterday => 'أمس';
 
   @override
-  String tasksTabDueDaysAgo(Object days) {
-    return 'قبل $days يوم';
+  String tasksTabDueDaysAgo(num days) {
+    return 'منذ $days يوم';
   }
 
   @override
-  String tasksTabDueInDays(Object days) {
+  String tasksTabDueInDays(num days) {
     return 'خلال $days يوم';
   }
 
@@ -549,7 +487,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get scheduleTypeMonthly => 'شهري';
 
   @override
-  String get scheduleTypeCustom => 'مدة مخصصة';
+  String get scheduleTypeCustom => 'فترة مخصصة';
 
   @override
   String get scheduleWeeklyTitle => 'اختر الأيام:';
@@ -565,14 +503,14 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       days,
       locale: localeName,
-      other: '$days يوم',
+      other: '$days أيام',
       one: '1 يوم',
     );
     return '$_temp0';
   }
 
   @override
-  String get scheduleCustomError => 'يرجى اختيار المدة';
+  String get scheduleCustomError => 'يرجى اختيار الفترة';
 
   @override
   String get weekdayMonday => 'الاثنين';

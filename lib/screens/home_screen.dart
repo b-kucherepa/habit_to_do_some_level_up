@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Habit To Do Some Level Up!"),
+        title: Text(context.l10n.appTitle),
         titleTextStyle: Styles.titleFont,
         backgroundColor: Styles.getAppBarColor(_selectedIndex),
       ),

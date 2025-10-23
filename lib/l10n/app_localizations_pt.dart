@@ -9,13 +9,13 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'RPG Tarefas & Hábitos';
+  String get appTitle => 'Hábito Para Fazer Algum Nível Up!';
 
   @override
   String get home => 'Início';
 
   @override
-  String get settings => 'Configurações';
+  String get settings => 'Definições';
 
   @override
   String get addHabit => 'Adicionar Hábito';
@@ -30,85 +30,33 @@ class AppLocalizationsPt extends AppLocalizations {
   String get editTask => 'Editar Tarefa';
 
   @override
-  String get delete => 'Excluir';
+  String get toNext => 'Para o Próximo';
 
   @override
-  String get edit => 'Editar';
-
-  @override
-  String get toNext => 'Próximo';
-
-  @override
-  String get habitTitle => 'Título do Hábito';
-
-  @override
-  String get completeDayHint => 'Completar Dia Perdido';
+  String get completeDayHint => 'Concluir Dia Omitido';
 
   @override
   String get markCompletedHabitsHint => 'Marque os hábitos concluídos para este dia:';
 
   @override
-  String get skipDayButton => 'Pular Este Dia';
+  String get skipDayButton => 'Saltar Este Dia';
 
   @override
-  String get completeDayButton => 'Completar Dia';
-
-  @override
-  String get habitDescription => 'Descrição';
-
-  @override
-  String get experiencePoints => 'Pontos de Experiência';
-
-  @override
-  String get minCompletionCount => 'Contagem Mínima de Conclusão';
+  String get completeDayButton => 'Concluir Dia';
 
   @override
   String get scheduleType => 'Tipo de Agenda';
-
-  @override
-  String get daily => 'Diário';
-
-  @override
-  String get weekly => 'Semanal';
-
-  @override
-  String get monthly => 'Mensal';
-
-  @override
-  String get custom => 'Personalizado';
-
-  @override
-  String get selectDays => 'Selecionar dias';
-
-  @override
-  String get monday => 'Segunda-feira';
-
-  @override
-  String get tuesday => 'Terça-feira';
-
-  @override
-  String get wednesday => 'Quarta-feira';
-
-  @override
-  String get thursday => 'Quinta-feira';
-
-  @override
-  String get friday => 'Sexta-feira';
-
-  @override
-  String get saturday => 'Sábado';
-
-  @override
-  String get sunday => 'Domingo';
-
-  @override
-  String get player => 'Personagem';
 
   @override
   String get habits => 'Hábitos';
 
   @override
   String get habitsDone => 'Hábitos Concluídos';
+
+  @override
+  String habitsNumberToday(Object habitsNumber) {
+    return '$habitsNumber hoje';
+  }
 
   @override
   String get tasks => 'Tarefas';
@@ -123,15 +71,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get level => 'Nível';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber hoje';
-  }
-
-  @override
   String get todaysProgress => 'Progresso de Hoje';
-
-  @override
-  String get experience => 'Experiência';
 
   @override
   String get experienceShort => 'EXP';
@@ -149,19 +89,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'Não se esqueça de usar suas conquistas para $goal!';
-  }
-
-  @override
-  String expCurveLabel(Object exponent, Object multiplier) {
-    return 'Expoente da Curva: $exponent, Multiplicador: $multiplier';
+    return 'Não se esqueça de usar as suas conquistas para... $goal!';
   }
 
   @override
   String get goal => 'Objetivo';
 
   @override
-  String get defaultGoal => 'Acumule experiência para criar seu personagem de RPG!';
+  String get defaultGoal => 'Melhorar a sua vida!';
 
   @override
   String get progress => 'Progresso';
@@ -173,25 +108,16 @@ class AppLocalizationsPt extends AppLocalizations {
   String get completed => 'Concluído';
 
   @override
-  String get pending => 'Pendente';
-
-  @override
   String get overdue => 'Atrasado';
 
   @override
-  String get dueToday => 'Para Hoje';
+  String get karma => 'Carma';
 
   @override
-  String get dueSoon => 'Em Breve';
+  String get karmaLevel => 'Nível de Carma';
 
   @override
-  String get karma => 'Karma';
-
-  @override
-  String get karmaLevel => 'Nível de Karma';
-
-  @override
-  String get karmaDescription => 'Seu nível de karma reflete sua consistência.';
+  String get karmaDescription => 'O nível de carma do hábito reflete a sua consistência.';
 
   @override
   String get resetProgress => 'Redefinir Progresso';
@@ -200,16 +126,16 @@ class AppLocalizationsPt extends AppLocalizations {
   String get resetProgressTitle => 'Redefinir Progresso?';
 
   @override
-  String get resetProgressDescription => 'Esta ação redefinirá permanentemente:';
+  String get resetProgressDescription => 'Esta ação irá redefinir permanentemente:';
 
   @override
-  String get resetWarningExperience => 'Toda a experiência e nível do personagem';
+  String get resetWarningExperience => 'Toda a experiência e nível do jogador';
 
   @override
-  String get resetWarningHabits => 'Histórico de conclusão de todos os hábitos';
+  String get resetWarningHabits => 'O histórico de conclusão de todos os hábitos';
 
   @override
-  String get resetWarningKarma => 'Níveis de karma de todos os hábitos';
+  String get resetWarningKarma => 'Os níveis de carma de todos os hábitos';
 
   @override
   String get resetTasksUnaffected => 'As tarefas não serão afetadas.';
@@ -224,16 +150,16 @@ class AppLocalizationsPt extends AppLocalizations {
   String get resetConfirm => 'Redefinir Progresso';
 
   @override
-  String get resetSuccess => 'Progresso redefinido com sucesso!';
+  String get resetSuccess => 'O progresso foi redefinido com sucesso!';
 
   @override
-  String get progressSettings => 'Configurações de Progresso';
+  String get progressSettings => 'Definições';
 
   @override
   String get goalMotivation => 'Motivação do Objetivo';
 
   @override
-  String get goalMotivationHint => 'Para que você está acumulando experiência?';
+  String get goalMotivationHint => 'Para que está a acumular experiência?';
 
   @override
   String get language => 'Idioma';
@@ -287,14 +213,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return 'Multiplicador de experiência: $multiplier. Valores mais altos tornam a evolução mais lenta';
+    return 'Multiplicador de experiência: $multiplier. Valores mais altos tornam a subida de nível mais lenta';
   }
 
   @override
-  String get levelProgressionPreview => 'Visualização da Progressão de Nível:';
+  String get levelProgressionPreview => 'Pré-visualização da Progressão de Nível:';
 
   @override
-  String levelFormula(Object multiplier, Object exponent) {
+  String levelFormula(Object exponent, Object multiplier) {
     return 'Fórmula: EXP = $multiplier × (Nível-1)^$exponent';
   }
 
@@ -302,7 +228,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get cancel => 'Cancelar';
 
   @override
-  String get save => 'Salvar';
+  String get save => 'Guardar';
 
   @override
   String get habitFormTitle => 'Título do Hábito';
@@ -335,16 +261,16 @@ class AppLocalizationsPt extends AppLocalizations {
   String get habitFormUpdate => 'Atualizar Hábito';
 
   @override
-  String get habitFormSave => 'Salvar Hábito';
+  String get habitFormSave => 'Guardar Hábito';
 
   @override
-  String get habitFormWeeklyError => 'Por favor, selecione pelo menos um dia para agenda semanal';
+  String get habitFormWeeklyError => 'Por favor, selecione pelo menos um dia para a agenda semanal';
 
   @override
-  String get habitFormMonthlyError => 'Por favor, selecione pelo menos um dia para agenda mensal';
+  String get habitFormMonthlyError => 'Por favor, selecione pelo menos um dia para a agenda mensal';
 
   @override
-  String get habitFormCustomError => 'Por favor, selecione o intervalo para agenda personalizada';
+  String get habitFormCustomError => 'Por favor, selecione o intervalo para a agenda personalizada';
 
   @override
   String habitItemExperience(Object experience) {
@@ -353,7 +279,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String habitItemMinCompletion(Object minCompletionCount) {
-    return 'mín $minCompletionCount';
+    return 'mín. $minCompletionCount';
   }
 
   @override
@@ -362,50 +288,50 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get habitItemNotToday => 'Não hoje';
+  String get habitItemNotToday => 'Não é hoje';
 
   @override
   String get habitItemEditTooltip => 'Editar hábito';
 
   @override
-  String get habitItemDeleteTooltip => 'Excluir hábito';
+  String get habitItemDeleteTooltip => 'Eliminar hábito';
 
   @override
-  String get habitItemScheduleDaily => 'Diário';
+  String get habitItemScheduleDaily => 'diário';
 
   @override
-  String get habitItemScheduleWeekly => 'Semanal';
+  String get habitItemScheduleWeekly => 'semanal';
 
   @override
-  String get habitItemScheduleMonthly => 'Mensal';
+  String get habitItemScheduleMonthly => 'mensal';
 
   @override
-  String get habitItemScheduleCustom => 'Personalizado';
+  String get habitItemScheduleCustom => 'personalizado';
 
   @override
-  String get habitItemDeleteConfirmationTitle => 'Excluir Hábito';
+  String get habitItemDeleteConfirmationTitle => 'Eliminar Hábito';
 
   @override
   String habitItemDeleteConfirmationMessage(Object habitTitle) {
-    return 'Tem certeza de que deseja excluir \"$habitTitle\"?';
+    return 'Tem a certeza de que deseja eliminar \"$habitTitle\"?';
   }
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ Isso removerá $xpAmount XP do seu personagem!';
+    return '⚠️ Isto irá remover $xpAmount XP do seu jogador!';
   }
 
   @override
   String get habitItemDeleteConfirmationCancel => 'Cancelar';
 
   @override
-  String get habitItemDeleteConfirmationDelete => 'Excluir';
+  String get habitItemDeleteConfirmationDelete => 'Eliminar';
 
   @override
-  String get habitsTabEmptyTitle => 'Nenhum hábito ainda!';
+  String get habitsTabEmptyTitle => 'Ainda não há hábitos!';
 
   @override
-  String get habitsTabEmptySubtitle => 'Toque no botão + para adicionar seu primeiro hábito';
+  String get habitsTabEmptySubtitle => 'Toque no botão + para adicionar o seu primeiro hábito';
 
   @override
   String get taskFormTitle => 'Título da Tarefa';
@@ -445,7 +371,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get taskFormUpdate => 'Atualizar Tarefa';
 
   @override
-  String get taskFormSave => 'Salvar Tarefa';
+  String get taskFormSave => 'Guardar Tarefa';
 
   @override
   String get taskCategoryWork => 'Trabalho';
@@ -457,16 +383,25 @@ class AppLocalizationsPt extends AppLocalizations {
   String get taskCategoryHealth => 'Saúde';
 
   @override
-  String get taskCategoryLearning => 'Aprendizado';
+  String get taskCategoryLearning => 'Aprendizagem';
+
+  @override
+  String get taskCategoryGeneral => 'Geral';
+
+  @override
+  String get taskCategoryHove => 'Casa';
+
+  @override
+  String get taskCategorySocial => 'Social';
 
   @override
   String get taskCategoryOther => 'Outro';
 
   @override
-  String get tasksTabEmptyTitle => 'Nenhuma tarefa ainda!';
+  String get tasksTabEmptyTitle => 'Ainda não há tarefas!';
 
   @override
-  String get tasksTabEmptySubtitle => 'Toque no botão + para adicionar sua primeira tarefa';
+  String get tasksTabEmptySubtitle => 'Toque no botão + para adicionar a sua primeira tarefa';
 
   @override
   String get tasksTabTotal => 'Total';
@@ -496,26 +431,26 @@ class AppLocalizationsPt extends AppLocalizations {
   String get tasksTabEditTooltip => 'Editar tarefa';
 
   @override
-  String get tasksTabDeleteTooltip => 'Excluir tarefa';
+  String get tasksTabDeleteTooltip => 'Eliminar tarefa';
 
   @override
-  String get tasksTabDeleteConfirmationTitle => 'Excluir Tarefa';
+  String get tasksTabDeleteConfirmationTitle => 'Eliminar Tarefa';
 
   @override
   String tasksTabDeleteConfirmationMessage(Object taskTitle) {
-    return 'Tem certeza de que deseja excluir \"$taskTitle\"?';
+    return 'Tem a certeza de que deseja eliminar \"$taskTitle\"?';
   }
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ Isso removerá $xpAmount XP do seu personagem!';
+    return '⚠️ Isto irá remover $xpAmount XP do seu jogador!';
   }
 
   @override
   String get tasksTabDeleteConfirmationCancel => 'Cancelar';
 
   @override
-  String get tasksTabDeleteConfirmationDelete => 'Excluir';
+  String get tasksTabDeleteConfirmationDelete => 'Eliminar';
 
   @override
   String get tasksTabDueToday => 'Hoje';
@@ -527,12 +462,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get tasksTabDueYesterday => 'Ontem';
 
   @override
-  String tasksTabDueDaysAgo(Object days) {
+  String tasksTabDueDaysAgo(num days) {
     return 'Há $days dias';
   }
 
   @override
-  String tasksTabDueInDays(Object days) {
+  String tasksTabDueInDays(num days) {
     return 'Em $days dias';
   }
 
@@ -540,7 +475,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get scheduleSelectorTitle => 'Tipo de Agenda';
 
   @override
-  String get scheduleTypeDaily => 'Diário';
+  String get scheduleTypeDaily => 'Diária';
 
   @override
   String get scheduleTypeWeekly => 'Semanal';

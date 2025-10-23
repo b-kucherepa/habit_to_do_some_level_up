@@ -236,6 +236,9 @@ class TaskItemWidget extends StatelessWidget {
 
   String _getLocalizedCategory(BuildContext context, String category) =>
       switch (category) {
+        'general' => context.l10n.taskCategoryGeneral,
+        'home' => context.l10n.taskCategoryHove,
+        'social' => context.l10n.taskCategorySocial,
         'work' => context.l10n.taskCategoryWork,
         'personal' => context.l10n.taskCategoryPersonal,
         'health' => context.l10n.taskCategoryHealth,

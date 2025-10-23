@@ -9,7 +9,7 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appTitle => 'आरपीजी टूडू और आदतें';
+  String get appTitle => 'आदतों से करें लेवल अप!';
 
   @override
   String get home => 'होम';
@@ -30,19 +30,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get editTask => 'कार्य संपादित करें';
 
   @override
-  String get delete => 'हटाएं';
-
-  @override
-  String get edit => 'संपादित करें';
-
-  @override
   String get toNext => 'अगले पर';
 
   @override
-  String get habitTitle => 'आदत का शीर्षक';
-
-  @override
-  String get completeDayHint => 'छूटा हुआ दिन पूरा करें';
+  String get completeDayHint => 'छूटे हुए दिन को पूरा करें';
 
   @override
   String get markCompletedHabitsHint => 'इस दिन के लिए पूरी की गई आदतों को चिह्नित करें:';
@@ -54,55 +45,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get completeDayButton => 'दिन पूरा करें';
 
   @override
-  String get habitDescription => 'विवरण';
-
-  @override
-  String get experiencePoints => 'अनुभव अंक';
-
-  @override
-  String get minCompletionCount => 'न्यूनतम पूर्णता संख्या';
-
-  @override
   String get scheduleType => 'अनुसूची प्रकार';
-
-  @override
-  String get daily => 'दैनिक';
-
-  @override
-  String get weekly => 'साप्ताहिक';
-
-  @override
-  String get monthly => 'मासिक';
-
-  @override
-  String get custom => 'कस्टम';
-
-  @override
-  String get selectDays => 'दिन चुनें';
-
-  @override
-  String get monday => 'सोमवार';
-
-  @override
-  String get tuesday => 'मंगलवार';
-
-  @override
-  String get wednesday => 'बुधवार';
-
-  @override
-  String get thursday => 'गुरुवार';
-
-  @override
-  String get friday => 'शुक्रवार';
-
-  @override
-  String get saturday => 'शनिवार';
-
-  @override
-  String get sunday => 'रविवार';
-
-  @override
-  String get player => 'कैरेक्टर';
 
   @override
   String get habits => 'आदतें';
@@ -111,10 +54,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitsDone => 'आदतें पूरी';
 
   @override
+  String habitsNumberToday(Object habitsNumber) {
+    return 'आज $habitsNumber';
+  }
+
+  @override
   String get tasks => 'कार्य';
 
   @override
-  String get tasksDue => 'कार्य बाकी';
+  String get tasksDue => 'कार्य निर्धारित';
 
   @override
   String get tasksDone => 'कार्य पूरे';
@@ -123,15 +71,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get level => 'स्तर';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return 'आज $habitsNumber';
-  }
-
-  @override
   String get todaysProgress => 'आज की प्रगति';
-
-  @override
-  String get experience => 'अनुभव';
 
   @override
   String get experienceShort => 'एक्सपी';
@@ -149,19 +89,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'अपनी उपलब्धियों का उपयोग $goal करने के लिए मत भूलना!';
-  }
-
-  @override
-  String expCurveLabel(Object exponent, Object multiplier) {
-    return 'वक्र घातांक: $exponent, गुणक: $multiplier';
+    return 'अपनी उपलब्धियों का उपयोग करना न भूलें... $goal!';
   }
 
   @override
   String get goal => 'लक्ष्य';
 
   @override
-  String get defaultGoal => 'अपनी आरपीजी यात्रा के लिए अनुभव जमा करें!';
+  String get defaultGoal => 'अपने जीवन का स्तर ऊपर उठाएं!';
 
   @override
   String get progress => 'प्रगति';
@@ -170,19 +105,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get progressToLevel => 'स्तर तक प्रगति';
 
   @override
-  String get completed => 'पूरा हुआ';
+  String get completed => 'पूर्ण';
 
   @override
-  String get pending => 'लंबित';
-
-  @override
-  String get overdue => 'अतिदेय';
-
-  @override
-  String get dueToday => 'आज देय';
-
-  @override
-  String get dueSoon => 'जल्दी देय';
+  String get overdue => 'अतिदत्त';
 
   @override
   String get karma => 'कर्म';
@@ -191,7 +117,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get karmaLevel => 'कर्म स्तर';
 
   @override
-  String get karmaDescription => 'आपका कर्म स्तर आपकी निरंतरता को दर्शाता है।';
+  String get karmaDescription => 'आदत कर्म स्तर आपकी निरंतरता को दर्शाता है।';
 
   @override
   String get resetProgress => 'प्रगति रीसेट करें';
@@ -203,7 +129,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get resetProgressDescription => 'यह कार्रवाई स्थायी रूप से रीसेट कर देगी:';
 
   @override
-  String get resetWarningExperience => 'सभी कैरेक्टर अनुभव और स्तर';
+  String get resetWarningExperience => 'सभी खिलाड़ी अनुभव और स्तर';
 
   @override
   String get resetWarningHabits => 'सभी आदतों का पूर्णता इतिहास';
@@ -227,13 +153,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get resetSuccess => 'प्रगति सफलतापूर्वक रीसेट कर दी गई है!';
 
   @override
-  String get progressSettings => 'प्रगति सेटिंग्स';
+  String get progressSettings => 'सेटिंग्स';
 
   @override
   String get goalMotivation => 'लक्ष्य प्रेरणा';
 
   @override
-  String get goalMotivationHint => 'आप अनुभव किसके लिए जमा कर रहे हैं?';
+  String get goalMotivationHint => 'आप अनुभव किसके लिए एकत्र कर रहे हैं?';
 
   @override
   String get language => 'भाषा';
@@ -279,7 +205,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String curveExponentDescription(Object exponent) {
-    return 'वक्र घातांक: $exponent. 1 से कम मान प्रारंभिक स्तरों को आसान बनाते हैं, >1 बाद के स्तरों को आसान बनाते हैं';
+    return 'वक्र घातांक: $exponent। <1 मान प्रारंभिक स्तरों को आसान बनाते हैं, >1 बाद के स्तरों को आसान बनाते हैं';
   }
 
   @override
@@ -287,14 +213,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return 'अनुभव गुणक: $multiplier. उच्च मान स्तर बढ़ाना धीमा करते हैं';
+    return 'अनुभव गुणक: $multiplier। उच्च मान लेवलिंग को धीमा बनाते हैं';
   }
 
   @override
   String get levelProgressionPreview => 'स्तर प्रगति पूर्वावलोकन:';
 
   @override
-  String levelFormula(Object multiplier, Object exponent) {
+  String levelFormula(Object exponent, Object multiplier) {
     return 'सूत्र: EXP = $multiplier × (स्तर-1)^$exponent';
   }
 
@@ -305,7 +231,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get save => 'सहेजें';
 
   @override
-  String get habitFormTitle => 'आदत का शीर्षक';
+  String get habitFormTitle => 'आदत शीर्षक';
 
   @override
   String get habitFormTitleError => 'कृपया एक शीर्षक दर्ज करें';
@@ -353,7 +279,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String habitItemMinCompletion(Object minCompletionCount) {
-    return 'न्यून. $minCompletionCount';
+    return 'न्यूनतम $minCompletionCount';
   }
 
   @override
@@ -392,7 +318,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ यह आपके कैरेक्टर से $xpAmount एक्सपी हटा देगा!';
+    return '⚠️ यह आपके खिलाड़ी से $xpAmount एक्सपी हटा देगा!';
   }
 
   @override
@@ -408,7 +334,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'अपनी पहली आदत जोड़ने के लिए + बटन दबाएं';
 
   @override
-  String get taskFormTitle => 'कार्य का शीर्षक';
+  String get taskFormTitle => 'कार्य शीर्षक';
 
   @override
   String get taskFormTitleError => 'कृपया एक शीर्षक दर्ज करें';
@@ -460,6 +386,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get taskCategoryLearning => 'सीखना';
 
   @override
+  String get taskCategoryGeneral => 'सामान्य';
+
+  @override
+  String get taskCategoryHove => 'घर';
+
+  @override
+  String get taskCategorySocial => 'सामाजिक';
+
+  @override
   String get taskCategoryOther => 'अन्य';
 
   @override
@@ -475,7 +410,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tasksTabPending => 'लंबित';
 
   @override
-  String get tasksTabDone => 'पूरा';
+  String get tasksTabDone => 'पूर्ण';
 
   @override
   String tasksTabPendingHeader(Object count) {
@@ -508,7 +443,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ यह आपके कैरेक्टर से $xpAmount एक्सपी हटा देगा!';
+    return '⚠️ यह आपके खिलाड़ी से $xpAmount एक्सपी हटा देगा!';
   }
 
   @override
@@ -527,12 +462,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tasksTabDueYesterday => 'कल';
 
   @override
-  String tasksTabDueDaysAgo(Object days) {
+  String tasksTabDueDaysAgo(num days) {
     return '$days दिन पहले';
   }
 
   @override
-  String tasksTabDueInDays(Object days) {
+  String tasksTabDueInDays(num days) {
     return '$days दिन में';
   }
 

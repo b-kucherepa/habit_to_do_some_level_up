@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'RPG Todo & Habits';
+  String get appTitle => 'Habit To Do Some Level Up!';
 
   @override
   String get home => 'Home';
@@ -30,16 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editTask => 'Edit Task';
 
   @override
-  String get delete => 'Delete';
-
-  @override
-  String get edit => 'Edit';
-
-  @override
   String get toNext => 'To Next';
-
-  @override
-  String get habitTitle => 'Habit Title';
 
   @override
   String get completeDayHint => 'Complete Missed Day';
@@ -54,61 +45,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get completeDayButton => 'Complete Day';
 
   @override
-  String get habitDescription => 'Description';
-
-  @override
-  String get experiencePoints => 'Experience Points';
-
-  @override
-  String get minCompletionCount => 'Min Completion Count';
-
-  @override
   String get scheduleType => 'Schedule Type';
-
-  @override
-  String get daily => 'Daily';
-
-  @override
-  String get weekly => 'Weekly';
-
-  @override
-  String get monthly => 'Monthly';
-
-  @override
-  String get custom => 'Custom';
-
-  @override
-  String get selectDays => 'Select days';
-
-  @override
-  String get monday => 'Monday';
-
-  @override
-  String get tuesday => 'Tuesday';
-
-  @override
-  String get wednesday => 'Wednesday';
-
-  @override
-  String get thursday => 'Thursday';
-
-  @override
-  String get friday => 'Friday';
-
-  @override
-  String get saturday => 'Saturday';
-
-  @override
-  String get sunday => 'Sunday';
-
-  @override
-  String get player => 'Player';
 
   @override
   String get habits => 'Habits';
 
   @override
   String get habitsDone => 'Habits Done';
+
+  @override
+  String habitsNumberToday(Object habitsNumber) {
+    return '$habitsNumber today';
+  }
 
   @override
   String get tasks => 'Tasks';
@@ -123,15 +71,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get level => 'Level';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber today';
-  }
-
-  @override
   String get todaysProgress => 'Today\'s Progress';
-
-  @override
-  String get experience => 'Experience';
 
   @override
   String get experienceShort => 'EXP';
@@ -149,19 +89,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'Don\'t forget to use your achievements to $goal!';
-  }
-
-  @override
-  String expCurveLabel(Object exponent, Object multiplier) {
-    return 'Curve Exponent: $exponent, Multiplier: $multiplier';
+    return 'Don\'t forget to use your achievements to... $goal!';
   }
 
   @override
   String get goal => 'Goal';
 
   @override
-  String get defaultGoal => 'Accumulate experience for your RPG journey!';
+  String get defaultGoal => 'Level up your life!';
 
   @override
   String get progress => 'Progress';
@@ -173,16 +108,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get completed => 'Completed';
 
   @override
-  String get pending => 'Pending';
-
-  @override
   String get overdue => 'Overdue';
-
-  @override
-  String get dueToday => 'Due Today';
-
-  @override
-  String get dueSoon => 'Due Soon';
 
   @override
   String get karma => 'Karma';
@@ -191,7 +117,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get karmaLevel => 'Karma Level';
 
   @override
-  String get karmaDescription => 'Your karma level reflects your consistency.';
+  String get karmaDescription => 'Habit karma level reflects your consistency.';
 
   @override
   String get resetProgress => 'Reset Progress';
@@ -227,7 +153,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetSuccess => 'Progress has been reset successfully!';
 
   @override
-  String get progressSettings => 'Progress Settings';
+  String get progressSettings => 'Settings';
 
   @override
   String get goalMotivation => 'Goal Motivation';
@@ -294,7 +220,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get levelProgressionPreview => 'Level Progression Preview:';
 
   @override
-  String levelFormula(Object multiplier, Object exponent) {
+  String levelFormula(Object exponent, Object multiplier) {
     return 'Formula: EXP = $multiplier × (Level-1)^$exponent';
   }
 
@@ -371,16 +297,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitItemDeleteTooltip => 'Delete habit';
 
   @override
-  String get habitItemScheduleDaily => 'Daily';
+  String get habitItemScheduleDaily => 'daily';
 
   @override
-  String get habitItemScheduleWeekly => 'Weekly';
+  String get habitItemScheduleWeekly => 'weekly';
 
   @override
-  String get habitItemScheduleMonthly => 'Monthly';
+  String get habitItemScheduleMonthly => 'monthly';
 
   @override
-  String get habitItemScheduleCustom => 'Custom';
+  String get habitItemScheduleCustom => 'custom';
 
   @override
   String get habitItemDeleteConfirmationTitle => 'Delete Habit';
@@ -460,6 +386,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get taskCategoryLearning => 'Learning';
 
   @override
+  String get taskCategoryGeneral => 'General';
+
+  @override
+  String get taskCategoryHove => 'Home';
+
+  @override
+  String get taskCategorySocial => 'Social';
+
+  @override
   String get taskCategoryOther => 'Other';
 
   @override
@@ -527,12 +462,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tasksTabDueYesterday => 'Yesterday';
 
   @override
-  String tasksTabDueDaysAgo(Object days) {
+  String tasksTabDueDaysAgo(num days) {
     return '$days days ago';
   }
 
   @override
-  String tasksTabDueInDays(Object days) {
+  String tasksTabDueInDays(num days) {
     return 'In $days days';
   }
 
