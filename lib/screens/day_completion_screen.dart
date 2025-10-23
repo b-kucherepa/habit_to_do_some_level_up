@@ -122,7 +122,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
       },
       showScheduleInfo: false,
       showKarmaIndicator: true,
-      backgroundColor: isCompleted ? Styles.entryCompletedBackColor : null,
+      backgroundColor: isCompleted ? Styles.habitCompletedBackColor : null,
     );
   }
 

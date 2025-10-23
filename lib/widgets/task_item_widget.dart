@@ -35,7 +35,7 @@ class TaskItemWidget extends StatelessWidget {
       margin: EdgeInsets.only(bottom: Styles.getGap('S')),
       color: backgroundColor ??
           (task.completed
-              ? Styles.entryCompletedBackColor
+              ? Styles.taskCompletedBackColor
               : Styles.entryUncompletedBackColor),
       child: IntrinsicHeight(
         child: Row(
@@ -199,7 +199,6 @@ class TaskItemWidget extends StatelessWidget {
               onPressed: onEdit,
               tooltip: context.l10n.tasksTabEditTooltip,
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
             ),
           ],
 
@@ -210,7 +209,6 @@ class TaskItemWidget extends StatelessWidget {
               onPressed: () => _showDeleteConfirmation(context, task),
               tooltip: context.l10n.tasksTabDeleteTooltip,
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
             ),
           ],
         ],

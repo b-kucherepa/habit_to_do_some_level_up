@@ -6,16 +6,16 @@ import 'package:habit_to_do_some_level_up/styles.dart';
 import '../language_manager.dart';
 import '../models/player.dart';
 
-class PlayerSettingsDialog extends StatefulWidget {
+class SettingsDialog extends StatefulWidget {
   final Player player;
 
-  const PlayerSettingsDialog({super.key, required this.player});
+  const SettingsDialog({super.key, required this.player});
 
   @override
-  _PlayerSettingsDialogState createState() => _PlayerSettingsDialogState();
+  _SettingsDialogState createState() => _SettingsDialogState();
 }
 
-class _PlayerSettingsDialogState extends State<PlayerSettingsDialog> {
+class _SettingsDialogState extends State<SettingsDialog> {
   late TextEditingController _goalController;
   late double _curveExponent;
   late double _experienceMultiplier;

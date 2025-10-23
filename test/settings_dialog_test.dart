@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:habit_to_do_some_level_up/widgets/player_settings_dialog.dart';
+import 'package:habit_to_do_some_level_up/widgets/settings_dialog.dart';
 import 'package:habit_to_do_some_level_up/models/player.dart';
 
 void main() {
-  group('PlayerSettingsDialog Tests', () {
+  group('SettingsDialog Tests', () {
     testWidgets('Renders with initial player values',
         (WidgetTester tester) async {
       final player = Player(
@@ -20,7 +20,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: PlayerSettingsDialog(player: player),
+          body: SettingsDialog(player: player),
         ),
       ));
 
@@ -45,7 +45,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: PlayerSettingsDialog(player: player),
+          body: SettingsDialog(player: player),
         ),
       ));
 
@@ -80,7 +80,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: PlayerSettingsDialog(player: player),
+          body: SettingsDialog(player: player),
         ),
       ));
 

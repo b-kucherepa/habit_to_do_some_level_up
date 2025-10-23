@@ -44,7 +44,7 @@ class HabitItemWidget extends StatelessWidget {
       margin: EdgeInsets.only(bottom: Styles.getGap('S')),
       color: backgroundColor ??
           (isCompleted
-              ? Styles.entryCompletedBackColor
+              ? Styles.habitCompletedBackColor
               : Styles.entryUncompletedBackColor),
       child: IntrinsicHeight(
         child: Row(
@@ -83,24 +83,25 @@ class HabitItemWidget extends StatelessWidget {
             icon: Styles.habitCounterIncreaseIcon,
             onPressed: isEditable && isDueToday ? onIncrement : null,
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
 
           // Счетчик
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: Styles.getGap('M'), vertical: Styles.getGap('M')),
+            alignment: AlignmentGeometry.center,
+            width: Styles.counterSidesWidth,
+            height: Styles.counterSidesWidth,
             decoration: BoxDecoration(
               color: Styles.habitCounterBackColor,
               borderRadius: BorderRadius.circular(Styles.entryCardRadius),
             ),
-            child: Text(
+            child: IntrinsicHeight(
+                child: Text(
               '$currentCount',
               style: isDueToday
                   ? Styles.counterActiveFont
                   : Styles.counterInactiveFont,
               textAlign: TextAlign.center,
-            ),
+            )),
           ),
 
           // Нижняя кнопка: -
@@ -110,7 +111,6 @@ class HabitItemWidget extends StatelessWidget {
                 ? onDecrement
                 : null,
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
         ],
       ),
@@ -209,7 +209,6 @@ class HabitItemWidget extends StatelessWidget {
               onPressed: onEdit,
               tooltip: context.l10n.habitItemEditTooltip,
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
             ),
           ],
 
@@ -220,7 +219,6 @@ class HabitItemWidget extends StatelessWidget {
               onPressed: () => _showDeleteConfirmation(context),
               tooltip: context.l10n.habitItemDeleteTooltip,
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
             ),
           ],
         ],

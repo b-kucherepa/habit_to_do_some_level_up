@@ -54,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _getBody(int index) {
     switch (index) {
       case 0:
-        return PlayerTab(
-            //onCreatePlayer: _createDefaultPlayer,
-            );
+        return PlayerTab();
       case 1:
         return HabitsTab(
           onHabitIncrement: _incrementHabitCompletion,
@@ -71,9 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           experienceService: _experienceService,
         );
       default:
-        return PlayerTab(
-            //onCreatePlayer: _createDefaultPlayer,
-            );
+        return PlayerTab();
     }
   }
 

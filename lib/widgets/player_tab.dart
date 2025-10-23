@@ -3,7 +3,7 @@ import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart
 import 'package:habit_to_do_some_level_up/styles.dart';
 import '../models/player.dart';
 import '../services/hive_service.dart';
-import 'player_settings_dialog.dart';
+import 'settings_dialog.dart';
 
 class PlayerTab extends StatefulWidget {
   const PlayerTab({super.key});
@@ -72,7 +72,7 @@ class _PlayerTabState extends State<PlayerTab> {
                     player.goal == Player.defaultGoal
                         ? context.l10n.defaultGoal
                         : player.goal,
-                    style: Styles.playerGoal,
+                    style: Styles.getPlayerGoalFont(player.level),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -96,9 +96,6 @@ class _PlayerTabState extends State<PlayerTab> {
             _buildLevelProgress(player, context),
 
             SizedBox(height: Styles.getGap('L')),
-
-            // Информация о системе уровней
-            _buildLevelSystemInfo(player, context),
           ],
         ),
       ),
@@ -111,19 +108,19 @@ class _PlayerTabState extends State<PlayerTab> {
         _buildStatItem(
           context.l10n.level,
           '${player.level}',
-          Styles.playerTabLevelIcon,
+          Styles.getPlayerLevelIcon(player.level),
         ),
         SizedBox(width: Styles.getGap('M')),
         _buildStatItem(
           context.l10n.experienceShort,
           '${player.experience}',
-          Styles.playerTabExperienceIcon,
+          Styles.getPlayerExperienceIcon(player.level),
         ),
         SizedBox(width: Styles.getGap('M')),
         _buildStatItem(
           context.l10n.toNext,
           '${player.experienceToNextLevel}',
-          Styles.playerTabToNextLevelIcon,
+          Styles.getPlayerNextLevelIcon(player.level),
         ),
       ],
     );
@@ -160,51 +157,22 @@ class _PlayerTabState extends State<PlayerTab> {
           children: [
             Text(
               '${context.l10n.progressToLevel} ${player.level + 1}',
-              style: Styles.playerProgressBarFont,
+              style: Styles.playerBarFont,
             ),
             Text('${(player.levelProgress * 100).toStringAsFixed(1)}%',
-                style: Styles.playerProgressBarFont),
+                style: Styles.playerBarFont),
           ],
         ),
         SizedBox(height: Styles.getGap('S')),
         LinearProgressIndicator(
+          borderRadius:
+              BorderRadius.all(Radius.circular(Styles.getRadius('XS'))),
           value: player.levelProgress,
-          backgroundColor: Styles.playerProgressIndicatorBackColor,
-          color: Styles.playerProgressIndicatorFrontColor,
+          backgroundColor: Styles.getPlayerBackColor(player.level),
+          color: Styles.getPlayerFrontColor(player.level),
           minHeight: Styles.getGap('S'),
         ),
       ],
-    );
-  }
-
-  Widget _buildLevelSystemInfo(Player player, BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: Styles.getGap('M'),
-        vertical: Styles.getGap('S'),
-      ),
-      decoration: BoxDecoration(
-        color: Styles.playerTabExpCurveLabelColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(Styles.getRadius('S')),
-        border: Border.all(
-            color: Styles.playerTabExpCurveLabelColor.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Styles.playerTabExpCurveLabelIcon,
-          SizedBox(width: Styles.getGap('S')),
-          Expanded(
-            child: Text(
-              context.l10n.expCurveLabel(
-                player.curveExponent.toStringAsFixed(1),
-                player.experienceMultiplier.toInt(),
-              ),
-              style: Styles.playerTabExpCurveLabelFont,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -339,7 +307,7 @@ class _PlayerTabState extends State<PlayerTab> {
   Future<void> _showSettingsDialog(Player player) async {
     final result = await showDialog<Player>(
       context: context,
-      builder: (context) => PlayerSettingsDialog(player: player),
+      builder: (context) => SettingsDialog(player: player),
     );
 
     if (result != null && mounted) {

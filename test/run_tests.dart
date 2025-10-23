@@ -9,7 +9,7 @@ import 'hive_service_simple_test.dart' as hive_service_test;
 import 'day_completion_service_test.dart' as day_completion_test;
 import 'integration_test.dart' as integration_test;
 import 'widget_test.dart' as widget_test;
-import 'player_settings_dialog_test.dart' as player_dialog_test;
+import 'settings_dialog_test.dart' as player_dialog_test;
 
 void main() {
   // Этот файл запускает ВСЕ рабочие тесты в правильном порядке
