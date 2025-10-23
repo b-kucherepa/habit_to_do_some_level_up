@@ -8,6 +8,7 @@ class HabitItemWidget extends StatelessWidget {
   final VoidCallback? onIncrement;
   final VoidCallback? onDecrement;
   final VoidCallback? onDelete;
+  final VoidCallback? onEdit;
   final bool showScheduleInfo;
   final bool showKarmaIndicator;
   final Color? backgroundColor;
@@ -20,6 +21,7 @@ class HabitItemWidget extends StatelessWidget {
     this.onIncrement,
     this.onDecrement,
     this.onDelete,
+    this.onEdit,
     this.showScheduleInfo = true,
     this.showKarmaIndicator = true,
     this.backgroundColor,
@@ -162,15 +164,22 @@ class HabitItemWidget extends StatelessWidget {
   }
 
   Widget _buildTrailing(BuildContext context, bool isDueToday) {
-    return Column(
+    return Row(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (!isDueToday)
           Text(
             'Not today',
             style: TextStyle(color: Colors.grey, fontSize: 12),
           ),
+        if (onEdit != null) ...[
+          SizedBox(height: 8),
+          IconButton(
+            icon: Icon(Icons.edit_note_outlined, color: Colors.grey, size: 20),
+            onPressed: onEdit,
+            tooltip: 'Edit habit',
+          ),
+        ],
         if (onDelete != null) ...[
           SizedBox(height: 8),
           IconButton(

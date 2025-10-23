@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/add_habit_screen.dart';
 import '../services/hive_service.dart';
 import '../models/habit.dart';
 import '../widgets/habit_item_widget.dart';
@@ -39,12 +40,23 @@ class HabitsTab extends StatelessWidget {
               onIncrement: () => onHabitIncrement(habit),
               onDecrement: () => onHabitDecrement(habit),
               onDelete: () => onHabitDelete(habit),
+              onEdit: () =>
+                  _editHabit(context, habit), // Добавили редактирование
               showScheduleInfo: true,
               showKarmaIndicator: true,
             );
           },
         );
       },
+    );
+  }
+
+  void _editHabit(BuildContext context, Habit habit) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddHabitScreen(habit: habit),
+      ),
     );
   }
 

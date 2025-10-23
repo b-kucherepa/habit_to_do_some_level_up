@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/add_task_screen.dart';
 import '../services/hive_service.dart';
 import '../models/task.dart';
 
@@ -138,6 +139,11 @@ class TasksTab extends StatelessWidget {
             _buildCategoryChip(task.category),
             SizedBox(width: 8),
             IconButton(
+              icon: Icon(Icons.edit_note_outlined, color: Colors.grey),
+              onPressed: () => _editTask(context, task),
+              tooltip: 'Edit task',
+            ),
+            IconButton(
               icon: Icon(Icons.delete_outline, color: Colors.grey),
               onPressed: () =>
                   _showDeleteConfirmation(task, task.completed, context),
@@ -145,6 +151,15 @@ class TasksTab extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _editTask(BuildContext context, Task task) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddTaskScreen(task: task),
       ),
     );
   }

@@ -3,7 +3,9 @@ import '../services/hive_service.dart';
 import '../models/task.dart';
 
 class TaskForm extends StatefulWidget {
-  const TaskForm({super.key});
+  final Task? task; // Для редактирования
+
+  const TaskForm({super.key, this.task});
 
   @override
   _TaskFormState createState() => _TaskFormState();
@@ -30,6 +32,24 @@ class _TaskFormState extends State<TaskForm> {
   ];
 
   final HiveService _hiveService = HiveService();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Если передан task, заполняем форму его данными
+    if (widget.task != null) {
+      final task = widget.task!;
+      _titleController.text = task.title;
+      _descriptionController.text = task.description;
+      _experienceController.text = task.experience.toString();
+      _dueDate = task.dueDate;
+      _priority = task.priority;
+      _category = task.category;
+    } else {
+      _dueDate = DateTime.now().add(Duration(days: 1));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +160,7 @@ class _TaskFormState extends State<TaskForm> {
 
   Widget _buildCategorySelector() {
     return DropdownButtonFormField<String>(
-      initialValue: _category,
+      value: _category,
       items: _categories.map((String category) {
         return DropdownMenuItem(
           value: category,
@@ -167,7 +187,7 @@ class _TaskFormState extends State<TaskForm> {
         padding: EdgeInsets.symmetric(vertical: 16),
       ),
       child: Text(
-        'Save Task',
+        widget.task != null ? 'Update Task' : 'Save Task',
         style: TextStyle(fontSize: 18, color: Colors.white),
       ),
     );
@@ -190,14 +210,16 @@ class _TaskFormState extends State<TaskForm> {
   void _saveTask() {
     if (_formKey.currentState!.validate()) {
       final task = Task(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: widget.task?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
         title: _titleController.text,
         description: _descriptionController.text,
         experience: int.parse(_experienceController.text),
-        createdDate: DateTime.now(),
+        createdDate: widget.task?.createdDate ?? DateTime.now(),
         dueDate: _dueDate,
         priority: _priority,
         category: _category,
+        completed: widget.task?.completed ?? false,
+        completedDate: widget.task?.completedDate,
       );
 
       _saveToHive(task);
@@ -206,7 +228,11 @@ class _TaskFormState extends State<TaskForm> {
   }
 
   void _saveToHive(Task task) {
-    _hiveService.tasksBox.add(task);
+    if (widget.task != null) {
+      _hiveService.updateTask(task);
+    } else {
+      _hiveService.tasksBox.add(task);
+    }
   }
 
   String _capitalizeFirstLetter(String text) {

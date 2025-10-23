@@ -167,6 +167,13 @@ class _HomeScreenState extends State<HomeScreen> {
     ).then((_) => setState(() {}));
   }
 
+  void _navigateToEditTask(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddTaskScreen()),
+    ).then((_) => setState(() {}));
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;

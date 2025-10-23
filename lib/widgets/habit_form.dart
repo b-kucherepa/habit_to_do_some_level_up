@@ -4,7 +4,9 @@ import '../models/habit.dart';
 import '../schedule_selector.dart';
 
 class HabitForm extends StatefulWidget {
-  const HabitForm({super.key});
+  final Habit? habit; // Для редактирования передаем существующую привычку
+
+  const HabitForm({super.key, this.habit});
 
   @override
   _HabitFormState createState() => _HabitFormState();
@@ -23,6 +25,24 @@ class _HabitFormState extends State<HabitForm> {
   int? _customInterval;
 
   final HiveService _hiveService = HiveService();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Если передан habit, заполняем форму его данными
+    if (widget.habit != null) {
+      final habit = widget.habit!;
+      _titleController.text = habit.title;
+      _descriptionController.text = habit.description;
+      _experienceController.text = habit.experience.toString();
+      _minCompletionController.text = habit.minCompletionCount.toString();
+      _selectedScheduleType = habit.scheduleType;
+      _selectedDaysOfWeek = habit.daysOfWeek ?? [];
+      _selectedDaysOfMonth = habit.daysOfMonth ?? [];
+      _customInterval = habit.intervalDays;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +161,7 @@ class _HabitFormState extends State<HabitForm> {
         padding: EdgeInsets.symmetric(vertical: 16),
       ),
       child: Text(
-        'Save Habit',
+        widget.habit != null ? 'Update Habit' : 'Save Habit',
         style: TextStyle(fontSize: 18, color: Colors.white),
       ),
     );
@@ -154,7 +174,7 @@ class _HabitFormState extends State<HabitForm> {
     if (!scheduleValid) return;
 
     final habit = Habit(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: widget.habit?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
       title: _titleController.text,
       description: _descriptionController.text,
       experience: int.parse(_experienceController.text),
@@ -164,7 +184,9 @@ class _HabitFormState extends State<HabitForm> {
       daysOfMonth:
           _selectedDaysOfMonth.isNotEmpty ? _selectedDaysOfMonth : null,
       intervalDays: _customInterval,
-      createdDate: DateTime.now(),
+      createdDate: widget.habit?.createdDate ?? DateTime.now(),
+      completionHistory: widget.habit?.completionHistory ?? {},
+      karmaLevel: widget.habit?.karmaLevel ?? 0,
     );
 
     _saveToHive(habit);
@@ -196,7 +218,11 @@ class _HabitFormState extends State<HabitForm> {
   }
 
   void _saveToHive(Habit habit) {
-    _hiveService.habitsBox.add(habit);
+    if (widget.habit != null) {
+      _hiveService.updateHabit(habit);
+    } else {
+      _hiveService.habitsBox.add(habit);
+    }
   }
 
   @override
