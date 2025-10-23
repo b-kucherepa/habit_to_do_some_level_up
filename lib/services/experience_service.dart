@@ -40,7 +40,8 @@ class ExperienceService {
       final updatedPlayer = Player(
         id: player.id,
         goal: player.goal,
-        experience: player.experience + habit.experience,
+        experience:
+            _calculateNewExperience(player.experience, habit.experience),
         level: player.level,
         createdDate: player.createdDate,
         curveExponent: player.curveExponent,
@@ -88,7 +89,8 @@ class ExperienceService {
         final updatedPlayer = Player(
           id: player.id,
           goal: player.goal,
-          experience: player.experience - habit.experience,
+          experience:
+              _calculateNewExperience(player.experience, -habit.experience),
           level: player.level,
           createdDate: player.createdDate,
           curveExponent: player.curveExponent,
@@ -130,7 +132,8 @@ class ExperienceService {
         final updatedPlayer = Player(
           id: player.id,
           goal: player.goal,
-          experience: player.experience + task.experience,
+          experience:
+              _calculateNewExperience(player.experience, task.experience),
           level: player.level,
           createdDate: player.createdDate,
           curveExponent: player.curveExponent,
@@ -148,7 +151,8 @@ class ExperienceService {
         final updatedPlayer = Player(
           id: player.id,
           goal: player.goal,
-          experience: player.experience - task.experience,
+          experience:
+              _calculateNewExperience(player.experience, -task.experience),
           level: player.level,
           createdDate: player.createdDate,
           curveExponent: player.curveExponent,
@@ -170,7 +174,8 @@ class ExperienceService {
       final updatedPlayer = Player(
         id: player.id,
         goal: player.goal,
-        experience: player.experience - (habit.experience * todayCount),
+        experience: _calculateNewExperience(
+            player.experience, -(habit.experience * todayCount)),
         level: player.level,
         createdDate: player.createdDate,
         curveExponent: player.curveExponent,
@@ -192,7 +197,7 @@ class ExperienceService {
       final updatedPlayer = Player(
         id: player.id,
         goal: player.goal,
-        experience: player.experience - task.experience,
+        experience: _calculateNewExperience(player.experience, task.experience),
         level: player.level,
         createdDate: player.createdDate,
         curveExponent: player.curveExponent,
@@ -212,7 +217,7 @@ class ExperienceService {
     final updatedPlayer = Player(
       id: player.id,
       goal: player.goal,
-      experience: player.experience + experience,
+      experience: _calculateNewExperience(player.experience, experience),
       level: player.level,
       createdDate: player.createdDate,
       curveExponent: player.curveExponent,
@@ -230,7 +235,7 @@ class ExperienceService {
     final updatedPlayer = Player(
       id: player.id,
       goal: player.goal,
-      experience: player.experience + experience,
+      experience: _calculateNewExperience(player.experience, experience),
       level: player.level,
       createdDate: player.createdDate,
       curveExponent: player.curveExponent,
@@ -257,4 +262,8 @@ class ExperienceService {
 
     _hiveService.updatePlayer(updatedPlayer);
   }
+
+  int _calculateNewExperience(int experience, int difference) =>
+      (experience + difference)
+          .clamp(Player.startingExperience, Player.maxExperience);
 }

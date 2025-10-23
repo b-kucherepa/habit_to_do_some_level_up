@@ -17,15 +17,13 @@ class _PlayerTabState extends State<PlayerTab> {
 
   @override
   Widget build(BuildContext context) {
-    final isWideScreen = MediaQuery.of(context).size.width > 800;
-
     return StreamBuilder(
       stream: _hiveService.playersBox.watch(),
       builder: (context, snapshot) {
         final players = _hiveService.getPlayers();
         final player = players.first;
 
-        return isWideScreen
+        return Styles.isWideScreen(context)
             ? _buildDesktopLayout(player)
             : _buildMobileLayout(player);
       },

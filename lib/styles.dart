@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class Styles {
 //COMMONS:
   //Main:
-
   static const Color badAccent = Color.fromARGB(255, 255, 72, 72);
   static const Color warningAccent = Color.fromARGB(255, 255, 145, 0);
   static const Color goodAccent = Color.fromARGB(255, 0, 232, 8);
@@ -21,6 +20,11 @@ class Styles {
       color: foregroundColor,
       fontWeight: FontWeight.w200,
       fontFamily: 'Noto Sans');
+
+  static const double wideScreenMin = 800;
+
+  static bool isWideScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width > wideScreenMin;
 
   //Fallbacks
   static const Color fallbackColor = Colors.grey;

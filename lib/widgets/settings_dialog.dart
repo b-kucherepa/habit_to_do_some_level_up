@@ -261,9 +261,11 @@ class _SettingsDialogState extends State<SettingsDialog> {
                     sideTitles: SideTitles(
                       showTitles: true,
                       reservedSize: Styles.expPreviewXReservedSize,
-                      interval: Styles.expPreviewXInterval,
+                      interval: Styles.isWideScreen(context)
+                          ? Styles.expPreviewXInterval
+                          : Styles.expPreviewXInterval * 2,
                       getTitlesWidget: (value, meta) {
-                        return Text('${value.toInt()}');
+                        return Text('L${value.toInt()}');
                       },
                     ),
                   ),

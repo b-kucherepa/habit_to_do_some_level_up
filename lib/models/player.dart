@@ -16,6 +16,7 @@ class Player {
 
   static const int startingLevel = 1;
   static const int startingExperience = 0;
+  static const int maxExperience = 0x7FFFFFFFFFFFFFFF;
 
   static const String defaultId = 'default_player';
   static const String defaultGoal =
@@ -52,23 +53,6 @@ class Player {
     this.experienceMultiplier =
         defaultExperienceMultiplier, // по умолчанию 100 XP за уровень
   });
-
-  void addExperience(int exp, {VoidCallback? onLevelUp}) {
-    final oldLevel = level;
-    experience += exp;
-    updateLevel();
-
-    // Уведомляем о повышении уровня
-    if (level > oldLevel && onLevelUp != null) {
-      onLevelUp();
-    }
-  }
-
-  void removeExperience(int exp) {
-    experience -= exp;
-    if (experience < startingExperience) experience = startingExperience;
-    updateLevel();
-  }
 
   void updateLevel() {
     if (experience <= startingExperience || curveExponent == 0) {
