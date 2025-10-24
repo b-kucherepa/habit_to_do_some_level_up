@@ -216,7 +216,7 @@ class _PlayerTabState extends State<PlayerTab> {
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.tasksDue,
-                                '$todaysTasks/$tasksOverall',
+                                '$todaysTasks',
                                 Styles.playerTasksDueIcon,
                               )),
                               SizedBox(width: Styles.getGap('M')),
@@ -230,7 +230,7 @@ class _PlayerTabState extends State<PlayerTab> {
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.overdue,
-                                '$overdueTasks/$tasksOverall',
+                                '$overdueTasks',
                                 Styles.playerOverdueIcon,
                               )),
                             ],
@@ -248,7 +248,7 @@ class _PlayerTabState extends State<PlayerTab> {
                               ),
                               _buildOverviewCard(
                                 context.l10n.tasksDue,
-                                '$todaysTasks/$tasksOverall',
+                                '$todaysTasks',
                                 Styles.playerTasksDueIcon,
                               ),
                               _buildOverviewCard(
@@ -258,7 +258,7 @@ class _PlayerTabState extends State<PlayerTab> {
                               ),
                               _buildOverviewCard(
                                 context.l10n.overdue,
-                                '$todaysTasks/$tasksOverall',
+                                '$todaysTasks',
                                 Styles.playerOverdueIcon,
                               ),
                             ],

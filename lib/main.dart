@@ -20,7 +20,7 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  print('Hive path: ${appDocumentDir.path}'); // Добавим отладочную информацию
+  print('Hive path: ${appDocumentDir.path}');
 
   Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(HabitAdapter());
@@ -32,7 +32,7 @@ void main() async {
   await Hive.openBox('preferences');
 
   final hiveService = HiveService();
-  hiveService.getFirstPlayer();
+  hiveService.getPlayer();
 
   runApp(MyApp());
 }
@@ -56,13 +56,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _initializeApp() async {
-    // Даем время на инициализацию Hive
     await Future.delayed(Duration(milliseconds: 100));
 
     final languageManager = LanguageManager();
     await languageManager.init();
 
-    // Сохраняем менеджер для использования в провайдере
     _languageManager = languageManager;
   }
 

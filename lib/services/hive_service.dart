@@ -1,3 +1,4 @@
+// hive_service.dart
 import 'package:hive/hive.dart';
 import '../models/player.dart';
 import '../models/habit.dart';
@@ -8,17 +9,16 @@ class HiveService {
   Box<Habit> get habitsBox => Hive.box<Habit>('habits');
   Box<Task> get tasksBox => Hive.box<Task>('tasks');
 
-  // Автоматически создаем персонажа при первом доступе
-  Player getFirstPlayer() {
+  // Получаем единственного персонажа или создаем нового
+  Player getPlayer() {
     final players = getPlayers();
     if (players.isEmpty) {
-      createDefaultPlayer();
-      return getPlayers().first;
+      return createDefaultPlayer();
     }
     return players.first;
   }
 
-  void createDefaultPlayer() {
+  Player createDefaultPlayer() {
     final player = Player(
       id: Player.defaultId,
       goal: Player.defaultGoal,
@@ -27,11 +27,23 @@ class HiveService {
       experienceMultiplier: Player.defaultExperienceMultiplier,
     );
     playersBox.add(player);
+    return player;
+  }
+
+  // Обновляем единственного персонажа
+  void updatePlayer(Player player) {
+    final key = _getPlayerKeyById(player.id);
+    if (key != null) {
+      playersBox.put(key, player);
+    } else {
+      // Если персонаж не найден, создаем нового
+      playersBox.add(player);
+    }
   }
 
   // Метод для сброса прогресса персонажа и привычек
   void resetPlayerProgress() {
-    final player = getFirstPlayer();
+    final player = getPlayer();
 
     // Сбрасываем персонажа
     final resetPlayer = Player(
@@ -66,16 +78,9 @@ class HiveService {
     }
   }
 
-  // Остальные методы остаются без изменений
+  // Получаем список персонажей (всегда должен содержать только одного)
   List<Player> getPlayers() {
     return playersBox.values.toList();
-  }
-
-  void updatePlayer(Player player) {
-    final key = _getPlayerKeyById(player.id);
-    if (key != null) {
-      playersBox.put(key, player);
-    }
   }
 
   // Habit methods

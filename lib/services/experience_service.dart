@@ -15,7 +15,7 @@ class ExperienceService {
     final habitIndex = habits.indexWhere((h) => h.id == habit.id);
 
     if (habitIndex != -1) {
-      final player = _hiveService.getFirstPlayer();
+      final player = _hiveService.getPlayer();
       final oldLevel = player.level;
 
       final updatedHabit = Habit(
@@ -36,7 +36,6 @@ class ExperienceService {
       updatedHabit.incrementCompletion();
       _hiveService.updateHabit(updatedHabit);
 
-      // Обновляем персонажа с новым опытом
       final updatedPlayer = Player(
         id: player.id,
         goal: player.goal,
@@ -51,7 +50,6 @@ class ExperienceService {
       updatedPlayer.updateLevel();
       _hiveService.updatePlayer(updatedPlayer);
 
-      // Проверяем повышение уровня и уведомляем
       if (updatedPlayer.level > oldLevel) {
         _levelUpService.notifyLevelUp(updatedPlayer.level);
       }
@@ -65,7 +63,7 @@ class ExperienceService {
     if (habitIndex != -1) {
       final currentCount = habit.getTodayCompletionCount();
       if (currentCount > 0) {
-        final player = _hiveService.getFirstPlayer();
+        final player = _hiveService.getPlayer();
 
         final updatedHabit = Habit(
           id: habit.id,
@@ -85,7 +83,6 @@ class ExperienceService {
         updatedHabit.decrementCompletion();
         _hiveService.updateHabit(updatedHabit);
 
-        // Обновляем персонажа (уменьшаем опыт)
         final updatedPlayer = Player(
           id: player.id,
           goal: player.goal,
@@ -109,7 +106,7 @@ class ExperienceService {
 
     if (taskIndex != -1) {
       final wasCompleted = task.completed;
-      final player = _hiveService.getFirstPlayer();
+      final player = _hiveService.getPlayer();
       final oldLevel = player.level;
 
       final updatedTask = Task(
@@ -127,7 +124,6 @@ class ExperienceService {
 
       _hiveService.updateTask(updatedTask);
 
-      // Update player experience
       if (completed && !wasCompleted) {
         final updatedPlayer = Player(
           id: player.id,
@@ -143,7 +139,6 @@ class ExperienceService {
         updatedPlayer.updateLevel();
         _hiveService.updatePlayer(updatedPlayer);
 
-        // Проверяем повышение уровня и уведомляем
         if (updatedPlayer.level > oldLevel) {
           _levelUpService.notifyLevelUp(updatedPlayer.level);
         }
@@ -166,9 +161,8 @@ class ExperienceService {
   }
 
   void deleteHabit(Habit habit) {
-    final player = _hiveService.getFirstPlayer();
+    final player = _hiveService.getPlayer();
 
-    // Remove experience for all completions today
     final todayCount = habit.getTodayCompletionCount();
     if (todayCount > 0) {
       final updatedPlayer = Player(
@@ -190,14 +184,14 @@ class ExperienceService {
   }
 
   void deleteTask(Task task) {
-    final player = _hiveService.getFirstPlayer();
+    final player = _hiveService.getPlayer();
 
-    // Remove experience if task was completed
     if (task.completed) {
       final updatedPlayer = Player(
         id: player.id,
         goal: player.goal,
-        experience: _calculateNewExperience(player.experience, task.experience),
+        experience:
+            _calculateNewExperience(player.experience, -task.experience),
         level: player.level,
         createdDate: player.createdDate,
         curveExponent: player.curveExponent,
@@ -212,7 +206,7 @@ class ExperienceService {
   }
 
   void addExperienceForDay(int experience) {
-    final player = _hiveService.getFirstPlayer();
+    final player = _hiveService.getPlayer();
 
     final updatedPlayer = Player(
       id: player.id,
@@ -228,9 +222,8 @@ class ExperienceService {
     _hiveService.updatePlayer(updatedPlayer);
   }
 
-  // Новый метод для прямого добавления опыта (может пригодиться)
   void addExperienceDirectly(int experience) {
-    final player = _hiveService.getFirstPlayer();
+    final player = _hiveService.getPlayer();
 
     final updatedPlayer = Player(
       id: player.id,
@@ -246,9 +239,8 @@ class ExperienceService {
     _hiveService.updatePlayer(updatedPlayer);
   }
 
-  // Метод для сброса опыта (для тестирования)
   void resetExperience() {
-    final player = _hiveService.getFirstPlayer();
+    final player = _hiveService.getPlayer();
 
     final updatedPlayer = Player(
       id: player.id,

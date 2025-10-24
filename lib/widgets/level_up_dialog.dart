@@ -11,7 +11,7 @@ class LevelUpDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final goal = _hiveService.getFirstPlayer().goal;
+    final goal = _hiveService.getPlayer().goal;
 
     return AlertDialog(
       shape: RoundedRectangleBorder(
