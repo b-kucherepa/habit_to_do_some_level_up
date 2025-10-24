@@ -880,8 +880,8 @@ abstract class AppLocalizations {
   /// No description provided for @tasksTabCompletedHeader.
   ///
   /// In en, this message translates to:
-  /// **'Completed Tasks ({count})'**
-  String tasksTabCompletedHeader(Object count);
+  /// **'Completed Tasks'**
+  String get tasksTabCompletedHeader;
 
   /// No description provided for @tasksTabExperience.
   ///

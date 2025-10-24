@@ -126,7 +126,7 @@
     "tasksTabPending": "Pendientes",
     "tasksTabDone": "Hechas",
     "tasksTabPendingHeader": "Tareas Pendientes ({count})",
-    "tasksTabCompletedHeader": "Tareas Completadas ({count})",
+    "tasksTabCompletedHeader": "Tareas Completadas",
     "tasksTabExperience": "{experience} XP",
     "tasksTabEditTooltip": "Editar tarea",
     "tasksTabDeleteTooltip": "Eliminar tarea",

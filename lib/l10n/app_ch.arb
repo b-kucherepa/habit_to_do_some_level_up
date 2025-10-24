@@ -126,7 +126,7 @@
     "tasksTabPending": "待完成",
     "tasksTabDone": "已完成",
     "tasksTabPendingHeader": "待完成任务（{count}）",
-    "tasksTabCompletedHeader": "已完成任务（{count}）",
+    "tasksTabCompletedHeader": "已完成任务",
     "tasksTabExperience": "{experience}经验",
     "tasksTabEditTooltip": "编辑任务",
     "tasksTabDeleteTooltip": "删除任务",

@@ -126,7 +126,7 @@
     "tasksTabPending": "대기 중",
     "tasksTabDone": "완료됨",
     "tasksTabPendingHeader": "대기 중인 작업 ({count})",
-    "tasksTabCompletedHeader": "완료된 작업 ({count})",
+    "tasksTabCompletedHeader": "완료된 작업",
     "tasksTabExperience": "{experience} XP",
     "tasksTabEditTooltip": "작업 수정",
     "tasksTabDeleteTooltip": "작업 삭제",

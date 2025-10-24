@@ -126,7 +126,7 @@
     "tasksTabPending": "Ausstehend",
     "tasksTabDone": "Erledigt",
     "tasksTabPendingHeader": "Ausstehende Aufgaben ({count})",
-    "tasksTabCompletedHeader": "Abgeschlossene Aufgaben ({count})",
+    "tasksTabCompletedHeader": "Abgeschlossene Aufgaben",
     "tasksTabExperience": "{experience} EP",
     "tasksTabEditTooltip": "Aufgabe bearbeiten",
     "tasksTabDeleteTooltip": "Aufgabe löschen",

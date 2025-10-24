@@ -9,7 +9,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'Привычки и Задачи: Повысь Уровень!';
+  String get appTitle => 'Привыкай Задавать Уровень!';
 
   @override
   String get home => 'Главная';
@@ -418,9 +418,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String tasksTabCompletedHeader(Object count) {
-    return 'Выполненные задачи ($count)';
-  }
+  String get tasksTabCompletedHeader => 'Выполненные задачи';
 
   @override
   String tasksTabExperience(Object experience) {

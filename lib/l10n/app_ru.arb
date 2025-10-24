@@ -1,5 +1,5 @@
 {
-  "appTitle": "Привычки и Задачи: Повысь Уровень!",
+  "appTitle": "Привыкай Задавать Уровень!",
   "home": "Главная",
   "settings": "Настройки",
   "addHabit": "Добавить привычку",
@@ -126,7 +126,7 @@
   "tasksTabPending": "В ожидании",
   "tasksTabDone": "Выполнено",
   "tasksTabPendingHeader": "Текущие задачи ({count})",
-  "tasksTabCompletedHeader": "Выполненные задачи ({count})",
+  "tasksTabCompletedHeader": "Выполненные задачи",
   "tasksTabExperience": "{experience} ОП",
   "tasksTabEditTooltip": "Редактировать задачу",
   "tasksTabDeleteTooltip": "Удалить задачу",

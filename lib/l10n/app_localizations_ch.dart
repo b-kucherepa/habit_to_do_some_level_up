@@ -418,9 +418,7 @@ class AppLocalizationsCh extends AppLocalizations {
   }
 
   @override
-  String tasksTabCompletedHeader(Object count) {
-    return '已完成任务（$count）';
-  }
+  String get tasksTabCompletedHeader => '已完成任务';
 
   @override
   String tasksTabExperience(Object experience) {

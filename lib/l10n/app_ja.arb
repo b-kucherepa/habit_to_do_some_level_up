@@ -126,7 +126,7 @@
     "tasksTabPending": "保留中",
     "tasksTabDone": "完了",
     "tasksTabPendingHeader": "保留中のタスク ({count})",
-    "tasksTabCompletedHeader": "完了したタスク ({count})",
+    "tasksTabCompletedHeader": "完了したタスク",
     "tasksTabExperience": "{experience} EXP",
     "tasksTabEditTooltip": "タスクを編集",
     "tasksTabDeleteTooltip": "タスクを削除",

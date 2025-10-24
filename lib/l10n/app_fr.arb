@@ -126,7 +126,7 @@
     "tasksTabPending": "En attente",
     "tasksTabDone": "Terminé",
     "tasksTabPendingHeader": "Tâches en attente ({count})",
-    "tasksTabCompletedHeader": "Tâches terminées ({count})",
+    "tasksTabCompletedHeader": "Tâches terminées",
     "tasksTabExperience": "{experience} XP",
     "tasksTabEditTooltip": "Modifier la tâche",
     "tasksTabDeleteTooltip": "Supprimer la tâche",

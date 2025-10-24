@@ -126,7 +126,7 @@
     "tasksTabPending": "قيد الانتظار",
     "tasksTabDone": "مكتمل",
     "tasksTabPendingHeader": "المهام قيد الانتظار ({count})",
-    "tasksTabCompletedHeader": "المهام المكتملة ({count})",
+    "tasksTabCompletedHeader": "المهام المكتملة",
     "tasksTabExperience": "{experience} نقطة خبرة",
     "tasksTabEditTooltip": "تعديل المهمة",
     "tasksTabDeleteTooltip": "حذف المهمة",

@@ -418,9 +418,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String tasksTabCompletedHeader(Object count) {
-    return '완료된 작업 ($count)';
-  }
+  String get tasksTabCompletedHeader => '완료된 작업';
 
   @override
   String tasksTabExperience(Object experience) {

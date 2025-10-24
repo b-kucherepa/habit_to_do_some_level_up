@@ -126,7 +126,7 @@
     "tasksTabPending": "लंबित",
     "tasksTabDone": "पूर्ण",
     "tasksTabPendingHeader": "लंबित कार्य ({count})",
-    "tasksTabCompletedHeader": "पूर्ण कार्य ({count})",
+    "tasksTabCompletedHeader": "पूर्ण कार्य",
     "tasksTabExperience": "{experience} एक्सपी",
     "tasksTabEditTooltip": "कार्य संपादित करें",
     "tasksTabDeleteTooltip": "कार्य हटाएं",

@@ -126,7 +126,7 @@
     "tasksTabPending": "ממתינות",
     "tasksTabDone": "הושלמו",
     "tasksTabPendingHeader": "משימות ממתינות ({count})",
-    "tasksTabCompletedHeader": "משימות שהושלמו ({count})",
+    "tasksTabCompletedHeader": "משימות שהושלמו",
     "tasksTabExperience": "{experience} נק\"נ",
     "tasksTabEditTooltip": "ערוך משימה",
     "tasksTabDeleteTooltip": "מחק משימה",
