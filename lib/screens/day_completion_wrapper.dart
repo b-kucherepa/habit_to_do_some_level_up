@@ -32,10 +32,11 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   }
 
   void _checkMissedDays() async {
+    final player = _hiveService.getPlayer(); // Получаем игрока для dayResetHour
     final lastLogin = await _dayCompletionService.getLastLoginDate();
-    final missedDays = await _dayCompletionService.getMissedDays();
+    final missedDays =
+        await _dayCompletionService.getMissedDays(player.dayResetHour);
 
-    // Получаем данные последней сессии только если есть пропущенные дни
     if (missedDays.isNotEmpty) {
       _lastSessionData = _getLastSessionData(lastLogin);
     }

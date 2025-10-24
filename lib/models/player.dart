@@ -21,6 +21,10 @@ class Player {
   static const String defaultGoal =
       'Accumulate experience to create your RPG player!';
 
+  static const int minDayResetHour = 0;
+  static const int maxDayResetHour = 23;
+  static const int defaultDayResetHour = 4; // 4:00 утра по умолчанию
+
   @HiveField(0)
   final String id;
 
@@ -42,6 +46,9 @@ class Player {
   @HiveField(6)
   double experienceMultiplier; // k - множитель опыта
 
+  @HiveField(7)
+  int dayResetHour; // час, когда начинается новый день (0-23)
+
   Player({
     required this.id,
     required this.goal,
@@ -49,8 +56,8 @@ class Player {
     this.level = startingLevel,
     required this.createdDate,
     this.curveExponent = defaultCurveExponent,
-    this.experienceMultiplier =
-        defaultExperienceMultiplier, // по умолчанию 100 XP за уровень
+    this.experienceMultiplier = defaultExperienceMultiplier,
+    this.dayResetHour = defaultDayResetHour,
   });
 
   void updateLevel() {
@@ -91,5 +98,9 @@ class Player {
     experienceMultiplier =
         newMultiplier.clamp(minExperienceMultiplier, maxExperienceMultiplier);
     updateLevel();
+  }
+
+  bool isValidDayResetHour(int hour) {
+    return hour >= minDayResetHour && hour <= maxDayResetHour;
   }
 }

@@ -156,5 +156,8 @@
   "weekdayThursday": "Thu",
   "weekdayFriday": "Fri",
   "weekdaySaturday": "Sat",
-  "weekdaySunday": "Sun"
+  "weekdaySunday": "Sun",
+  "dayResetHour": "Day Reset Hour",
+  "dayResetHourDescription": "New day starts at {hour}:00",
+  "dayResetHourLabel": "Set the hour when a new day begins (0-23)"
 }

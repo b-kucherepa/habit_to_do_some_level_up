@@ -24,36 +24,58 @@ class DayCompletionService {
     await prefs.put(_lastLoginKey, date.toIso8601String());
   }
 
-  Future<List<DateTime>> getMissedDays() async {
+  bool shouldShowDayCompletion(List<DateTime> missedDays, int dayResetHour) {
+    return missedDays.isNotEmpty;
+  }
+
+  bool _isSameDay(DateTime date1, DateTime date2, int dayResetHour) {
+    final adjustedDate1 = _adjustForDayReset(date1, dayResetHour);
+    final adjustedDate2 = _adjustForDayReset(date2, dayResetHour);
+
+    return adjustedDate1.year == adjustedDate2.year &&
+        adjustedDate1.month == adjustedDate2.month &&
+        adjustedDate1.day == adjustedDate2.day;
+  }
+
+  DateTime _adjustForDayReset(DateTime date, int dayResetHour) {
+    // Если текущее время меньше часа сброса, считаем что это предыдущий день
+    if (date.hour < dayResetHour) {
+      return date.subtract(Duration(days: 1));
+    }
+    return date;
+  }
+
+  Future<List<DateTime>> getMissedDays(int dayResetHour) async {
     final lastLogin = await getLastLoginDate();
     final today = DateTime.now();
 
-    // Если даты совпадают - нет пропущенных дней
-    if (_isSameDay(lastLogin, today)) {
+    // Используем adjusted даты для корректного сравнения
+    final adjustedLastLogin = _adjustForDayReset(lastLogin, dayResetHour);
+    final adjustedToday = _adjustForDayReset(today, dayResetHour);
+
+    // Если adjusted даты совпадают - нет пропущенных дней
+    if (adjustedLastLogin.year == adjustedToday.year &&
+        adjustedLastLogin.month == adjustedToday.month &&
+        adjustedLastLogin.day == adjustedToday.day) {
       return [];
     }
 
     final missedDays = <DateTime>[];
 
-    // ВКЛЮЧАЕМ день последнего входа и все дни до сегодняшнего (не включая сегодня)
-    var currentDay = DateTime(lastLogin.year, lastLogin.month, lastLogin.day);
-    final todayDate = DateTime(today.year, today.month, today.day);
+    // Начинаем со дня после последнего входа (adjusted)
+    var currentDay = DateTime(adjustedLastLogin.year, adjustedLastLogin.month,
+            adjustedLastLogin.day)
+        .add(Duration(days: 1));
 
+    final todayDate =
+        DateTime(adjustedToday.year, adjustedToday.month, adjustedToday.day);
+
+    // Добавляем все дни до сегодняшнего (не включая сегодня)
     while (currentDay.isBefore(todayDate)) {
       missedDays.add(currentDay);
       currentDay = currentDay.add(Duration(days: 1));
     }
 
     return missedDays;
-  }
-
-  bool _isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
-  }
-
-  bool shouldShowDayCompletion(List<DateTime> missedDays) {
-    return missedDays.isNotEmpty;
   }
 }

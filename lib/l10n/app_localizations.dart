@@ -1062,6 +1062,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sun'**
   String get weekdaySunday;
+
+  /// No description provided for @dayResetHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Reset Hour'**
+  String get dayResetHour;
+
+  /// No description provided for @dayResetHourDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'New day starts at {hour}:00'**
+  String dayResetHourDescription(Object hour);
+
+  /// No description provided for @dayResetHourLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the hour when a new day begins (0-23)'**
+  String get dayResetHourLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

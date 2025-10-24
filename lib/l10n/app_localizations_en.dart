@@ -527,4 +527,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weekdaySunday => 'Sun';
+
+  @override
+  String get dayResetHour => 'Day Reset Hour';
+
+  @override
+  String dayResetHourDescription(Object hour) {
+    return 'New day starts at $hour:00';
+  }
+
+  @override
+  String get dayResetHourLabel => 'Set the hour when a new day begins (0-23)';
 }

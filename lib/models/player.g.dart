@@ -24,13 +24,14 @@ class PlayerAdapter extends TypeAdapter<Player> {
       createdDate: fields[4] as DateTime,
       curveExponent: fields[5] as double,
       experienceMultiplier: fields[6] as double,
+      dayResetHour: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Player obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class PlayerAdapter extends TypeAdapter<Player> {
       ..writeByte(5)
       ..write(obj.curveExponent)
       ..writeByte(6)
-      ..write(obj.experienceMultiplier);
+      ..write(obj.experienceMultiplier)
+      ..writeByte(7)
+      ..write(obj.dayResetHour);
   }
 
   @override

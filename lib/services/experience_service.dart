@@ -258,4 +258,11 @@ class ExperienceService {
   int _calculateNewExperience(int experience, int difference) =>
       (experience + difference)
           .clamp(Player.startingExperience, Player.maxExperience);
+
+  DateTime _getAdjustedDate(DateTime date, int dayResetHour) {
+    if (date.hour < dayResetHour) {
+      return date.subtract(Duration(days: 1));
+    }
+    return date;
+  }
 }

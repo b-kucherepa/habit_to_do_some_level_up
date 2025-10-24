@@ -222,6 +222,37 @@ class Styles {
   static const double expPreviewLineLightness = 0.6;
   static const double expPreviewLineWidth = 3;
 
+  //Hour selection:
+  static Color getHourSkyColors(int index) =>
+      _hourlySkyColors[index] ?? playerAccentColor;
+
+  static final Map<int, Color> _hourlySkyColors = {
+    0: Color.fromARGB(255, 0, 0, 30),
+    1: Color.fromARGB(255, 0, 0, 90),
+    2: Color.fromARGB(255, 0, 50, 100),
+    3: Color.fromARGB(255, 0, 80, 120),
+    4: Color.fromARGB(255, 100, 0, 130),
+    5: Color.fromARGB(255, 190, 0, 110),
+    6: Color.fromARGB(255, 255, 90, 0),
+    7: Color.fromARGB(255, 255, 200, 0),
+    8: Color.fromARGB(255, 90, 210, 255),
+    9: Color.fromARGB(255, 30, 180, 255),
+    10: Color.fromARGB(255, 0, 150, 255),
+    11: Color.fromARGB(255, 0, 100, 255),
+    12: Color.fromARGB(255, 0, 70, 255),
+    13: Color.fromARGB(255, 40, 150, 255),
+    14: Color.fromARGB(255, 60, 200, 255),
+    15: Color.fromARGB(255, 90, 230, 255),
+    16: Color.fromARGB(255, 140, 190, 250),
+    17: Color.fromARGB(255, 150, 150, 255),
+    18: Color.fromARGB(255, 255, 120, 0),
+    19: Color.fromARGB(255, 255, 50, 0),
+    20: Color.fromARGB(255, 210, 0, 40),
+    21: Color.fromARGB(255, 100, 0, 170),
+    22: Color.fromARGB(255, 50, 0, 140),
+    23: Color.fromARGB(255, 0, 30, 130),
+  };
+
 //PLAYER:
   static const Color playerTitleCardBackColor = backgroundColor;
 

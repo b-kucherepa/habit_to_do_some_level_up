@@ -12,9 +12,13 @@ class HiveService {
   // Получаем единственного персонажа или создаем нового
   Player getPlayer() {
     final players = getPlayers();
+
     if (players.isEmpty) {
+      print('CREATE DEFAULT');
       return createDefaultPlayer();
     }
+
+    print(players.first.dayResetHour);
     return players.first;
   }
 
