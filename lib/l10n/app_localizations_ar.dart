@@ -36,8 +36,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get completeDayHint => 'إكمال اليوم الفائت';
 
   @override
-  String get markCompletedHabitsHint =>
-      'ضع علامة على العادات المكتملة لهذا اليوم:';
+  String get markCompletedHabitsHint => 'ضع علامة على العادات المكتملة لهذا اليوم:';
 
   @override
   String get skipDayButton => 'تخطي هذا اليوم';
@@ -265,12 +264,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitFormSave => 'حفظ العادة';
 
   @override
-  String get habitFormWeeklyError =>
-      'يرجى اختيار يوم واحد على الأقل للجدول الأسبوعي';
+  String get habitFormWeeklyError => 'يرجى اختيار يوم واحد على الأقل للجدول الأسبوعي';
 
   @override
-  String get habitFormMonthlyError =>
-      'يرجى اختيار يوم واحد على الأقل للجدول الشهري';
+  String get habitFormMonthlyError => 'يرجى اختيار يوم واحد على الأقل للجدول الشهري';
 
   @override
   String get habitFormCustomError => 'يرجى اختيار الفترة للجدول المخصص';

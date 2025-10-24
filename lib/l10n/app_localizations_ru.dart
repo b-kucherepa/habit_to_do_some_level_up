@@ -466,9 +466,9 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       days,
       locale: localeName,
-      other: '# дней назад',
-      many: '# дней назад',
-      few: '# дня назад',
+      other: '$days дней назад',
+      many: '$days дней назад',
+      few: '$days дня назад',
       one: '1 день назад',
     );
     return '$_temp0';
@@ -479,9 +479,9 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       days,
       locale: localeName,
-      other: '# дней',
-      many: '# дней',
-      few: '# дня',
+      other: '$days дней',
+      many: '$days дней',
+      few: '$days дня',
       one: '1 день',
     );
     return 'Через $_temp0';
@@ -516,9 +516,9 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       days,
       locale: localeName,
-      other: '# дней',
-      many: '# дней',
-      few: '# дня',
+      other: '$days дней',
+      many: '$days дней',
+      few: '$days дня',
       one: '1 день',
     );
     return '$_temp0';
