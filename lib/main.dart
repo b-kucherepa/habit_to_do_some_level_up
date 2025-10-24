@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:habit_to_do_some_level_up/styles.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,8 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
+  print('Hive path: ${appDocumentDir.path}'); // Добавим отладочную информацию
+
   Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(TaskAdapter());
@@ -29,29 +32,70 @@ void main() async {
   await Hive.openBox('preferences');
 
   final hiveService = HiveService();
-  hiveService.getFirstPlayer(); // Это создаст персонажа если его нет
+  hiveService.getFirstPlayer();
 
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Future<void> _initFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _initFuture = _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    // Даем время на инициализацию Hive
+    await Future.delayed(Duration(milliseconds: 100));
+
+    final languageManager = LanguageManager();
+    await languageManager.init();
+
+    // Сохраняем менеджер для использования в провайдере
+    _languageManager = languageManager;
+  }
+
+  late LanguageManager _languageManager;
+
+  @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => LanguageManager()),
-        Provider(create: (_) => HiveService()),
-        Provider(create: (_) => LevelUpService()),
-        ProxyProvider2<HiveService, LevelUpService, ExperienceService>(
-          update: (_, hiveService, levelUpService, __) =>
-              ExperienceService(hiveService, levelUpService),
-        ),
-      ],
-      child: MyAppContent(navigatorKey: navigatorKey),
+    return FutureBuilder(
+      future: _initFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        }
+
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider.value(value: _languageManager),
+            Provider(create: (_) => HiveService()),
+            Provider(create: (_) => LevelUpService()),
+            ProxyProvider2<HiveService, LevelUpService, ExperienceService>(
+              update: (_, hiveService, levelUpService, __) =>
+                  ExperienceService(hiveService, levelUpService),
+            ),
+          ],
+          child: MyAppContent(navigatorKey: widget.navigatorKey),
+        );
+      },
     );
   }
 }
@@ -66,16 +110,15 @@ class MyAppContent extends StatelessWidget {
     final languageManager = context.watch<LanguageManager>();
     final levelUpService = context.read<LevelUpService>();
 
-    // Передаем navigatorKey в LevelUpService
     levelUpService.setNavigatorKey(navigatorKey);
 
     return MaterialApp(
       title: 'Habit To Do Some Level Up',
-      navigatorKey: navigatorKey, // Ключ для навигатора
+      navigatorKey: navigatorKey,
       locale: languageManager.locale,
       theme: ThemeData(
         useMaterial3: true,
-        primarySwatch: Colors.blue,
+        primaryColor: Styles.basicTextColor,
       ),
       localizationsDelegates: [
         AppLocalizations.delegate,
