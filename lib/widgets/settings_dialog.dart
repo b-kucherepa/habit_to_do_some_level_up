@@ -250,7 +250,18 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   .dayResetHourDescription(_dayResetHour.toStringAsFixed(0)),
               style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: Styles.getGap('L')),
+            SizedBox(height: Styles.getGap('XL')),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Styles.accentBad,
+                  foregroundColor: Styles.foregroundColor,
+                ),
+                onPressed: _showResetConfirmation,
+                child: Text(context.l10n.resetProgress),
+              ),
+            ),
+            SizedBox(height: Styles.getGap('XL')),
             _buildSystemPreview(),
           ],
         ),
@@ -385,6 +396,43 @@ class _SettingsDialogState extends State<SettingsDialog> {
     final lineColor =
         HSLColor.fromAHSL(1.0, clampedHue, saturation, lightness).toColor();
     return lineColor;
+  }
+
+  void _showResetConfirmation() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(context.l10n.resetConfirmationTitle),
+        content: Text(context.l10n.resetConfirmationMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.l10n.cancel),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              Navigator.of(context).pop(); // закрыть диалог подтверждения
+              _resetCharacter();
+            },
+            child: Text(context.l10n.reset),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _resetCharacter() {
+    final hiveService = Provider.of<HiveService>(context, listen: false);
+    hiveService.resetPlayerOnly();
+    Navigator.of(context).pop(); // закрыть диалог настроек
+    // Покажем уведомление об успешном сбросе
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(context.l10n.resetSuccess),
+        backgroundColor: Styles.accentNeutral,
+      ),
+    );
   }
 
   void _saveSettings() {

@@ -373,24 +373,6 @@ abstract class AppLocalizations {
   /// **'This action cannot be undone!'**
   String get resetCannotUndone;
 
-  /// No description provided for @resetCancel.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get resetCancel;
-
-  /// No description provided for @resetConfirm.
-  ///
-  /// In en, this message translates to:
-  /// **'Reset Progress'**
-  String get resetConfirm;
-
-  /// No description provided for @resetSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Progress has been reset successfully!'**
-  String get resetSuccess;
-
   /// No description provided for @progressSettings.
   ///
   /// In en, this message translates to:
@@ -1080,6 +1062,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set the hour when a new day begins (0-23)'**
   String get dayResetHourLabel;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @resetConfirmationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetConfirmationTitle;
+
+  /// No description provided for @resetConfirmationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to reset your progress? This will reset settings, goal, level and experience and set creation date to now. Your habits and tasks, although, are not affected. This action cannot be undone.'**
+  String get resetConfirmationMessage;
+
+  /// No description provided for @resetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress data has been reset successfully!'**
+  String get resetSuccess;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

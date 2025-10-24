@@ -46,42 +46,23 @@ class HiveService {
   }
 
   // Метод для сброса прогресса персонажа и привычек
-  void resetPlayerProgress() {
+  void resetPlayerOnly() {
     final player = getPlayer();
 
-    // Сбрасываем персонажа
     final resetPlayer = Player(
-      id: player.id,
-      goal: player.goal,
+      id: Player.defaultId,
+      goal: Player.defaultGoal, // сохраняем текущую цель
       experience: Player.startingExperience,
       level: Player.startingLevel,
-      createdDate: player.createdDate,
-      curveExponent: player.curveExponent,
-      experienceMultiplier: player.experienceMultiplier,
-      languageCode: player.languageCode, // Сохраняем язык
-      lastLoginDate: player.lastLoginDate, // Сохраняем дату последнего входа
+      createdDate: DateTime.now(), // момент сброса
+      curveExponent: Player.defaultCurveExponent, // сохраняем текущие настройки
+      experienceMultiplier: Player.defaultExperienceMultiplier,
+      dayResetHour: Player.defaultDayResetHour,
+      languageCode: player.languageCode,
+      lastLoginDate: DateTime.now(), // момент сброса
     );
-    updatePlayer(resetPlayer);
 
-    // Сбрасываем все привычки
-    final habits = getHabits();
-    for (final habit in habits) {
-      final resetHabit = Habit(
-        id: habit.id,
-        title: habit.title,
-        description: habit.description,
-        experience: habit.experience,
-        scheduleType: habit.scheduleType,
-        daysOfWeek: habit.daysOfWeek,
-        daysOfMonth: habit.daysOfMonth,
-        intervalDays: habit.intervalDays,
-        createdDate: habit.createdDate,
-        completionHistory: {}, // Очищаем историю выполнений
-        minCompletionCount: habit.minCompletionCount,
-        karmaLevel: Habit.defaultKarma, // Сбрасываем карму
-      );
-      updateHabit(resetHabit);
-    }
+    updatePlayer(resetPlayer);
   }
 
   // Получаем список персонажей (всегда должен содержать только одного)

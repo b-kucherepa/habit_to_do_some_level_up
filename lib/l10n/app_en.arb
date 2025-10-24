@@ -42,9 +42,6 @@
   "resetWarningKarma": "Karma levels of all habits",
   "resetTasksUnaffected": "Tasks will not be affected.",
   "resetCannotUndone": "This action cannot be undone!",
-  "resetCancel": "Cancel",
-  "resetConfirm": "Reset Progress",
-  "resetSuccess": "Progress has been reset successfully!",
   "progressSettings": "Settings",
   "goalMotivation": "Goal Motivation",
   "goalMotivationHint": "What are you accumulating experience for?",
@@ -159,5 +156,9 @@
   "weekdaySunday": "Sun",
   "dayResetHour": "Day Reset Hour",
   "dayResetHourDescription": "New day starts at {hour}:00",
-  "dayResetHourLabel": "Set the hour when a new day begins (0-23)"
+  "dayResetHourLabel": "Set the hour when a new day begins (0-23)",
+  "reset": "Reset",
+  "resetConfirmationTitle": "Reset",
+  "resetConfirmationMessage": "Are you sure you want to reset your progress? This will reset settings, goal, level and experience and set creation date to now. Your habits and tasks, although, are not affected. This action cannot be undone.",
+  "resetSuccess": "Progress data has been reset successfully!"
 }
