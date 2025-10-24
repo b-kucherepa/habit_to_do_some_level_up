@@ -37,15 +37,15 @@ class ExperienceService {
       _hiveService.updateHabit(updatedHabit);
 
       final updatedPlayer = Player(
-        id: player.id,
-        goal: player.goal,
-        experience:
-            _calculateNewExperience(player.experience, habit.experience),
-        level: player.level,
-        createdDate: player.createdDate,
-        curveExponent: player.curveExponent,
-        experienceMultiplier: player.experienceMultiplier,
-      );
+          id: player.id,
+          goal: player.goal,
+          experience:
+              _calculateNewExperience(player.experience, habit.experience),
+          level: player.level,
+          createdDate: player.createdDate,
+          curveExponent: player.curveExponent,
+          experienceMultiplier: player.experienceMultiplier,
+          lastLoginDate: player.lastLoginDate);
 
       updatedPlayer.updateLevel();
       _hiveService.updatePlayer(updatedPlayer);
@@ -84,15 +84,15 @@ class ExperienceService {
         _hiveService.updateHabit(updatedHabit);
 
         final updatedPlayer = Player(
-          id: player.id,
-          goal: player.goal,
-          experience:
-              _calculateNewExperience(player.experience, -habit.experience),
-          level: player.level,
-          createdDate: player.createdDate,
-          curveExponent: player.curveExponent,
-          experienceMultiplier: player.experienceMultiplier,
-        );
+            id: player.id,
+            goal: player.goal,
+            experience:
+                _calculateNewExperience(player.experience, -habit.experience),
+            level: player.level,
+            createdDate: player.createdDate,
+            curveExponent: player.curveExponent,
+            experienceMultiplier: player.experienceMultiplier,
+            lastLoginDate: player.lastLoginDate);
 
         updatedPlayer.updateLevel();
         _hiveService.updatePlayer(updatedPlayer);
@@ -126,15 +126,15 @@ class ExperienceService {
 
       if (completed && !wasCompleted) {
         final updatedPlayer = Player(
-          id: player.id,
-          goal: player.goal,
-          experience:
-              _calculateNewExperience(player.experience, task.experience),
-          level: player.level,
-          createdDate: player.createdDate,
-          curveExponent: player.curveExponent,
-          experienceMultiplier: player.experienceMultiplier,
-        );
+            id: player.id,
+            goal: player.goal,
+            experience:
+                _calculateNewExperience(player.experience, task.experience),
+            level: player.level,
+            createdDate: player.createdDate,
+            curveExponent: player.curveExponent,
+            experienceMultiplier: player.experienceMultiplier,
+            lastLoginDate: player.lastLoginDate);
 
         updatedPlayer.updateLevel();
         _hiveService.updatePlayer(updatedPlayer);
@@ -144,15 +144,15 @@ class ExperienceService {
         }
       } else if (!completed && wasCompleted) {
         final updatedPlayer = Player(
-          id: player.id,
-          goal: player.goal,
-          experience:
-              _calculateNewExperience(player.experience, -task.experience),
-          level: player.level,
-          createdDate: player.createdDate,
-          curveExponent: player.curveExponent,
-          experienceMultiplier: player.experienceMultiplier,
-        );
+            id: player.id,
+            goal: player.goal,
+            experience:
+                _calculateNewExperience(player.experience, -task.experience),
+            level: player.level,
+            createdDate: player.createdDate,
+            curveExponent: player.curveExponent,
+            experienceMultiplier: player.experienceMultiplier,
+            lastLoginDate: player.lastLoginDate);
 
         updatedPlayer.updateLevel();
         _hiveService.updatePlayer(updatedPlayer);
@@ -166,15 +166,15 @@ class ExperienceService {
     final todayCount = habit.getTodayCompletionCount();
     if (todayCount > 0) {
       final updatedPlayer = Player(
-        id: player.id,
-        goal: player.goal,
-        experience: _calculateNewExperience(
-            player.experience, -(habit.experience * todayCount)),
-        level: player.level,
-        createdDate: player.createdDate,
-        curveExponent: player.curveExponent,
-        experienceMultiplier: player.experienceMultiplier,
-      );
+          id: player.id,
+          goal: player.goal,
+          experience: _calculateNewExperience(
+              player.experience, -(habit.experience * todayCount)),
+          level: player.level,
+          createdDate: player.createdDate,
+          curveExponent: player.curveExponent,
+          experienceMultiplier: player.experienceMultiplier,
+          lastLoginDate: player.lastLoginDate);
 
       updatedPlayer.updateLevel();
       _hiveService.updatePlayer(updatedPlayer);
@@ -188,15 +188,15 @@ class ExperienceService {
 
     if (task.completed) {
       final updatedPlayer = Player(
-        id: player.id,
-        goal: player.goal,
-        experience:
-            _calculateNewExperience(player.experience, -task.experience),
-        level: player.level,
-        createdDate: player.createdDate,
-        curveExponent: player.curveExponent,
-        experienceMultiplier: player.experienceMultiplier,
-      );
+          id: player.id,
+          goal: player.goal,
+          experience:
+              _calculateNewExperience(player.experience, -task.experience),
+          level: player.level,
+          createdDate: player.createdDate,
+          curveExponent: player.curveExponent,
+          experienceMultiplier: player.experienceMultiplier,
+          lastLoginDate: player.lastLoginDate);
 
       updatedPlayer.updateLevel();
       _hiveService.updatePlayer(updatedPlayer);
@@ -209,14 +209,14 @@ class ExperienceService {
     final player = _hiveService.getPlayer();
 
     final updatedPlayer = Player(
-      id: player.id,
-      goal: player.goal,
-      experience: _calculateNewExperience(player.experience, experience),
-      level: player.level,
-      createdDate: player.createdDate,
-      curveExponent: player.curveExponent,
-      experienceMultiplier: player.experienceMultiplier,
-    );
+        id: player.id,
+        goal: player.goal,
+        experience: _calculateNewExperience(player.experience, experience),
+        level: player.level,
+        createdDate: player.createdDate,
+        curveExponent: player.curveExponent,
+        experienceMultiplier: player.experienceMultiplier,
+        lastLoginDate: player.lastLoginDate);
 
     updatedPlayer.updateLevel();
     _hiveService.updatePlayer(updatedPlayer);
@@ -226,14 +226,14 @@ class ExperienceService {
     final player = _hiveService.getPlayer();
 
     final updatedPlayer = Player(
-      id: player.id,
-      goal: player.goal,
-      experience: _calculateNewExperience(player.experience, experience),
-      level: player.level,
-      createdDate: player.createdDate,
-      curveExponent: player.curveExponent,
-      experienceMultiplier: player.experienceMultiplier,
-    );
+        id: player.id,
+        goal: player.goal,
+        experience: _calculateNewExperience(player.experience, experience),
+        level: player.level,
+        createdDate: player.createdDate,
+        curveExponent: player.curveExponent,
+        experienceMultiplier: player.experienceMultiplier,
+        lastLoginDate: player.lastLoginDate);
 
     updatedPlayer.updateLevel();
     _hiveService.updatePlayer(updatedPlayer);
@@ -243,14 +243,14 @@ class ExperienceService {
     final player = _hiveService.getPlayer();
 
     final updatedPlayer = Player(
-      id: player.id,
-      goal: player.goal,
-      experience: Player.startingExperience,
-      level: Player.startingLevel,
-      createdDate: player.createdDate,
-      curveExponent: player.curveExponent,
-      experienceMultiplier: player.experienceMultiplier,
-    );
+        id: player.id,
+        goal: player.goal,
+        experience: Player.startingExperience,
+        level: Player.startingLevel,
+        createdDate: player.createdDate,
+        curveExponent: player.curveExponent,
+        experienceMultiplier: player.experienceMultiplier,
+        lastLoginDate: player.lastLoginDate);
 
     _hiveService.updatePlayer(updatedPlayer);
   }

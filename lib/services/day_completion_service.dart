@@ -1,27 +1,15 @@
-import 'package:hive/hive.dart';
+import 'package:habit_to_do_some_level_up/services/hive_service.dart';
 
 class DayCompletionService {
-  static const String _lastLoginKey = 'last_login_date';
-
-  Future<DateTime> getLastLoginDate() async {
-    final prefs = await Hive.openBox('preferences');
-    final lastLogin = prefs.get(_lastLoginKey);
-
-    if (lastLogin is String) {
-      return DateTime.parse(lastLogin);
-    } else if (lastLogin is DateTime) {
-      return lastLogin;
-    }
-
-    // Первый запуск - устанавливаем сегодняшнюю дату
-    final today = DateTime.now();
-    await setLastLoginDate(today);
-    return today;
+  Future<DateTime> getLastLoginDate(HiveService hiveService) async {
+    final player = hiveService.getPlayer();
+    return player.lastLoginDate;
   }
 
-  Future<void> setLastLoginDate(DateTime date) async {
-    final prefs = await Hive.openBox('preferences');
-    await prefs.put(_lastLoginKey, date.toIso8601String());
+  Future<void> setLastLoginDate(DateTime date, HiveService hiveService) async {
+    final player = hiveService.getPlayer();
+    player.updateLastLoginDate(date);
+    hiveService.updatePlayer(player);
   }
 
   bool shouldShowDayCompletion(List<DateTime> missedDays, int dayResetHour) {
@@ -45,8 +33,9 @@ class DayCompletionService {
     return date;
   }
 
-  Future<List<DateTime>> getMissedDays(int dayResetHour) async {
-    final lastLogin = await getLastLoginDate();
+  Future<List<DateTime>> getMissedDays(
+      HiveService hiveService, int dayResetHour) async {
+    final lastLogin = await getLastLoginDate(hiveService);
     final today = DateTime.now();
 
     // Используем adjusted даты для корректного сравнения

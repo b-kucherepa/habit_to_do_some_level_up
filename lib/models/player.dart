@@ -49,6 +49,12 @@ class Player {
   @HiveField(7)
   int dayResetHour; // час, когда начинается новый день (0-23)
 
+  @HiveField(8)
+  String languageCode; // код языка
+
+  @HiveField(9)
+  DateTime lastLoginDate; // дата последнего входа
+
   Player({
     required this.id,
     required this.goal,
@@ -58,6 +64,8 @@ class Player {
     this.curveExponent = defaultCurveExponent,
     this.experienceMultiplier = defaultExperienceMultiplier,
     this.dayResetHour = defaultDayResetHour,
+    this.languageCode = 'en', // язык по умолчанию
+    required this.lastLoginDate,
   });
 
   void updateLevel() {
@@ -102,5 +110,15 @@ class Player {
 
   bool isValidDayResetHour(int hour) {
     return hour >= minDayResetHour && hour <= maxDayResetHour;
+  }
+
+  // Обновление языка
+  void updateLanguage(String newLanguageCode) {
+    languageCode = newLanguageCode;
+  }
+
+  // Обновление даты последнего входа
+  void updateLastLoginDate(DateTime newLastLoginDate) {
+    lastLoginDate = newLastLoginDate;
   }
 }

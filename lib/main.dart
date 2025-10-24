@@ -29,7 +29,6 @@ void main() async {
   await Hive.openBox<Player>('players');
   await Hive.openBox<Habit>('habits');
   await Hive.openBox<Task>('tasks');
-  await Hive.openBox('preferences');
 
   final hiveService = HiveService();
   hiveService.getPlayer();
@@ -59,7 +58,8 @@ class _MyAppState extends State<MyApp> {
     await Future.delayed(Duration(milliseconds: 100));
 
     final languageManager = LanguageManager();
-    await languageManager.init();
+    final hiveService = HiveService();
+    await languageManager.init(hiveService);
 
     _languageManager = languageManager;
   }

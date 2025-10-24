@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_to_do_some_level_up/services/hive_service.dart';
 import 'package:provider/provider.dart';
 import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
 import 'package:habit_to_do_some_level_up/styles.dart';
@@ -121,7 +122,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
                     ],
                     onChanged: (locale) {
                       if (locale != null) {
-                        languageManager.setLocale(locale);
+                        final hiveService =
+                            Provider.of<HiveService>(context, listen: false);
+                        languageManager.setLocale(locale, hiveService);
                       }
                     },
                   ),
@@ -267,14 +270,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
   Widget _buildSystemPreview() {
     final previewPlayer = Player(
-      id: 'preview',
-      goal: 'Preview',
-      experience: Player.startingExperience,
-      level: Player.startingLevel,
-      createdDate: DateTime.now(),
-      curveExponent: _curveExponent,
-      experienceMultiplier: _experienceMultiplier,
-    );
+        id: 'preview',
+        goal: 'Preview',
+        experience: Player.startingExperience,
+        level: Player.startingLevel,
+        createdDate: DateTime.now(),
+        curveExponent: _curveExponent,
+        experienceMultiplier: _experienceMultiplier,
+        lastLoginDate: DateTime.now());
 
     // Динамический цвет в зависимости от параметров
     Color lineColor = _getExpPreviewLineColor();
@@ -386,17 +389,18 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
   void _saveSettings() {
     final updatedPlayer = Player(
-      id: widget.player.id,
-      goal: _goalController.text.isNotEmpty
-          ? _goalController.text
-          : context.l10n.defaultGoal,
-      experience: widget.player.experience,
-      level: widget.player.level,
-      createdDate: widget.player.createdDate,
-      curveExponent: _curveExponent,
-      experienceMultiplier: _experienceMultiplier,
-      dayResetHour: _dayResetHour, // Добавьте эту строку
-    );
+        id: widget.player.id,
+        goal: _goalController.text.isNotEmpty
+            ? _goalController.text
+            : context.l10n.defaultGoal,
+        experience: widget.player.experience,
+        level: widget.player.level,
+        createdDate: widget.player.createdDate,
+        curveExponent: _curveExponent,
+        experienceMultiplier: _experienceMultiplier,
+        dayResetHour: _dayResetHour,
+        lastLoginDate: widget.player.lastLoginDate,
+        languageCode: widget.player.languageCode);
 
     updatedPlayer.updateLevel();
     Navigator.of(context).pop(updatedPlayer);

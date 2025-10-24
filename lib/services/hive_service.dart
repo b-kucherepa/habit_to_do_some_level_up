@@ -1,4 +1,3 @@
-// hive_service.dart
 import 'package:hive/hive.dart';
 import '../models/player.dart';
 import '../models/habit.dart';
@@ -29,6 +28,7 @@ class HiveService {
       createdDate: DateTime.now(),
       curveExponent: Player.defaultCurveExponent,
       experienceMultiplier: Player.defaultExperienceMultiplier,
+      lastLoginDate: DateTime.now(), // Добавляем текущую дату как lastLoginDate
     );
     playersBox.add(player);
     return player;
@@ -58,6 +58,8 @@ class HiveService {
       createdDate: player.createdDate,
       curveExponent: player.curveExponent,
       experienceMultiplier: player.experienceMultiplier,
+      languageCode: player.languageCode, // Сохраняем язык
+      lastLoginDate: player.lastLoginDate, // Сохраняем дату последнего входа
     );
     updatePlayer(resetPlayer);
 
