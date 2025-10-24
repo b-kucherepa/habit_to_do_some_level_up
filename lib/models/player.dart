@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'dart:math';
 
@@ -16,7 +15,7 @@ class Player {
 
   static const int startingLevel = 1;
   static const int startingExperience = 0;
-  static const int maxExperience = 0x7FFFFFFFFFFFFFFF;
+  static const int maxExperience = 999999999999;
 
   static const String defaultId = 'default_player';
   static const String defaultGoal =

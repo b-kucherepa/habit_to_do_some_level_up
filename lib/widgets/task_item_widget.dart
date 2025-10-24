@@ -67,15 +67,19 @@ class TaskItemWidget extends StatelessWidget {
         ),
       ),
       child: Center(
+          child: Transform.scale(
+        scale: 1.2,
         child: Checkbox(
           value: task.completed,
+          checkColor: Styles.basicTextColor,
+          activeColor: priorityColor.withAlpha(0),
           onChanged: isEditable
               ? (value) {
                   onToggle(task, value ?? false);
                 }
               : null,
         ),
-      ),
+      )),
     );
   }
 

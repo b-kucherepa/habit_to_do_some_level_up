@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 class Styles {
 //COMMONS:
   //Main:
-  static const Color badAccent = Color.fromARGB(255, 255, 72, 72);
-  static const Color warningAccent = Color.fromARGB(255, 255, 145, 0);
-  static const Color goodAccent = Color.fromARGB(255, 0, 232, 8);
-  static const Color neutralAccent = Color.fromARGB(255, 0, 140, 255);
-  static const Color noAccent = Color.fromARGB(255, 0, 81, 255);
+  static const Color accentBad = Color.fromARGB(255, 240, 70, 70);
+  static const Color accentWarning = Color.fromARGB(255, 255, 140, 0);
+  static const Color accentGood = Color.fromARGB(255, 80, 220, 80);
+  static const Color accentNeutral = Color.fromARGB(255, 0, 140, 240);
   static const Color fargroundColor = Color.fromARGB(255, 240, 240, 240);
-  static const Color backgroundColor = Color.fromARGB(255, 251, 251, 251);
+  static const Color backgroundColor = Color.fromARGB(255, 250, 250, 250);
   static const Color foregroundColor = Colors.white;
+  static const Color basicTextColor = Color.fromARGB(255, 50, 50, 50);
+  static const Color subTextColor = Color.fromARGB(255, 120, 120, 120);
+  static const Color lightTextColor = Color.fromARGB(255, 200, 200, 200);
+
   static const Color shadowColor = Colors.black;
 
   static const Color contrastHeaderFontColor = foregroundColor;
@@ -20,6 +23,9 @@ class Styles {
       color: foregroundColor,
       fontWeight: FontWeight.w200,
       fontFamily: 'Noto Sans');
+
+  static final TextStyle basicFont =
+      TextStyle(fontSize: getFontSize('M'), color: basicTextColor);
 
   static const double wideScreenMin = 800;
 
@@ -35,7 +41,7 @@ class Styles {
     color: Colors.grey,
   );
 
-  static final TextStyle fallbackFont = TextStyle(color: Colors.black);
+  static final TextStyle fallbackFont = TextStyle(color: basicTextColor);
 
   static const double fallbackFontSize = 12;
   static const double fallbackBorderWidth = 4;
@@ -53,10 +59,10 @@ class Styles {
   //Tabs:
   static const Color tabsBackColor = fargroundColor;
   static const Color navigatorBackColor = foregroundColor;
-  static const Color playerAccentColor = Color.fromARGB(255, 0, 140, 255);
-  static const Color habitAccentColor = Color.fromARGB(255, 0, 199, 7);
-  static const Color taskAccentColor = Color.fromARGB(255, 131, 0, 231);
-  static const Color levelUpAccentColor = Color.fromARGB(255, 255, 179, 0);
+  static const Color playerAccentColor = Color.fromARGB(255, 0, 140, 240);
+  static const Color habitAccentColor = Color.fromARGB(255, 140, 0, 240);
+  static const Color taskAccentColor = Color.fromARGB(255, 80, 220, 80);
+  static const Color levelUpAccentColor = Color.fromARGB(255, 240, 170, 0);
 
   static Color getAppBarColor(int index) =>
       _appBarColor[index] ?? fallbackColor;
@@ -80,7 +86,7 @@ class Styles {
       Icon(Icons.delete_outline, color: Colors.grey, size: getGap('XL'));
 
   static final Icon entryExperienceIcon =
-      Icon(Icons.star, size: getIconSize('S'), color: Colors.amber);
+      Icon(Icons.star, size: getIconSize('S'), color: levelUpAccentColor);
 
   static final TextStyle entryCompletedFont = TextStyle(
     fontSize: getFontSize('XL'),
@@ -99,7 +105,7 @@ class Styles {
 
   static final TextStyle entryDescriptionFont = TextStyle(
     fontSize: getFontSize('S'),
-    color: Color.fromARGB(255, 100, 100, 100),
+    color: subTextColor,
   );
 
   static final TextStyle entrySubtextFont =
@@ -107,10 +113,10 @@ class Styles {
 
   static final TextStyle entryDeleteConfirmationMessageFont = TextStyle(
     fontSize: getFontSize('M'),
-    color: Colors.deepOrange,
+    color: accentWarning,
   );
   static final TextStyle entryDeleteConfirmationButtonFont = TextStyle(
-    color: Colors.red,
+    color: accentBad,
   );
 
   static double entryCardSidesWidth = 48;
@@ -178,7 +184,13 @@ class Styles {
 //SETTINGS:
   static final Icon settingsIcon = Icon(Icons.settings, color: Colors.blue);
   static final Icon languageOptionIcon =
-      Icon(Icons.language, size: getIconSize('S'), color: Colors.grey);
+      Icon(Icons.language, size: getIconSize('S'), color: subTextColor);
+
+  static final Color settingsFormFrontColor = playerAccentColor;
+  static final Color settingsFormBorderColor = Color.fromARGB(255, 10, 60, 200);
+
+  static final BorderSide settingsFormFocusedBorder =
+      BorderSide(color: settingsFormBorderColor, width: 2.0);
 
   //Experience preview:
   static const Color expPreviewChartBackColor = foregroundColor;
@@ -188,9 +200,9 @@ class Styles {
   static final TextStyle expPreviewFormula =
       TextStyle(fontSize: getFontSize('S'), fontStyle: FontStyle.italic);
   static final TextStyle expPreviewSliderDescription =
-      TextStyle(fontSize: getFontSize('S'), color: Colors.grey);
+      TextStyle(fontSize: getFontSize('S'), color: subTextColor);
   static final TextStyle expPreviewSliderExtremities =
-      TextStyle(fontSize: getFontSize('S'), color: Colors.grey);
+      TextStyle(fontSize: getFontSize('S'), color: subTextColor);
 
   static const bool expPreviewLineIsHueInverted = true;
 
@@ -252,7 +264,7 @@ class Styles {
   static const Color playerStatItemBackColor = fargroundColor;
 
   static final Icon playerTabSettingsIcon =
-      Icon(Icons.settings, color: Colors.grey);
+      Icon(Icons.settings, color: subTextColor);
 
   static Icon getPlayerLevelIcon(int level) =>
       Icon(Icons.star, size: getIconSize('S'), color: playerAccentColor);
@@ -271,46 +283,46 @@ class Styles {
   static final TextStyle playerStatItemCountFont =
       TextStyle(fontSize: getFontSize('L'), fontWeight: FontWeight.bold);
   static final TextStyle playerStatItemLabelFont =
-      TextStyle(fontSize: getFontSize('M'), color: Colors.grey);
-  static final TextStyle playerStatItemDetailsFont = TextStyle(
-      fontSize: getFontSize('M'), color: Color.fromARGB(255, 199, 199, 199));
+      TextStyle(fontSize: getFontSize('M'), color: subTextColor);
+  static final TextStyle playerStatItemDetailsFont =
+      TextStyle(fontSize: getFontSize('M'), color: lightTextColor);
 
   //Overview:
   static const Color playerOverviewBackColor = backgroundColor;
   static final Icon playerHabitsCountIcon =
       Icon(Icons.auto_awesome, size: getIconSize('M'), color: habitAccentColor);
   static final Icon playerTasksDueIcon =
-      Icon(Icons.task, size: getIconSize('M'), color: warningAccent);
+      Icon(Icons.task, size: getIconSize('M'), color: accentWarning);
   static final Icon playerTasksDoneIcon =
       Icon(Icons.check_circle, size: getIconSize('M'), color: taskAccentColor);
   static final Icon playerOverdueIcon =
-      Icon(Icons.warning, size: getIconSize('M'), color: badAccent);
+      Icon(Icons.warning, size: getIconSize('M'), color: accentBad);
 
   static final TextStyle playerOverviewCountFont =
       TextStyle(fontSize: getFontSize('XL'), fontWeight: FontWeight.bold);
   static final TextStyle playerOverviewLabelFont =
-      TextStyle(fontSize: getFontSize('M'), color: Colors.grey);
+      TextStyle(fontSize: getFontSize('M'), color: subTextColor);
 
 //HABITS:
   static final Icon habitsTabLargeIcon = Icon(Icons.auto_graph_outlined,
-      size: getIconSize('XXXL'), color: Colors.grey);
+      size: getIconSize('XXXL'), color: subTextColor);
 
   static final TextStyle habitsEmptyHint = TextStyle(
     fontSize: getFontSize('XXL'),
     fontWeight: FontWeight.bold,
-    color: Colors.grey,
+    color: subTextColor,
   );
 
   //Habit entry card:
   static const Color habitCompletedBackColor =
-      Color.fromARGB(255, 235, 255, 235);
+      Color.fromARGB(255, 240, 235, 255);
 
   static final Icon habitCompletionMinIcon =
-      Icon(Icons.check, size: getIconSize('S'), color: Colors.blue);
+      Icon(Icons.check, size: getIconSize('S'), color: playerAccentColor);
 
   static final TextStyle habitNotTodayFont = TextStyle(
     fontSize: getFontSize('S'),
-    color: Colors.grey,
+    color: subTextColor,
   );
 
   //Counter:
@@ -322,7 +334,7 @@ class Styles {
       Icon(Icons.remove, size: getIconSize('M'));
 
   static final TextStyle habitTodayCountFont = TextStyle(
-    color: Colors.green,
+    color: accentGood,
     fontWeight: FontWeight.bold,
     fontSize: getFontSize('L'),
   );
@@ -330,13 +342,13 @@ class Styles {
   static final TextStyle counterActiveFont = TextStyle(
     fontSize: getFontSize('L'),
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: basicTextColor,
   );
 
   static final TextStyle counterInactiveFont = TextStyle(
     fontSize: getFontSize('L'),
     fontWeight: FontWeight.bold,
-    color: Colors.grey,
+    color: subTextColor,
   );
 
   static double counterSidesWidth = 32;
@@ -408,56 +420,41 @@ class Styles {
     -2: Color.fromARGB(255, 255, 145, 0),
     -1: Color.fromARGB(255, 255, 255, 0),
     0: Color.fromARGB(255, 255, 255, 255),
-    1: Color.fromARGB(255, 191, 255, 0),
-    2: Color.fromARGB(255, 0, 255, 4),
-    3: Color.fromARGB(255, 0, 255, 153),
-    4: Color.fromARGB(255, 0, 251, 255),
-    5: Color.fromARGB(255, 0, 162, 255),
-    6: Color.fromARGB(255, 0, 55, 255),
-    7: Color.fromARGB(255, 140, 0, 255)
+    1: Color.fromARGB(255, 162, 255, 0),
+    2: Color.fromARGB(255, 0, 255, 128),
+    3: Color.fromARGB(255, 0, 255, 242),
+    4: Color.fromARGB(255, 0, 162, 255),
+    5: Color.fromARGB(255, 0, 55, 255)
   };
+
+  //Habit form:
+  static final Color habitFormFrontColor = habitAccentColor;
+  static final Color habitFormBorderColor = Color.fromARGB(255, 110, 60, 160);
+
+  static final BorderSide habitFormFocusedBorder =
+      BorderSide(color: habitFormFrontColor, width: 2.0);
 
 //TASKS:
   static final Icon tasksTabLargeIcon = Icon(
       Icons.assignment_turned_in_outlined,
       size: getIconSize('XXXL'),
-      color: Colors.grey);
+      color: subTextColor);
 
   //Tasks entry card:
   static const Color taskCompletedBackColor =
-      Color.fromARGB(255, 240, 235, 255);
+      Color.fromARGB(255, 235, 255, 235);
 
-  static const Color taskCategoryBackColor = Colors.grey;
+  static const Color taskCategoryBackColor = subTextColor;
 
   static final TextStyle taskCategory = TextStyle(fontSize: getFontSize('M'));
 
-  static final TextStyle tasksCompletedHeaderFont = TextStyle(
-      fontSize: getFontSize('XXL'),
-      fontWeight: FontWeight.bold,
-      color: taskAccentColor);
-  static final TextStyle tasksCompletedPendingFont =
+  static final TextStyle tasksCompletedHeaderFont =
       TextStyle(fontSize: getFontSize('XXL'), fontWeight: FontWeight.bold);
 
   //Tasks stats:
-  static const Color taskStatLabelTotalColor = Colors.blue;
-  static const Color taskStatLabelPendingColor = Colors.orange;
-  static const Color taskStatLabelDoneColor = Colors.green;
-
-  static final TextStyle taskStatLabelTotalFont = TextStyle(
-      fontSize: getFontSize('XL'),
-      fontWeight: FontWeight.bold,
-      color: taskStatLabelTotalColor);
-  static final TextStyle taskStatLabelPendingFont = TextStyle(
-      fontSize: getFontSize('XL'),
-      fontWeight: FontWeight.bold,
-      color: taskStatLabelPendingColor);
-  static final TextStyle taskStatLabelDoneFont = TextStyle(
-      fontSize: getFontSize('XL'),
-      fontWeight: FontWeight.bold,
-      color: taskStatLabelDoneColor);
 
   static final TextStyle taskStatLabelDescriptionFont =
-      TextStyle(fontSize: getFontSize('L'), color: Colors.grey);
+      TextStyle(fontSize: getFontSize('L'), color: subTextColor);
 
   //Tasks priority:
   static Color getTaskPriorityColor(int index) =>
@@ -502,10 +499,10 @@ class Styles {
       _taskStateColor[index] ?? fallbackColor;
 
   static final Map<String, Color> _taskStateColor = {
-    'completed': goodAccent,
-    'overdue': badAccent,
-    "today": warningAccent,
-    'soon': neutralAccent
+    'completed': accentGood,
+    'overdue': accentBad,
+    "today": accentWarning,
+    'soon': accentNeutral
   };
 
   static Icon getTaskStateIcon(String index) =>
@@ -532,8 +529,22 @@ class Styles {
     'soon': TextStyle(color: getTaskStateColor('soon'))
   };
 
+//Task form:
+  static final Color taskFormFrontColor = taskAccentColor;
+  static final Color taskFormBorderColor = Color.fromARGB(255, 60, 160, 60);
+
+  static final BorderSide taskFormFocusedBorder =
+      BorderSide(color: taskFormBorderColor, width: 2.0);
+
+  static final ColorScheme datePickerColorScheme = ColorScheme.light(
+    primary: taskFormFrontColor, // Основной акцентный цвет
+    onPrimary: foregroundColor, // Цвет текста/иконок на primary
+    surface: backgroundColor, // Цвет фона диалога
+    onSurface: basicTextColor, // Цвет текста на surface
+  );
+
 //LEVEL UP:
-  static const Color levelUpBackColor = Color.fromARGB(255, 255, 249, 208);
+  static const Color levelUpBackColor = Color.fromARGB(255, 255, 250, 200);
 
   static final Icon levelUpLargeIcon = Icon(
     Icons.auto_awesome,
@@ -556,7 +567,7 @@ class Styles {
   );
   static final TextStyle levelUpDetails = TextStyle(
     fontSize: getFontSize('L'),
-    color: Color.fromARGB(255, 108, 108, 108),
+    color: subTextColor,
     fontStyle: FontStyle.italic,
   );
 
@@ -567,8 +578,8 @@ class Styles {
   static final Icon levelUpButtonIcon = Icon(Icons.celebration);
 
 //DAY COMPLETION:
-  static const Color completeDayBackColor = Colors.blue;
-  static const Color completeDayButtonColor = Colors.blue;
+  static const Color completeDayBackColor = playerAccentColor;
+  static const Color completeDayButtonColor = playerAccentColor;
 
   static final TextStyle completeDayHint = TextStyle(
       fontSize: getFontSize('M'), color: Styles.contrastHeaderFontColor);

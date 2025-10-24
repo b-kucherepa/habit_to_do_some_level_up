@@ -71,9 +71,11 @@ class _TaskFormState extends State<TaskForm> {
         TextFormField(
           controller: _titleController,
           decoration: InputDecoration(
-            labelText: context.l10n.taskFormTitle,
-            border: OutlineInputBorder(),
-          ),
+              labelText: context.l10n.taskFormTitle,
+              floatingLabelStyle: TextStyle(color: Styles.taskFormFrontColor),
+              border: OutlineInputBorder(),
+              focusedBorder:
+                  OutlineInputBorder(borderSide: Styles.taskFormFocusedBorder)),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return context.l10n.taskFormTitleError;
@@ -85,18 +87,22 @@ class _TaskFormState extends State<TaskForm> {
         TextFormField(
           controller: _descriptionController,
           decoration: InputDecoration(
-            labelText: context.l10n.taskFormDescription,
-            border: OutlineInputBorder(),
-          ),
+              labelText: context.l10n.taskFormDescription,
+              floatingLabelStyle: TextStyle(color: Styles.taskFormFrontColor),
+              border: OutlineInputBorder(),
+              focusedBorder:
+                  OutlineInputBorder(borderSide: Styles.taskFormFocusedBorder)),
           maxLines: 3,
         ),
         SizedBox(height: Styles.getGap('L')),
         TextFormField(
           controller: _experienceController,
           decoration: InputDecoration(
-            labelText: context.l10n.taskFormExperience,
-            border: OutlineInputBorder(),
-          ),
+              labelText: context.l10n.taskFormExperience,
+              floatingLabelStyle: TextStyle(color: Styles.taskFormFrontColor),
+              border: OutlineInputBorder(),
+              focusedBorder:
+                  OutlineInputBorder(borderSide: Styles.taskFormFocusedBorder)),
           keyboardType: TextInputType.number,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -124,6 +130,10 @@ class _TaskFormState extends State<TaskForm> {
         ),
         ElevatedButton(
           onPressed: () => _selectDueDate(context),
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Styles.taskFormFrontColor,
+            backgroundColor: Styles.foregroundColor,
+          ),
           child: Text(context.l10n.taskFormSelectDate),
         ),
       ],
@@ -167,10 +177,13 @@ class _TaskFormState extends State<TaskForm> {
           _category = value!;
         });
       },
+      focusColor: Styles.taskCompletedBackColor,
       decoration: InputDecoration(
-        labelText: context.l10n.taskFormCategory,
-        border: OutlineInputBorder(),
-      ),
+          labelText: context.l10n.taskFormCategory,
+          floatingLabelStyle: TextStyle(color: Styles.taskFormFrontColor),
+          border: OutlineInputBorder(),
+          focusedBorder:
+              OutlineInputBorder(borderSide: Styles.taskFormFocusedBorder)),
     );
   }
 
@@ -196,6 +209,16 @@ class _TaskFormState extends State<TaskForm> {
       initialDate: _dueDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Styles.datePickerColorScheme,
+            dialogTheme:
+                DialogThemeData(backgroundColor: Colors.white), // Фон диалога
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null && picked != _dueDate) {
       setState(() {

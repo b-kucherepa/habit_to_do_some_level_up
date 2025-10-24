@@ -52,6 +52,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
               decoration: InputDecoration(
                 hintText: context.l10n.goalMotivationHint,
                 border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: Styles.settingsFormFocusedBorder),
               ),
               maxLines: 2,
             ),
@@ -139,6 +141,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
                       ((Player.maxCurveExponent - Player.minCurveExponent) * 10)
                           .round(),
                   label: _curveExponent.toStringAsFixed(1),
+                  thumbColor: Styles.settingsFormBorderColor,
+                  activeColor: Styles.settingsFormFrontColor,
                   onChanged: (value) {
                     setState(() {
                       _curveExponent = value;
@@ -178,6 +182,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
                           10)
                       .round(),
                   label: _experienceMultiplier.toStringAsFixed(0),
+                  thumbColor: Styles.settingsFormBorderColor,
+                  activeColor: Styles.settingsFormFrontColor,
                   onChanged: (value) {
                     setState(() {
                       _experienceMultiplier = value;

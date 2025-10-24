@@ -179,15 +179,15 @@ class _PlayerTabState extends State<PlayerTab> {
       stream: _hiveService.habitsBox.watch(),
       builder: (context, snapshot) {
         final habits = _hiveService.getHabits();
-        final todaysHabits =
-            habits.where((habit) => habit.isCompletedToday).toList();
-        final completedHabitsCount = todaysHabits.fold<int>(
-            0, (sum, habit) => sum + habit.getTodayCompletionCount());
+        final habitsOverall = habits.toList().length;
+        final completedTodayHabits =
+            habits.where((habit) => habit.isCompletedToday).toList().length;
 
         return StreamBuilder(
           stream: _hiveService.tasksBox.watch(),
           builder: (context, snapshot) {
             final tasks = _hiveService.getTasks();
+            final tasksOverall = tasks.toList().length;
             final todaysTasks = tasks
                 .where((task) => task.isDueToday && !task.completed)
                 .length;
@@ -209,30 +209,28 @@ class _PlayerTabState extends State<PlayerTab> {
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.habitsDone,
-                                '$completedHabitsCount',
+                                '$completedTodayHabits/$habitsOverall',
                                 Styles.playerHabitsCountIcon,
-                                details: context.l10n
-                                    .habitsNumberToday(todaysHabits.length),
                               )),
                               SizedBox(width: Styles.getGap('M')),
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.tasksDue,
-                                '$todaysTasks',
+                                '$todaysTasks/$tasksOverall',
                                 Styles.playerTasksDueIcon,
                               )),
                               SizedBox(width: Styles.getGap('M')),
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.tasksDone,
-                                '$completedTasks',
+                                '$completedTasks/$tasksOverall',
                                 Styles.playerTasksDoneIcon,
                               )),
                               SizedBox(width: Styles.getGap('M')),
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.overdue,
-                                '$overdueTasks',
+                                '$overdueTasks/$tasksOverall',
                                 Styles.playerOverdueIcon,
                               )),
                             ],
@@ -245,24 +243,22 @@ class _PlayerTabState extends State<PlayerTab> {
                             children: [
                               _buildOverviewCard(
                                 context.l10n.habitsDone,
-                                '$completedHabitsCount',
+                                '$completedTodayHabits/$habitsOverall',
                                 Styles.playerHabitsCountIcon,
-                                details: context.l10n
-                                    .habitsNumberToday(todaysHabits.length),
                               ),
                               _buildOverviewCard(
                                 context.l10n.tasksDue,
-                                '$todaysTasks',
+                                '$todaysTasks/$tasksOverall',
                                 Styles.playerTasksDueIcon,
                               ),
                               _buildOverviewCard(
                                 context.l10n.tasksDone,
-                                '$completedTasks',
+                                '$todaysTasks/$tasksOverall',
                                 Styles.playerTasksDoneIcon,
                               ),
                               _buildOverviewCard(
                                 context.l10n.overdue,
-                                '$overdueTasks',
+                                '$todaysTasks/$tasksOverall',
                                 Styles.playerOverdueIcon,
                               ),
                             ],

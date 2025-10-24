@@ -3,7 +3,7 @@ import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart
 import 'package:habit_to_do_some_level_up/styles.dart';
 import '../services/hive_service.dart';
 import '../models/habit.dart';
-import '../schedule_selector.dart';
+import 'schedule_selector.dart';
 
 class HabitForm extends StatefulWidget {
   final Habit? habit;
@@ -89,7 +89,10 @@ class _HabitFormState extends State<HabitForm> {
           controller: _titleController,
           decoration: InputDecoration(
             labelText: context.l10n.habitFormTitle,
+            floatingLabelStyle: TextStyle(color: Styles.habitFormFrontColor),
             border: OutlineInputBorder(),
+            focusedBorder:
+                OutlineInputBorder(borderSide: Styles.habitFormFocusedBorder),
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -103,7 +106,10 @@ class _HabitFormState extends State<HabitForm> {
           controller: _descriptionController,
           decoration: InputDecoration(
             labelText: context.l10n.habitFormDescription,
+            floatingLabelStyle: TextStyle(color: Styles.habitFormFrontColor),
             border: OutlineInputBorder(),
+            focusedBorder:
+                OutlineInputBorder(borderSide: Styles.habitFormFocusedBorder),
           ),
           maxLines: 3,
         ),
@@ -115,7 +121,11 @@ class _HabitFormState extends State<HabitForm> {
                 controller: _experienceController,
                 decoration: InputDecoration(
                   labelText: context.l10n.habitFormExperience,
+                  floatingLabelStyle:
+                      TextStyle(color: Styles.habitFormFrontColor),
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: Styles.habitFormFocusedBorder),
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -135,7 +145,11 @@ class _HabitFormState extends State<HabitForm> {
                 controller: _minCompletionController,
                 decoration: InputDecoration(
                   labelText: context.l10n.habitFormMinCompletion,
+                  floatingLabelStyle:
+                      TextStyle(color: Styles.habitFormFrontColor),
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: Styles.habitFormFocusedBorder),
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {

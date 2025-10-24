@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.l10n.appTitle),
+        title: Text(_getAppTitle(context, _selectedIndex)),
         titleTextStyle: Styles.titleFont,
         backgroundColor: Styles.getAppBarColor(_selectedIndex),
       ),
@@ -51,50 +51,48 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _getBody(int index) {
-    switch (index) {
-      case 0:
-        return PlayerTab();
-      case 1:
-        return HabitsTab(
-          onHabitIncrement: _incrementHabitCompletion,
-          onHabitDecrement: _decrementHabitCompletion,
-          onHabitDelete: _deleteHabit,
-          experienceService: _experienceService,
-        );
-      case 2:
-        return TasksTab(
-          onTaskToggle: _toggleTaskCompletion,
-          onTaskDelete: _deleteTask,
-          experienceService: _experienceService,
-        );
-      default:
-        return PlayerTab();
-    }
-  }
+  String _getAppTitle(BuildContext context, int index) => switch (index) {
+        0 => context.l10n.appTitle,
+        1 => context.l10n.habits,
+        2 => context.l10n.tasks,
+        _ => context.l10n.appTitle
+      };
 
-  Widget? _buildFloatingActionButton() {
-    switch (_selectedIndex) {
-      case 1:
-        return FloatingActionButton(
-          onPressed: () => _navigateToAddHabit(context),
-          backgroundColor: Styles.habitAccentColor,
-          child: Styles.addButtonLargeIcon,
-        );
-      case 2:
-        return FloatingActionButton(
-          onPressed: () => _navigateToAddTask(context),
-          backgroundColor: Styles.taskAccentColor,
-          child: Styles.addButtonLargeIcon,
-        );
-      default:
-        return null;
-    }
-  }
+  Widget _getBody(int index) => switch (index) {
+        0 => PlayerTab(),
+        1 => HabitsTab(
+            onHabitIncrement: _incrementHabitCompletion,
+            onHabitDecrement: _decrementHabitCompletion,
+            onHabitDelete: _deleteHabit,
+            experienceService: _experienceService,
+          ),
+        2 => TasksTab(
+            onTaskToggle: _toggleTaskCompletion,
+            onTaskDelete: _deleteTask,
+            experienceService: _experienceService,
+          ),
+        _ => PlayerTab()
+      };
+
+  Widget? _buildFloatingActionButton() => switch (_selectedIndex) {
+        1 => FloatingActionButton(
+            onPressed: () => _navigateToAddHabit(context),
+            backgroundColor: Styles.habitAccentColor,
+            child: Styles.addButtonLargeIcon,
+          ),
+        2 => FloatingActionButton(
+            onPressed: () => _navigateToAddTask(context),
+            backgroundColor: Styles.taskAccentColor,
+            child: Styles.addButtonLargeIcon,
+          ),
+        _ => null
+      };
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _selectedIndex,
+      selectedItemColor: Styles.getAppBarColor(_selectedIndex),
+      unselectedItemColor: Styles.basicTextColor,
       onTap: _onItemTapped,
       backgroundColor: Styles.navigatorBackColor,
       items: [

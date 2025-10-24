@@ -8,7 +8,7 @@ part 'habit.g.dart';
 @HiveType(typeId: 2)
 class Habit {
   static const minKarma = -4;
-  static const maxKarma = 7;
+  static const maxKarma = 5;
   static const defaultKarma = 0;
 
   @HiveField(0)

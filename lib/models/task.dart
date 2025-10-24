@@ -61,7 +61,9 @@ class Task {
     this.category = defaultCategory,
   });
 
-  bool get isOverdue => !completed && dueDate.isBefore(DateTime.now());
+  bool get isOverdue =>
+      !completed &&
+      dueDate.isBefore(DateTime.now().subtract(Duration(days: 1))); //!!!
   bool get isDueToday =>
       !completed &&
       dueDate.day == DateTime.now().day &&

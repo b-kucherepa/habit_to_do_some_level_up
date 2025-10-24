@@ -7,18 +7,25 @@ import '../services/hive_service.dart';
 import '../models/task.dart';
 import '../widgets/task_item_widget.dart';
 
-class TasksTab extends StatelessWidget {
+class TasksTab extends StatefulWidget {
   final Function(Task, bool) onTaskToggle;
   final Function(Task) onTaskDelete;
-  final HiveService _hiveService = HiveService();
   final ExperienceService experienceService;
 
-  TasksTab({
+  const TasksTab({
     super.key,
     required this.onTaskToggle,
     required this.onTaskDelete,
     required this.experienceService,
   });
+
+  @override
+  State<TasksTab> createState() => _TasksTabState();
+}
+
+class _TasksTabState extends State<TasksTab> {
+  final HiveService _hiveService = HiveService();
+  bool _isCompletedTasksExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,51 +58,40 @@ class TasksTab extends StatelessWidget {
 
         return Column(
           children: [
-            Padding(
-              padding: EdgeInsets.all(Styles.getGap('L')),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildTaskStat(
-                      context.l10n.tasksTabTotal,
-                      tasks.length,
-                      Styles.taskStatLabelTotalColor,
-                      Styles.taskStatLabelTotalFont),
-                  _buildTaskStat(
-                      context.l10n.tasksTabPending,
-                      pendingTasks.length,
-                      Styles.taskStatLabelPendingColor,
-                      Styles.taskStatLabelPendingFont),
-                  _buildTaskStat(
-                      context.l10n.tasksTabDone,
-                      completedTasks.length,
-                      Styles.taskStatLabelDoneColor,
-                      Styles.taskStatLabelDoneFont),
-                ],
-              ),
-            ),
             Expanded(
               child: ListView(
                 padding: EdgeInsets.all(Styles.getGap('L')),
                 children: [
                   if (pendingTasks.isNotEmpty) ...[
-                    Text(
-                      context.l10n.tasksTabPendingHeader(pendingTasks.length),
-                      style: Styles.tasksCompletedPendingFont,
-                    ),
-                    SizedBox(height: Styles.getGap('S')),
                     ...pendingTasks
                         .map((task) => _buildTaskItem(task, context)),
-                    SizedBox(height: Styles.getGap('L')),
                   ],
                   if (completedTasks.isNotEmpty) ...[
-                    Text(
-                        context.l10n
-                            .tasksTabCompletedHeader(completedTasks.length),
-                        style: Styles.tasksCompletedHeaderFont),
-                    SizedBox(height: Styles.getGap('S')),
-                    ...completedTasks
-                        .map((task) => _buildTaskItem(task, context)),
+                    ExpansionTile(
+                      controlAffinity: ListTileControlAffinity.leading,
+                      initiallyExpanded: _isCompletedTasksExpanded,
+                      shape: Border.all(style: BorderStyle.none),
+                      collapsedShape: Border.all(style: BorderStyle.none),
+                      backgroundColor: Styles.fargroundColor,
+                      collapsedBackgroundColor: Styles.fargroundColor,
+                      title: Text(
+                        context.l10n.tasksTabCompletedHeader,
+                        style: Styles.tasksCompletedHeaderFont,
+                      ),
+                      textColor: Styles.taskAccentColor,
+                      collapsedTextColor: Styles.taskFormBorderColor,
+                      iconColor: Styles.taskAccentColor,
+                      collapsedIconColor: Styles.taskFormBorderColor,
+                      children: [
+                        ...completedTasks
+                            .map((task) => _buildTaskItem(task, context)),
+                      ],
+                      onExpansionChanged: (value) {
+                        setState(() {
+                          _isCompletedTasksExpanded = value;
+                        });
+                      },
+                    ),
                   ],
                 ],
               ),
@@ -110,8 +106,8 @@ class TasksTab extends StatelessWidget {
     return TaskItemWidget(
       task: task,
       isEditable: true,
-      onToggle: onTaskToggle,
-      onDelete: () => onTaskDelete(task),
+      onToggle: widget.onTaskToggle,
+      onDelete: () => widget.onTaskDelete(task),
       onEdit: () => _editTask(context, task),
     );
   }
@@ -122,27 +118,6 @@ class TasksTab extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => AddTaskScreen(task: task),
       ),
-    );
-  }
-
-  Widget _buildTaskStat(
-      String label, int count, Color color, TextStyle textStyle) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(Styles.getGap('L')),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            shape: BoxShape.circle,
-            border: Border.all(color: color.withValues(alpha: 0.3)),
-          ),
-          child: Text(
-            count.toString(),
-            style: textStyle,
-          ),
-        ),
-        Text(label, style: Styles.taskStatLabelDescriptionFont),
-      ],
     );
   }
 }
