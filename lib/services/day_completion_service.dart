@@ -1,6 +1,20 @@
 import 'package:habit_to_do_some_level_up/services/hive_service.dart';
 
 class DayCompletionService {
+  static DateTime _adjustForDayReset(DateTime date, int dayResetHour) {
+    // Если текущее время меньше часа сброса, считаем что это предыдущий день
+    final DateTime resetHourTime =
+        DateTime(date.year, date.month, date.day, dayResetHour, 0, 0);
+    final bool isBeforeResetHour = date.isBefore(resetHourTime);
+
+    DateTime adjustedTime = DateTime(date.year, date.month, date.day);
+
+    if (isBeforeResetHour) {
+      adjustedTime = adjustedTime.subtract(Duration(days: 1));
+    }
+    return adjustedTime;
+  }
+
   Future<DateTime> getLastLoginDate(HiveService hiveService) async {
     final player = hiveService.getPlayer();
     return player.lastLoginDate;
@@ -14,20 +28,6 @@ class DayCompletionService {
 
   bool shouldShowDayCompletion(List<DateTime> missedDays, int dayResetHour) {
     return missedDays.isNotEmpty;
-  }
-
-  DateTime _adjustForDayReset(DateTime date, int dayResetHour) {
-    // Если текущее время меньше часа сброса, считаем что это предыдущий день
-    final DateTime resetHourTime =
-        DateTime(date.year, date.month, date.day, dayResetHour, 0, 0);
-    final bool isBeforeResetHour = date.isBefore(resetHourTime);
-
-    DateTime adjustedTime = DateTime(date.year, date.month, date.day);
-
-    if (isBeforeResetHour) {
-      adjustedTime = adjustedTime.subtract(Duration(days: 1));
-    }
-    return adjustedTime;
   }
 
   Future<List<DateTime>> getMissedDays(

@@ -150,7 +150,7 @@ class HabitItemWidget extends StatelessWidget {
           _buildMetaInfoRow(context),
 
           SizedBox(height: Styles.getGap('S')),
-          _buildRepeatRow(context),
+          _buildRecurranceRow(context),
         ],
       ),
     );
@@ -180,7 +180,7 @@ class HabitItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildRepeatRow(BuildContext context) {
+  Widget _buildRecurranceRow(BuildContext context) {
     return Row(
       children: [
         if (showScheduleInfo) ...[
@@ -191,6 +191,8 @@ class HabitItemWidget extends StatelessWidget {
   }
 
   Widget _buildRightActionsColumn(BuildContext context) {
+    if (onEdit == null && onDelete == null) return Container();
+
     return Container(
       width: Styles.entryCardSidesWidth,
       decoration: BoxDecoration(

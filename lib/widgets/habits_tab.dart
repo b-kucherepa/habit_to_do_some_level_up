@@ -40,7 +40,7 @@ class HabitsTab extends StatelessWidget {
             final habit = habits[index];
             return HabitItemWidget(
               habit: habit,
-              currentCount: habit.getTodayCompletionCount(),
+              currentCount: habit.completionCount,
               isEditable: true,
               onIncrement: () => onHabitIncrement(habit),
               onDecrement: () => onHabitDecrement(habit),

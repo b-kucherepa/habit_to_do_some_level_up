@@ -26,7 +26,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       daysOfMonth: (fields[6] as List?)?.cast<int>(),
       intervalDays: fields[7] as int?,
       createdDate: fields[8] as DateTime,
-      completionHistory: (fields[9] as Map?)?.cast<String, int>(),
+      completionCount: fields[9] as int,
       minCompletionCount: fields[10] as int,
       karmaLevel: fields[11] as int,
     );
@@ -55,7 +55,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       ..writeByte(8)
       ..write(obj.createdDate)
       ..writeByte(9)
-      ..write(obj.completionHistory)
+      ..write(obj.completionCount)
       ..writeByte(10)
       ..write(obj.minCompletionCount)
       ..writeByte(11)

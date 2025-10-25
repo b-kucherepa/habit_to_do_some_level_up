@@ -223,7 +223,7 @@ class _HabitFormState extends State<HabitForm> {
           _selectedDaysOfMonth.isNotEmpty ? _selectedDaysOfMonth : null,
       intervalDays: _customInterval,
       createdDate: widget.habit?.createdDate ?? DateTime.now(),
-      completionHistory: widget.habit?.completionHistory ?? {},
+      completionCount: widget.habit?.completionCount ?? 0,
       karmaLevel: widget.habit?.karmaLevel ?? 0,
     );
 

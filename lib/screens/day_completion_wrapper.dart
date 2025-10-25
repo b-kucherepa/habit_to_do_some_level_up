@@ -56,15 +56,16 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
     final player = _hiveService.getPlayer();
     final lastLogin =
         await _dayCompletionService.getLastLoginDate(_hiveService);
-    final missedDays = await _dayCompletionService.getMissedDays(
-        _hiveService, player.dayResetHour);
+    final dayResetHour = player.dayResetHour;
+    final missedDays =
+        await _dayCompletionService.getMissedDays(_hiveService, dayResetHour);
 
     print('Last login: $lastLogin');
     print('Missed days count: ${missedDays.length}');
 
     // Если нашли пропущенные дни и сейчас не показываем другой день
     if (missedDays.isNotEmpty && _missedDays.isEmpty) {
-      _lastSessionData = _getLastSessionData(lastLogin);
+      _lastSessionData = _getLastSessionData();
 
       if (mounted) {
         setState(() {
@@ -83,20 +84,15 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   }
 
   // Получаем данные привычек на момент последнего входа
-  Map<String, int> _getLastSessionData(DateTime lastLoginDate) {
+  Map<String, int> _getLastSessionData() {
     final habits = _hiveService.getHabits();
     final lastSessionData = <String, int>{};
 
     for (final habit in habits) {
-      final lastLoginKey = _dateToKey(lastLoginDate);
-      lastSessionData[habit.id] = habit.completionHistory[lastLoginKey] ?? 0;
+      lastSessionData[habit.id] = habit.completionCount;
     }
 
     return lastSessionData;
-  }
-
-  String _dateToKey(DateTime date) {
-    return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
 
   void _onDayCompleted(bool shouldContinue) {
@@ -139,7 +135,7 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
 
       // Только для ПЕРВОГО дня (дня последнего входа) используем данные последней сессии
       // Для всех последующих дней используем нули
-      final initialData = _currentDayIndex == 0 ? _lastSessionData : null;
+      final initialData = daysAgo == 1 ? _lastSessionData : null;
 
       return DayCompletionScreen(
         targetDate: targetDate,

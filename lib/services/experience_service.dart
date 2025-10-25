@@ -28,7 +28,7 @@ class ExperienceService {
         daysOfMonth: habit.daysOfMonth,
         intervalDays: habit.intervalDays,
         createdDate: habit.createdDate,
-        completionHistory: {...habit.completionHistory},
+        completionCount: habit.completionCount,
         minCompletionCount: habit.minCompletionCount,
         karmaLevel: habit.karmaLevel,
       );
@@ -61,7 +61,7 @@ class ExperienceService {
     final habitIndex = habits.indexWhere((h) => h.id == habit.id);
 
     if (habitIndex != -1) {
-      final currentCount = habit.getTodayCompletionCount();
+      final currentCount = habit.completionCount;
       if (currentCount > 0) {
         final player = _hiveService.getPlayer();
 
@@ -75,7 +75,7 @@ class ExperienceService {
           daysOfMonth: habit.daysOfMonth,
           intervalDays: habit.intervalDays,
           createdDate: habit.createdDate,
-          completionHistory: {...habit.completionHistory},
+          completionCount: habit.completionCount,
           minCompletionCount: habit.minCompletionCount,
           karmaLevel: habit.karmaLevel,
         );
@@ -163,7 +163,7 @@ class ExperienceService {
   void deleteHabit(Habit habit) {
     final player = _hiveService.getPlayer();
 
-    final todayCount = habit.getTodayCompletionCount();
+    final todayCount = habit.completionCount;
     if (todayCount > 0) {
       final updatedPlayer = Player(
           id: player.id,

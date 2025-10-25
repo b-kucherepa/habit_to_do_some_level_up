@@ -39,7 +39,7 @@ class Habit {
   final DateTime createdDate;
 
   @HiveField(9)
-  Map<String, int> completionHistory;
+  int completionCount;
 
   @HiveField(10)
   int minCompletionCount; // Минимальное количество выполнений
@@ -57,41 +57,26 @@ class Habit {
     this.daysOfMonth,
     this.intervalDays,
     required this.createdDate,
-    Map<String, int>? completionHistory,
+    this.completionCount = 0,
     this.minCompletionCount = 1, // По умолчанию 1
     this.karmaLevel = 0, // Нейтральное состояние
-  }) : completionHistory = completionHistory ?? <String, int>{};
+  });
 
   bool isDueToday() {
     final today = DateTime.now();
     return _isDue(today);
   }
 
-  int getTodayCompletionCount() {
-    final todayKey = _dateToKey(DateTime.now());
-    return completionHistory[todayKey] ?? 0;
-  }
-
   bool get isCompletedToday {
-    return getTodayCompletionCount() >= minCompletionCount;
+    return completionCount >= minCompletionCount;
   }
 
   void incrementCompletion() {
-    final todayKey = _dateToKey(DateTime.now());
-    final currentCount = completionHistory[todayKey] ?? 0;
-    completionHistory = {...completionHistory, todayKey: currentCount + 1};
+    completionCount += 1;
   }
 
   void decrementCompletion() {
-    final todayKey = _dateToKey(DateTime.now());
-    final currentCount = completionHistory[todayKey] ?? 0;
-    if (currentCount > 0) {
-      completionHistory = {...completionHistory, todayKey: currentCount - 1};
-    }
-  }
-
-  String _dateToKey(DateTime date) {
-    return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+    completionCount -= 1;
   }
 
   bool _isDue(DateTime date) {

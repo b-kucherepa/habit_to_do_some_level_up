@@ -159,59 +159,38 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
     // Сохраняем выполнения для этого дня и считаем опыт
     for (final habit in widget.habits) {
       final count = _completionCounts[habit.id] ?? 0;
-      final dateKey = _dateToKey(widget.targetDate);
+
+      final updatedHabit = Habit(
+        id: habit.id,
+        title: habit.title,
+        description: habit.description,
+        experience: habit.experience,
+        scheduleType: habit.scheduleType,
+        daysOfWeek: habit.daysOfWeek,
+        daysOfMonth: habit.daysOfMonth,
+        intervalDays: habit.intervalDays,
+        createdDate: habit.createdDate,
+        completionCount: 0,
+        minCompletionCount: habit.minCompletionCount,
+        karmaLevel: habit.karmaLevel,
+      );
 
       if (count > 0) {
-        final updatedHabit = Habit(
-          id: habit.id,
-          title: habit.title,
-          description: habit.description,
-          experience: habit.experience,
-          scheduleType: habit.scheduleType,
-          daysOfWeek: habit.daysOfWeek,
-          daysOfMonth: habit.daysOfMonth,
-          intervalDays: habit.intervalDays,
-          createdDate: habit.createdDate,
-          completionHistory: {...habit.completionHistory},
-          minCompletionCount: habit.minCompletionCount,
-          karmaLevel: habit.karmaLevel,
-        );
-
-        // Добавляем выполнения за целевой день
-        updatedHabit.completionHistory[dateKey] = count;
-
-        // Обновляем карму
-        if (count >= habit.minCompletionCount) {
-          updatedHabit.karmaLevel =
-              (habit.karmaLevel + 1).clamp(Habit.minKarma, Habit.maxKarma);
-        } else {
-          updatedHabit.karmaLevel =
-              (habit.karmaLevel - 1).clamp(Habit.minKarma, Habit.maxKarma);
-        }
-
-        _hiveService.updateHabit(updatedHabit);
-
         // Начисляем опыт
         totalExperience += habit.experience * count;
-      } else {
-        // Не выполнено - уменьшаем карму
-        final updatedHabit = Habit(
-          id: habit.id,
-          title: habit.title,
-          description: habit.description,
-          experience: habit.experience,
-          scheduleType: habit.scheduleType,
-          daysOfWeek: habit.daysOfWeek,
-          daysOfMonth: habit.daysOfMonth,
-          intervalDays: habit.intervalDays,
-          createdDate: habit.createdDate,
-          completionHistory: {...habit.completionHistory},
-          minCompletionCount: habit.minCompletionCount,
-          karmaLevel:
-              (habit.karmaLevel - 1).clamp(Habit.minKarma, Habit.maxKarma),
-        );
-        _hiveService.updateHabit(updatedHabit);
       }
+
+      // Обновляем карму
+
+      if (count >= habit.minCompletionCount) {
+        updatedHabit.karmaLevel =
+            (habit.karmaLevel + 1).clamp(Habit.minKarma, Habit.maxKarma);
+      } else {
+        updatedHabit.karmaLevel =
+            (habit.karmaLevel - 1).clamp(Habit.minKarma, Habit.maxKarma);
+      }
+
+      _hiveService.updateHabit(updatedHabit);
     }
 
     // Начисляем общий опыт через ExperienceService (теперь без контекста)
@@ -221,10 +200,6 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
 
     // Уведомляем об успешном завершении дня
     widget.onDayCompleted(true);
-  }
-
-  String _dateToKey(DateTime date) {
-    return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
 
   String _formatDate(DateTime date) {

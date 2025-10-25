@@ -377,10 +377,9 @@ class Styles {
   );
 
   static final TextStyle counterInactiveFont = TextStyle(
-    fontSize: getFontSize('L'),
-    fontWeight: FontWeight.bold,
-    color: subTextColor,
-  );
+      fontSize: getFontSize('L'),
+      fontWeight: FontWeight.bold,
+      color: lightTextColor);
 
   static double counterSidesWidth = 32;
 
