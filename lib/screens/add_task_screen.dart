@@ -277,7 +277,7 @@ class _TaskFormState extends State<TaskForm> {
   String _getLocalizedCategory(BuildContext context, String category) =>
       switch (category) {
         'general' => context.l10n.taskCategoryGeneral,
-        'home' => context.l10n.taskCategoryHove,
+        'home' => context.l10n.taskCategoryHome,
         'social' => context.l10n.taskCategorySocial,
         'work' => context.l10n.taskCategoryWork,
         'personal' => context.l10n.taskCategoryPersonal,
