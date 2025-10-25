@@ -16,55 +16,60 @@ class DayCompletionService {
     return missedDays.isNotEmpty;
   }
 
-  bool _isSameDay(DateTime date1, DateTime date2, int dayResetHour) {
-    final adjustedDate1 = _adjustForDayReset(date1, dayResetHour);
-    final adjustedDate2 = _adjustForDayReset(date2, dayResetHour);
-
-    return adjustedDate1.year == adjustedDate2.year &&
-        adjustedDate1.month == adjustedDate2.month &&
-        adjustedDate1.day == adjustedDate2.day;
-  }
-
   DateTime _adjustForDayReset(DateTime date, int dayResetHour) {
     // Если текущее время меньше часа сброса, считаем что это предыдущий день
-    if (date.hour < dayResetHour) {
-      return date.subtract(Duration(days: 1));
+    final DateTime resetHourTime =
+        DateTime(date.year, date.month, date.day, dayResetHour, 0, 0);
+    final bool isBeforeResetHour = date.isBefore(resetHourTime);
+
+    DateTime adjustedTime = DateTime(date.year, date.month, date.day);
+
+    if (isBeforeResetHour) {
+      adjustedTime = adjustedTime.subtract(Duration(days: 1));
     }
-    return date;
+    return adjustedTime;
   }
 
   Future<List<DateTime>> getMissedDays(
       HiveService hiveService, int dayResetHour) async {
     final lastLogin = await getLastLoginDate(hiveService);
-    final today = DateTime.now();
+    final now = DateTime.now();
 
-    // Используем adjusted даты для корректного сравнения
+    // Получаем adjusted даты для корректного сравнения
     final adjustedLastLogin = _adjustForDayReset(lastLogin, dayResetHour);
-    final adjustedToday = _adjustForDayReset(today, dayResetHour);
+    final adjustedNow = _adjustForDayReset(now, dayResetHour);
+
+    print('Last login: $lastLogin -> $adjustedLastLogin');
+    print('Now: $now -> $adjustedNow');
 
     // Если adjusted даты совпадают - нет пропущенных дней
-    if (adjustedLastLogin.year == adjustedToday.year &&
-        adjustedLastLogin.month == adjustedToday.month &&
-        adjustedLastLogin.day == adjustedToday.day) {
+    if (adjustedLastLogin.isAtSameMomentAs(adjustedNow)) {
       return [];
     }
 
     final missedDays = <DateTime>[];
 
     // Начинаем со дня после последнего входа (adjusted)
-    var currentDay = DateTime(adjustedLastLogin.year, adjustedLastLogin.month,
-            adjustedLastLogin.day)
-        .add(Duration(days: 1));
+    var currentDay = adjustedLastLogin;
 
-    final todayDate =
-        DateTime(adjustedToday.year, adjustedToday.month, adjustedToday.day);
-
-    // Добавляем все дни до сегодняшнего (не включая сегодня)
-    while (currentDay.isBefore(todayDate)) {
+    // Добавляем все дни до сегодняшнего (включительно), если они есть
+    while (currentDay.isBefore(adjustedNow)) {
       missedDays.add(currentDay);
       currentDay = currentDay.add(Duration(days: 1));
     }
 
+    print('Missed days: $missedDays');
     return missedDays;
+  }
+
+  // Проверяет, наступило ли время следующего дня прямо сейчас
+  bool isNewDayStarted(HiveService hiveService, int dayResetHour) {
+    final lastLogin = hiveService.getPlayer().lastLoginDate;
+    final now = DateTime.now();
+
+    final adjustedLastLogin = _adjustForDayReset(lastLogin, dayResetHour);
+    final adjustedNow = _adjustForDayReset(now, dayResetHour);
+
+    return adjustedLastLogin.isBefore(adjustedNow);
   }
 }

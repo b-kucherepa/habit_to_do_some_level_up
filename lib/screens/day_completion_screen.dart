@@ -63,6 +63,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleTextStyle: Styles.titleFont,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,10 +71,10 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
             SizedBox(height: Styles.getGap('XS')),
             Text(
                 '${_formatDate(widget.targetDate)} (${widget.daysAgo} days ago)',
-                style: Styles.completeDayHint),
+                style: Styles.completeDayHintFont),
           ],
         ),
-        backgroundColor: Styles.completeDayBackColor,
+        backgroundColor: Styles.completeDayAccentColor,
       ),
       body: _buildContent(),
     );
@@ -84,10 +85,8 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
       children: [
         Padding(
             padding: EdgeInsets.all(Styles.getGap('L')),
-            child: Text(
-              context.l10n.markCompletedHabitsHint,
-              style: Styles.completeDayCompleteHeader,
-            )),
+            child: Text(context.l10n.markCompletedHabitsHint,
+                style: Styles.markCompletedHabitsHintFont)),
         Expanded(
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: Styles.getGap('L')),
@@ -122,7 +121,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
       },
       showScheduleInfo: false,
       showKarmaIndicator: true,
-      backgroundColor: isCompleted ? Styles.habitCompletedBackColor : null,
+      backgroundColor: isCompleted ? Styles.dayCompletedEntryBackColor : null,
     );
   }
 
@@ -134,6 +133,8 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           Expanded(
             child: OutlinedButton(
               onPressed: () => widget.onDayCompleted(false),
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: Styles.completeDayAccentColor),
               child: Text(context.l10n.skipDayButton),
             ),
           ),
@@ -142,8 +143,8 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
             child: ElevatedButton(
               onPressed: _completeDay,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Styles.completeDayButtonColor,
-              ),
+                  backgroundColor: Styles.completeDayAccentColor,
+                  foregroundColor: Styles.foregroundColor),
               child: Text(context.l10n.completeDayButton),
             ),
           ),

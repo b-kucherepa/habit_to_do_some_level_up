@@ -609,11 +609,17 @@ class Styles {
   static final Icon levelUpButtonIcon = Icon(Icons.celebration);
 
 //DAY COMPLETION:
-  static const Color completeDayBackColor = playerAccentColor;
-  static const Color completeDayButtonColor = playerAccentColor;
+  static const Color completeDayAccentColor = playerAccentColor;
 
-  static final TextStyle completeDayHint = TextStyle(
-      fontSize: getFontSize('M'), color: Styles.contrastHeaderFontColor);
-  static final TextStyle completeDayCompleteHeader =
+  static const Color dayCompletedEntryBackColor =
+      Color.fromARGB(255, 235, 240, 255);
+
+  static final TextStyle completeDayHintFont =
+      TextStyle(fontSize: getFontSize('M'), color: backgroundColor);
+  static final TextStyle completeDayCompleteHeaderFont =
       TextStyle(fontSize: getFontSize('L'), fontWeight: FontWeight.bold);
+  static final TextStyle markCompletedHabitsHintFont = TextStyle(
+      fontSize: getFontSize('XL'),
+      color: basicTextColor,
+      fontWeight: FontWeight.bold);
 }

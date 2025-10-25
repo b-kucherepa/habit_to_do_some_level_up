@@ -20,8 +20,6 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  print('Hive path: ${appDocumentDir.path}');
-
   Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(TaskAdapter());

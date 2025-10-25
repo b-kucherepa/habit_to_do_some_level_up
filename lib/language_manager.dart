@@ -16,7 +16,7 @@ class LanguageManager with ChangeNotifier {
     final player = hiveService.getPlayer();
     final savedLanguage = player.languageCode;
 
-    if (savedLanguage != null && savedLanguage.isNotEmpty) {
+    if (savedLanguage.isNotEmpty) {
       _currentLocale = Locale(savedLanguage);
     } else {
       _currentLocale = Locale(_defaultLanguageCode);

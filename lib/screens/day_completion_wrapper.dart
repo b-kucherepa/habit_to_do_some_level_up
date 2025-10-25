@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,12 +22,30 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   List<DateTime> _missedDays = [];
   int _currentDayIndex = 0;
   Map<String, int>? _lastSessionData;
+  Timer? _periodicTimer;
 
   @override
   void initState() {
     super.initState();
     _hiveService = Provider.of<HiveService>(context, listen: false);
     _initializeApp();
+    _startPeriodicCheck();
+  }
+
+  @override
+  void dispose() {
+    _periodicTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startPeriodicCheck() {
+    // Проверяем каждые 5 минут (можно настроить интервал)
+    _periodicTimer =
+        Timer.periodic(Duration(seconds: 10 /*minutes: 5*/), (timer) {
+      if (mounted) {
+        _checkMissedDays();
+      }
+    });
   }
 
   void _initializeApp() async {
@@ -39,15 +59,26 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
     final missedDays = await _dayCompletionService.getMissedDays(
         _hiveService, player.dayResetHour);
 
-    if (missedDays.isNotEmpty) {
-      _lastSessionData = _getLastSessionData(lastLogin);
-    }
+    print('Last login: $lastLogin');
+    print('Missed days count: ${missedDays.length}');
 
-    if (mounted) {
-      setState(() {
-        _missedDays = missedDays;
-        _checkingDays = false;
-      });
+    // Если нашли пропущенные дни и сейчас не показываем другой день
+    if (missedDays.isNotEmpty && _missedDays.isEmpty) {
+      _lastSessionData = _getLastSessionData(lastLogin);
+
+      if (mounted) {
+        setState(() {
+          _missedDays = missedDays;
+          _checkingDays = false;
+        });
+      }
+    } else if (_checkingDays) {
+      // Завершаем первоначальную загрузку
+      if (mounted) {
+        setState(() {
+          _checkingDays = false;
+        });
+      }
     }
   }
 
@@ -78,6 +109,7 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
       if (mounted) {
         setState(() {
           _missedDays = [];
+          _currentDayIndex = 0;
         });
         // Обновляем дату последнего входа на сегодня
         _dayCompletionService.setLastLoginDate(DateTime.now(), _hiveService);

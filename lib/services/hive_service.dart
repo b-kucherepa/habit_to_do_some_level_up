@@ -13,11 +13,9 @@ class HiveService {
     final players = getPlayers();
 
     if (players.isEmpty) {
-      print('CREATE DEFAULT');
       return createDefaultPlayer();
     }
 
-    print(players.first.dayResetHour);
     return players.first;
   }
 
