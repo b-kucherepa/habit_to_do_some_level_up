@@ -179,7 +179,8 @@ class _PlayerTabState extends State<PlayerTab> {
       stream: _hiveService.habitsBox.watch(),
       builder: (context, snapshot) {
         final habits = _hiveService.getHabits();
-        final habitsOverall = habits.toList().length;
+        final habitsDueToday =
+            habits.where((habit) => habit.isDueToday()).toList().length;
         final completedTodayHabits =
             habits.where((habit) => habit.isCompletedToday).toList().length;
 
@@ -209,7 +210,7 @@ class _PlayerTabState extends State<PlayerTab> {
                               Expanded(
                                   child: _buildOverviewCard(
                                 context.l10n.habitsDone,
-                                '$completedTodayHabits/$habitsOverall',
+                                '$completedTodayHabits/$habitsDueToday',
                                 Styles.playerHabitsCountIcon,
                               )),
                               SizedBox(width: Styles.getGap('M')),
@@ -243,7 +244,7 @@ class _PlayerTabState extends State<PlayerTab> {
                             children: [
                               _buildOverviewCard(
                                 context.l10n.habitsDone,
-                                '$completedTodayHabits/$habitsOverall',
+                                '$completedTodayHabits/$habitsDueToday',
                                 Styles.playerHabitsCountIcon,
                               ),
                               _buildOverviewCard(
