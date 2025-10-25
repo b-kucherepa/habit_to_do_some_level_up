@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
-import 'package:habit_to_do_some_level_up/services/day_completion_service.dart';
 import 'package:habit_to_do_some_level_up/styles.dart';
 import '../models/player.dart';
 import '../services/hive_service.dart';
@@ -155,10 +154,10 @@ class _PlayerTabState extends State<PlayerTab> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${context.l10n.progressToLevel} ${player.level + 1}',
+              '${context.l10n.playerProgressToLevel(player.level + 1)} ${player.level + 1}',
               style: Styles.playerBarFont,
             ),
-            Text('${(player.levelProgress * 100).toStringAsFixed(1)}%',
+            Text('${(player.levelProgress * 100).toStringAsFixed(0)}%',
                 style: Styles.playerBarFont),
           ],
         ),

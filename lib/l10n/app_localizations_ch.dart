@@ -9,7 +9,7 @@ class AppLocalizationsCh extends AppLocalizations {
   AppLocalizationsCh([String locale = 'ch']) : super(locale);
 
   @override
-  String get appTitle => '习惯养成，升级人生！';
+  String get appTitle => '习惯升级，提升自我！';
 
   @override
   String get home => '首页';
@@ -33,13 +33,13 @@ class AppLocalizationsCh extends AppLocalizations {
   String get toNext => '下一步';
 
   @override
-  String get completeDayHint => '补全遗漏天数';
+  String get completeDayHint => '补完遗漏天数';
 
   @override
-  String get markCompletedHabitsHint => '标记今天完成的习惯：';
+  String get markCompletedHabitsHint => '标记此日完成的习惯：';
 
   @override
-  String get skipDayButton => '跳过今天';
+  String get skipDayButton => '跳过今日';
 
   @override
   String get completeDayButton => '完成今日';
@@ -52,11 +52,6 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String get habitsDone => '已完成习惯';
-
-  @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '今日$habitsNumber个';
-  }
 
   @override
   String get tasks => '任务';
@@ -81,7 +76,7 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String levelReached(Object level) {
-    return '已达到$level级！';
+    return '已达到 $level 级！';
   }
 
   @override
@@ -89,74 +84,25 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return '别忘了用你的成就来... $goal！';
+    return '别忘了使用你的成就来... $goal！';
   }
 
   @override
   String get goal => '目标';
 
   @override
-  String get defaultGoal => '升级你的人生！';
+  String get defaultGoal => '提升你的生活！';
 
   @override
-  String get progress => '进度';
-
-  @override
-  String get progressToLevel => '升级进度';
-
-  @override
-  String get completed => '已完成';
+  String playerProgressToLevel(Object level) {
+    return '升级进度';
+  }
 
   @override
   String get overdue => '已逾期';
 
   @override
-  String get karma => '业力';
-
-  @override
-  String get karmaLevel => '业力等级';
-
-  @override
-  String get karmaDescription => '习惯业力等级反映你的坚持程度。';
-
-  @override
-  String get resetProgress => '重置进度';
-
-  @override
-  String get resetProgressTitle => '重置进度？';
-
-  @override
-  String get resetProgressDescription => '此操作将永久重置：';
-
-  @override
-  String get resetWarningExperience => '所有玩家经验和等级';
-
-  @override
-  String get resetWarningHabits => '所有习惯的完成记录';
-
-  @override
-  String get resetWarningKarma => '所有习惯的业力等级';
-
-  @override
-  String get resetTasksUnaffected => '任务将不受影响。';
-
-  @override
-  String get resetCannotUndone => '此操作无法撤销！';
-
-  @override
-  String get resetCancel => '取消';
-
-  @override
-  String get resetConfirm => '重置进度';
-
-  @override
-  String get resetSuccess => '进度已成功重置！';
-
-  @override
-  String get progressSettings => '设置';
-
-  @override
-  String get goalMotivation => '目标激励';
+  String get goalMotivation => '目标动机';
 
   @override
   String get goalMotivationHint => '你积累经验是为了什么？';
@@ -183,6 +129,30 @@ class AppLocalizationsCh extends AppLocalizations {
   String get portuguese => '葡萄牙语';
 
   @override
+  String get polish => '波兰语';
+
+  @override
+  String get italian => '意大利语';
+
+  @override
+  String get dutch => '荷兰语';
+
+  @override
+  String get swedish => '瑞典语';
+
+  @override
+  String get norwegian => '挪威语';
+
+  @override
+  String get finnish => '芬兰语';
+
+  @override
+  String get armenian => '亚美尼亚语';
+
+  @override
+  String get turkish => '土耳其语';
+
+  @override
   String get chinese => '中文';
 
   @override
@@ -205,15 +175,15 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String curveExponentDescription(Object exponent) {
-    return '曲线指数：$exponent。值<1使前期升级更容易，>1使后期升级更容易';
+    return '曲线指数：$exponent。值 <1 使前期升级更容易，>1 使后期升级更容易';
   }
 
   @override
-  String get experienceMultiplier => '经验倍数';
+  String get experienceMultiplier => '经验倍率';
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return '经验倍数：$multiplier。值越高升级越慢';
+    return '经验倍率：$multiplier。值越高升级越慢';
   }
 
   @override
@@ -255,7 +225,7 @@ class AppLocalizationsCh extends AppLocalizations {
   String get habitFormMinCompletionError => '请输入最低次数';
 
   @override
-  String get habitFormMinCountError => '至少1次';
+  String get habitFormMinCountError => '至少为 1';
 
   @override
   String get habitFormUpdate => '更新习惯';
@@ -270,25 +240,22 @@ class AppLocalizationsCh extends AppLocalizations {
   String get habitFormMonthlyError => '请为月计划选择至少一天';
 
   @override
-  String get habitFormCustomError => '请选择自定义间隔';
+  String get habitFormCustomError => '请为自定义计划选择间隔';
 
   @override
   String habitItemExperience(Object experience) {
-    return '$experience经验';
+    return '$experience 经验';
   }
 
   @override
   String habitItemMinCompletion(Object minCompletionCount) {
-    return '最低$minCompletionCount次';
+    return '最低 $minCompletionCount 次';
   }
 
   @override
-  String habitItemTodayCount(Object currentCount) {
-    return '今日$currentCount次';
+  String habitItemDoneSequence(Object karma) {
+    return '连续 $karma 次';
   }
-
-  @override
-  String get habitItemNotToday => '今天无安排';
 
   @override
   String get habitItemEditTooltip => '编辑习惯';
@@ -313,12 +280,12 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationMessage(Object habitTitle) {
-    return '确定要删除\"$habitTitle\"吗？';
+    return '确定要删除“$habitTitle”吗？';
   }
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ 这将从你的玩家中移除$xpAmount经验！';
+    return '⚠️ 这将从你的角色中移除 $xpAmount 经验！';
   }
 
   @override
@@ -331,7 +298,7 @@ class AppLocalizationsCh extends AppLocalizations {
   String get habitsTabEmptyTitle => '还没有习惯！';
 
   @override
-  String get habitsTabEmptySubtitle => '点击+按钮添加第一个习惯';
+  String get habitsTabEmptySubtitle => '点击 + 按钮添加你的第一个习惯';
 
   @override
   String get taskFormTitle => '任务标题';
@@ -386,10 +353,10 @@ class AppLocalizationsCh extends AppLocalizations {
   String get taskCategoryLearning => '学习';
 
   @override
-  String get taskCategoryGeneral => '通用';
+  String get taskCategoryGeneral => '一般';
 
   @override
-  String get taskCategoryHove => '家庭';
+  String get taskCategoryHome => '家庭';
 
   @override
   String get taskCategorySocial => '社交';
@@ -401,28 +368,14 @@ class AppLocalizationsCh extends AppLocalizations {
   String get tasksTabEmptyTitle => '还没有任务！';
 
   @override
-  String get tasksTabEmptySubtitle => '点击+按钮添加第一个任务';
-
-  @override
-  String get tasksTabTotal => '总计';
-
-  @override
-  String get tasksTabPending => '待完成';
-
-  @override
-  String get tasksTabDone => '已完成';
-
-  @override
-  String tasksTabPendingHeader(Object count) {
-    return '待完成任务（$count）';
-  }
+  String get tasksTabEmptySubtitle => '点击 + 按钮添加你的第一个任务';
 
   @override
   String get tasksTabCompletedHeader => '已完成任务';
 
   @override
   String tasksTabExperience(Object experience) {
-    return '$experience经验';
+    return '$experience 经验';
   }
 
   @override
@@ -436,12 +389,12 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationMessage(Object taskTitle) {
-    return '确定要删除\"$taskTitle\"吗？';
+    return '确定要删除“$taskTitle”吗？';
   }
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ 这将从你的玩家中移除$xpAmount经验！';
+    return '⚠️ 这将从你的角色中移除 $xpAmount 经验！';
   }
 
   @override
@@ -461,12 +414,12 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String tasksTabDueDaysAgo(num days) {
-    return '$days天前';
+    return '$days 天前';
   }
 
   @override
   String tasksTabDueInDays(num days) {
-    return '$days天后';
+    return '$days 天后';
   }
 
   @override
@@ -491,17 +444,11 @@ class AppLocalizationsCh extends AppLocalizations {
   String get scheduleMonthlyTitle => '选择每月日期：';
 
   @override
-  String get scheduleCustomTitle => '每X天重复：';
+  String get scheduleCustomTitle => '每 X 天重复：';
 
   @override
   String scheduleCustomInterval(num days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days天',
-      one: '1天',
-    );
-    return '$_temp0';
+    return '$days 天';
   }
 
   @override
@@ -527,4 +474,16 @@ class AppLocalizationsCh extends AppLocalizations {
 
   @override
   String get weekdaySunday => '周日';
+
+  @override
+  String get resetProgress => '重置进度';
+
+  @override
+  String get resetConfirmationTitle => '重置';
+
+  @override
+  String get resetConfirmationMessage => '确定要重置进度吗？这将重置设置、目标、等级和经验，并将创建日期设为现在。但你的习惯和任务不会受影响。此操作无法撤销。';
+
+  @override
+  String get resetSuccess => '进度数据已成功重置！';
 }

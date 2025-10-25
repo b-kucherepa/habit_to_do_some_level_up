@@ -110,12 +110,40 @@ class _SettingsDialogState extends State<SettingsDialog> {
                         child: Text(context.l10n.hindi),
                       ),
                       DropdownMenuItem(
-                        value: Locale('ar'),
-                        child: Text(context.l10n.arabic),
-                      ),
-                      DropdownMenuItem(
                         value: Locale('he'),
                         child: Text(context.l10n.hebrew),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('hy'),
+                        child: Text(context.l10n.armenian),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('it'),
+                        child: Text(context.l10n.italian),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('nl'),
+                        child: Text(context.l10n.dutch),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('no'),
+                        child: Text(context.l10n.norwegian),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('pl'),
+                        child: Text(context.l10n.polish),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('sv'),
+                        child: Text(context.l10n.swedish),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('tr'),
+                        child: Text(context.l10n.turkish),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('fi'),
+                        child: Text(context.l10n.finnish),
                       ),
                     ],
                     onChanged: (locale) {
@@ -377,7 +405,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
               Navigator.of(context).pop(); // закрыть диалог подтверждения
               _resetCharacter();
             },
-            child: Text(context.l10n.reset, style: Styles.basicWhiteFont),
+            child: Text(context.l10n.resetConfirmationTitle,
+                style: Styles.basicWhiteFont),
           ),
         ],
       ),

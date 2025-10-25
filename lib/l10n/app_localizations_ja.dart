@@ -36,7 +36,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get completeDayHint => '未完了の日を完了する';
 
   @override
-  String get markCompletedHabitsHint => 'この日の完了した習慣にマークを付ける：';
+  String get markCompletedHabitsHint => 'この日の完了した習慣をマーク：';
 
   @override
   String get skipDayButton => 'この日をスキップ';
@@ -54,15 +54,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get habitsDone => '完了した習慣';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '今日 $habitsNumber 個';
-  }
-
-  @override
   String get tasks => 'タスク';
 
   @override
-  String get tasksDue => '期限付きタスク';
+  String get tasksDue => '期限タスク';
 
   @override
   String get tasksDone => '完了したタスク';
@@ -71,17 +66,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get level => 'レベル';
 
   @override
-  String get todaysProgress => '今日の進捗';
+  String get todaysProgress => '本日の進捗';
 
   @override
   String get experienceShort => 'EXP';
 
   @override
-  String get congratulations => 'おめでとうございます！';
+  String get congratulations => 'おめでとう！';
 
   @override
   String levelReached(Object level) {
-    return 'レベル $level に到達！';
+    return 'レベル$levelに到達！';
   }
 
   @override
@@ -89,7 +84,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return '実績を活用することを忘れずに… $goal！';
+    return '達成した実績を忘れずに活用して…$goal！';
   }
 
   @override
@@ -99,61 +94,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get defaultGoal => '人生をレベルアップ！';
 
   @override
-  String get progress => '進捗';
-
-  @override
-  String get progressToLevel => 'レベルへの進捗';
-
-  @override
-  String get completed => '完了';
+  String playerProgressToLevel(Object level) {
+    return 'レベル$levelまでの進捗';
+  }
 
   @override
   String get overdue => '期限経過';
-
-  @override
-  String get karma => 'カルマ';
-
-  @override
-  String get karmaLevel => 'カルマレベル';
-
-  @override
-  String get karmaDescription => '習慣カルマレベルはあなたの一貫性を反映します。';
-
-  @override
-  String get resetProgress => '進捗をリセット';
-
-  @override
-  String get resetProgressTitle => '進捗をリセットしますか？';
-
-  @override
-  String get resetProgressDescription => 'このアクションは以下を永久的にリセットします：';
-
-  @override
-  String get resetWarningExperience => '全てのプレイヤー経験値とレベル';
-
-  @override
-  String get resetWarningHabits => '全ての習慣の完了履歴';
-
-  @override
-  String get resetWarningKarma => '全ての習慣のカルマレベル';
-
-  @override
-  String get resetTasksUnaffected => 'タスクは影響を受けません。';
-
-  @override
-  String get resetCannotUndone => 'この操作は元に戻せません！';
-
-  @override
-  String get resetCancel => 'キャンセル';
-
-  @override
-  String get resetConfirm => '進捗をリセット';
-
-  @override
-  String get resetSuccess => '進捗が正常にリセットされました！';
-
-  @override
-  String get progressSettings => '設定';
 
   @override
   String get goalMotivation => '目標の動機';
@@ -183,6 +129,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get portuguese => 'ポルトガル語';
 
   @override
+  String get polish => 'ポーランド語';
+
+  @override
+  String get italian => 'イタリア語';
+
+  @override
+  String get dutch => 'オランダ語';
+
+  @override
+  String get swedish => 'スウェーデン語';
+
+  @override
+  String get norwegian => 'ノルウェー語';
+
+  @override
+  String get finnish => 'フィンランド語';
+
+  @override
+  String get armenian => 'アルメニア語';
+
+  @override
+  String get turkish => 'トルコ語';
+
+  @override
   String get chinese => '中国語';
 
   @override
@@ -205,7 +175,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String curveExponentDescription(Object exponent) {
-    return 'カーブ指数: $exponent。1未満の値は初期レベルを容易にし、1より大きい値は後半のレベルを容易にします';
+    return 'カーブ指数：$exponent。1未満は初期レベルを、1以上は後期レベルを容易にします';
   }
 
   @override
@@ -213,7 +183,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return '経験値倍率: $multiplier。高い値ほどレベルアップが遅くなります';
+    return '経験値倍率：$multiplier。高い値ほどレベルアップが遅くなります';
   }
 
   @override
@@ -221,7 +191,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String levelFormula(Object exponent, Object multiplier) {
-    return '計算式: EXP = $multiplier × (レベル-1)^$exponent';
+    return '計算式：EXP = $multiplier × (レベル-1)^$exponent';
   }
 
   @override
@@ -255,7 +225,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get habitFormMinCompletionError => '最低数を入力してください';
 
   @override
-  String get habitFormMinCountError => '少なくとも1';
+  String get habitFormMinCountError => '1以上必要です';
 
   @override
   String get habitFormUpdate => '習慣を更新';
@@ -264,10 +234,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get habitFormSave => '習慣を保存';
 
   @override
-  String get habitFormWeeklyError => '週次スケジュールのために少なくとも1日を選択してください';
+  String get habitFormWeeklyError => '週次スケジュールで少なくとも1日を選択してください';
 
   @override
-  String get habitFormMonthlyError => '月次スケジュールのために少なくとも1日を選択してください';
+  String get habitFormMonthlyError => '月次スケジュールで少なくとも1日を選択してください';
 
   @override
   String get habitFormCustomError => 'カスタムスケジュールの間隔を選択してください';
@@ -279,16 +249,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String habitItemMinCompletion(Object minCompletionCount) {
-    return '最低 $minCompletionCount';
+    return '最低$minCompletionCount回';
   }
 
   @override
-  String habitItemTodayCount(Object currentCount) {
-    return '今日 $currentCount';
+  String habitItemDoneSequence(Object karma) {
+    return '$karma日連続';
   }
-
-  @override
-  String get habitItemNotToday => '今日は対象外';
 
   @override
   String get habitItemEditTooltip => '習慣を編集';
@@ -318,7 +285,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ これにより $xpAmount EXPがプレイヤーから削除されます！';
+    return '⚠️ これにより$xpAmount EXPがプレイヤーから削除されます！';
   }
 
   @override
@@ -331,7 +298,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get habitsTabEmptyTitle => '習慣がまだありません！';
 
   @override
-  String get habitsTabEmptySubtitle => '+ボタンをタップして最初の習慣を追加しましょう';
+  String get habitsTabEmptySubtitle => '+ボタンをタップして最初の習慣を追加';
 
   @override
   String get taskFormTitle => 'タスクタイトル';
@@ -353,7 +320,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String taskFormDueDateLabel(Object date) {
-    return '期限: $date';
+    return '期限：$date';
   }
 
   @override
@@ -361,7 +328,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String taskFormPriorityLabel(Object priority) {
-    return '優先度: $priority';
+    return '優先度：$priority';
   }
 
   @override
@@ -389,7 +356,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get taskCategoryGeneral => '一般';
 
   @override
-  String get taskCategoryHove => '家事';
+  String get taskCategoryHome => '家庭';
 
   @override
   String get taskCategorySocial => '社交';
@@ -401,21 +368,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tasksTabEmptyTitle => 'タスクがまだありません！';
 
   @override
-  String get tasksTabEmptySubtitle => '+ボタンをタップして最初のタスクを追加しましょう';
-
-  @override
-  String get tasksTabTotal => '合計';
-
-  @override
-  String get tasksTabPending => '保留中';
-
-  @override
-  String get tasksTabDone => '完了';
-
-  @override
-  String tasksTabPendingHeader(Object count) {
-    return '保留中のタスク ($count)';
-  }
+  String get tasksTabEmptySubtitle => '+ボタンをタップして最初のタスクを追加';
 
   @override
   String get tasksTabCompletedHeader => '完了したタスク';
@@ -441,7 +394,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ これにより $xpAmount EXPがプレイヤーから削除されます！';
+    return '⚠️ これにより$xpAmount EXPがプレイヤーから削除されます！';
   }
 
   @override
@@ -461,12 +414,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String tasksTabDueDaysAgo(num days) {
-    return '$days 日前';
+    return '$days日前';
   }
 
   @override
   String tasksTabDueInDays(num days) {
-    return 'あと $days 日';
+    return 'あと$days日';
   }
 
   @override
@@ -488,10 +441,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get scheduleWeeklyTitle => '曜日を選択：';
 
   @override
-  String get scheduleMonthlyTitle => '月の日付を選択：';
+  String get scheduleMonthlyTitle => '日付を選択：';
 
   @override
-  String get scheduleCustomTitle => 'X日ごとに繰り返す：';
+  String get scheduleCustomTitle => 'X日ごとに繰り返し：';
 
   @override
   String scheduleCustomInterval(num days) {
@@ -499,7 +452,6 @@ class AppLocalizationsJa extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days日',
-      one: '1日',
     );
     return '$_temp0';
   }
@@ -527,4 +479,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get weekdaySunday => '日';
+
+  @override
+  String get resetProgress => '進捗をリセット';
+
+  @override
+  String get resetConfirmationTitle => 'リセット';
+
+  @override
+  String get resetConfirmationMessage => '進捗をリセットしてもよろしいですか？設定、目標、レベル、経験値がリセットされ、作成日が現在時刻に設定されます。ただし、習慣とタスクは影響を受けません。この操作は元に戻せません。';
+
+  @override
+  String get resetSuccess => '進捗データが正常にリセットされました！';
 }

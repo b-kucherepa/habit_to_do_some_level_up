@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appTitle => 'عادة للقيام ببعض التحسين!';
+  String get appTitle => 'عادة للقيام ببعض المستويات المتقدمة!';
 
   @override
   String get home => 'الرئيسية';
@@ -54,11 +54,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitsDone => 'العادات المكتملة';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber اليوم';
-  }
-
-  @override
   String get tasks => 'المهام';
 
   @override
@@ -81,7 +76,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String levelReached(Object level) {
-    return 'وصلت للمستوى $level!';
+    return 'لقد وصلت إلى المستوى $level!';
   }
 
   @override
@@ -89,77 +84,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'لا تنس استخدام إنجازاتك ل... $goal!';
+    return 'لا تنس استخدام إنجازاتك لـ... $goal!';
   }
 
   @override
   String get goal => 'الهدف';
 
   @override
-  String get defaultGoal => 'طور حياتك!';
+  String get defaultGoal => 'تطوير مستوى حياتك!';
 
   @override
-  String get progress => 'التقدم';
-
-  @override
-  String get progressToLevel => 'التقدم نحو المستوى';
-
-  @override
-  String get completed => 'مكتمل';
+  String playerProgressToLevel(Object level) {
+    return 'التقدم نحو المستوى';
+  }
 
   @override
   String get overdue => 'متأخر';
 
   @override
-  String get karma => 'الكارما';
+  String get goalMotivation => 'الدافع الهدف';
 
   @override
-  String get karmaLevel => 'مستوى الكارما';
-
-  @override
-  String get karmaDescription => 'مستوى كارما العادات يعكس مدى انتظامك.';
-
-  @override
-  String get resetProgress => 'إعادة تعيين التقدم';
-
-  @override
-  String get resetProgressTitle => 'إعادة تعيين التقدم؟';
-
-  @override
-  String get resetProgressDescription => 'هذا الإجراء سيعيد تعيين:';
-
-  @override
-  String get resetWarningExperience => 'كل خبرة ومستوى اللاعب';
-
-  @override
-  String get resetWarningHabits => 'سجل إكمال جميع العادات';
-
-  @override
-  String get resetWarningKarma => 'مستويات الكارما لجميع العادات';
-
-  @override
-  String get resetTasksUnaffected => 'المهام لن تتأثر.';
-
-  @override
-  String get resetCannotUndone => 'لا يمكن التراجع عن هذا الإجراء!';
-
-  @override
-  String get resetCancel => 'إلغاء';
-
-  @override
-  String get resetConfirm => 'إعادة تعيين التقدم';
-
-  @override
-  String get resetSuccess => 'تم إعادة تعيين التقدم بنجاح!';
-
-  @override
-  String get progressSettings => 'الإعدادات';
-
-  @override
-  String get goalMotivation => 'تحفيز الهدف';
-
-  @override
-  String get goalMotivationHint => 'ما الذي تتراكم الخبرة من أجله؟';
+  String get goalMotivationHint => 'لماذا تكتسب الخبرة؟';
 
   @override
   String get language => 'اللغة';
@@ -181,6 +127,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get portuguese => 'البرتغالية';
+
+  @override
+  String get polish => 'البولندية';
+
+  @override
+  String get italian => 'الإيطالية';
+
+  @override
+  String get dutch => 'الهولندية';
+
+  @override
+  String get swedish => 'السويدية';
+
+  @override
+  String get norwegian => 'النرويجية';
+
+  @override
+  String get finnish => 'الفنلندية';
+
+  @override
+  String get armenian => 'الأرمينية';
+
+  @override
+  String get turkish => 'التركية';
 
   @override
   String get chinese => 'الصينية';
@@ -205,7 +175,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String curveExponentDescription(Object exponent) {
-    return 'أس المنحنى: $exponent. القيم <1 تجعل المستويات الأولى أسهل، >1 تجعل المستويات المتقدمة أسهل';
+    return 'أس المنحنى: $exponent. القيم <1 تجعل المستويات الأولى أسهل، والقيم >1 تجعل المستويات اللاحقة أسهل';
   }
 
   @override
@@ -213,7 +183,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return 'مضاعف الخبرة: $multiplier. القيم الأعلى تجعل الصعود للمستوى أبطأ';
+    return 'مضاعف الخبرة: $multiplier. القيم الأعلى تجعل التقدم في المستويات أبطأ';
   }
 
   @override
@@ -221,7 +191,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String levelFormula(Object exponent, Object multiplier) {
-    return 'الصيغة: خبرة = $multiplier × (المستوى-1)^$exponent';
+    return 'الصيغة: الخبرة = $multiplier × (المستوى-1)^$exponent';
   }
 
   @override
@@ -283,12 +253,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String habitItemTodayCount(Object currentCount) {
-    return '$currentCount اليوم';
+  String habitItemDoneSequence(Object karma) {
+    return 'سلسلة $karma';
   }
-
-  @override
-  String get habitItemNotToday => 'ليس لليوم';
 
   @override
   String get habitItemEditTooltip => 'تعديل العادة';
@@ -331,7 +298,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitsTabEmptyTitle => 'لا توجد عادات بعد!';
 
   @override
-  String get habitsTabEmptySubtitle => 'انقر على زر + لإضافة أول عادة لك';
+  String get habitsTabEmptySubtitle => 'انقر على زر + لإضافة عادتك الأولى';
 
   @override
   String get taskFormTitle => 'عنوان المهمة';
@@ -389,7 +356,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get taskCategoryGeneral => 'عام';
 
   @override
-  String get taskCategoryHove => 'منزل';
+  String get taskCategoryHome => 'منزل';
 
   @override
   String get taskCategorySocial => 'اجتماعي';
@@ -401,21 +368,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tasksTabEmptyTitle => 'لا توجد مهام بعد!';
 
   @override
-  String get tasksTabEmptySubtitle => 'انقر على زر + لإضافة أول مهمة لك';
-
-  @override
-  String get tasksTabTotal => 'الإجمالي';
-
-  @override
-  String get tasksTabPending => 'قيد الانتظار';
-
-  @override
-  String get tasksTabDone => 'مكتمل';
-
-  @override
-  String tasksTabPendingHeader(Object count) {
-    return 'المهام قيد الانتظار ($count)';
-  }
+  String get tasksTabEmptySubtitle => 'انقر على زر + لإضافة مهمتك الأولى';
 
   @override
   String get tasksTabCompletedHeader => 'المهام المكتملة';
@@ -461,7 +414,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String tasksTabDueDaysAgo(num days) {
-    return 'منذ $days يوم';
+    return 'قبل $days يوم';
   }
 
   @override
@@ -498,8 +451,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       days,
       locale: localeName,
-      other: '$days أيام',
+      other: '$days يوم',
+      many: '$days يوماً',
+      few: '$days أيام',
+      two: 'يومان',
       one: '1 يوم',
+      zero: '0 يوم',
     );
     return '$_temp0';
   }
@@ -527,4 +484,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get weekdaySunday => 'الأحد';
+
+  @override
+  String get resetProgress => 'إعادة تعيين التقدم';
+
+  @override
+  String get resetConfirmationTitle => 'إعادة تعيين';
+
+  @override
+  String get resetConfirmationMessage => 'هل أنت متأكد من رغبتك في إعادة تعيين تقدمك؟ هذا سيعيد تعيين الإعدادات، الهدف، المستوى والخبرة وسيحول تاريخ الإنشاء إلى الآن. عاداتك ومهامك لن تتأثر. لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get resetSuccess => 'تم إعادة تعيين بيانات التقدم بنجاح!';
 }

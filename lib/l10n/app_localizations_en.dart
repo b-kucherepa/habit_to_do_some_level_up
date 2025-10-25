@@ -54,11 +54,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitsDone => 'Habits Done';
 
   @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber today';
-  }
-
-  @override
   String get tasks => 'Tasks';
 
   @override
@@ -99,61 +94,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get defaultGoal => 'Level up your life!';
 
   @override
-  String get progress => 'Progress';
-
-  @override
-  String get progressToLevel => 'Progress to Level';
-
-  @override
-  String get completed => 'Completed';
+  String playerProgressToLevel(Object level) {
+    return 'Progress to Level';
+  }
 
   @override
   String get overdue => 'Overdue';
-
-  @override
-  String get karma => 'Karma';
-
-  @override
-  String get karmaLevel => 'Karma Level';
-
-  @override
-  String get karmaDescription => 'Habit karma level reflects your consistency.';
-
-  @override
-  String get resetProgress => 'Reset Progress';
-
-  @override
-  String get resetProgressTitle => 'Reset Progress?';
-
-  @override
-  String get resetProgressDescription => 'This action will permanently reset:';
-
-  @override
-  String get resetWarningExperience => 'All player experience and level';
-
-  @override
-  String get resetWarningHabits => 'Completion history of all habits';
-
-  @override
-  String get resetWarningKarma => 'Karma levels of all habits';
-
-  @override
-  String get resetTasksUnaffected => 'Tasks will not be affected.';
-
-  @override
-  String get resetCannotUndone => 'This action cannot be undone!';
-
-  @override
-  String get resetCancel => 'Cancel';
-
-  @override
-  String get resetConfirm => 'Reset Progress';
-
-  @override
-  String get resetSuccess => 'Progress has been reset successfully!';
-
-  @override
-  String get progressSettings => 'Settings';
 
   @override
   String get goalMotivation => 'Goal Motivation';
@@ -181,6 +127,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get portuguese => 'Portuguese';
+
+  @override
+  String get polish => 'Polish';
+
+  @override
+  String get italian => 'Italian';
+
+  @override
+  String get dutch => 'Dutch';
+
+  @override
+  String get swedish => 'Swedish';
+
+  @override
+  String get norwegian => 'Norwegian';
+
+  @override
+  String get finnish => 'Finnish';
+
+  @override
+  String get armenian => 'Armenian';
+
+  @override
+  String get turkish => 'Turkish';
 
   @override
   String get chinese => 'Chinese';
@@ -274,7 +244,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String habitItemExperience(Object experience) {
-    return '$experience XP';
+    return '$experience EXP';
   }
 
   @override
@@ -283,12 +253,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String habitItemTodayCount(Object currentCount) {
-    return '$currentCount today';
+  String habitItemDoneSequence(Object karma) {
+    return '$karma streak';
   }
-
-  @override
-  String get habitItemNotToday => 'Not today';
 
   @override
   String get habitItemEditTooltip => 'Edit habit';
@@ -318,7 +285,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ This will remove $xpAmount XP from your player!';
+    return '⚠️ This will remove $xpAmount EXP from your player!';
   }
 
   @override
@@ -389,7 +356,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get taskCategoryGeneral => 'General';
 
   @override
-  String get taskCategoryHove => 'Home';
+  String get taskCategoryHome => 'Home';
 
   @override
   String get taskCategorySocial => 'Social';
@@ -404,25 +371,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tasksTabEmptySubtitle => 'Tap the + button to add your first task';
 
   @override
-  String get tasksTabTotal => 'Total';
-
-  @override
-  String get tasksTabPending => 'Pending';
-
-  @override
-  String get tasksTabDone => 'Done';
-
-  @override
-  String tasksTabPendingHeader(Object count) {
-    return 'Pending Tasks ($count)';
-  }
-
-  @override
   String get tasksTabCompletedHeader => 'Completed Tasks';
 
   @override
   String tasksTabExperience(Object experience) {
-    return '$experience XP';
+    return '$experience EXP';
   }
 
   @override
@@ -441,7 +394,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ This will remove $xpAmount XP from your player!';
+    return '⚠️ This will remove $xpAmount EXP from your player!';
   }
 
   @override
@@ -529,13 +482,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weekdaySunday => 'Sun';
 
   @override
-  String get dayResetHour => 'Day Reset Hour';
+  String get resetProgress => 'Reset Progress';
 
   @override
-  String dayResetHourDescription(Object hour) {
-    return 'New day starts at $hour:00';
-  }
+  String get resetConfirmationTitle => 'Reset';
 
   @override
-  String get dayResetHourLabel => 'Set the hour when a new day begins (0-23)';
+  String get resetConfirmationMessage => 'Are you sure you want to reset your progress? This will reset settings, goal, level and experience and set creation date to now. Your habits and tasks, although, are not affected. This action cannot be undone.';
+
+  @override
+  String get resetSuccess => 'Progress data has been reset successfully!';
 }

@@ -3,17 +3,25 @@ template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 output-class: AppLocalizations
 supported-locales:
-  - en
-  - ru
+  - ar
   - de
-  - fr
+  - en
   - es
-  - pt
-  - zh
+  - fi
+  - fr
+  - he
+  - hi
+  - hy
+  - it
   - ja
   - ko
-  - hi
-  - ar
-  - he
+  - nl
+  - no
+  - pl
+  - pt
+  - ru
+  - sv
+  - tr
+  - zh
 nullable-getter: false
 untranslated-messages-file: UNTRANSLATED.txt

@@ -7,16 +7,24 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
 import 'app_localizations_ch.dart';
+import 'app_localizations_da.dart';
 import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
+import 'app_localizations_fi.dart';
 import 'app_localizations_fr.dart';
 import 'app_localizations_he.dart';
 import 'app_localizations_hi.dart';
+import 'app_localizations_hy.dart';
+import 'app_localizations_it.dart';
 import 'app_localizations_ja.dart';
 import 'app_localizations_ko.dart';
+import 'app_localizations_no.dart';
+import 'app_localizations_pl.dart';
 import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_sv.dart';
+import 'app_localizations_tr.dart';
 
 // ignore_for_file: type=lint
 
@@ -103,16 +111,24 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
     Locale('ch'),
+    Locale('da'),
     Locale('de'),
     Locale('en'),
     Locale('es'),
+    Locale('fi'),
     Locale('fr'),
     Locale('he'),
     Locale('hi'),
+    Locale('hy'),
+    Locale('it'),
     Locale('ja'),
     Locale('ko'),
+    Locale('no'),
+    Locale('pl'),
     Locale('pt'),
-    Locale('ru')
+    Locale('ru'),
+    Locale('sv'),
+    Locale('tr')
   ];
 
   /// No description provided for @appTitle.
@@ -205,12 +221,6 @@ abstract class AppLocalizations {
   /// **'Habits Done'**
   String get habitsDone;
 
-  /// No description provided for @habitsNumberToday.
-  ///
-  /// In en, this message translates to:
-  /// **'{habitsNumber} today'**
-  String habitsNumberToday(Object habitsNumber);
-
   /// No description provided for @tasks.
   ///
   /// In en, this message translates to:
@@ -283,101 +293,17 @@ abstract class AppLocalizations {
   /// **'Level up your life!'**
   String get defaultGoal;
 
-  /// No description provided for @progress.
-  ///
-  /// In en, this message translates to:
-  /// **'Progress'**
-  String get progress;
-
-  /// No description provided for @progressToLevel.
+  /// No description provided for @playerProgressToLevel.
   ///
   /// In en, this message translates to:
   /// **'Progress to Level'**
-  String get progressToLevel;
-
-  /// No description provided for @completed.
-  ///
-  /// In en, this message translates to:
-  /// **'Completed'**
-  String get completed;
+  String playerProgressToLevel(Object level);
 
   /// No description provided for @overdue.
   ///
   /// In en, this message translates to:
   /// **'Overdue'**
   String get overdue;
-
-  /// No description provided for @karma.
-  ///
-  /// In en, this message translates to:
-  /// **'Karma'**
-  String get karma;
-
-  /// No description provided for @karmaLevel.
-  ///
-  /// In en, this message translates to:
-  /// **'Karma Level'**
-  String get karmaLevel;
-
-  /// No description provided for @karmaDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Habit karma level reflects your consistency.'**
-  String get karmaDescription;
-
-  /// No description provided for @resetProgress.
-  ///
-  /// In en, this message translates to:
-  /// **'Reset Progress'**
-  String get resetProgress;
-
-  /// No description provided for @resetProgressTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Reset Progress?'**
-  String get resetProgressTitle;
-
-  /// No description provided for @resetProgressDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'This action will permanently reset:'**
-  String get resetProgressDescription;
-
-  /// No description provided for @resetWarningExperience.
-  ///
-  /// In en, this message translates to:
-  /// **'All player experience and level'**
-  String get resetWarningExperience;
-
-  /// No description provided for @resetWarningHabits.
-  ///
-  /// In en, this message translates to:
-  /// **'Completion history of all habits'**
-  String get resetWarningHabits;
-
-  /// No description provided for @resetWarningKarma.
-  ///
-  /// In en, this message translates to:
-  /// **'Karma levels of all habits'**
-  String get resetWarningKarma;
-
-  /// No description provided for @resetTasksUnaffected.
-  ///
-  /// In en, this message translates to:
-  /// **'Tasks will not be affected.'**
-  String get resetTasksUnaffected;
-
-  /// No description provided for @resetCannotUndone.
-  ///
-  /// In en, this message translates to:
-  /// **'This action cannot be undone!'**
-  String get resetCannotUndone;
-
-  /// No description provided for @progressSettings.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get progressSettings;
 
   /// No description provided for @goalMotivation.
   ///
@@ -432,6 +358,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Portuguese'**
   String get portuguese;
+
+  /// No description provided for @polish.
+  ///
+  /// In en, this message translates to:
+  /// **'Polish'**
+  String get polish;
+
+  /// No description provided for @italian.
+  ///
+  /// In en, this message translates to:
+  /// **'Italian'**
+  String get italian;
+
+  /// No description provided for @dutch.
+  ///
+  /// In en, this message translates to:
+  /// **'Dutch'**
+  String get dutch;
+
+  /// No description provided for @swedish.
+  ///
+  /// In en, this message translates to:
+  /// **'Swedish'**
+  String get swedish;
+
+  /// No description provided for @norwegian.
+  ///
+  /// In en, this message translates to:
+  /// **'Norwegian'**
+  String get norwegian;
+
+  /// No description provided for @finnish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finnish'**
+  String get finnish;
+
+  /// No description provided for @armenian.
+  ///
+  /// In en, this message translates to:
+  /// **'Armenian'**
+  String get armenian;
+
+  /// No description provided for @turkish.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkish'**
+  String get turkish;
 
   /// No description provided for @chinese.
   ///
@@ -604,7 +578,7 @@ abstract class AppLocalizations {
   /// No description provided for @habitItemExperience.
   ///
   /// In en, this message translates to:
-  /// **'{experience} XP'**
+  /// **'{experience} EXP'**
   String habitItemExperience(Object experience);
 
   /// No description provided for @habitItemMinCompletion.
@@ -613,17 +587,11 @@ abstract class AppLocalizations {
   /// **'min {minCompletionCount}'**
   String habitItemMinCompletion(Object minCompletionCount);
 
-  /// No description provided for @habitItemTodayCount.
+  /// No description provided for @habitItemDoneSequence.
   ///
   /// In en, this message translates to:
-  /// **'{currentCount} today'**
-  String habitItemTodayCount(Object currentCount);
-
-  /// No description provided for @habitItemNotToday.
-  ///
-  /// In en, this message translates to:
-  /// **'Not today'**
-  String get habitItemNotToday;
+  /// **'{karma} streak'**
+  String habitItemDoneSequence(Object karma);
 
   /// No description provided for @habitItemEditTooltip.
   ///
@@ -676,7 +644,7 @@ abstract class AppLocalizations {
   /// No description provided for @habitItemDeleteConfirmationWarning.
   ///
   /// In en, this message translates to:
-  /// **'⚠️ This will remove {xpAmount} XP from your player!'**
+  /// **'⚠️ This will remove {xpAmount} EXP from your player!'**
   String habitItemDeleteConfirmationWarning(Object xpAmount);
 
   /// No description provided for @habitItemDeleteConfirmationCancel.
@@ -805,11 +773,11 @@ abstract class AppLocalizations {
   /// **'General'**
   String get taskCategoryGeneral;
 
-  /// No description provided for @taskCategoryHove.
+  /// No description provided for @taskCategoryHome.
   ///
   /// In en, this message translates to:
   /// **'Home'**
-  String get taskCategoryHove;
+  String get taskCategoryHome;
 
   /// No description provided for @taskCategorySocial.
   ///
@@ -835,30 +803,6 @@ abstract class AppLocalizations {
   /// **'Tap the + button to add your first task'**
   String get tasksTabEmptySubtitle;
 
-  /// No description provided for @tasksTabTotal.
-  ///
-  /// In en, this message translates to:
-  /// **'Total'**
-  String get tasksTabTotal;
-
-  /// No description provided for @tasksTabPending.
-  ///
-  /// In en, this message translates to:
-  /// **'Pending'**
-  String get tasksTabPending;
-
-  /// No description provided for @tasksTabDone.
-  ///
-  /// In en, this message translates to:
-  /// **'Done'**
-  String get tasksTabDone;
-
-  /// No description provided for @tasksTabPendingHeader.
-  ///
-  /// In en, this message translates to:
-  /// **'Pending Tasks ({count})'**
-  String tasksTabPendingHeader(Object count);
-
   /// No description provided for @tasksTabCompletedHeader.
   ///
   /// In en, this message translates to:
@@ -868,7 +812,7 @@ abstract class AppLocalizations {
   /// No description provided for @tasksTabExperience.
   ///
   /// In en, this message translates to:
-  /// **'{experience} XP'**
+  /// **'{experience} EXP'**
   String tasksTabExperience(Object experience);
 
   /// No description provided for @tasksTabEditTooltip.
@@ -898,7 +842,7 @@ abstract class AppLocalizations {
   /// No description provided for @tasksTabDeleteConfirmationWarning.
   ///
   /// In en, this message translates to:
-  /// **'⚠️ This will remove {xpAmount} XP from your player!'**
+  /// **'⚠️ This will remove {xpAmount} EXP from your player!'**
   String tasksTabDeleteConfirmationWarning(Object xpAmount);
 
   /// No description provided for @tasksTabDeleteConfirmationCancel.
@@ -1045,29 +989,11 @@ abstract class AppLocalizations {
   /// **'Sun'**
   String get weekdaySunday;
 
-  /// No description provided for @dayResetHour.
+  /// No description provided for @resetProgress.
   ///
   /// In en, this message translates to:
-  /// **'Day Reset Hour'**
-  String get dayResetHour;
-
-  /// No description provided for @dayResetHourDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'New day starts at {hour}:00'**
-  String dayResetHourDescription(Object hour);
-
-  /// No description provided for @dayResetHourLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Set the hour when a new day begins (0-23)'**
-  String get dayResetHourLabel;
-
-  /// No description provided for @reset.
-  ///
-  /// In en, this message translates to:
-  /// **'Reset'**
-  String get reset;
+  /// **'Reset Progress'**
+  String get resetProgress;
 
   /// No description provided for @resetConfirmationTitle.
   ///
@@ -1097,7 +1023,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'ch', 'de', 'en', 'es', 'fr', 'he', 'hi', 'ja', 'ko', 'pt', 'ru'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'ch', 'da', 'de', 'en', 'es', 'fi', 'fr', 'he', 'hi', 'hy', 'it', 'ja', 'ko', 'no', 'pl', 'pt', 'ru', 'sv', 'tr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1110,16 +1036,24 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'ar': return AppLocalizationsAr();
     case 'ch': return AppLocalizationsCh();
+    case 'da': return AppLocalizationsDa();
     case 'de': return AppLocalizationsDe();
     case 'en': return AppLocalizationsEn();
     case 'es': return AppLocalizationsEs();
+    case 'fi': return AppLocalizationsFi();
     case 'fr': return AppLocalizationsFr();
     case 'he': return AppLocalizationsHe();
     case 'hi': return AppLocalizationsHi();
+    case 'hy': return AppLocalizationsHy();
+    case 'it': return AppLocalizationsIt();
     case 'ja': return AppLocalizationsJa();
     case 'ko': return AppLocalizationsKo();
+    case 'no': return AppLocalizationsNo();
+    case 'pl': return AppLocalizationsPl();
     case 'pt': return AppLocalizationsPt();
     case 'ru': return AppLocalizationsRu();
+    case 'sv': return AppLocalizationsSv();
+    case 'tr': return AppLocalizationsTr();
   }
 
   throw FlutterError(

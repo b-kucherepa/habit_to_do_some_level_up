@@ -30,7 +30,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get editTask => 'Редактировать задачу';
 
   @override
-  String get toNext => 'До следующего';
+  String get toNext => 'Ещё';
 
   @override
   String get completeDayHint => 'Завершить пропущенный день';
@@ -51,12 +51,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habits => 'Привычки';
 
   @override
-  String get habitsDone => 'Привычки выполнены';
-
-  @override
-  String habitsNumberToday(Object habitsNumber) {
-    return '$habitsNumber сегодня';
-  }
+  String get habitsDone => 'Выполнено привычек';
 
   @override
   String get tasks => 'Задачи';
@@ -65,7 +60,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tasksDue => 'Задачи к выполнению';
 
   @override
-  String get tasksDone => 'Задачи выполнены';
+  String get tasksDone => 'Выполнено задач';
 
   @override
   String get level => 'Уровень';
@@ -74,7 +69,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get todaysProgress => 'Сегодняшний прогресс';
 
   @override
-  String get experienceShort => 'ОП';
+  String get experienceShort => 'Опыт';
 
   @override
   String get congratulations => 'Поздравляем!';
@@ -89,77 +84,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String dontForgetToUseAchievenents(Object goal) {
-    return 'Не забудьте использовать свои достижения, чтобы... $goal!';
+    return 'Не забывайте использовать свои достижения для... $goal!';
   }
 
   @override
   String get goal => 'Цель';
 
   @override
-  String get defaultGoal => 'Повысь уровень своей жизни!';
+  String get defaultGoal => 'Прокачать свою жизнь!';
 
   @override
-  String get progress => 'Прогресс';
-
-  @override
-  String get progressToLevel => 'Прогресс до уровня';
-
-  @override
-  String get completed => 'Выполнено';
+  String playerProgressToLevel(Object level) {
+    return 'Прогресс до уровня';
+  }
 
   @override
   String get overdue => 'Просрочено';
 
   @override
-  String get karma => 'Карма';
-
-  @override
-  String get karmaLevel => 'Уровень кармы';
-
-  @override
-  String get karmaDescription => 'Уровень кармы привычки отражает вашу последовательность.';
-
-  @override
-  String get resetProgress => 'Сбросить прогресс';
-
-  @override
-  String get resetProgressTitle => 'Сбросить прогресс?';
-
-  @override
-  String get resetProgressDescription => 'Это действие навсегда сбросит:';
-
-  @override
-  String get resetWarningExperience => 'Весь опыт и уровень игрока';
-
-  @override
-  String get resetWarningHabits => 'Историю выполнения всех привычек';
-
-  @override
-  String get resetWarningKarma => 'Уровни кармы всех привычек';
-
-  @override
-  String get resetTasksUnaffected => 'Задачи не будут затронуты.';
-
-  @override
-  String get resetCannotUndone => 'Это действие нельзя отменить!';
-
-  @override
-  String get resetCancel => 'Отмена';
-
-  @override
-  String get resetConfirm => 'Сбросить прогресс';
-
-  @override
-  String get resetSuccess => 'Прогресс успешно сброшен!';
-
-  @override
-  String get progressSettings => 'Настройки';
-
-  @override
   String get goalMotivation => 'Мотивация цели';
 
   @override
-  String get goalMotivationHint => 'Для чего вы накапливаете опыт?';
+  String get goalMotivationHint => 'Для чего Вы накапливаете опыт?';
 
   @override
   String get language => 'Язык';
@@ -181,6 +127,30 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get portuguese => 'Португальский';
+
+  @override
+  String get polish => 'Польский';
+
+  @override
+  String get italian => 'Итальянский';
+
+  @override
+  String get dutch => 'Нидерландский';
+
+  @override
+  String get swedish => 'Шведский';
+
+  @override
+  String get norwegian => 'Норвежский';
+
+  @override
+  String get finnish => 'Финский';
+
+  @override
+  String get armenian => 'Армянский';
+
+  @override
+  String get turkish => 'Турецкий';
 
   @override
   String get chinese => 'Китайский';
@@ -205,7 +175,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String curveExponentDescription(Object exponent) {
-    return 'Экспонента кривой: $exponent. Значения <1 облегчают начальные уровни, >1 облегчают последующие уровни';
+    return 'Экспонента кривой: $exponent. Значения <1 облегчают ранние уровни, >1 облегчают поздние уровни';
   }
 
   @override
@@ -213,7 +183,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String experienceMultiplierDescription(Object multiplier) {
-    return 'Множитель опыта: $multiplier. Более высокие значения замедляют повышение уровня';
+    return 'Множитель опыта: $multiplier. Высокие значения замедляют повышение уровня';
   }
 
   @override
@@ -221,7 +191,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String levelFormula(Object exponent, Object multiplier) {
-    return 'Формула: ОП = $multiplier × (Уровень-1)^$exponent';
+    return 'Формула: ОПЫТ = $multiplier × (Уровень-1)^$exponent';
   }
 
   @override
@@ -234,7 +204,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormTitle => 'Название привычки';
 
   @override
-  String get habitFormTitleError => 'Пожалуйста, введите название';
+  String get habitFormTitleError => 'Введите название';
 
   @override
   String get habitFormDescription => 'Описание';
@@ -243,19 +213,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormExperience => 'Очки опыта';
 
   @override
-  String get habitFormExperienceError => 'Пожалуйста, введите значение опыта';
+  String get habitFormExperienceError => 'Введите количество опыта';
 
   @override
-  String get habitFormNumberError => 'Пожалуйста, введите допустимое число';
+  String get habitFormNumberError => 'Введите корректное число';
 
   @override
   String get habitFormMinCompletion => 'Мин. выполнений';
 
   @override
-  String get habitFormMinCompletionError => 'Пожалуйста, введите минимальное количество';
+  String get habitFormMinCompletionError => 'Введите минимальное количество';
 
   @override
-  String get habitFormMinCountError => 'Как минимум 1';
+  String get habitFormMinCountError => 'Не менее 1';
 
   @override
   String get habitFormUpdate => 'Обновить привычку';
@@ -264,13 +234,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitFormSave => 'Сохранить привычку';
 
   @override
-  String get habitFormWeeklyError => 'Пожалуйста, выберите хотя бы один день для еженедельного расписания';
+  String get habitFormWeeklyError => 'Выберите хотя бы один день для еженедельного расписания';
 
   @override
-  String get habitFormMonthlyError => 'Пожалуйста, выберите хотя бы один день для ежемесячного расписания';
+  String get habitFormMonthlyError => 'Выберите хотя бы один день для ежемесячного расписания';
 
   @override
-  String get habitFormCustomError => 'Пожалуйста, выберите интервал для пользовательского расписания';
+  String get habitFormCustomError => 'Выберите интервал для пользовательского расписания';
 
   @override
   String habitItemExperience(Object experience) {
@@ -283,12 +253,9 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String habitItemTodayCount(Object currentCount) {
-    return '$currentCount сегодня';
+  String habitItemDoneSequence(Object karma) {
+    return 'серия $karma';
   }
-
-  @override
-  String get habitItemNotToday => 'Не сегодня';
 
   @override
   String get habitItemEditTooltip => 'Редактировать привычку';
@@ -318,7 +285,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String habitItemDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ Это удалит $xpAmount ОП у вашего персонажа!';
+    return '⚠️ Это удалит $xpAmount ОП у вашего игрока!';
   }
 
   @override
@@ -328,7 +295,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitItemDeleteConfirmationDelete => 'Удалить';
 
   @override
-  String get habitsTabEmptyTitle => 'Привычек пока нет!';
+  String get habitsTabEmptyTitle => 'Пока нет привычек!';
 
   @override
   String get habitsTabEmptySubtitle => 'Нажмите кнопку +, чтобы добавить первую привычку';
@@ -337,7 +304,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get taskFormTitle => 'Название задачи';
 
   @override
-  String get taskFormTitleError => 'Пожалуйста, введите название';
+  String get taskFormTitleError => 'Введите название';
 
   @override
   String get taskFormDescription => 'Описание';
@@ -346,10 +313,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get taskFormExperience => 'Очки опыта';
 
   @override
-  String get taskFormExperienceError => 'Пожалуйста, введите значение опыта';
+  String get taskFormExperienceError => 'Введите количество опыта';
 
   @override
-  String get taskFormNumberError => 'Пожалуйста, введите допустимое число';
+  String get taskFormNumberError => 'Введите корректное число';
 
   @override
   String taskFormDueDateLabel(Object date) {
@@ -389,33 +356,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get taskCategoryGeneral => 'Общее';
 
   @override
-  String get taskCategoryHove => 'Дом';
+  String get taskCategoryHome => 'Дом';
 
   @override
-  String get taskCategorySocial => 'Общение';
+  String get taskCategorySocial => 'Социальное';
 
   @override
   String get taskCategoryOther => 'Другое';
 
   @override
-  String get tasksTabEmptyTitle => 'Задач пока нет!';
+  String get tasksTabEmptyTitle => 'Пока нет задач!';
 
   @override
   String get tasksTabEmptySubtitle => 'Нажмите кнопку +, чтобы добавить первую задачу';
-
-  @override
-  String get tasksTabTotal => 'Всего';
-
-  @override
-  String get tasksTabPending => 'В ожидании';
-
-  @override
-  String get tasksTabDone => 'Выполнено';
-
-  @override
-  String tasksTabPendingHeader(Object count) {
-    return 'Текущие задачи ($count)';
-  }
 
   @override
   String get tasksTabCompletedHeader => 'Выполненные задачи';
@@ -441,7 +394,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String tasksTabDeleteConfirmationWarning(Object xpAmount) {
-    return '⚠️ Это удалит $xpAmount ОП у вашего персонажа!';
+    return '⚠️ Это удалит $xpAmount ОП у вашего игрока!';
   }
 
   @override
@@ -467,7 +420,7 @@ class AppLocalizationsRu extends AppLocalizations {
       other: '$days дней назад',
       many: '$days дней назад',
       few: '$days дня назад',
-      one: '1 день назад',
+      one: '$days день назад',
     );
     return '$_temp0';
   }
@@ -480,7 +433,7 @@ class AppLocalizationsRu extends AppLocalizations {
       other: '$days дней',
       many: '$days дней',
       few: '$days дня',
-      one: '1 день',
+      one: '$days день',
     );
     return 'Через $_temp0';
   }
@@ -523,7 +476,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get scheduleCustomError => 'Пожалуйста, выберите интервал';
+  String get scheduleCustomError => 'Выберите интервал';
 
   @override
   String get weekdayMonday => 'Пн';
@@ -545,4 +498,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get weekdaySunday => 'Вс';
+
+  @override
+  String get resetProgress => 'Сбросить прогресс';
+
+  @override
+  String get resetConfirmationTitle => 'Сброс';
+
+  @override
+  String get resetConfirmationMessage => 'Вы уверены, что хотите сбросить свой прогресс? Это сбросит настройки, цель, уровень и опыт, а также установит дату создания на текущую. Ваши привычки и задачи не будут затронуты. Это действие нельзя отменить.';
+
+  @override
+  String get resetSuccess => 'Данные прогресса успешно сброшены!';
 }
