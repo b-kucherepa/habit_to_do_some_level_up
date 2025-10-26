@@ -31,7 +31,7 @@ class TaskItemWidget extends StatelessWidget {
         borderRadius:
             BorderRadius.circular(Styles.entryCardRadius), // Радиус скругления
       ),
-      shadowColor: Styles.shadowColor.withValues(alpha: 0.5),
+      shadowColor: Styles.shadowColor,
       margin: EdgeInsets.only(bottom: Styles.getGap('S')),
       color: backgroundColor ??
           (task.completed

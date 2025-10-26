@@ -77,12 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget? _buildFloatingActionButton() => switch (_selectedIndex) {
         1 => FloatingActionButton(
             onPressed: () => _navigateToAddHabit(context),
-            backgroundColor: Styles.habitAccentColor,
+            backgroundColor: Styles.getAppBarColor(_selectedIndex),
             child: Styles.addButtonLargeIcon,
           ),
         2 => FloatingActionButton(
             onPressed: () => _navigateToAddTask(context),
-            backgroundColor: Styles.taskAccentColor,
+            backgroundColor: Styles.getAppBarColor(_selectedIndex),
             child: Styles.addButtonLargeIcon,
           ),
         _ => null

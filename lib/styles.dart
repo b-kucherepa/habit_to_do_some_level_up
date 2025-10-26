@@ -14,7 +14,7 @@ class Styles {
   static const Color subTextColor = Color.fromARGB(255, 120, 120, 120);
   static const Color lightTextColor = Color.fromARGB(255, 200, 200, 200);
 
-  static const Color shadowColor = Colors.black;
+  static const Color shadowColor = basicTextColor;
 
   static const Color contrastHeaderFontColor = foregroundColor;
 
@@ -62,17 +62,17 @@ class Styles {
   static const Color tabsBackColor = fargroundColor;
   static const Color navigatorBackColor = foregroundColor;
   static const Color playerAccentColor = Color.fromARGB(255, 0, 140, 240);
-  static const Color habitAccentColor = Color.fromARGB(255, 120, 0, 230);
-  static const Color taskAccentColor = Color.fromARGB(255, 40, 220, 80);
+  static const Color habitAccentColor = Color.fromARGB(255, 150, 0, 240);
+  static const Color taskAccentColor = Color.fromARGB(255, 30, 210, 80);
   static const Color levelUpAccentColor = Color.fromARGB(255, 240, 150, 0);
 
   static Color getAppBarColor(int index) =>
       _appBarColor[index] ?? fallbackColor;
 
-  static const Map<int, Color> _appBarColor = {
-    0: playerAccentColor,
-    1: habitAccentColor,
-    2: taskAccentColor,
+  static final Map<int, Color> _appBarColor = {
+    0: playerAccentColor.withAlpha(220),
+    1: habitAccentColor.withAlpha(220),
+    2: taskAccentColor.withAlpha(220),
   };
 
   static final Icon playerTabIcon = Icon(Icons.person_outline_outlined);
@@ -81,7 +81,7 @@ class Styles {
 
   //Common entries:
   static const Color entryUncompletedBackColor = foregroundColor;
-  static const Color entryCardSidesColor = Color.fromARGB(255, 230, 230, 230);
+  static const Color entryCardSidesColor = Color.fromARGB(20, 0, 0, 0);
 
   static final Icon editEntryIcon =
       Icon(Icons.edit_note_outlined, color: subTextColor, size: getGap('XL'));
@@ -308,9 +308,9 @@ class Styles {
   static Icon getPlayerLevelIcon(int level) =>
       Icon(Icons.star_rate, size: getIconSize('M'), color: levelUpAccentColor);
   static Icon getPlayerExperienceIcon(int level) => Icon(Icons.flare_outlined,
-      size: getIconSize('M'), color: habitAccentColor);
+      size: getIconSize('M'), color: taskAccentColor);
   static Icon getPlayerNextLevelIcon(int level) =>
-      Icon(Icons.place, size: getIconSize('M'), color: taskAccentColor);
+      Icon(Icons.place, size: getIconSize('M'), color: habitAccentColor);
 
   /* static Icon getPlayerLevelIcon(int level) => Icon(Icons.star,
       size: getIconSize('S'), color: getPlayerFrontColor(level));
@@ -467,9 +467,8 @@ class Styles {
 
   //Habit form:
   static final Color habitFormFrontColor = habitAccentColor;
-  static final Color habitFormBorderColor = Color.fromARGB(255, 110, 60, 160);
-  static final Color habitChipSelectedColor =
-      habitAccentColor.withValues(alpha: 0.3);
+  static final Color habitFormBorderColor = Color.fromARGB(255, 120, 60, 160);
+  static final Color habitChipSelectedColor = habitAccentColor.withAlpha(80);
 
   static final TextStyle scheduleChipFont =
       TextStyle(color: basicTextColor, fontSize: getFontSize('M'));
@@ -488,7 +487,7 @@ class Styles {
 
   //Tasks entry card:
   static const Color taskCompletedBackColor =
-      Color.fromARGB(255, 235, 255, 235);
+      Color.fromARGB(255, 230, 255, 235);
 
   static final TextStyle tasksCompletedHeaderFont =
       TextStyle(fontSize: getFontSize('XXL'), fontWeight: FontWeight.bold);
