@@ -353,9 +353,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get taskCategoryLearning => '학습';
 
   @override
-  String get taskCategoryGeneral => '일반';
-
-  @override
   String get taskCategoryHome => '가정';
 
   @override

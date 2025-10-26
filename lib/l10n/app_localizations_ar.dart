@@ -353,9 +353,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get taskCategoryLearning => 'تعلم';
 
   @override
-  String get taskCategoryGeneral => 'عام';
-
-  @override
   String get taskCategoryHome => 'منزل';
 
   @override

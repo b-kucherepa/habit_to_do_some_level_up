@@ -353,9 +353,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get taskCategoryLearning => 'Обучение';
 
   @override
-  String get taskCategoryGeneral => 'Общее';
-
-  @override
   String get taskCategoryHome => 'Дом';
 
   @override

@@ -7,15 +7,15 @@ class Task {
   static const defaultPriority = 3;
   static const minPriority = 1;
   static const maxPriority = 5;
-  static const defaultCategory = 'general';
+  static const defaultCategory = 'other';
   static const List<String> taskCategories = [
-    'general',
     'work',
     'personal',
     'health',
     'learning',
     'home',
-    'social'
+    'social',
+    'other'
   ];
 
   @HiveField(0)

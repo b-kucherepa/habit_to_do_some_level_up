@@ -233,55 +233,19 @@ class HabitItemWidget extends StatelessWidget {
   }
 
   Widget _buildScheduleBadge(BuildContext context) {
-    final color = Styles.getHabitScheduleColor(habit.scheduleType);
-    final icon = Styles.getHabitScheduleIcon(habit.scheduleType);
-    final textStyle = Styles.getHabitScheduleFont(habit.scheduleType);
-    final text = switch (habit.scheduleType) {
-      'daily' => context.l10n.habitItemScheduleDaily,
-      'weekly' => context.l10n.habitItemScheduleWeekly,
-      'monthly' => context.l10n.habitItemScheduleMonthly,
-      'custom' => context.l10n.habitItemScheduleCustom,
-      _ => habit.scheduleType,
-    };
-
     return Container(
-      width: Styles.habitScheduleBadgeWidth,
-      height: Styles.habitScheduleBadgeHeight,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(Styles.getRadius('M')),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          icon,
-          SizedBox(width: Styles.getGap('XS')),
-          Text(
-            text,
-            style: textStyle,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+      child: Styles.getHabitScheduleIcon(habit.scheduleType),
     );
   }
 
   Widget _buildKarmaBadge(BuildContext context) {
-    final color = Styles.getKarmaLevelColor(habit.karmaLevel);
     final icon = Styles.getKarmaIcon(habit.karmaLevel);
     final textStyle = Styles.getKarmaFont(habit.karmaLevel);
 
     return Container(
       width: Styles.karmaBadgeWidth,
-      height: Styles.karmaBadgeHeight,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(Styles.getRadius('M')),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           icon,
           SizedBox(width: Styles.getGap('XS')),

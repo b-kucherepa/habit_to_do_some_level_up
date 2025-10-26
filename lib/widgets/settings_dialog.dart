@@ -285,7 +285,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(Styles.getGap('M')),
+      padding: EdgeInsets.all(Styles.getGap('XXL')),
       decoration: BoxDecoration(
         color: Styles.expPreviewChartBackColor,
         borderRadius: BorderRadius.circular(Styles.getRadius('S')),

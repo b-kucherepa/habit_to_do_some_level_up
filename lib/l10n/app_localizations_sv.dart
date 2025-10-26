@@ -353,9 +353,6 @@ class AppLocalizationsSv extends AppLocalizations {
   String get taskCategoryLearning => 'Inlärning';
 
   @override
-  String get taskCategoryGeneral => 'Allmänt';
-
-  @override
   String get taskCategoryHome => 'Hem';
 
   @override

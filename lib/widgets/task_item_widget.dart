@@ -151,36 +151,18 @@ class TaskItemWidget extends StatelessWidget {
   }
 
   Widget _buildCategoryRow(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: Styles.getGap('S'),
-            vertical: Styles.getGap('XS'),
+    return Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Styles.getTaskCategoryIcon(task.category),
+          SizedBox(width: Styles.getGap('XS')),
+          Text(
+            _getLocalizedCategory(context, task.category),
+            style: Styles.getTaskCategoryFont(task.category),
           ),
-          decoration: BoxDecoration(
-            color: Styles.taskCategoryBackColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(Styles.getRadius('S')),
-            border: Border.all(
-                color: Styles.taskCategoryBackColor.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.label_outline,
-                size: 16,
-                color: Styles.taskCategoryBackColor,
-              ),
-              SizedBox(width: Styles.getGap('XS')),
-              Text(
-                _getLocalizedCategory(context, task.category),
-                style: Styles.taskCategory,
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -240,7 +222,6 @@ class TaskItemWidget extends StatelessWidget {
 
   String _getLocalizedCategory(BuildContext context, String category) =>
       switch (category) {
-        'general' => context.l10n.taskCategoryGeneral,
         'home' => context.l10n.taskCategoryHome,
         'social' => context.l10n.taskCategorySocial,
         'work' => context.l10n.taskCategoryWork,
@@ -248,7 +229,7 @@ class TaskItemWidget extends StatelessWidget {
         'health' => context.l10n.taskCategoryHealth,
         'learning' => context.l10n.taskCategoryLearning,
         'other' => context.l10n.taskCategoryOther,
-        _ => _capitalizeFirstLetter(category),
+        _ => context.l10n.taskCategoryOther,
       };
 
   String _capitalizeFirstLetter(String text) {

@@ -353,9 +353,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get taskCategoryLearning => 'Apprendimento';
 
   @override
-  String get taskCategoryGeneral => 'Generale';
-
-  @override
   String get taskCategoryHome => 'Casa';
 
   @override

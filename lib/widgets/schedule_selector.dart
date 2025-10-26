@@ -42,13 +42,45 @@ class ScheduleSelector extends StatelessWidget {
       initialValue: scheduleType,
       items: [
         DropdownMenuItem(
-            value: 'daily', child: Text(context.l10n.scheduleTypeDaily)),
+            value: 'daily',
+            child: Wrap(children: [
+              Styles.getHabitScheduleIcon('daily'),
+              SizedBox(width: Styles.getGap("S")),
+              Text(
+                context.l10n.scheduleTypeDaily,
+                style: Styles.getHabitScheduleFont('daily'),
+              )
+            ])),
         DropdownMenuItem(
-            value: 'weekly', child: Text(context.l10n.scheduleTypeWeekly)),
+            value: 'weekly',
+            child: Wrap(children: [
+              Styles.getHabitScheduleIcon('weekly'),
+              SizedBox(width: Styles.getGap("S")),
+              Text(
+                context.l10n.scheduleTypeWeekly,
+                style: Styles.getHabitScheduleFont('weekly'),
+              )
+            ])),
         DropdownMenuItem(
-            value: 'monthly', child: Text(context.l10n.scheduleTypeMonthly)),
+            value: 'monthly',
+            child: Wrap(children: [
+              Styles.getHabitScheduleIcon('monthly'),
+              SizedBox(width: Styles.getGap("S")),
+              Text(
+                context.l10n.scheduleTypeMonthly,
+                style: Styles.getHabitScheduleFont('monthly'),
+              )
+            ])),
         DropdownMenuItem(
-            value: 'custom', child: Text(context.l10n.scheduleTypeCustom)),
+            value: 'custom',
+            child: Wrap(children: [
+              Styles.getHabitScheduleIcon('custom'),
+              SizedBox(width: Styles.getGap("S")),
+              Text(
+                context.l10n.scheduleTypeCustom,
+                style: Styles.getHabitScheduleFont('custom'),
+              )
+            ])),
       ],
       onChanged: (value) => onScheduleTypeChanged(value!),
       decoration: InputDecoration(

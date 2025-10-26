@@ -19,9 +19,9 @@ class Styles {
   static const Color contrastHeaderFontColor = foregroundColor;
 
   static final TextStyle titleFont = TextStyle(
-      fontSize: getFontSize('XXXL'),
+      fontSize: getFontSize('XXL'),
       color: foregroundColor,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.w300,
       fontFamily: 'Noto Sans');
 
   static final TextStyle basicFont =
@@ -62,8 +62,8 @@ class Styles {
   static const Color tabsBackColor = fargroundColor;
   static const Color navigatorBackColor = foregroundColor;
   static const Color playerAccentColor = Color.fromARGB(255, 0, 140, 240);
-  static const Color habitAccentColor = Color.fromARGB(255, 140, 0, 240);
-  static const Color taskAccentColor = Color.fromARGB(255, 50, 220, 100);
+  static const Color habitAccentColor = Color.fromARGB(255, 120, 0, 230);
+  static const Color taskAccentColor = Color.fromARGB(255, 40, 220, 80);
   static const Color levelUpAccentColor = Color.fromARGB(255, 240, 150, 0);
 
   static Color getAppBarColor(int index) =>
@@ -306,11 +306,11 @@ class Styles {
       Icon(Icons.settings, color: subTextColor); //?????
 
   static Icon getPlayerLevelIcon(int level) =>
-      Icon(Icons.star, size: getIconSize('S'), color: playerAccentColor);
-  static Icon getPlayerExperienceIcon(int level) => Icon(Icons.auto_awesome,
-      size: getIconSize('S'), color: playerAccentColor);
+      Icon(Icons.star_rate, size: getIconSize('M'), color: levelUpAccentColor);
+  static Icon getPlayerExperienceIcon(int level) => Icon(Icons.flare_outlined,
+      size: getIconSize('M'), color: habitAccentColor);
   static Icon getPlayerNextLevelIcon(int level) =>
-      Icon(Icons.flag, size: getIconSize('S'), color: playerAccentColor);
+      Icon(Icons.place, size: getIconSize('M'), color: taskAccentColor);
 
   /* static Icon getPlayerLevelIcon(int level) => Icon(Icons.star,
       size: getIconSize('S'), color: getPlayerFrontColor(level));
@@ -396,23 +396,23 @@ class Styles {
       _habitScheduleColor[index] ?? fallbackColor;
 
   static const Map<String, Color> _habitScheduleColor = {
-    'daily': Colors.blue,
-    'weekly': Colors.green,
-    'monthly': Colors.orange,
-    'custom': Colors.purple
+    'daily': Color.fromARGB(255, 0, 140, 240),
+    'weekly': Color.fromARGB(255, 80, 240, 80),
+    'monthly': Color.fromARGB(255, 240, 180, 0),
+    'custom': Color.fromARGB(255, 240, 80, 240)
   };
 
   static Icon getHabitScheduleIcon(String index) =>
       _habitScheduleIcon[index] ?? fallbackIcon;
 
   static final Map<String, Icon> _habitScheduleIcon = {
-    'daily': Icon(Icons.repeat,
+    'daily': Icon(Icons.update,
         size: getIconSize('S'), color: getHabitScheduleColor('daily')),
-    'weekly': Icon(Icons.repeat,
+    'weekly': Icon(Icons.table_chart_outlined,
         size: getIconSize('S'), color: getHabitScheduleColor('weekly')),
-    'monthly': Icon(Icons.repeat,
+    'monthly': Icon(Icons.calendar_month_outlined,
         size: getIconSize('S'), color: getHabitScheduleColor('monthly')),
-    'custom': Icon(Icons.repeat,
+    'custom': Icon(Icons.autorenew_outlined,
         size: getIconSize('S'), color: getHabitScheduleColor('custom'))
   };
 
@@ -438,9 +438,6 @@ class Styles {
         fontWeight: FontWeight.bold)
   };
 
-  static const double habitScheduleBadgeWidth = 88;
-  static const double habitScheduleBadgeHeight = 28;
-
   //Karma:
   static Color getKarmaLevelColor(int index) =>
       _karmaLevelColor[index] ?? fallbackColor;
@@ -458,7 +455,7 @@ class Styles {
     5: Color.fromARGB(255, 30, 140, 250)
   };
 
-  static Icon getKarmaIcon(int index) => Icon(Icons.forward_outlined,
+  static Icon getKarmaIcon(int index) => Icon(Icons.double_arrow_outlined,
       size: getIconSize('S'), color: getKarmaLevelColor(index));
 
   static TextStyle getKarmaFont(int index) => TextStyle(
@@ -466,8 +463,7 @@ class Styles {
       color: getKarmaLevelColor(index),
       fontWeight: FontWeight.bold);
 
-  static const double karmaBadgeWidth = 96;
-  static const double karmaBadgeHeight = 28;
+  static const double karmaBadgeWidth = 90;
 
   //Habit form:
   static final Color habitFormFrontColor = habitAccentColor;
@@ -481,8 +477,8 @@ class Styles {
   static final BorderSide habitFormFocusedBorder =
       BorderSide(color: habitFormFrontColor, width: 2.0);
 
-  static final double scheduleWeeklyChipWidth = 32;
-  static final double scheduleMonthlyChipWidth = 16;
+  static final double scheduleWeeklyChipWidth = 48;
+  static final double scheduleMonthlyChipWidth = 24;
 
 //TASKS:
   static final Icon tasksTabLargeIcon = Icon(
@@ -494,15 +490,10 @@ class Styles {
   static const Color taskCompletedBackColor =
       Color.fromARGB(255, 235, 255, 235);
 
-  static const Color taskCategoryBackColor = subTextColor;
-
-  static final TextStyle taskCategory = TextStyle(fontSize: getFontSize('M'));
-
   static final TextStyle tasksCompletedHeaderFont =
       TextStyle(fontSize: getFontSize('XXL'), fontWeight: FontWeight.bold);
 
   //Tasks stats:
-
   static final TextStyle taskStatLabelDescriptionFont =
       TextStyle(fontSize: getFontSize('L'), color: subTextColor);
 
@@ -543,6 +534,45 @@ class Styles {
         color: getTaskPriorityColor(5),
         fontWeight: FontWeight.bold)
   };
+
+  //Task category:
+  static Color getTaskCategoryColor(String index) =>
+      _getTaskCategoryColor[index] ?? fallbackColor;
+
+  static const Map<String, Color> _getTaskCategoryColor = {
+    'home': Color.fromARGB(255, 0, 120, 240),
+    'social': Color.fromARGB(255, 0, 210, 220),
+    'work': Color.fromARGB(255, 240, 140, 0),
+    'personal': Color.fromARGB(255, 240, 20, 140),
+    'health': Color.fromARGB(255, 20, 220, 80),
+    'learning': Color.fromARGB(255, 110, 20, 240),
+    'other': subTextColor,
+  };
+
+  static Icon getTaskCategoryIcon(String index) =>
+      _taskCategoryIcon[index] ?? fallbackIcon;
+
+  static final Map<String, Icon> _taskCategoryIcon = {
+    'home': Icon(Icons.home_outlined,
+        size: getIconSize('S'), color: getTaskCategoryColor('home')),
+    'social': Icon(Icons.group_outlined,
+        size: getIconSize('S'), color: getTaskCategoryColor('social')),
+    'work': Icon(Icons.work_outline,
+        size: getIconSize('S'), color: getTaskCategoryColor('work')),
+    'personal': Icon(Icons.favorite_border_outlined,
+        size: getIconSize('S'), color: getTaskCategoryColor('personal')),
+    'health': Icon(Icons.eco_outlined,
+        size: getIconSize('S'), color: getTaskCategoryColor('health')),
+    'learning': Icon(Icons.menu_book_outlined,
+        size: getIconSize('S'), color: getTaskCategoryColor('learning')),
+    'other': Icon(Icons.label_outline,
+        size: getIconSize('S'), color: getTaskCategoryColor('label_outline')),
+  };
+
+  static TextStyle getTaskCategoryFont(String index) => TextStyle(
+      fontSize: getFontSize('M'),
+      color: getTaskCategoryColor(index),
+      fontWeight: FontWeight.bold);
 
   //Tasks state:
   static Color getTaskStateColor(String index) =>
@@ -625,7 +655,7 @@ class Styles {
   static const Color levelUpButtonFontColor = foregroundColor;
   static const Color levelUpButtonBackColor = levelUpAccentColor;
 
-  static final Icon levelUpButtonIcon = Icon(Icons.celebration);
+  static final Icon levelUpButtonIcon = Icon(Icons.celebration_sharp);
 
 //DAY COMPLETION:
   static const Color completeDayAccentColor = playerAccentColor;

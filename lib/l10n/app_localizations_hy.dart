@@ -353,9 +353,6 @@ class AppLocalizationsHy extends AppLocalizations {
   String get taskCategoryLearning => 'Ուսուցում';
 
   @override
-  String get taskCategoryGeneral => 'Ընդհանուր';
-
-  @override
   String get taskCategoryHome => 'Տուն';
 
   @override

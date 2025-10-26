@@ -353,9 +353,6 @@ class AppLocalizationsFi extends AppLocalizations {
   String get taskCategoryLearning => 'Opetus';
 
   @override
-  String get taskCategoryGeneral => 'Yleinen';
-
-  @override
   String get taskCategoryHome => 'Koti';
 
   @override

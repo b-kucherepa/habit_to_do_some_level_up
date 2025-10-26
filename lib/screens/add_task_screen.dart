@@ -189,7 +189,14 @@ class _TaskFormState extends State<TaskForm> {
       items: Task.taskCategories.map((String category) {
         return DropdownMenuItem(
           value: category,
-          child: Text(_getLocalizedCategory(context, category)),
+          child: Row(children: [
+            Styles.getTaskCategoryIcon(category),
+            SizedBox(width: Styles.getGap('S')),
+            Text(
+              _getLocalizedCategory(context, category),
+              style: Styles.getTaskCategoryFont(category),
+            )
+          ]),
         );
       }).toList(),
       onChanged: (value) {
@@ -276,7 +283,6 @@ class _TaskFormState extends State<TaskForm> {
 
   String _getLocalizedCategory(BuildContext context, String category) =>
       switch (category) {
-        'general' => context.l10n.taskCategoryGeneral,
         'home' => context.l10n.taskCategoryHome,
         'social' => context.l10n.taskCategorySocial,
         'work' => context.l10n.taskCategoryWork,
@@ -284,12 +290,8 @@ class _TaskFormState extends State<TaskForm> {
         'health' => context.l10n.taskCategoryHealth,
         'learning' => context.l10n.taskCategoryLearning,
         'other' => context.l10n.taskCategoryOther,
-        _ => _capitalizeFirstLetter(category),
+        _ => context.l10n.taskCategoryOther,
       };
-
-  String _capitalizeFirstLetter(String text) {
-    return text[0].toUpperCase() + text.substring(1);
-  }
 
   @override
   void dispose() {

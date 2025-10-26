@@ -767,12 +767,6 @@ abstract class AppLocalizations {
   /// **'Learning'**
   String get taskCategoryLearning;
 
-  /// No description provided for @taskCategoryGeneral.
-  ///
-  /// In en, this message translates to:
-  /// **'General'**
-  String get taskCategoryGeneral;
-
   /// No description provided for @taskCategoryHome.
   ///
   /// In en, this message translates to:
