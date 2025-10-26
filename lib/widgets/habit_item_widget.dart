@@ -242,7 +242,7 @@ class HabitItemWidget extends StatelessWidget {
     final icon = Styles.getKarmaIcon(habit.karmaLevel);
     final textStyle = Styles.getKarmaFont(habit.karmaLevel);
 
-    return Container(
+    return SizedBox(
       width: Styles.karmaBadgeWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

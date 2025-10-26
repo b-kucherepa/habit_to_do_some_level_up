@@ -151,18 +151,16 @@ class TaskItemWidget extends StatelessWidget {
   }
 
   Widget _buildCategoryRow(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Styles.getTaskCategoryIcon(task.category),
-          SizedBox(width: Styles.getGap('XS')),
-          Text(
-            _getLocalizedCategory(context, task.category),
-            style: Styles.getTaskCategoryFont(task.category),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Styles.getTaskCategoryIcon(task.category),
+        SizedBox(width: Styles.getGap('XS')),
+        Text(
+          _getLocalizedCategory(context, task.category),
+          style: Styles.getTaskCategoryFont(task.category),
+        ),
+      ],
     );
   }
 
@@ -231,10 +229,6 @@ class TaskItemWidget extends StatelessWidget {
         'other' => context.l10n.taskCategoryOther,
         _ => context.l10n.taskCategoryOther,
       };
-
-  String _capitalizeFirstLetter(String text) {
-    return text[0].toUpperCase() + text.substring(1);
-  }
 
   Future<void> _showDeleteConfirmation(BuildContext context, Task task) async {
     final shouldDelete = await showDialog<bool>(

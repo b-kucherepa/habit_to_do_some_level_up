@@ -68,10 +68,6 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
         .where((habit) => habit.isDueOnDay(widget.targetDate))
         .toList();
 
-    for (var habit in habitsDueToday) {
-      print(habit.isDueToday());
-    }
-
     return Column(
       children: [
         Padding(
@@ -145,7 +141,6 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
 
   void _completeDay() {
     int totalExperience = 0;
-    print('1:${habitsDueToday.length}');
 
     // Сохраняем выполнения для этого дня и считаем опыт
     for (Habit habit in habitsDueToday) {
@@ -163,8 +158,6 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
         minCompletionCount: habit.minCompletionCount,
         karmaLevel: habit.karmaLevel,
       );
-
-      print('HABIT CALCULATED: ${habit.title}');
 
       if (habit.completionCount > 0) {
         // Начисляем опыт
@@ -212,9 +205,6 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
 
     // Уведомляем об успешном завершении дня
     widget.onDayCompleted(true);
-    print('2:${habitsDueToday.length}');
-
-    print(allHabits.length);
   }
 
   String _formatDate(DateTime date) {

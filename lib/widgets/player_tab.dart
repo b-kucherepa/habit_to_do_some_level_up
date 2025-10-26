@@ -254,12 +254,12 @@ class _PlayerTabState extends State<PlayerTab> {
                               ),
                               _buildOverviewCard(
                                 context.l10n.tasksDone,
-                                '$todaysTasks/$tasksOverall',
+                                '$completedTasks/$tasksOverall',
                                 Styles.playerTasksDoneIcon,
                               ),
                               _buildOverviewCard(
                                 context.l10n.overdue,
-                                '$todaysTasks',
+                                '$overdueTasks',
                                 Styles.playerOverdueIcon,
                               ),
                             ],
