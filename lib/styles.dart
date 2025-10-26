@@ -215,7 +215,8 @@ class Styles {
   static const int expPreviewMaxLevel = 20;
 
   static const double expPreviewXReservedSize = 30;
-  static const double expPreviewXInterval = 2;
+  static const double expPreviewXIntervalWide = 2;
+  static const double expPreviewXIntervalNarrow = 5;
 
   static const double expPreviewYReservedSize = 60;
   static const double expPreviewWidth = 500;

@@ -311,8 +311,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
                       showTitles: true,
                       reservedSize: Styles.expPreviewXReservedSize,
                       interval: Styles.isWideScreen(context)
-                          ? Styles.expPreviewXInterval
-                          : Styles.expPreviewXInterval * 2,
+                          ? Styles.expPreviewXIntervalWide
+                          : Styles.expPreviewXIntervalNarrow,
                       getTitlesWidget: (value, meta) {
                         return Text('L${value.toInt()}');
                       },
@@ -320,6 +320,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   ),
                   leftTitles: AxisTitles(
                     sideTitles: SideTitles(
+                      maxIncluded: false,
                       showTitles: true,
                       reservedSize: Styles.expPreviewYReservedSize,
                       getTitlesWidget: (value, meta) {
