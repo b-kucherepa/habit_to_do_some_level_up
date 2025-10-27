@@ -72,6 +72,7 @@ class _HabitFormState extends State<HabitForm> {
         key: _formKey,
         child: ListView(
           children: [
+            SizedBox(height: Styles.getGap('S')),
             _buildBasicInfoFields(),
             SizedBox(height: Styles.getGap('XL')),
             ScheduleSelector(

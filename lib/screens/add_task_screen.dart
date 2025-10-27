@@ -70,6 +70,7 @@ class _TaskFormState extends State<TaskForm> {
         key: _formKey,
         child: ListView(
           children: [
+            SizedBox(height: Styles.getGap('S')),
             _buildBasicInfoFields(context),
             SizedBox(height: Styles.getGap('L')),
             _buildDueDateSelector(context),

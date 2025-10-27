@@ -241,16 +241,19 @@ class HabitItemWidget extends StatelessWidget {
   Widget _buildKarmaBadge(BuildContext context) {
     final icon = Styles.getKarmaIcon(habit.karmaLevel);
     final textStyle = Styles.getKarmaFont(habit.karmaLevel);
-
+    final formattedKarmaLevel = habit.karmaLevel > 0
+        ? '+${habit.karmaLevel}'
+        : habit.karmaLevel == 0
+            ? ' ${habit.karmaLevel}'
+            : '${habit.karmaLevel}';
     return SizedBox(
-      width: Styles.karmaBadgeWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           icon,
           SizedBox(width: Styles.getGap('XS')),
           Text(
-            context.l10n.habitItemDoneSequence(habit.karmaLevel),
+            context.l10n.habitItemDoneSequence(formattedKarmaLevel),
             style: textStyle,
             textAlign: TextAlign.center,
           ),

@@ -417,27 +417,11 @@ class Styles {
         size: getIconSize('S'), color: getHabitScheduleColor('custom'))
   };
 
-  static TextStyle getHabitScheduleFont(String index) =>
-      _habitScheduleFont[index] ?? fallbackFont;
-
-  static final Map<String, TextStyle> _habitScheduleFont = {
-    'daily': TextStyle(
-        fontSize: getFontSize('M'),
-        color: getHabitScheduleColor('daily'),
-        fontWeight: FontWeight.bold),
-    'weekly': TextStyle(
-        fontSize: getFontSize('M'),
-        color: getHabitScheduleColor('weekly'),
-        fontWeight: FontWeight.bold),
-    'monthly': TextStyle(
-        fontSize: getFontSize('M'),
-        color: getHabitScheduleColor('monthly'),
-        fontWeight: FontWeight.bold),
-    'custom': TextStyle(
-        fontSize: getFontSize('M'),
-        color: getHabitScheduleColor('custom'),
-        fontWeight: FontWeight.bold)
-  };
+  static TextStyle getHabitScheduleFont(String index) => TextStyle(
+      fontSize: getFontSize('M'),
+      color: getHabitScheduleColor(index),
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto Monospace');
 
   //Karma:
   static Color getKarmaLevelColor(int index) =>
@@ -462,9 +446,10 @@ class Styles {
   static TextStyle getKarmaFont(int index) => TextStyle(
       fontSize: getFontSize('M'),
       color: getKarmaLevelColor(index),
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto Monospace');
 
-  static const double karmaBadgeWidth = 90;
+  static const double karmaBadgeWidth = 100;
 
   //Habit form:
   static final Color habitFormFrontColor = habitAccentColor;
@@ -572,7 +557,8 @@ class Styles {
   static TextStyle getTaskCategoryFont(String index) => TextStyle(
       fontSize: getFontSize('M'),
       color: getTaskCategoryColor(index),
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto Monospace');
 
   //Tasks state:
   static Color getTaskStateColor(String index) =>
