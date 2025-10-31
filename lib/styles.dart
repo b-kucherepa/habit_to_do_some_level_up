@@ -63,8 +63,8 @@ class Styles {
   static const Color navigatorBackColor = foregroundColor;
   static const Color playerAccentColor = Color.fromARGB(255, 0, 140, 240);
   static const Color habitAccentColor = Color.fromARGB(255, 140, 0, 240);
-  static const Color taskAccentColor = Color.fromARGB(255, 80, 220, 80);
-  static const Color levelUpAccentColor = Color.fromARGB(255, 240, 170, 0);
+  static const Color taskAccentColor = Color.fromARGB(255, 50, 220, 100);
+  static const Color levelUpAccentColor = Color.fromARGB(255, 240, 150, 0);
 
   static Color getAppBarColor(int index) =>
       _appBarColor[index] ?? fallbackColor;
@@ -185,7 +185,8 @@ class Styles {
   };
 
 //SETTINGS:
-  static final Icon settingsIcon = Icon(Icons.settings, color: Colors.blue);
+  static final Icon settingsIcon =
+      Icon(Icons.settings, color: playerAccentColor);
   static final Icon languageOptionIcon =
       Icon(Icons.language, size: getIconSize('S'), color: subTextColor);
 
@@ -445,16 +446,16 @@ class Styles {
       _karmaLevelColor[index] ?? fallbackColor;
 
   static const Map<int, Color> _karmaLevelColor = {
-    -4: Color.fromARGB(255, 171, 44, 35),
-    -3: Color.fromARGB(255, 231, 0, 0),
-    -2: Color.fromARGB(255, 255, 145, 0),
-    -1: Color.fromARGB(255, 255, 255, 0),
+    -4: Color.fromARGB(255, 230, 30, 30),
+    -3: Color.fromARGB(255, 240, 80, 30),
+    -2: Color.fromARGB(255, 240, 140, 30),
+    -1: Color.fromARGB(255, 240, 200, 30),
     0: Styles.entryCardSidesColor,
-    1: Color.fromARGB(255, 162, 255, 0),
-    2: Color.fromARGB(255, 0, 255, 68),
-    3: Color.fromARGB(255, 0, 255, 242),
-    4: Color.fromARGB(255, 0, 170, 255),
-    5: Color.fromARGB(255, 0, 106, 255)
+    1: Color.fromARGB(255, 150, 240, 30),
+    2: Color.fromARGB(255, 30, 240, 110),
+    3: Color.fromARGB(255, 30, 240, 240),
+    4: Color.fromARGB(255, 30, 190, 245),
+    5: Color.fromARGB(255, 30, 140, 250)
   };
 
   static Icon getKarmaIcon(int index) => Icon(Icons.forward_outlined,
@@ -510,11 +511,11 @@ class Styles {
       _taskPriorityColor[index] ?? fallbackColor;
 
   static const Map<int, Color> _taskPriorityColor = {
-    1: Color.fromARGB(255, 37, 121, 255),
-    2: Color.fromARGB(255, 25, 213, 255),
-    3: Color.fromARGB(255, 58, 252, 65),
-    4: Color.fromARGB(255, 255, 239, 20),
-    5: Color.fromARGB(255, 255, 47, 47)
+    1: Color.fromARGB(255, 30, 140, 255),
+    2: Color.fromARGB(255, 30, 220, 240),
+    3: Color.fromARGB(255, 60, 240, 60),
+    4: Color.fromARGB(255, 240, 200, 30),
+    5: Color.fromARGB(255, 240, 30, 30)
   };
 
   static TextStyle getTaskPriorityFont(int index) =>

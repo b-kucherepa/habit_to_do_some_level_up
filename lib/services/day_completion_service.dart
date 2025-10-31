@@ -20,9 +20,6 @@ class DayCompletionService {
     final lastLogin = await getLastLoginDate(hiveService);
     final now = DateTime.now();
 
-    print('Last login: $lastLogin');
-    print('Now: $now ');
-
     if (lastLogin.day == now.day) {
       return [];
     }
@@ -37,7 +34,6 @@ class DayCompletionService {
       currentMoment = currentMoment.add(Duration(days: 1));
     }
 
-    print('Missed days: $missedDays');
     return missedDays;
   }
 }
