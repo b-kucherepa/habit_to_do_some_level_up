@@ -38,8 +38,8 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   }
 
   void _startPeriodicCheck() {
-    // Проверяем каждые 15 минут (можно настроить интервал)
-    _periodicTimer = Timer.periodic(Duration(minutes: 15), (timer) {
+    // Проверяем каждые 5 минут (можно настроить интервал)
+    _periodicTimer = Timer.periodic(Duration(minutes: 1), (timer) {
       if (mounted) {
         _checkMissedDays();
       }
@@ -98,6 +98,7 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
 
   @override
   Widget build(BuildContext context) {
+    _checkMissedDays();
     if (_checkingDays) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator()),

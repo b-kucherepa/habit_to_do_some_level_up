@@ -18,22 +18,28 @@ class DayCompletionService {
 
   Future<List<DateTime>> getMissedDays(HiveService hiveService) async {
     final lastLogin = await getLastLoginDate(hiveService);
-    final now = DateTime.now();
 
-    if (lastLogin.day == now.day) {
+    final lastLoginDay = _getTimelessDay(lastLogin);
+    final today = _getTimelessDay(DateTime.now());
+
+    if (!lastLoginDay.isBefore(today)) {
       return [];
     }
 
     final missedDays = <DateTime>[];
 
-    var currentMoment = lastLogin;
+    var currentDay = _getTimelessDay(lastLogin);
 
     // Добавляем все дни до сегодняшнего, если они есть
-    while (currentMoment.day < now.day) {
-      missedDays.add(currentMoment);
-      currentMoment = currentMoment.add(Duration(days: 1));
+    while (currentDay.isBefore(today)) {
+      missedDays.add(currentDay);
+      currentDay = currentDay.add(Duration(days: 1));
     }
 
     return missedDays;
+  }
+
+  DateTime _getTimelessDay(DateTime date) {
+    return DateTime(date.year, date.month, date.day);
   }
 }
