@@ -55,7 +55,6 @@ class HiveService {
       createdDate: DateTime.now(), // момент сброса
       curveExponent: Player.defaultCurveExponent, // сохраняем текущие настройки
       experienceMultiplier: Player.defaultExperienceMultiplier,
-      dayResetHour: Player.defaultDayResetHour,
       languageCode: player.languageCode,
       lastLoginDate: DateTime.now(), // момент сброса
     );

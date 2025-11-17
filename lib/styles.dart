@@ -27,6 +27,8 @@ class Styles {
   static final TextStyle basicFont =
       TextStyle(fontSize: getFontSize('M'), color: basicTextColor);
 
+  static final TextStyle basicWhiteFont =
+      TextStyle(fontSize: getFontSize('M'), color: foregroundColor);
   static const double wideScreenMin = 800;
 
   static bool isWideScreen(BuildContext context) =>
@@ -38,7 +40,7 @@ class Styles {
 
   static final Icon fallbackIcon = Icon(
     Icons.square_outlined,
-    color: Colors.grey,
+    color: fallbackFontColor,
   );
 
   static final TextStyle fallbackFont = TextStyle(color: basicTextColor);
@@ -79,11 +81,12 @@ class Styles {
 
   //Common entries:
   static const Color entryUncompletedBackColor = foregroundColor;
+  static const Color entryCardSidesColor = Color.fromARGB(255, 230, 230, 230);
 
   static final Icon editEntryIcon =
-      Icon(Icons.edit_note_outlined, color: Colors.grey, size: getGap('XL'));
+      Icon(Icons.edit_note_outlined, color: subTextColor, size: getGap('XL'));
   static final Icon deleteEntryIcon =
-      Icon(Icons.delete_outline, color: Colors.grey, size: getGap('XL'));
+      Icon(Icons.delete_outline, color: subTextColor, size: getGap('XL'));
 
   static final Icon entryExperienceIcon =
       Icon(Icons.star, size: getIconSize('S'), color: levelUpAccentColor);
@@ -100,7 +103,7 @@ class Styles {
   static final TextStyle entryInactiveFont = TextStyle(
     fontSize: getFontSize('XL'),
     fontWeight: FontWeight.normal,
-    color: Colors.grey,
+    color: lightTextColor,
   );
 
   static final TextStyle entryDescriptionFont = TextStyle(
@@ -253,6 +256,10 @@ class Styles {
     23: Color.fromARGB(255, 0, 30, 130),
   };
 
+//Buttons:
+  static final TextStyle settingsAccentedFont =
+      TextStyle(fontSize: getFontSize('M'), color: playerAccentColor);
+
 //PLAYER:
   static const Color playerTitleCardBackColor = backgroundColor;
 
@@ -295,7 +302,7 @@ class Styles {
   static const Color playerStatItemBackColor = fargroundColor;
 
   static final Icon playerTabSettingsIcon =
-      Icon(Icons.settings, color: subTextColor);
+      Icon(Icons.settings, color: subTextColor); //?????
 
   static Icon getPlayerLevelIcon(int level) =>
       Icon(Icons.star, size: getIconSize('S'), color: playerAccentColor);
@@ -430,39 +437,51 @@ class Styles {
         fontWeight: FontWeight.bold)
   };
 
-  static TextStyle getHabitSelectorTitleFont(String index) =>
-      _habitSelectorTitleFont[index] ?? fallbackFont;
-
-  static final Map<String, TextStyle> _habitSelectorTitleFont = {
-    'daily': TextStyle(fontSize: getFontSize('L')),
-    'weekly': TextStyle(fontSize: getFontSize('L')),
-    'monthly': TextStyle(fontSize: getFontSize('L')),
-    'custom': TextStyle(fontSize: getFontSize('L'))
-  };
+  static const double habitScheduleBadgeWidth = 88;
+  static const double habitScheduleBadgeHeight = 28;
 
   //Karma:
   static Color getKarmaLevelColor(int index) =>
       _karmaLevelColor[index] ?? fallbackColor;
 
   static const Map<int, Color> _karmaLevelColor = {
-    -4: Color.fromARGB(255, 142, 9, 0),
+    -4: Color.fromARGB(255, 171, 44, 35),
     -3: Color.fromARGB(255, 231, 0, 0),
     -2: Color.fromARGB(255, 255, 145, 0),
     -1: Color.fromARGB(255, 255, 255, 0),
-    0: Color.fromARGB(255, 255, 255, 255),
+    0: Styles.entryCardSidesColor,
     1: Color.fromARGB(255, 162, 255, 0),
-    2: Color.fromARGB(255, 0, 255, 128),
+    2: Color.fromARGB(255, 0, 255, 68),
     3: Color.fromARGB(255, 0, 255, 242),
-    4: Color.fromARGB(255, 0, 162, 255),
-    5: Color.fromARGB(255, 0, 55, 255)
+    4: Color.fromARGB(255, 0, 170, 255),
+    5: Color.fromARGB(255, 0, 106, 255)
   };
+
+  static Icon getKarmaIcon(int index) => Icon(Icons.forward_outlined,
+      size: getIconSize('S'), color: getKarmaLevelColor(index));
+
+  static TextStyle getKarmaFont(int index) => TextStyle(
+      fontSize: getFontSize('M'),
+      color: getKarmaLevelColor(index),
+      fontWeight: FontWeight.bold);
+
+  static const double karmaBadgeWidth = 96;
+  static const double karmaBadgeHeight = 28;
 
   //Habit form:
   static final Color habitFormFrontColor = habitAccentColor;
   static final Color habitFormBorderColor = Color.fromARGB(255, 110, 60, 160);
+  static final Color habitChipSelectedColor =
+      habitAccentColor.withValues(alpha: 0.3);
+
+  static final TextStyle scheduleChipFont =
+      TextStyle(color: basicTextColor, fontSize: getFontSize('M'));
 
   static final BorderSide habitFormFocusedBorder =
       BorderSide(color: habitFormFrontColor, width: 2.0);
+
+  static final double scheduleWeeklyChipWidth = 32;
+  static final double scheduleMonthlyChipWidth = 16;
 
 //TASKS:
   static final Icon tasksTabLargeIcon = Icon(

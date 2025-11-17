@@ -6,6 +6,7 @@ import '../models/habit.dart';
 class HabitItemWidget extends StatelessWidget {
   final Habit habit;
   final int currentCount;
+  final DateTime? currentDay;
   final bool isEditable;
   final VoidCallback? onIncrement;
   final VoidCallback? onDecrement;
@@ -19,6 +20,7 @@ class HabitItemWidget extends StatelessWidget {
     super.key,
     required this.habit,
     required this.currentCount,
+    this.currentDay,
     required this.isEditable,
     this.onIncrement,
     this.onDecrement,
@@ -32,7 +34,7 @@ class HabitItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isCompleted = currentCount >= habit.minCompletionCount;
-    final isDueToday = habit.isDueToday();
+    final isDueToday = habit.isDueOnDay(currentDay ?? DateTime.now());
 
     return Card(
       borderOnForeground: true,
@@ -183,7 +185,9 @@ class HabitItemWidget extends StatelessWidget {
   Widget _buildRecurranceRow(BuildContext context) {
     return Row(
       children: [
+        if (showKarmaIndicator) ...[_buildKarmaBadge(context)],
         if (showScheduleInfo) ...[
+          SizedBox(width: Styles.getGap('M')),
           _buildScheduleBadge(context),
         ],
       ],
@@ -196,7 +200,7 @@ class HabitItemWidget extends StatelessWidget {
     return Container(
       width: Styles.entryCardSidesWidth,
       decoration: BoxDecoration(
-        color: Styles.shadowColor.withValues(alpha: 0.1),
+        color: Styles.entryCardSidesColor,
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(Styles.entryCardRadius),
         ),
@@ -241,21 +245,51 @@ class HabitItemWidget extends StatelessWidget {
     };
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: Styles.getGap('S'),
-        vertical: Styles.getGap('XXS'),
-      ),
+      width: Styles.habitScheduleBadgeWidth,
+      height: Styles.habitScheduleBadgeHeight,
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(Styles.getRadius('M')),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           icon,
           SizedBox(width: Styles.getGap('XS')),
-          Text(text, style: textStyle),
+          Text(
+            text,
+            style: textStyle,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKarmaBadge(BuildContext context) {
+    final color = Styles.getKarmaLevelColor(habit.karmaLevel);
+    final icon = Styles.getKarmaIcon(habit.karmaLevel);
+    final textStyle = Styles.getKarmaFont(habit.karmaLevel);
+
+    return Container(
+      width: Styles.karmaBadgeWidth,
+      height: Styles.karmaBadgeHeight,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(Styles.getRadius('M')),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          icon,
+          SizedBox(width: Styles.getGap('XS')),
+          Text(
+            context.l10n.habitItemDoneSequence(habit.karmaLevel),
+            style: textStyle,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -299,7 +333,8 @@ class HabitItemWidget extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(dialogContext).pop(),
-                child: Text(context.l10n.habitItemDeleteConfirmationCancel),
+                child: Text(context.l10n.habitItemDeleteConfirmationCancel,
+                    style: Styles.basicFont),
               ),
               TextButton(
                 onPressed: () {

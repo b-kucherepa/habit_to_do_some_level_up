@@ -63,8 +63,11 @@ class Habit {
   });
 
   bool isDueToday() {
-    final today = DateTime.now();
-    return _isDue(today);
+    return isDueOnDay(DateTime.now());
+  }
+
+  bool isDueOnDay(DateTime date) {
+    return _isDue(date);
   }
 
   bool get isCompletedToday {

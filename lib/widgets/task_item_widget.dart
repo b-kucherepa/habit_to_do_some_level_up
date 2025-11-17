@@ -188,7 +188,7 @@ class TaskItemWidget extends StatelessWidget {
     return Container(
       width: Styles.entryCardSidesWidth,
       decoration: BoxDecoration(
-        color: Styles.shadowColor.withValues(alpha: 0.1),
+        color: Styles.entryCardSidesColor,
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(Styles.entryCardRadius),
         ),
@@ -280,7 +280,8 @@ class TaskItemWidget extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: Text(context.l10n.tasksTabDeleteConfirmationCancel),
+              child: Text(context.l10n.tasksTabDeleteConfirmationCancel,
+                  style: Styles.basicFont),
             ),
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),

@@ -47,12 +47,9 @@ class Player {
   double experienceMultiplier; // k - множитель опыта
 
   @HiveField(7)
-  int dayResetHour; // час, когда начинается новый день (0-23)
-
-  @HiveField(8)
   String languageCode; // код языка
 
-  @HiveField(9)
+  @HiveField(8)
   DateTime lastLoginDate; // дата последнего входа
 
   Player({
@@ -63,7 +60,6 @@ class Player {
     required this.createdDate,
     this.curveExponent = defaultCurveExponent,
     this.experienceMultiplier = defaultExperienceMultiplier,
-    this.dayResetHour = defaultDayResetHour,
     this.languageCode = 'en', // язык по умолчанию
     required this.lastLoginDate,
   });

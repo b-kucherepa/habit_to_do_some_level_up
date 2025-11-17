@@ -29,8 +29,7 @@ class ScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.scheduleSelectorTitle,
-            style: Styles.getHabitSelectorTitleFont('daily')),
+        Text(context.l10n.scheduleSelectorTitle),
         _buildScheduleTypeDropdown(context),
         SizedBox(height: Styles.getGap('L')),
         _buildScheduleOptions(context),
@@ -52,31 +51,29 @@ class ScheduleSelector extends StatelessWidget {
             value: 'custom', child: Text(context.l10n.scheduleTypeCustom)),
       ],
       onChanged: (value) => onScheduleTypeChanged(value!),
-      decoration: InputDecoration(border: OutlineInputBorder()),
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        focusedBorder:
+            OutlineInputBorder(borderSide: Styles.habitFormFocusedBorder),
+      ),
     );
   }
 
-  Widget _buildScheduleOptions(BuildContext context) {
-    switch (scheduleType) {
-      case 'weekly':
-        return _WeeklyScheduleSelector(
-          selectedDays: selectedDaysOfWeek,
-          onSelectionChanged: onDaysOfWeekChanged,
-        );
-      case 'monthly':
-        return _MonthlyScheduleSelector(
-          selectedDays: selectedDaysOfMonth,
-          onSelectionChanged: onDaysOfMonthChanged,
-        );
-      case 'custom':
-        return _CustomIntervalSelector(
-          interval: customInterval,
-          onIntervalChanged: onCustomIntervalChanged,
-        );
-      default:
-        return SizedBox.shrink();
-    }
-  }
+  Widget _buildScheduleOptions(BuildContext context) => switch (scheduleType) {
+        'weekly' => _WeeklyScheduleSelector(
+            selectedDays: selectedDaysOfWeek,
+            onSelectionChanged: onDaysOfWeekChanged,
+          ),
+        'monthly' => _MonthlyScheduleSelector(
+            selectedDays: selectedDaysOfMonth,
+            onSelectionChanged: onDaysOfMonthChanged,
+          ),
+        'custom' => _CustomIntervalSelector(
+            interval: customInterval,
+            onIntervalChanged: onCustomIntervalChanged,
+          ),
+        _ => SizedBox.shrink()
+      };
 }
 
 class _WeeklyScheduleSelector extends StatelessWidget {
@@ -104,16 +101,24 @@ class _WeeklyScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.scheduleWeeklyTitle,
-            style: Styles.getHabitSelectorTitleFont('weekly')),
+        Text(context.l10n.scheduleWeeklyTitle),
         SizedBox(height: Styles.getGap('S')),
         Wrap(
           spacing: Styles.getGap('S'),
           runSpacing: Styles.getGap('S'),
           children: List.generate(7, (index) {
             return FilterChip(
-              label: Text(weekDays[index]),
+              label: SizedBox(
+                  width: Styles.scheduleWeeklyChipWidth,
+                  height: Styles.scheduleChipFont.height,
+                  child: Text(
+                    weekDays[index],
+                    style: Styles.scheduleChipFont,
+                    textAlign: TextAlign.center,
+                  )),
+              showCheckmark: false,
               selected: selectedDays.contains(weekDayNumbers[index]),
+              selectedColor: Styles.habitChipSelectedColor,
               onSelected: (selected) {
                 final updatedDays = List<int>.from(selectedDays);
                 if (selected) {
@@ -145,8 +150,7 @@ class _MonthlyScheduleSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.scheduleMonthlyTitle,
-            style: Styles.getHabitSelectorTitleFont('monthly')),
+        Text(context.l10n.scheduleMonthlyTitle),
         SizedBox(height: Styles.getGap('S')),
         Wrap(
           spacing: Styles.getGap('S'),
@@ -154,8 +158,17 @@ class _MonthlyScheduleSelector extends StatelessWidget {
           children: List.generate(31, (index) {
             final day = index + 1;
             return FilterChip(
-              label: Text(day.toString()),
+              label: SizedBox(
+                  width: Styles.scheduleMonthlyChipWidth,
+                  height: Styles.scheduleChipFont.height,
+                  child: Text(
+                    day.toString(),
+                    style: Styles.scheduleChipFont,
+                    textAlign: TextAlign.center,
+                  )),
               selected: selectedDays.contains(day),
+              selectedColor: Styles.habitChipSelectedColor,
+              showCheckmark: false,
               onSelected: (selected) {
                 final updatedDays = List<int>.from(selectedDays);
                 if (selected) {
@@ -187,8 +200,7 @@ class _CustomIntervalSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.scheduleCustomTitle,
-            style: Styles.getHabitSelectorTitleFont('custom')),
+        Text(context.l10n.scheduleCustomTitle),
         SizedBox(height: Styles.getGap('S')),
         DropdownButtonFormField<int>(
           initialValue: interval,

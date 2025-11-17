@@ -21,7 +21,6 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   bool _checkingDays = true;
   List<DateTime> _missedDays = [];
   int _currentDayIndex = 0;
-  Map<String, int>? _lastSessionData;
   Timer? _periodicTimer;
 
   @override
@@ -53,20 +52,10 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   }
 
   void _checkMissedDays() async {
-    final player = _hiveService.getPlayer();
-    final lastLogin =
-        await _dayCompletionService.getLastLoginDate(_hiveService);
-    final dayResetHour = player.dayResetHour;
-    final missedDays =
-        await _dayCompletionService.getMissedDays(_hiveService, dayResetHour);
-
-    print('Last login: $lastLogin');
-    print('Missed days count: ${missedDays.length}');
+    final missedDays = await _dayCompletionService.getMissedDays(_hiveService);
 
     // Если нашли пропущенные дни и сейчас не показываем другой день
     if (missedDays.isNotEmpty && _missedDays.isEmpty) {
-      _lastSessionData = _getLastSessionData();
-
       if (mounted) {
         setState(() {
           _missedDays = missedDays;
@@ -81,18 +70,6 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
         });
       }
     }
-  }
-
-  // Получаем данные привычек на момент последнего входа
-  Map<String, int> _getLastSessionData() {
-    final habits = _hiveService.getHabits();
-    final lastSessionData = <String, int>{};
-
-    for (final habit in habits) {
-      lastSessionData[habit.id] = habit.completionCount;
-    }
-
-    return lastSessionData;
   }
 
   void _onDayCompleted(bool shouldContinue) {
@@ -131,17 +108,10 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
     if (_missedDays.isNotEmpty) {
       final targetDate = _missedDays[_currentDayIndex];
       final daysAgo = DateTime.now().difference(targetDate).inDays;
-      final habits = _hiveService.getHabits();
-
-      // Только для ПЕРВОГО дня (дня последнего входа) используем данные последней сессии
-      // Для всех последующих дней используем нули
-      final initialData = daysAgo == 1 ? _lastSessionData : null;
 
       return DayCompletionScreen(
         targetDate: targetDate,
         daysAgo: daysAgo,
-        habits: habits,
-        initialCompletionData: initialData,
         onDayCompleted: _onDayCompleted,
       );
     }

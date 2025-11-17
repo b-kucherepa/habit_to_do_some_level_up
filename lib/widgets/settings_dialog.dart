@@ -20,7 +20,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
   late TextEditingController _goalController;
   late double _curveExponent;
   late double _experienceMultiplier;
-  late int _dayResetHour;
 
   @override
   void initState() {
@@ -28,7 +27,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
     _goalController = TextEditingController(text: widget.player.goal);
     _curveExponent = widget.player.curveExponent;
     _experienceMultiplier = widget.player.experienceMultiplier;
-    _dayResetHour = widget.player.dayResetHour; // Добавьте эту строку
   }
 
   @override
@@ -212,44 +210,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   _experienceMultiplier.toStringAsFixed(0)),
               style: Styles.expPreviewSliderDescription,
             ),
-            SizedBox(height: Styles.getGap('L')),
-            Text(context.l10n.dayResetHour),
-            SizedBox(height: Styles.getGap('M')),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Slider(
-                  value: _dayResetHour.toDouble(),
-                  min: Player.minDayResetHour.toDouble(),
-                  max: Player.maxDayResetHour.toDouble(),
-                  divisions: Player.maxDayResetHour - Player.minDayResetHour,
-                  label: '${_dayResetHour.toStringAsFixed(0)}:00',
-                  thumbColor: Styles.settingsFormBorderColor,
-                  activeColor: Styles.getHourSkyColors(_dayResetHour),
-                  onChanged: (value) {
-                    setState(() {
-                      _dayResetHour = value.round();
-                    });
-                  },
-                ),
-                SizedBox(height: Styles.getGap('XS')),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${Player.minDayResetHour}:00',
-                        style: Styles.expPreviewSliderExtremities),
-                    Text('${Player.maxDayResetHour}:00',
-                        style: Styles.expPreviewSliderExtremities),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: Styles.getGap('S')),
-            Text(
-              context.l10n
-                  .dayResetHourDescription(_dayResetHour.toStringAsFixed(0)),
-              style: Styles.expPreviewSliderDescription,
-            ),
             SizedBox(height: Styles.getGap('XL')),
             Center(
               child: ElevatedButton(
@@ -268,12 +228,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(context.l10n.cancel),
-        ),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.l10n.cancel, style: Styles.basicFont)),
         ElevatedButton(
           onPressed: _saveSettings,
-          child: Text(context.l10n.save),
+          child: Text(
+            context.l10n.save,
+            style: Styles.settingsAccentedFont,
+          ),
         ),
       ],
     );
@@ -407,15 +369,15 @@ class _SettingsDialogState extends State<SettingsDialog> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.l10n.cancel),
+            child: Text(context.l10n.cancel, style: Styles.basicFont),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: Styles.accentBad),
             onPressed: () {
               Navigator.of(context).pop(); // закрыть диалог подтверждения
               _resetCharacter();
             },
-            child: Text(context.l10n.reset),
+            child: Text(context.l10n.reset, style: Styles.basicWhiteFont),
           ),
         ],
       ),
@@ -446,7 +408,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
         createdDate: widget.player.createdDate,
         curveExponent: _curveExponent,
         experienceMultiplier: _experienceMultiplier,
-        dayResetHour: _dayResetHour,
         lastLoginDate: widget.player.lastLoginDate,
         languageCode: widget.player.languageCode);
 

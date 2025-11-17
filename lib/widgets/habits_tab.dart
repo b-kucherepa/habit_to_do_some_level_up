@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_to_do_some_level_up/extensions/localization_extension.dart';
+import 'package:habit_to_do_some_level_up/services/day_completion_service.dart';
 import 'package:habit_to_do_some_level_up/services/experience_service.dart';
 import 'package:habit_to_do_some_level_up/styles.dart';
 import '../screens/add_habit_screen.dart';

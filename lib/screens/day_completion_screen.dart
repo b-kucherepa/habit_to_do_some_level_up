@@ -10,16 +10,12 @@ import '../widgets/habit_item_widget.dart';
 class DayCompletionScreen extends StatefulWidget {
   final DateTime targetDate;
   final int daysAgo;
-  final List<Habit> habits;
-  final Map<String, int>? initialCompletionData;
   final Function(bool) onDayCompleted;
 
   const DayCompletionScreen({
     super.key,
     required this.targetDate,
     required this.daysAgo,
-    required this.habits,
-    this.initialCompletionData,
     required this.onDayCompleted,
   });
 
@@ -28,14 +24,13 @@ class DayCompletionScreen extends StatefulWidget {
 }
 
 class _DayCompletionScreenState extends State<DayCompletionScreen> {
-  late Map<String, int> _completionCounts;
   final HiveService _hiveService = HiveService();
   late final ExperienceService experienceService;
+  late List<Habit> habitsDueToday = List.empty();
 
   @override
   void initState() {
     super.initState();
-    _initializeCompletionCounts();
     // Получаем ExperienceService через Provider
     experienceService = Provider.of<ExperienceService>(context, listen: false);
   }
@@ -43,20 +38,6 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   @override
   void didUpdateWidget(DayCompletionScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    // Если целевая дата изменилась (переход к следующему дню), переинициализируем счетчики
-    if (oldWidget.targetDate != widget.targetDate) {
-      _initializeCompletionCounts();
-    }
-  }
-
-  void _initializeCompletionCounts() {
-    // Инициализируем счетчики: либо из initialCompletionData, либо нули
-    _completionCounts = {};
-    for (final habit in widget.habits) {
-      _completionCounts[habit.id] =
-          widget.initialCompletionData?[habit.id] ?? 0;
-    }
   }
 
   @override
@@ -81,6 +62,16 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   }
 
   Widget _buildContent() {
+    habitsDueToday = _hiveService
+        .getHabits()
+        .toList()
+        .where((habit) => habit.isDueOnDay(widget.targetDate))
+        .toList();
+
+    for (var habit in habitsDueToday) {
+      print(habit.isDueToday());
+    }
+
     return Column(
       children: [
         Padding(
@@ -91,7 +82,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: Styles.getGap('L')),
             children:
-                widget.habits.map((habit) => _buildHabitItem(habit)).toList(),
+                habitsDueToday.map((habit) => _buildHabitItem(habit)).toList(),
           ),
         ),
         _buildActionButtons(),
@@ -100,28 +91,27 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   }
 
   Widget _buildHabitItem(Habit habit) {
-    final count = _completionCounts[habit.id] ?? 0;
-    final isCompleted = count >= habit.minCompletionCount;
-
     return HabitItemWidget(
       habit: habit,
-      currentCount: count,
+      currentCount: habit.completionCount,
+      currentDay: widget.targetDate,
       isEditable: true,
       onIncrement: () {
         setState(() {
-          _completionCounts[habit.id] = count + 1;
+          habit.completionCount += 1;
         });
       },
       onDecrement: () {
         setState(() {
-          if (count > 0) {
-            _completionCounts[habit.id] = count - 1;
+          if (habit.completionCount > 0) {
+            habit.completionCount -= 1;
           }
         });
       },
       showScheduleInfo: false,
       showKarmaIndicator: true,
-      backgroundColor: isCompleted ? Styles.dayCompletedEntryBackColor : null,
+      backgroundColor:
+          habit.isCompletedToday ? Styles.dayCompletedEntryBackColor : null,
     );
   }
 
@@ -155,12 +145,11 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
 
   void _completeDay() {
     int totalExperience = 0;
+    print('1:${habitsDueToday.length}');
 
     // Сохраняем выполнения для этого дня и считаем опыт
-    for (final habit in widget.habits) {
-      final count = _completionCounts[habit.id] ?? 0;
-
-      final updatedHabit = Habit(
+    for (Habit habit in habitsDueToday) {
+      Habit updatedHabit = Habit(
         id: habit.id,
         title: habit.title,
         description: habit.description,
@@ -175,14 +164,16 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
         karmaLevel: habit.karmaLevel,
       );
 
-      if (count > 0) {
+      print('HABIT CALCULATED: ${habit.title}');
+
+      if (habit.completionCount > 0) {
         // Начисляем опыт
-        totalExperience += habit.experience * count;
+        totalExperience += habit.experience * habit.completionCount;
       }
 
       // Обновляем карму
 
-      if (count >= habit.minCompletionCount) {
+      if (habit.isCompletedToday) {
         updatedHabit.karmaLevel =
             (habit.karmaLevel + 1).clamp(Habit.minKarma, Habit.maxKarma);
       } else {
@@ -198,8 +189,32 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
       experienceService.addExperienceForDay(totalExperience);
     }
 
+    final allHabits = _hiveService.getHabits().toList();
+
+    for (final habit in allHabits) {
+      final updatedHabit = Habit(
+        id: habit.id,
+        title: habit.title,
+        description: habit.description,
+        experience: habit.experience,
+        scheduleType: habit.scheduleType,
+        daysOfWeek: habit.daysOfWeek,
+        daysOfMonth: habit.daysOfMonth,
+        intervalDays: habit.intervalDays,
+        createdDate: habit.createdDate,
+        completionCount: 0,
+        minCompletionCount: habit.minCompletionCount,
+        karmaLevel: habit.karmaLevel,
+      );
+
+      _hiveService.updateHabit(updatedHabit);
+    }
+
     // Уведомляем об успешном завершении дня
     widget.onDayCompleted(true);
+    print('2:${habitsDueToday.length}');
+
+    print(allHabits.length);
   }
 
   String _formatDate(DateTime date) {
