@@ -476,6 +476,42 @@ class AppLocalizationsZh extends AppLocalizations {
   String get weekdaySunday => '周日';
 
   @override
+  String get sortByTitle => 'By name';
+
+  @override
+  String get sortByExperience => 'By experience';
+
+  @override
+  String get sortByCompletionStatus => 'By completion status';
+
+  @override
+  String get sortByScheduleType => 'By schedule type';
+
+  @override
+  String get sortByKarma => 'By streak';
+
+  @override
+  String get sortByCompletionCount => 'By completion number';
+
+  @override
+  String get sortByMinCompletionCount => 'By min for completion';
+
+  @override
+  String get sortByPriority => 'By priority';
+
+  @override
+  String get sortByCategory => 'By category';
+
+  @override
+  String get sortByDueDate => 'By due date';
+
+  @override
+  String get sortAscending => 'Ascending sort';
+
+  @override
+  String get sortDescending => 'Descending sort';
+
+  @override
   String get resetProgress => '重置进度';
 
   @override

@@ -989,6 +989,78 @@ abstract class AppLocalizations {
   /// **'Sun'**
   String get weekdaySunday;
 
+  /// No description provided for @sortByTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By name'**
+  String get sortByTitle;
+
+  /// No description provided for @sortByExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'By experience'**
+  String get sortByExperience;
+
+  /// No description provided for @sortByCompletionStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'By completion status'**
+  String get sortByCompletionStatus;
+
+  /// No description provided for @sortByScheduleType.
+  ///
+  /// In en, this message translates to:
+  /// **'By schedule type'**
+  String get sortByScheduleType;
+
+  /// No description provided for @sortByKarma.
+  ///
+  /// In en, this message translates to:
+  /// **'By streak'**
+  String get sortByKarma;
+
+  /// No description provided for @sortByCompletionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'By completion number'**
+  String get sortByCompletionCount;
+
+  /// No description provided for @sortByMinCompletionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'By min for completion'**
+  String get sortByMinCompletionCount;
+
+  /// No description provided for @sortByPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'By priority'**
+  String get sortByPriority;
+
+  /// No description provided for @sortByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'By category'**
+  String get sortByCategory;
+
+  /// No description provided for @sortByDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'By due date'**
+  String get sortByDueDate;
+
+  /// No description provided for @sortAscending.
+  ///
+  /// In en, this message translates to:
+  /// **'Ascending sort'**
+  String get sortAscending;
+
+  /// No description provided for @sortDescending.
+  ///
+  /// In en, this message translates to:
+  /// **'Descending sort'**
+  String get sortDescending;
+
   /// No description provided for @resetProgress.
   ///
   /// In en, this message translates to:

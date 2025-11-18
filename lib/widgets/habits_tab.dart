@@ -29,6 +29,10 @@ class _HabitsTabState extends State<HabitsTab> {
   final HiveService _hiveService = HiveService();
   bool _isOtherHabitsExpanded = false;
 
+  // Сортировка
+  String _sortBy = 'title';
+  bool _ascending = true;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -40,13 +44,18 @@ class _HabitsTabState extends State<HabitsTab> {
           return _buildEmptyState(context);
         }
 
+        // Сортируем привычки
+        final sortedHabits = _sortHabits(habits);
+
         final todayHabits =
-            habits.where((habit) => habit.isDueToday()).toList();
+            sortedHabits.where((habit) => habit.isDueToday()).toList();
         final otherHabits =
-            habits.where((habit) => !habit.isDueToday()).toList();
+            sortedHabits.where((habit) => !habit.isDueToday()).toList();
 
         return Column(
           children: [
+            // Панель сортировки
+            _buildSortPanel(context),
             Expanded(
               child: ListView(
                 padding: EdgeInsets.all(Styles.getGap('L')),
@@ -89,6 +98,125 @@ class _HabitsTabState extends State<HabitsTab> {
         );
       },
     );
+  }
+
+  // Виджет панели сортировки
+  Widget _buildSortPanel(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(Styles.getGap('M')),
+      decoration: BoxDecoration(
+        color: Styles.fargroundColor,
+        border: Border(
+          bottom: BorderSide(color: Styles.habitFormBorderColor, width: 1),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: DropdownButton<String>(
+              value: _sortBy,
+              isExpanded: true,
+              underline: Container(),
+              items: [
+                DropdownMenuItem(
+                  value: 'title',
+                  child: Text(context.l10n.sortByTitle),
+                ),
+                DropdownMenuItem(
+                  value: 'experience',
+                  child: Text(context.l10n.sortByExperience),
+                ),
+                DropdownMenuItem(
+                  value: 'completionStatus',
+                  child: Text(context.l10n.sortByCompletionStatus),
+                ),
+                DropdownMenuItem(
+                  value: 'scheduleType',
+                  child: Text(context.l10n.sortByScheduleType),
+                ),
+                DropdownMenuItem(
+                  value: 'karmaLevel',
+                  child: Text(context.l10n.sortByKarma),
+                ),
+                DropdownMenuItem(
+                  value: 'completionCount',
+                  child: Text(context.l10n.sortByCompletionCount),
+                ),
+                DropdownMenuItem(
+                  value: 'minCompletionCount',
+                  child: Text(context.l10n.sortByMinCompletionCount),
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  _sortBy = value!;
+                });
+              },
+            ),
+          ),
+          SizedBox(width: Styles.getGap('M')),
+          IconButton(
+            icon: Icon(
+              _ascending ? Icons.arrow_upward : Icons.arrow_downward,
+              color: Styles.habitAccentColor,
+            ),
+            onPressed: () {
+              setState(() {
+                _ascending = !_ascending;
+              });
+            },
+            tooltip: _ascending
+                ? context.l10n.sortAscending
+                : context.l10n.sortDescending,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Функция сортировки привычек
+  List<Habit> _sortHabits(List<Habit> habits) {
+    List<Habit> sortedList = List.from(habits);
+
+    sortedList.sort((a, b) {
+      int comparison = 0;
+
+      switch (_sortBy) {
+        case 'title':
+          comparison = a.title.compareTo(b.title);
+          break;
+        case 'experience':
+          comparison = a.experience.compareTo(b.experience);
+          break;
+        case 'scheduleType':
+          comparison = a.scheduleType.compareTo(b.scheduleType);
+          break;
+        case 'karmaLevel':
+          comparison = a.karmaLevel.compareTo(b.karmaLevel);
+          break;
+        case 'completionCount':
+          comparison = a.completionCount.compareTo(b.completionCount);
+          break;
+        case 'minCompletionCount':
+          comparison = a.minCompletionCount.compareTo(b.minCompletionCount);
+          break;
+        case 'completionStatus':
+          // Сначала сравниваем по статусу выполнения
+          final aCompleted = a.isCompletedToday;
+          final bCompleted = b.isCompletedToday;
+          if (aCompleted != bCompleted) {
+            comparison = aCompleted ? 1 : -1;
+          } else {
+            // Если статус одинаковый, сортируем по названию
+            comparison = a.title.compareTo(b.title);
+          }
+          break;
+      }
+
+      return _ascending ? comparison : -comparison;
+    });
+
+    return sortedList;
   }
 
   Widget _buildHabitItem(Habit habit, BuildContext context) {

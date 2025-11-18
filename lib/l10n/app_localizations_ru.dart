@@ -301,7 +301,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'Нажмите кнопку +, чтобы добавить первую привычку';
 
   @override
-  String get habitsTabOnOtherDaysHeader => 'On other days';
+  String get habitsTabOnOtherDaysHeader => 'В другие дни';
 
   @override
   String get taskFormTitle => 'Название задачи';
@@ -498,6 +498,42 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get weekdaySunday => 'Вс';
+
+  @override
+  String get sortByTitle => 'По названию';
+
+  @override
+  String get sortByExperience => 'По опыту';
+
+  @override
+  String get sortByCompletionStatus => 'По завершенности';
+
+  @override
+  String get sortByScheduleType => 'По типу периодичности';
+
+  @override
+  String get sortByKarma => 'По серии';
+
+  @override
+  String get sortByCompletionCount => 'По количеству выполнения';
+
+  @override
+  String get sortByMinCompletionCount => 'По минимуму для завершения';
+
+  @override
+  String get sortByPriority => 'По приоритету';
+
+  @override
+  String get sortByCategory => 'По категории';
+
+  @override
+  String get sortByDueDate => 'По дате';
+
+  @override
+  String get sortAscending => 'Сортировка по возрастанию';
+
+  @override
+  String get sortDescending => 'Сортировка по убыванию';
 
   @override
   String get resetProgress => 'Сбросить прогресс';
