@@ -76,7 +76,7 @@ class _TasksTabState extends State<TasksTab> {
                       collapsedBackgroundColor: Styles.fargroundColor,
                       title: Text(
                         context.l10n.tasksTabCompletedHeader,
-                        style: Styles.tasksCompletedHeaderFont,
+                        style: Styles.entryExpansionTileHeaderFont,
                       ),
                       textColor: Styles.taskAccentColor,
                       collapsedTextColor: Styles.taskFormBorderColor,

@@ -301,6 +301,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'הקש על כפתור + כדי להוסיף את ההרגל הראשון שלך';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'כותרת משימה';
 
   @override

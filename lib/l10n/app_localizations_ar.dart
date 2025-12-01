@@ -301,6 +301,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'انقر على زر + لإضافة عادتك الأولى';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'عنوان المهمة';
 
   @override

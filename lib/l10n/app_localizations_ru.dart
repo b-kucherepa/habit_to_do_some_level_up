@@ -301,6 +301,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'Нажмите кнопку +, чтобы добавить первую привычку';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'Название задачи';
 
   @override

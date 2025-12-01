@@ -671,6 +671,12 @@ abstract class AppLocalizations {
   /// **'Tap the + button to add your first habit'**
   String get habitsTabEmptySubtitle;
 
+  /// No description provided for @habitsTabOnOtherDaysHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'On other days'**
+  String get habitsTabOnOtherDaysHeader;
+
   /// No description provided for @taskFormTitle.
   ///
   /// In en, this message translates to:

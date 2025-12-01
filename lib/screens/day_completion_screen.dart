@@ -27,6 +27,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   final HiveService _hiveService = HiveService();
   late final ExperienceService experienceService;
   late List<Habit> habitsDueToday = List.empty();
+  late List<Habit> habitsDoneNotDueToday = List.empty();
 
   @override
   void initState() {
@@ -62,11 +63,16 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
   }
 
   Widget _buildContent() {
-    habitsDueToday = _hiveService
-        .getHabits()
-        .toList()
-        .where((habit) => habit.isDueOnDay(widget.targetDate))
+    final habits = _hiveService.getHabits().toList();
+
+    habitsDueToday =
+        habits.where((habit) => habit.isDueOnDay(widget.targetDate)).toList();
+    habitsDoneNotDueToday = habits
+        .where((habit) =>
+            habit.completionCount > 0 && !habit.isDueOnDay(widget.targetDate))
         .toList();
+
+    final habitsToDisplay = [...habitsDueToday, ...habitsDoneNotDueToday];
 
     return Column(
       children: [
@@ -78,7 +84,7 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: Styles.getGap('L')),
             children:
-                habitsDueToday.map((habit) => _buildHabitItem(habit)).toList(),
+                habitsToDisplay.map((habit) => _buildHabitItem(habit)).toList(),
           ),
         ),
         _buildActionButtons(),
@@ -164,14 +170,41 @@ class _DayCompletionScreenState extends State<DayCompletionScreen> {
         totalExperience += habit.experience * habit.completionCount;
       }
 
-      // Обновляем карму
-
       if (habit.isCompletedToday) {
         updatedHabit.karmaLevel =
             (habit.karmaLevel + 1).clamp(Habit.minKarma, Habit.maxKarma);
       } else {
         updatedHabit.karmaLevel =
             (habit.karmaLevel - 1).clamp(Habit.minKarma, Habit.maxKarma);
+      }
+
+      _hiveService.updateHabit(updatedHabit);
+    }
+
+    for (Habit habit in habitsDoneNotDueToday) {
+      Habit updatedHabit = Habit(
+        id: habit.id,
+        title: habit.title,
+        description: habit.description,
+        experience: habit.experience,
+        scheduleType: habit.scheduleType,
+        daysOfWeek: habit.daysOfWeek,
+        daysOfMonth: habit.daysOfMonth,
+        intervalDays: habit.intervalDays,
+        createdDate: habit.createdDate,
+        completionCount: 0,
+        minCompletionCount: habit.minCompletionCount,
+        karmaLevel: habit.karmaLevel,
+      );
+
+      if (habit.completionCount > 0) {
+        // Начисляем опыт
+        totalExperience += habit.experience * habit.completionCount;
+      }
+
+      if (habit.isCompletedToday) {
+        updatedHabit.karmaLevel =
+            (habit.karmaLevel + 1).clamp(Habit.minKarma, Habit.maxKarma);
       }
 
       _hiveService.updateHabit(updatedHabit);

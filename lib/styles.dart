@@ -80,6 +80,7 @@ class Styles {
   static final Icon tasksTabIcon = Icon(Icons.assignment_turned_in_outlined);
 
   //Common entries:
+
   static const Color entryUncompletedBackColor = foregroundColor;
   static const Color entryCardSidesColor = Color.fromARGB(20, 0, 0, 0);
 
@@ -90,6 +91,9 @@ class Styles {
 
   static final Icon entryExperienceIcon =
       Icon(Icons.star, size: getIconSize('S'), color: levelUpAccentColor);
+
+  static final TextStyle entryExpansionTileHeaderFont =
+      TextStyle(fontSize: getFontSize('XXL'), fontWeight: FontWeight.bold);
 
   static final TextStyle entryCompletedFont = TextStyle(
     fontSize: getFontSize('XL'),
@@ -474,9 +478,6 @@ class Styles {
   //Tasks entry card:
   static const Color taskCompletedBackColor =
       Color.fromARGB(255, 230, 255, 235);
-
-  static final TextStyle tasksCompletedHeaderFont =
-      TextStyle(fontSize: getFontSize('XXL'), fontWeight: FontWeight.bold);
 
   //Tasks stats:
   static final TextStyle taskStatLabelDescriptionFont =

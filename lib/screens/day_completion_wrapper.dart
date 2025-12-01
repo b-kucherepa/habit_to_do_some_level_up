@@ -38,7 +38,7 @@ class _DayCompletionWrapperState extends State<DayCompletionWrapper> {
   }
 
   void _startPeriodicCheck() {
-    // Проверяем каждые 5 минут (можно настроить интервал)
+    // Проверяем каждые 15 минут (можно настроить интервал)
     _periodicTimer = Timer.periodic(Duration(minutes: 15), (timer) {
       if (mounted) {
         _checkMissedDays();

@@ -301,6 +301,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get habitsTabEmptySubtitle => '+ 버튼을 눌러 첫 번째 습관을 추가하세요';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => '할일 제목';
 
   @override

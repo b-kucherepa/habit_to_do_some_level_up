@@ -7,20 +7,27 @@ import '../services/hive_service.dart';
 import '../models/habit.dart';
 import '../widgets/habit_item_widget.dart';
 
-class HabitsTab extends StatelessWidget {
+class HabitsTab extends StatefulWidget {
   final Function(Habit) onHabitIncrement;
   final Function(Habit) onHabitDecrement;
   final Function(Habit) onHabitDelete;
-  final HiveService _hiveService = HiveService();
   final ExperienceService experienceService;
 
-  HabitsTab({
+  const HabitsTab({
     super.key,
     required this.onHabitIncrement,
     required this.onHabitDecrement,
     required this.onHabitDelete,
     required this.experienceService,
   });
+
+  @override
+  State<HabitsTab> createState() => _HabitsTabState();
+}
+
+class _HabitsTabState extends State<HabitsTab> {
+  final HiveService _hiveService = HiveService();
+  bool _isOtherHabitsExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +40,68 @@ class HabitsTab extends StatelessWidget {
           return _buildEmptyState(context);
         }
 
-        return ListView.builder(
-          padding: EdgeInsets.all(Styles.getGap('L')),
-          itemCount: habits.length,
-          itemBuilder: (context, index) {
-            final habit = habits[index];
-            return HabitItemWidget(
-              habit: habit,
-              currentCount: habit.completionCount,
-              isEditable: true,
-              onIncrement: () => onHabitIncrement(habit),
-              onDecrement: () => onHabitDecrement(habit),
-              onDelete: () => onHabitDelete(habit),
-              onEdit: () => _editHabit(context, habit),
-              showScheduleInfo: true,
-              showKarmaIndicator: true,
-            );
-          },
+        final todayHabits =
+            habits.where((habit) => habit.isDueToday()).toList();
+        final otherHabits =
+            habits.where((habit) => !habit.isDueToday()).toList();
+
+        return Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(Styles.getGap('L')),
+                children: [
+                  if (todayHabits.isNotEmpty) ...[
+                    ...todayHabits
+                        .map((habit) => _buildHabitItem(habit, context)),
+                  ],
+                  if (otherHabits.isNotEmpty) ...[
+                    ExpansionTile(
+                      controlAffinity: ListTileControlAffinity.leading,
+                      initiallyExpanded: _isOtherHabitsExpanded,
+                      shape: Border.all(style: BorderStyle.none),
+                      collapsedShape: Border.all(style: BorderStyle.none),
+                      backgroundColor: Styles.fargroundColor,
+                      collapsedBackgroundColor: Styles.fargroundColor,
+                      title: Text(
+                        context.l10n.habitsTabOnOtherDaysHeader,
+                        style: Styles.entryExpansionTileHeaderFont,
+                      ),
+                      textColor: Styles.habitAccentColor,
+                      collapsedTextColor: Styles.habitFormBorderColor,
+                      iconColor: Styles.habitAccentColor,
+                      collapsedIconColor: Styles.habitFormBorderColor,
+                      children: [
+                        ...otherHabits
+                            .map((habit) => _buildHabitItem(habit, context)),
+                      ],
+                      onExpansionChanged: (value) {
+                        setState(() {
+                          _isOtherHabitsExpanded = value;
+                        });
+                      },
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
         );
       },
+    );
+  }
+
+  Widget _buildHabitItem(Habit habit, BuildContext context) {
+    return HabitItemWidget(
+      habit: habit,
+      currentCount: habit.completionCount,
+      isEditable: true,
+      onIncrement: () => widget.onHabitIncrement(habit),
+      onDecrement: () => widget.onHabitDecrement(habit),
+      onDelete: () => widget.onHabitDelete(habit),
+      onEdit: () => _editHabit(context, habit),
+      showScheduleInfo: true,
+      showKarmaIndicator: true,
     );
   }
 

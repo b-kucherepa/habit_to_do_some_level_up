@@ -301,6 +301,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'Tippe auf den + Button, um deine erste Gewohnheit hinzuzufügen';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'Aufgabentitel';
 
   @override

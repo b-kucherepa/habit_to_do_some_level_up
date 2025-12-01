@@ -301,6 +301,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get habitsTabEmptySubtitle => '点击 + 按钮添加你的第一个习惯';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => '任务标题';
 
   @override

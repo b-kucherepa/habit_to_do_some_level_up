@@ -301,6 +301,9 @@ class AppLocalizationsHy extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'Սեղմեք + կոճակը ձեր առաջին սովորությունը ավելացնելու համար';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'Առաջադրանքի Անվանում';
 
   @override

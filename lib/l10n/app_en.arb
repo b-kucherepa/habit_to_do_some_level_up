@@ -89,6 +89,7 @@
   "habitItemDeleteConfirmationDelete": "Delete",
   "habitsTabEmptyTitle": "No habits yet!",
   "habitsTabEmptySubtitle": "Tap the + button to add your first habit",
+  "habitsTabOnOtherDaysHeader": "On other days",
   "taskFormTitle": "Task Title",
   "taskFormTitleError": "Please enter a title",
   "taskFormDescription": "Description",

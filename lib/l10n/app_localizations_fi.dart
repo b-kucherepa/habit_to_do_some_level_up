@@ -301,6 +301,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'Lisää ensimmäinen tapasi painamalla + -painiketta';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'Tehtävän Otsikko';
 
   @override

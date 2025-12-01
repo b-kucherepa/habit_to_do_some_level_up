@@ -301,6 +301,9 @@ class AppLocalizationsSv extends AppLocalizations {
   String get habitsTabEmptySubtitle => 'Tryck på + knappen för att lägga till din första vana';
 
   @override
+  String get habitsTabOnOtherDaysHeader => 'On other days';
+
+  @override
   String get taskFormTitle => 'Uppgiftstitel';
 
   @override

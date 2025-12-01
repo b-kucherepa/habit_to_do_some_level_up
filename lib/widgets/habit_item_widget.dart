@@ -15,6 +15,8 @@ class HabitItemWidget extends StatelessWidget {
   final bool showScheduleInfo;
   final bool showKarmaIndicator;
   final Color? backgroundColor;
+  final bool isActiveDueOnly =
+      false; //stopper for not on due habits deactivation function
 
   const HabitItemWidget({
     super.key,
@@ -35,6 +37,7 @@ class HabitItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isCompleted = currentCount >= habit.minCompletionCount;
     final isDueToday = habit.isDueOnDay(currentDay ?? DateTime.now());
+    final isActive = !isActiveDueOnly || isDueToday;
 
     return Card(
       borderOnForeground: true,
@@ -44,20 +47,19 @@ class HabitItemWidget extends StatelessWidget {
       ),
       shadowColor: Styles.shadowColor,
       margin: EdgeInsets.only(bottom: Styles.getGap('S')),
-      color: backgroundColor ??
-          (isCompleted
-              ? Styles.habitCompletedBackColor
-              : Styles.entryUncompletedBackColor),
+      color: isCompleted
+          ? Styles.habitCompletedBackColor
+          : Styles.entryUncompletedBackColor,
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Левая колонка: Counter на фоне karma цвета
-            _buildLeftCounterColumn(isDueToday),
+            _buildLeftCounterColumn(isActive),
 
             // Средняя часть: контент
             Expanded(
-              child: _buildContentColumn(context, isDueToday),
+              child: _buildContentColumn(context, isActive),
             ),
 
             // Правая колонка: действия
@@ -68,7 +70,7 @@ class HabitItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLeftCounterColumn(bool isDueToday) {
+  Widget _buildLeftCounterColumn(bool isActive) {
     return Container(
       width: Styles.entryCardSidesWidth,
       decoration: BoxDecoration(
@@ -83,7 +85,7 @@ class HabitItemWidget extends StatelessWidget {
           // Верхняя кнопка: +
           IconButton(
             icon: Styles.habitCounterIncreaseIcon,
-            onPressed: isEditable && isDueToday ? onIncrement : null,
+            onPressed: isEditable && isActive ? onIncrement : null,
             padding: EdgeInsets.zero,
           ),
 
@@ -99,7 +101,7 @@ class HabitItemWidget extends StatelessWidget {
             child: IntrinsicHeight(
                 child: Text(
               '$currentCount',
-              style: isDueToday
+              style: isActive
                   ? Styles.counterActiveFont
                   : Styles.counterInactiveFont,
               textAlign: TextAlign.center,
@@ -109,9 +111,8 @@ class HabitItemWidget extends StatelessWidget {
           // Нижняя кнопка: -
           IconButton(
             icon: Styles.habitCounterDecreaseIcon,
-            onPressed: isEditable && isDueToday && currentCount > 0
-                ? onDecrement
-                : null,
+            onPressed:
+                isEditable && isActive && currentCount > 0 ? onDecrement : null,
             padding: EdgeInsets.zero,
           ),
         ],
@@ -119,8 +120,8 @@ class HabitItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildContentColumn(BuildContext context, bool isDueToday) {
-    final titleStyle = _getTitleStyle(isDueToday);
+  Widget _buildContentColumn(BuildContext context, bool isActive) {
+    final titleStyle = _getTitleStyle(isActive);
 
     return Padding(
       padding: EdgeInsets.all(Styles.getGap('M')),
@@ -262,10 +263,10 @@ class HabitItemWidget extends StatelessWidget {
     );
   }
 
-  TextStyle _getTitleStyle(bool isDueToday) {
+  TextStyle _getTitleStyle(bool isActive) {
     if (habit.isCompletedToday) {
       return Styles.entryCompletedFont;
-    } else if (isDueToday) {
+    } else if (isActive) {
       return Styles.entryUncompletedFont;
     } else {
       return Styles.entryInactiveFont;
